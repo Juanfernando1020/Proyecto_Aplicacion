@@ -5,47 +5,73 @@
              xmlns:custom="clr-namespace:App.Renderes"
              BackgroundColor="#829CA6"
              NavigationPage.HasNavigationBar="False">
-             
-    
+
+
     <ContentPage.Content>
-        <StackLayout Spacing="20" Margin="30" VerticalOptions="Center">
+        <StackLayout Spacing="50" Margin="30" VerticalOptions="Center">
 
-            <Image Source="usuario.png"
-                   WidthRequest="50"
-                   HeightRequest="50"
-                   HorizontalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       VerticalOptions="Center"
+                       />
+                <custom:CustomEntry
+                    Placeholder="Nombre de Usuario"
+                    TextColor="#333333"
+                    PlaceholderColor="#656565"
+                    x:Name="UsuarioTxt"
+                    HorizontalOptions="FillAndExpand"
+                    />
+            </StackLayout>
 
-            <custom:CustomEntry
-                Placeholder="Nombre de Usuario"
-                TextColor="#333333"
-                PlaceholderColor="#656565"
-                x:Name="UsuarioTxt"
-                />
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image Source="pngegg__2_.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       VerticalOptions="Center"/>
+                <custom:CustomEntry
+                    Placeholder="Numero de Teléfono"
+                    Keyboard="Numeric"
+                    TextColor="#333333"
+                    PlaceholderColor="#656565"
+                    x:Name="TelefonoTxt"
+                    HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
 
-            <custom:CustomEntry
-                Placeholder="Numero de Teléfono"
-                Keyboard="Numeric"
-                TextColor="#333333"
-                PlaceholderColor="#656565"
-                x:Name="TelefonoTxt"/>
-            <custom:CustomEntry
-                Placeholder="Contraseña"
-                IsPassword="True"
-                TextColor="#333333"
-                PlaceholderColor="#656565"
-                x:Name="ContraseñaTxt"/>
-            <custom:CustomEntry
-                Placeholder="Confirmar contraseña"
-                IsPassword="True"
-                TextColor="#333333"
-                PlaceholderColor="#656565"
-                x:Name="ConfirmacionTxt"/>
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image Source="Password.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       VerticalOptions="Center"/>
+                <custom:CustomEntry
+                    Placeholder="Contraseña"
+                    IsPassword="True"
+                    TextColor="#333333"
+                    PlaceholderColor="#656565"
+                    x:Name="ContraseñaTxt"
+                    HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image Source="Password.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       VerticalOptions="Center"/>
+                <custom:CustomEntry
+                    Placeholder="Confirmar contraseña"
+                    IsPassword="True"
+                    TextColor="#333333"
+                    PlaceholderColor="#656565"
+                    x:Name="ConfirmacionTxt"
+                    HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
 
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <CheckBox Color="#707070" x:Name="AdminCheckBox"/>
                 <Label Text="¿Crear como Administrador?" VerticalOptions="Center" TextColor="#333333" />
             </StackLayout>
-            
+
             <Button Text="Agregar usuario"
                     BackgroundColor="#D1DFE1"
                     BorderColor="#707070"
@@ -56,7 +82,7 @@
                     x:Name="Boton_Registro"
                     Clicked="Registrar_Nuevo_Usuario"
                     />
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

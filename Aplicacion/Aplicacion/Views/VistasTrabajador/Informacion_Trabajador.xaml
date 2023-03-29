@@ -23,10 +23,10 @@
             <BoxView x:Name="rectangle_20"
 				CornerRadius="20"
 				Color="#ffffff"
-				AbsoluteLayout.LayoutBounds="45,190,304,104" />
+				AbsoluteLayout.LayoutBounds="45,230,304,104" />
             <Image x:Name="line_2"
 				Source="line_2.png"
-				AbsoluteLayout.LayoutBounds="55,280,280,2" />
+				AbsoluteLayout.LayoutBounds="55,320,280,2" />
             <Image x:Name="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103"
 				Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
 				AbsoluteLayout.LayoutBounds="69,81,40,40" />
@@ -43,12 +43,12 @@
 				HorizontalTextAlignment="Center"
 				FontSize="30"
 				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="113,195,117,61"
+				AbsoluteLayout.LayoutBounds="113,235,117,61"
 				Text="Telefono"
 			 />
             <Image x:Name="pngegg__2_"
 				Source="pngegg__2_.png"
-				AbsoluteLayout.LayoutBounds="74,195,38,38" />
+				AbsoluteLayout.LayoutBounds="74,240,38,38" />
             <Label x:Name="User_Name"
 				FontFamily="Sans Serif Collection"
 				HorizontalTextAlignment="Center"
@@ -62,59 +62,34 @@
 				HorizontalTextAlignment="Center"
 				FontSize="16"
 				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="140,260,121,50"
+				AbsoluteLayout.LayoutBounds="140,300,121,50"
 				Text="Binding_Tele"
 			 />
-            <BoxView x:Name="rectangle_21"
-				CornerRadius="20"
-				Color="#ffffff"
-				AbsoluteLayout.LayoutBounds="45,305,304,104" />
-            <Label x:Name="correo"
-				FontFamily="Sans Serif Collection"
-				HorizontalTextAlignment="Center"
-				FontSize="30"
-				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="119,305,95,61"
-				Text="Correo"
-			 />
-            <Image x:Name="pngegg__1_"
-				Source="pngegg__1_.png"
-				AbsoluteLayout.LayoutBounds="61,307,76,40" />
-            <Image x:Name="line_3"
-				Source="line_3.png"
-				AbsoluteLayout.LayoutBounds="55,395,280,2" />
-            <Label x:Name="estoeselmodelo_gmail_com"
-				FontFamily="Sans Serif Collection"
-				HorizontalTextAlignment="Center"
-				FontSize="16"
-				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="100,375,207,50"
-				Text="Binding_Correo"
-			 />
+
             <BoxView x:Name="rectangle_22"
 				CornerRadius="20"
 				Color="#ffffff"
-				AbsoluteLayout.LayoutBounds="45,420,304,104" />
+				AbsoluteLayout.LayoutBounds="45,375,304,104" />
             <Image x:Name="line_4"
 				Source="line_4.png"
-				AbsoluteLayout.LayoutBounds="55,510,280,2" />
+				AbsoluteLayout.LayoutBounds="55,465,280,2" />
             <Image x:Name="icon_metro_location"
 				Source="icon_metro_location.png"
-				AbsoluteLayout.LayoutBounds="89.36,430,19.28,30.85" />
+				AbsoluteLayout.LayoutBounds="89.36,380,19.28,30.85" />
             <Label x:Name="ubicacion"
 				FontFamily="Sans Serif Collection"
 				HorizontalTextAlignment="Center"
 				FontSize="30"
 				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="113,425,135,61"
+				AbsoluteLayout.LayoutBounds="113,375,135,61"
 				Text="Ubicacion"
 			 />
-            <Label x:Name="santaf____antioquia_"
+            <Label x:Name="Lugar"
 				FontFamily="Sans Serif Collection"
 				HorizontalTextAlignment="Center"
 				FontSize="16"
 				TextColor="#000000"
-				AbsoluteLayout.LayoutBounds="125,490,143,50"
+				AbsoluteLayout.LayoutBounds="125,445,143,50"
 				Text="Bindding_Lugar"
 			 />
             <BoxView x:Name="rectangle_23"
