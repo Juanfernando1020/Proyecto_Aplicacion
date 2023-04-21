@@ -12,6 +12,7 @@ using Aplicacion.Models;
 using Newtonsoft.Json;
 using Firebase.Database.Query;
 using Aplicacion.Views.VistasTrabajador;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Aplicacion.Vistas
 {
@@ -23,14 +24,8 @@ namespace Aplicacion.Vistas
             InitializeComponent();
         }
 
-
-        private void TxtUsuario_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Limpia el Entry de contraseña si el usuario cambia su nombre de usuario
-            txtPassword.Text = string.Empty;
-        }
-
         FirebaseClient firebaseClient = new FirebaseClient("https://app-cobranzas-4a3dc-default-rtdb.firebaseio.com");
+
         private async void Boton_Inicio(object sender, EventArgs e)
         {
             var usuariosTrabajadores = await firebaseClient
@@ -49,6 +44,20 @@ namespace Aplicacion.Vistas
                 user_exist = user.Object.Phone.Equals(txtUsuario.Text) && user.Object.Password.Equals(txtPassword.Text);
                 if (user_exist)
                 {
+                    // Crear un objeto Usuario con los datos del usuario que inició sesión
+                    var Usuario_Logueado = new Trabajador
+                    {
+                        Name = user.Object.Name,
+                        Phone = user.Object.Phone,
+                        Location= user.Object.Location,
+                        Admin = user.Object.Admin,
+                        
+                    };
+
+                    // Almacenar el objeto Usuario en las propiedades de la aplicación
+                    Application.Current.Properties["usuario"] = JsonConvert.SerializeObject(Usuario_Logueado);
+
+                    // Navegar a la página PanelTrabajador
                     App.Current.MainPage = new NavigationPage(new PanelTrabajador());
                     return;
                 }
@@ -59,6 +68,19 @@ namespace Aplicacion.Vistas
                 user_exist = user.Object.Phone.Equals(txtUsuario.Text) && user.Object.Password.Equals(txtPassword.Text);
                 if (user_exist)
                 {
+                    // Crear un objeto Usuario con los datos del usuario que inició sesión
+                    var Usuario_Logueado = new Administrador
+                    {
+                        Name = user.Object.Name,
+                        Phone= user.Object.Phone,
+                        Location = user.Object.Location,
+                        
+                    };
+
+                    // Almacenar el objeto Usuario en las propiedades de la aplicación
+                    Application.Current.Properties["usuario"] = JsonConvert.SerializeObject(Usuario_Logueado);
+
+                    // Navegar a la página PanelAdmin
                     App.Current.MainPage = new NavigationPage(new PanelAdmin());
                     return;
                 }

@@ -12,8 +12,7 @@
                             TextColor="Black"
                             Keyboard="Numeric"
                             FontSize="30" 
-                            x:Name="txtUsuario"
-                            TextChanged="TxtUsuario_TextChanged"/>
+                            x:Name="txtUsuario"/>
 
         <ImageButton Source="Login.png"
                      VerticalOptions="CenterAndExpand"

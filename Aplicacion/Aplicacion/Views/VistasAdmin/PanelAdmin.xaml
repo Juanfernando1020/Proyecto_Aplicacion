@@ -7,9 +7,9 @@
     
     <ContentPage.Content>
         <StackLayout Margin="20,140" Spacing="60" VerticalOptions="Center">
-            <Button Text="Mi información" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" TextColor="#333333"/>
+            <Button Text="Mi información" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" Clicked="Boton_Informacion" TextColor="#333333"/>
             <Button Text="Mis rutas" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" TextColor="#333333"/>
-            <Button Text="Crear rutas" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" TextColor="#333333"/>
+            <Button Text="Crear rutas" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15"  Clicked="Boton_CreaRuta" TextColor="#333333"/>
             <Button Text="Crear usuario" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" Clicked="Boton_CrearUsuario" TextColor="#333333"/>
         </StackLayout>
     </ContentPage.Content>

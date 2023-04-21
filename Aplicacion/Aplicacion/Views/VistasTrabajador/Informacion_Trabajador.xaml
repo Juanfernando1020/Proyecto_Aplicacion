@@ -55,7 +55,7 @@
 				FontSize="16"
 				TextColor="#000000"
 				AbsoluteLayout.LayoutBounds="107,140,213,50"
-				Text="Binding_Nombre_Usuario"
+				Text="{Binding Name}"
 			 />
             <Label x:Name="Phone"
 				FontFamily="Sans Serif Collection"
@@ -63,7 +63,7 @@
 				FontSize="16"
 				TextColor="#000000"
 				AbsoluteLayout.LayoutBounds="140,300,121,50"
-				Text="Binding_Tele"
+				Text="{Binding Phone}"
 			 />
 
             <BoxView x:Name="rectangle_22"
@@ -90,7 +90,8 @@
 				FontSize="16"
 				TextColor="#000000"
 				AbsoluteLayout.LayoutBounds="125,445,143,50"
-				Text="Bindding_Lugar"
+				Text="{Binding Location}"
+     
 			 />
             <BoxView x:Name="rectangle_23"
 				CornerRadius="20"
@@ -117,7 +118,7 @@
 				FontSize="16"
 				TextColor="#000000"
 				AbsoluteLayout.LayoutBounds="125,605,153,50"
-				Text="Binding_Admin"
+				Text="{Binding Admin}"
 			 />
             <Label x:Name="Deseas_Editar"
 				FontFamily="Sans Serif Collection"

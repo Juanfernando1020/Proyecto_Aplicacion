@@ -1,12 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aplicacion.Views.VistasAdmin.Informacion_Admin">
+             x:Class="Aplicacion.Views.VistasAdmin.Informacion_Admin"
+             NavigationPage.HasNavigationBar="False">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <BoxView x:Name="_bg__mi_informacion"
+				Color="#829ca6"
+				AbsoluteLayout.LayoutBounds="0,0,428,926" />
+            <BoxView x:Name="rectangle_18"
+				CornerRadius="31"
+				Color="#9dadb4"
+				AbsoluteLayout.LayoutBounds="20,30,352,645"/>
+            <BoxView x:Name="rectangle_19"
+				CornerRadius="20"
+				Color="#ffffff"
+				AbsoluteLayout.LayoutBounds="45,100,304,104" />
+            <Image x:Name="line_1"
+				Source="line_1.png"
+				AbsoluteLayout.LayoutBounds="55,190,280,2" />
+            <BoxView x:Name="rectangle_20"
+				CornerRadius="20"
+				Color="#ffffff"
+				AbsoluteLayout.LayoutBounds="45,270,304,104" />
+            <Image x:Name="line_2"
+				Source="line_2.png"
+				AbsoluteLayout.LayoutBounds="55,360,280,2" />
+            <Image x:Name="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103"
+				Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+				AbsoluteLayout.LayoutBounds="69,102,40,40" />
+            <Label x:Name="User"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="30"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="109,100,105,61"
+				Text="Usuario"
+			 />
+            <Label x:Name="Phone_Title"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="30"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="113,270,117,61"
+				Text="Telefono"
+			 />
+            <Image x:Name="pngegg__2_"
+				Source="pngegg__2_.png"
+				AbsoluteLayout.LayoutBounds="74,275,38,38" />
+            <Label x:Name="User_Name"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="20"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="107,160,213,50"
+				Text="{Binding Name}"
+			 />
+            <Label x:Name="Phone"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="20"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="140,330,121,50"
+				Text="{Binding Phone}"
+			 />
+
+            <BoxView x:Name="rectangle_22"
+				CornerRadius="20"
+				Color="#ffffff"
+				AbsoluteLayout.LayoutBounds="45,455,304,104" />
+            <Image x:Name="line_4"
+				Source="line_4.png"
+				AbsoluteLayout.LayoutBounds="55,545,280,2" />
+            <Image x:Name="icon_metro_location"
+				Source="icon_metro_location.png"
+				AbsoluteLayout.LayoutBounds="89.36,460,19.28,30.85" />
+            <Label x:Name="ubicacion"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="30"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="113,455,135,61"
+				Text="Ubicacion"
+			 />
+            <Label x:Name="Lugar"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="20"
+				TextColor="#000000"
+				AbsoluteLayout.LayoutBounds="125,515,143,50"
+				Text="{Binding Location}"
+			 />
+        
+            <Label x:Name="Deseas_Editar"
+				FontFamily="Sans Serif Collection"
+				HorizontalTextAlignment="Center"
+				FontSize="18"
+				TextColor="#ffffff"
+				AbsoluteLayout.LayoutBounds="35,700,223,57"
+				Text="Deseas editar algún dato?"
+			 />
+            <Label x:Name="_editar"
+           FontFamily="Segoe UI"
+           HorizontalTextAlignment="Center"
+           FontSize="18"
+           TextColor="#afd2e0"
+           AbsoluteLayout.LayoutBounds="285,700,51,37"
+           Text="Editar">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Deseas_Editar_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Image x:Name="_icon_awesome_user_edit"
+				Source="_icon_awesome_user_edit.png"
+				AbsoluteLayout.LayoutBounds="339,700,30,24" />
+        </AbsoluteLayout>
     </ContentPage.Content>
+
 </ContentPage>

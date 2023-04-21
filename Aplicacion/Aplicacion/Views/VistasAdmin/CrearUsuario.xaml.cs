@@ -29,17 +29,23 @@ namespace Aplicacion.Vistas.VistasAdmin
         {
             string nombre = UsuarioTxt.Text;
             string telefono = TelefonoTxt.Text;
+            string ubicacion = UbicacionTxt.Text;
             string contrasena = ContraseñaTxt.Text;
             string confirmacion = ConfirmacionTxt.Text;
 
             if (String.IsNullOrEmpty(nombre))
             {
-                DisplayAlert("Warning", "No hay informacion en el nombre", "Ok");
-                return;
+                    DisplayAlert("Warning", "No hay informacion en el nombre", "Ok");
+                    return;
             }
             if (String.IsNullOrEmpty(telefono))
             {
                 DisplayAlert("Warning", "No hay informacion en el teléfono", "Ok");
+                return;
+            }
+            if (String.IsNullOrEmpty(ubicacion))
+            {
+                DisplayAlert("Warning", "No hay informacion en la ubicación", "Ok");
                 return;
             }
             if (String.IsNullOrEmpty(contrasena))
@@ -60,11 +66,14 @@ namespace Aplicacion.Vistas.VistasAdmin
 
             if (AdminCheckBox.IsChecked)
             {
-                await firebaseClient.Child("Administradores").PostAsync(JsonConvert.SerializeObject(new Trabajador()
+                await firebaseClient.Child("Administradores").PostAsync(JsonConvert.SerializeObject(new Administrador()
                 {
                     Name = nombre,
                     Phone = telefono,
-                    Password = contrasena
+                    Password = contrasena,
+                    Location = ubicacion,
+                    
+
                 }));
             }
 
@@ -75,8 +84,10 @@ namespace Aplicacion.Vistas.VistasAdmin
                 {
                     Name = nombre,
                     Phone = telefono,
+                    Location = ubicacion,
                     Password = contrasena,
-                    Admin = adminName
+                    Admin = adminName,
+
                 }));
             }
             DisplayAlert("Creacion", "El usuario ha sido creado correctamente", "Ok");

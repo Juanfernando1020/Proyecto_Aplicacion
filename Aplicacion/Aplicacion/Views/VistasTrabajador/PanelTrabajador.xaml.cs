@@ -20,7 +20,7 @@ namespace Aplicacion.Views.VistasTrabajador
 
         private void Boton_Info_Clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new Informacion_Trabajador ();
+            Navigation.PushAsync(new NavigationPage(new Informacion_Trabajador()));
         }
     }
 }

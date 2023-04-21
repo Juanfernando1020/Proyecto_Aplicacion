@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Aplicacion.Views.VistasAdmin;
+using Aplicacion.Views.VistasTrabajador;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +20,17 @@ namespace Aplicacion.Vistas.VistasAdmin
         }
         private void Boton_CrearUsuario(object sender, EventArgs e)
         {
-            Navigation.PushAsync( new CrearUsuario() );
+            Navigation.PushAsync( new NavigationPage (new CrearUsuario()) );
+        }
+
+        private void Boton_Informacion (object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NavigationPage(new Informacion_Admin()));
+        }
+
+        private void Boton_CreaRuta(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NavigationPage(new CreaRuta()));
         }
     }
 }
