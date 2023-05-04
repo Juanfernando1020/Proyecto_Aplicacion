@@ -1,16 +1,49 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="Aplicacion.Vistas.VistasAdmin.PanelAdmin"
-             BackgroundColor="#829CA6"
-             NavigationPage.HasNavigationBar="False">
-    
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Aplicacion.Vistas.VistasAdmin.PanelAdmin"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#829CA6"
+    NavigationPage.HasNavigationBar="False">
+
     <ContentPage.Content>
-        <StackLayout Margin="20,140" Spacing="60" VerticalOptions="Center">
-            <Button Text="Mi información" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" Clicked="Boton_Informacion" TextColor="#333333"/>
-            <Button Text="Mis rutas" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" TextColor="#333333" x:Name="Boton_Mis_Rutas" Clicked="Boton_Mis_Rutas_Clicked"/>
-            <Button Text="Crear rutas" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15"  Clicked="Boton_CreaRuta" TextColor="#333333"/>
-            <Button Text="Crear usuario" BackgroundColor="#D1DFE1" BorderColor="#707070" BorderWidth="3" CornerRadius="15" Clicked="Boton_CrearUsuario" TextColor="#333333"/>
+        <StackLayout
+            Margin="20,140"
+            Spacing="60"
+            VerticalOptions="Center">
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Boton_Informacion"
+                CornerRadius="15"
+                Text="Mi información"
+                TextColor="#333333" />
+            <Button
+                x:Name="Boton_Mis_Rutas"
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Boton_Mis_Rutas_Clicked"
+                CornerRadius="15"
+                Text="Mis rutas"
+                TextColor="#333333" />
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Boton_CreaRuta"
+                CornerRadius="15"
+                Text="Crear rutas"
+                TextColor="#333333" />
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Boton_CrearUsuario"
+                CornerRadius="15"
+                Text="Crear usuario"
+                TextColor="#333333" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

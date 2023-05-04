@@ -1,7 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Aplicacion.Vistas;
+﻿using Xamarin.Forms;
 namespace Aplicacion
 {
     public partial class App : Application
@@ -10,7 +7,10 @@ namespace Aplicacion
         {
             InitializeComponent();
 
-           MainPage = new NavigationPage(new Login());
+            Pages.Module.Pages.Initialize();
+
+           //MainPage = new NavigationPage(new Login());
+           MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
         }
 
         protected override void OnStart()
