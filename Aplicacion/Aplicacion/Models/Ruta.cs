@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aplicacion.Models
 {
-    class Ruta
+    public class Ruta
     {
         public string Lugar { get; set; }
         public string Trabajador_a_cargo { get; set; }

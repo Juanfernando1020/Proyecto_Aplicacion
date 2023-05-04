@@ -1,12 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aplicacion.Views.VistasAdmin.MisRutasAdmin">
+﻿<ContentPage
+    x:Class="Aplicacion.Views.VistasAdmin.MisRutasAdmin"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Aplicacion.Models"
+    BackgroundColor="#829CA6"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout
+                Padding="30"
+                HorizontalOptions="FillAndExpand"
+                Spacing="10"
+                VerticalOptions="FillAndExpand">
+                <Image
+                    x:Name="Boton_Regreso"
+                    Margin="20"
+                    Aspect="AspectFit"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    Source="Back.png"
+                    VerticalOptions="End"
+                    WidthRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackButtonTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <CollectionView x:Name="listView" VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Ruta">
+                            <StackLayout>
+                                <Button
+                                    BackgroundColor="#D1DFE1"
+                                    BorderColor="#707070"
+                                    BorderWidth="3"
+                                    CommandParameter="{Binding Lugar}"
+                                    CornerRadius="15"
+                                    HeightRequest="100"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="{Binding Lugar}"
+                                    TextColor="Black"
+                                    WidthRequest="300" 
+                                    />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

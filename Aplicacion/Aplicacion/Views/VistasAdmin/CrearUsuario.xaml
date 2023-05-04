@@ -1,103 +1,127 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aplicacion.Vistas.VistasAdmin.CrearUsuario"
-             xmlns:custom="clr-namespace:App.Renderes"
-             BackgroundColor="#829CA6"
-             NavigationPage.HasNavigationBar="False">
+<ContentPage
+    x:Class="Aplicacion.Vistas.VistasAdmin.CrearUsuario"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    BackgroundColor="#829CA6"
+    NavigationPage.HasNavigationBar="False">
 
 
     <ContentPage.Content>
-        <StackLayout Spacing="50" Margin="30" VerticalOptions="Center">
+        <StackLayout
+            Margin="30"
+            Spacing="50"
+            VerticalOptions="Center">
 
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                       WidthRequest="50"
-                       HeightRequest="50"
-                       VerticalOptions="Center"
-                       />
+                <Image
+                    HeightRequest="50"
+                    Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
                 <custom:CustomEntry
-                    Placeholder="Nombre de Usuario"
-                    TextColor="#333333"
-                    PlaceholderColor="#656565"
                     x:Name="UsuarioTxt"
                     HorizontalOptions="FillAndExpand"
-                    />
+                    Placeholder="Nombre de Usuario"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image Source="pngegg__2_.png"
-                       WidthRequest="50"
-                       HeightRequest="50"
-                       VerticalOptions="Center"/>
+                <Image
+                    HeightRequest="50"
+                    Source="pngegg__2_.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
                 <custom:CustomEntry
-                    Placeholder="Numero de Teléfono"
-                    Keyboard="Numeric"
-                    TextColor="#333333"
-                    PlaceholderColor="#656565"
                     x:Name="TelefonoTxt"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Numeric"
+                    Placeholder="Numero de Teléfono"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image Source="icon_metro_location.png"
-                       WidthRequest="50"
-                       HeightRequest="50"
-                       VerticalOptions="Center"/>
+                <Image
+                    HeightRequest="50"
+                    Source="icon_metro_location.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
                 <custom:CustomEntry
-                    Placeholder="Ubicación"
-                    TextColor="#333333"
-                    PlaceholderColor="#656565"
                     x:Name="UbicacionTxt"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Ubicación"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
             </StackLayout>
 
 
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image Source="Password.png"
-                       WidthRequest="50"
-                       HeightRequest="50"
-                       VerticalOptions="Center"/>
+                <Image
+                    HeightRequest="50"
+                    Source="Password.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
                 <custom:CustomEntry
-                    Placeholder="Contraseña"
-                    IsPassword="True"
-                    TextColor="#333333"
-                    PlaceholderColor="#656565"
                     x:Name="ContraseñaTxt"
-                    HorizontalOptions="FillAndExpand"/>
-            </StackLayout>
-
-
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image Source="Password.png"
-                       WidthRequest="50"
-                       HeightRequest="50"
-                       VerticalOptions="Center"/>
-                <custom:CustomEntry
-                    Placeholder="Confirmar contraseña"
+                    HorizontalOptions="FillAndExpand"
                     IsPassword="True"
-                    TextColor="#333333"
+                    Placeholder="Contraseña"
                     PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="Password.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
                     x:Name="ConfirmacionTxt"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="True"
+                    Placeholder="Confirmar contraseña"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <CheckBox Color="#707070" x:Name="AdminCheckBox"/>
-                <Label Text="¿Crear como Administrador?" VerticalOptions="Center" TextColor="#333333" />
+                <CheckBox x:Name="AdminCheckBox" Color="#707070" />
+                <Label
+                    Text="¿Crear como Administrador?"
+                    TextColor="#333333"
+                    VerticalOptions="Center" />
             </StackLayout>
 
-            <Button Text="Agregar usuario"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3" 
-                    CornerRadius="15" 
-                    HorizontalOptions="Center"
-                    TextColor="#333333"
-                    x:Name="Boton_Registro"
-                    Clicked="Registrar_Nuevo_Usuario"
-                    />
+            <Button
+                x:Name="Boton_Registro"
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Registrar_Nuevo_Usuario"
+                CornerRadius="15"
+                HorizontalOptions="Center"
+                Text="Agregar usuario"
+                TextColor="#333333" />
+
+            <Image
+                x:Name="Boton_Regreso"
+                Margin="20"
+                Aspect="AspectFit"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Source="Back.png"
+                VerticalOptions="End"
+                WidthRequest="30">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackButtonTapped" />
+                </Image.GestureRecognizers>
+            </Image>
 
         </StackLayout>
     </ContentPage.Content>

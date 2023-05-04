@@ -24,6 +24,11 @@ namespace Aplicacion.Vistas.VistasAdmin
             InitializeComponent();
         }
 
+        private async void OnBackButtonTapped(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+
         FirebaseClient firebaseClient = new FirebaseClient("https://app-cobranzas-4a3dc-default-rtdb.firebaseio.com");
         private async void Registrar_Nuevo_Usuario(object sender, EventArgs e)
         {

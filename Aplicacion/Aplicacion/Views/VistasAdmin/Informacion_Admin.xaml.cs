@@ -26,6 +26,12 @@ namespace Aplicacion.Views.VistasAdmin
             // Establecer el objeto Administrador como el contexto de enlace de la página
             BindingContext = usuarioLogueado;
         }
+
+        private async void OnBackButtonTapped(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+
         private void Deseas_Editar_Tapped(object sender, EventArgs e)
         {
             DisplayAlert("Warning", "AQUI PASO A OTRA PAGINA", "Ok");

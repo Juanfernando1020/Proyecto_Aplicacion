@@ -20,17 +20,22 @@ namespace Aplicacion.Vistas.VistasAdmin
         }
         private void Boton_CrearUsuario(object sender, EventArgs e)
         {
-            Navigation.PushAsync( new NavigationPage (new CrearUsuario()) );
+            Navigation.PushAsync( new CrearUsuario() );
         }
 
         private void Boton_Informacion (object sender, EventArgs e)
         {
-            Navigation.PushAsync(new NavigationPage(new Informacion_Admin()));
+            Navigation.PushAsync(new Informacion_Admin());
         }
 
         private void Boton_CreaRuta(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new NavigationPage(new CreaRuta()));
+            Navigation.PushAsync(new CreaRuta());
+        }
+
+        private void Boton_Mis_Rutas_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MisRutasAdmin());
         }
     }
 }

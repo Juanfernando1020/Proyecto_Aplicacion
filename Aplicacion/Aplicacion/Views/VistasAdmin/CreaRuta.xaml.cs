@@ -21,6 +21,12 @@ namespace Aplicacion.Views.VistasAdmin
 			InitializeComponent ();
 		}
 
+        private async void OnBackButtonTapped(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+
+
         FirebaseClient firebaseClient = new FirebaseClient("https://app-cobranzas-4a3dc-default-rtdb.firebaseio.com");
         private async void Boton_Registro_Ruta_Clicked(object sender, EventArgs e)
         {
@@ -62,9 +68,6 @@ namespace Aplicacion.Views.VistasAdmin
             DisplayAlert("Creacion", "La ruta ha sido creado correctamente", "Ok");
 
             Navigation.PushAsync(new NavigationPage(new PanelAdmin()));
-
-
-
 
 
         }
