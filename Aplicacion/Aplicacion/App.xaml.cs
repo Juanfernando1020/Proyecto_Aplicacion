@@ -10,7 +10,7 @@ namespace Aplicacion
             Pages.Module.Pages.Initialize();
 
            //MainPage = new NavigationPage(new Login());
-           MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
+           MainPage = Pages.Admin.Panel.Module.AdminDashboard.CreateAdminDashboardPage();
         }
 
         protected override void OnStart()

@@ -9,7 +9,7 @@
 
         private static void InitializeDependencyPages()
         {
-            
+            Panel.Module.AdminDashboard.Initialize();
         }
     }
 }
