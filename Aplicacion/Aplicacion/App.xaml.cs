@@ -12,7 +12,7 @@ namespace Aplicacion
             Pages.Module.Pages.Initialize();
 
            //MainPage = new NavigationPage(new PanelTrabajador());
-           MainPage = Pages.Worker.AddNewExpense.Module.AddNewExpense.CreateAddNewExpensePage();
+           MainPage = Pages.Worker.NewClient.Module.NewClient.CreateAddNewClientPage();
         }
 
         protected override void OnStart()
