@@ -1,42 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aplicacion.Views.VistasTrabajador.PanelTrabajador"
-             BackgroundColor="#829CA6"
-             NavigationPage.HasNavigationBar="False">
+<ContentPage
+    x:Class="Aplicacion.Views.VistasTrabajador.PanelTrabajador"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#829CA6"
+    NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
-        <StackLayout Margin="20,140" Spacing="60" VerticalOptions="Center">
-            <Button Text="Mi información"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070" 
-                    BorderWidth="3" 
-                    CornerRadius="15" 
-                    TextColor="#333333"
-                    x:Name="Boton_Info" 
-                    Clicked="Boton_Info_Clicked"/>
-            
-            <Button Text="Clientes" 
-                    BackgroundColor="#D1DFE1" 
-                    BorderColor="#707070" 
-                    BorderWidth="3" 
-                    CornerRadius="15" 
-                    TextColor="#333333" />
-            
-            <Button Text="Mis gastos" 
-                    BackgroundColor="#D1DFE1" 
-                    BorderColor="#707070" 
-                    BorderWidth="3" 
-                    CornerRadius="15" 
-                    TextColor="#333333"/>
-            
-            <Button Text="Agregar base" 
-                    BackgroundColor="#D1DFE1" 
-                    BorderColor="#707070" 
-                    BorderWidth="3" 
-                    CornerRadius="15" 
-                    TextColor="#333333"/>
-                
+        <StackLayout
+            Margin="20,140"
+            Spacing="60"
+            VerticalOptions="Center">
+            <Button
+                x:Name="Boton_Info"
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Boton_Info_Clicked"
+                CornerRadius="15"
+                Text="Mi información"
+                TextColor="#333333" />
+
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                Text="Clientes"
+                TextColor="#333333" />
+
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                Text="Agregar gasto"
+                TextColor="#333333" />
+
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                Text="Agregar base"
+                TextColor="#333333" />
+
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                Text="SUBIR DÍA"
+                TextColor="#333333" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

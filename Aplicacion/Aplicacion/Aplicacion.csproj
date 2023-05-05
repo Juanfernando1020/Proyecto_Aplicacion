@@ -11,6 +11,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admin\**" />
+    <Compile Remove="Pages\NewFolder1\**" />
+    <Compile Remove="Pages\NewFolder2\**" />
+    <Compile Remove="Pages\NewFolder\**" />
+    <Compile Remove="Pages\Worker\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Admin\**" />
+    <EmbeddedResource Remove="Pages\NewFolder1\**" />
+    <EmbeddedResource Remove="Pages\NewFolder2\**" />
+    <EmbeddedResource Remove="Pages\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Worker\NewFolder\**" />
+    <None Remove="Pages\Admin\**" />
+    <None Remove="Pages\NewFolder1\**" />
+    <None Remove="Pages\NewFolder2\**" />
+    <None Remove="Pages\NewFolder\**" />
+    <None Remove="Pages\Worker\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -23,7 +41,10 @@
     <EmbeddedResource Update="Pages\Account\Test\TestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Admin\Panel\AdminDashboardPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\AddNewExpense\AddNewExpensePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\ViewExpense\ViewExpensePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\VistasAdmin\CrearUsuario.xaml">

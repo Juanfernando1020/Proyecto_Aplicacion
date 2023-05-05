@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Aplicacion.Views.VistasTrabajador;
+using Aplicacion.Vistas.VistasAdmin;
+using Xamarin.Forms;
 namespace Aplicacion
 {
     public partial class App : Application
@@ -9,8 +11,8 @@ namespace Aplicacion
 
             Pages.Module.Pages.Initialize();
 
-           //MainPage = new NavigationPage(new Login());
-           MainPage = Pages.Admin.Panel.Module.AdminDashboard.CreateAdminDashboardPage();
+           //MainPage = new NavigationPage(new PanelTrabajador());
+           MainPage = Pages.Worker.AddNewExpense.Module.AddNewExpense.CreateAddNewExpensePage();
         }
 
         protected override void OnStart()
