@@ -14,5 +14,17 @@ namespace Aplicacion.Common.PagesBase
 
             ViewModel = this.BindingContext as ViewModelBase;
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            ViewModel?.OnViewAppearing();
+        }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            ViewModel?.OnViewDisappearing();
+        }
     }
 }

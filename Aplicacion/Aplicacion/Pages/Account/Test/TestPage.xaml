@@ -10,6 +10,15 @@
                 HorizontalOptions="CenterAndExpand"
                 Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" />
+            <CollectionView>
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String />
+                        <x:String />
+                        <x:String />
+                    </x:Array>
+                </CollectionView.ItemsSource>
+            </CollectionView>
         </StackLayout>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>

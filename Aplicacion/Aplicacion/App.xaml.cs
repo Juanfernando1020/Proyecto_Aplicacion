@@ -9,8 +9,8 @@ namespace Aplicacion
 
             Pages.Module.Pages.Initialize();
 
-           //MainPage = new NavigationPage(new Login());
-           MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
+           MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreateLoginPage());
+           //MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
         }
 
         protected override void OnStart()

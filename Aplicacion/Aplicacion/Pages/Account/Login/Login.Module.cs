@@ -1,9 +1,9 @@
 ﻿using Aplicacion.Common.Helpers;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Account.Test.Module
+namespace Aplicacion.Pages.Account.Login.Module
 {
-    internal static class Test
+    internal static class Login
     {
         internal static void Initialize()
         {
@@ -13,12 +13,12 @@ namespace Aplicacion.Pages.Account.Test.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<TestPage, ViewModel.Test>();
+            ViewsManager.RegisterView<LoginPage, ViewModel.Login>();
         }
 
-        internal static Page CreateTestPage()
+        internal static Page CreateLoginPage()
         {
-            return ViewsManager.CreateView<TestPage>();
+            return ViewsManager.CreateView<LoginPage>();
         }
 
         private static void InitializeDependencyPages()
