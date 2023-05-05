@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Aplicacion.Helpers
+namespace Aplicacion.Common.Helpers
 {
     internal class ViewsManager
     {
-        private static Dictionary<string, ViewsManagerArgs> _viewsDictionary = new Dictionary<string, ViewsManagerArgs>();
+        private readonly static Dictionary<string, ViewsManagerArgs> _viewsDictionary = new Dictionary<string, ViewsManagerArgs>();
 
         internal static ViewsManager Current = new ViewsManager();
 

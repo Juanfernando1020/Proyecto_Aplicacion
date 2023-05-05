@@ -14,6 +14,7 @@ namespace Aplicacion.Pages.Account.Module
         private static void InitializeDependencyPages()
         {
             Test.Module.Test.Initialize();
+            Login.Module.Login.Initialize();
         }
     }
 }

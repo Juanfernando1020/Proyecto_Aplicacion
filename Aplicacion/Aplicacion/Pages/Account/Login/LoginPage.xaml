@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageBase
+    x:Class="Aplicacion.Pages.Account.Login.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Account.Login.ViewModel"
+    BackgroundColor="#CCD7E1"
+    NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Margin="40" Spacing="30">
+        <custom:CustomEntry
+            FontSize="30"
+            HeightRequest="60"
+            Keyboard="Numeric"
+            Text="{Binding Credentials.Username}"
+            TextColor="Black" />
+
+        <ImageButton
+            BackgroundColor="Transparent"
+            Command="{Binding LoginCommand}"
+            Source="Login.png"
+            VerticalOptions="CenterAndExpand" />
+
+        <custom:CustomEntry
+            FontSize="30"
+            IsPassword="True"
+            Text="{Binding Credentials.Password}"
+            TextColor="Black" />
+
+    </StackLayout>
+</local:ContentPageBase>
