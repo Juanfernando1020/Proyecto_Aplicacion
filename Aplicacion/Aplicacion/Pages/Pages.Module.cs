@@ -14,6 +14,7 @@ namespace Aplicacion.Pages.Module
         private static void InitializeDependecyPages()
         {
             Account.Module.Account.Initialize();
+            Worker.Module.Worker.Initialize();  
             Main.Module.Main.Initialize();
             Admin.Module.Admin.Initialize();
         }

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Aplicacion.Pages.Worker.AddNewExpense.AddNewExpensePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    BackgroundColor="#829CA6">
+    <ContentPage.Content>
+        <StackLayout
+            Margin="30"
+            Spacing="50"
+            VerticalOptions="Center">
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="gasto.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    x:Name="ExpenseNametxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Nombre del gasto"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="base.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    x:Name="ExpensePricetxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Precio del gasto"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="Descripcion.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    x:Name="ExpenseDescrptiontxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Descripcion del gasto"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <Button
+                x:Name="Add_New_Expense_Botton"
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Clicked="Add_New_Expense_Botton_Clicked"
+                CornerRadius="15"
+                HorizontalOptions="Center"
+                Text="Agregar gasto"
+                TextColor="#333333" />
+
+            <Image
+                x:Name="Back_Button"
+                Margin="20"
+                Aspect="AspectFit"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                Source="Back.png"
+                VerticalOptions="End"
+                WidthRequest="30">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Image.GestureRecognizers>
+            </Image>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,11 @@
+﻿using Aplicacion.Common.MVVM;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Aplicacion.Pages.Worker.AddNewExpense.ViewModel
+{
+    internal class AddNewExpens : ViewModelBase
+    {
+    }
+}

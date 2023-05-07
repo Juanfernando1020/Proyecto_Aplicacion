@@ -1,5 +1,4 @@
-﻿using Aplicacion.Common.MVVM;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 namespace Aplicacion
 {
     public partial class App : Application
