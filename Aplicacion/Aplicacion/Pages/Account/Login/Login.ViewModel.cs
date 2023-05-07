@@ -47,7 +47,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
 
             if (!result.IsSuccess)
             {
-                Credentials = new Credentials();
+                //Credentials = new Credentials();
                 await AlertsManager.ShowAlert(new ErrorMessage(result.Message));
                 return;
             }

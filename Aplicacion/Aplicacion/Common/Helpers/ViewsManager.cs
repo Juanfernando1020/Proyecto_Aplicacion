@@ -1,5 +1,5 @@
-﻿using Aplicacion.Common.MVVM;
-using Aplicacion.Exceptions;
+﻿using Aplicacion.Common.Exceptions;
+using Aplicacion.Common.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Aplicacion.Common.Helpers
     {
         private readonly static Dictionary<string, ViewsManagerArgs> _viewsDictionary = new Dictionary<string, ViewsManagerArgs>();
 
-        internal static ViewsManager Current = new ViewsManager();
+        internal static readonly ViewsManager Current = new ViewsManager();
 
         internal static void RegisterView<TView, TViewModel>()
         {

@@ -1,5 +1,4 @@
 ﻿using Aplicacion.Common.MVVM;
-using Aplicacion.Helpers;
 using Xamarin.Forms;
 
 namespace Aplicacion.Common.PagesBase

@@ -30,5 +30,19 @@ namespace Aplicacion.Common.MVVM.Alerts
 
             return await UserDialogs.Instance.ConfirmAsync(alertConfig);
         }
+        internal static async Task<string> ShowPrompt(PromptMessage promptMessage)
+        {
+            PromptConfig promptConfig = new PromptConfig()
+            {
+                Title = promptMessage.Title,
+                Message = promptMessage.Message,
+                OkText = promptMessage.AcceptButton,
+                CancelText = promptMessage.CancelButton,
+            };
+
+            PromptResult result = await UserDialogs.Instance.PromptAsync(promptConfig);
+
+            return result.Ok ? result.Value : null;
+        }
     }
 }

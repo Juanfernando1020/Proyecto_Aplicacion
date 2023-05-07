@@ -1,6 +1,8 @@
-﻿namespace Aplicacion.Pages.Admin.Module
+﻿using System;
+
+namespace Aplicacion.Pages.Admin.User.Module
 {
-    internal static class Admin
+    internal static class User
     {
         internal static void Initialize()
         {
@@ -9,7 +11,7 @@
 
         private static void InitializeDependencyPages()
         {
-            User.Module.User.Initialize();
+            Create.Module.CreateUser.Initialize();
         }
     }
 }

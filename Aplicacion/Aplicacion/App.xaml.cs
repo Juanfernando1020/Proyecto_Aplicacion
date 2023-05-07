@@ -7,9 +7,9 @@ namespace Aplicacion
         {
             InitializeComponent();
 
-            Pages.Module.Pages.Initialize();
+            Module.App.Initialize();
 
-           MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreateLoginPage());
+           MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreatePage());
            //MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
         }
 

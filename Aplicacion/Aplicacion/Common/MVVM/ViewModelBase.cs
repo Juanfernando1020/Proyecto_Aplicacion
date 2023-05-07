@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Aplicacion.Common.MVVM
@@ -14,6 +16,16 @@ namespace Aplicacion.Common.MVVM
             set
             {
                 SetProperty(ref _isBusy, value);
+            } 
+        }
+        
+        private string _loadingTitle;
+        public string LoadingTitle
+        { 
+            get => _loadingTitle;
+            set
+            {
+                SetProperty(ref _loadingTitle, value);
             } 
         }
         #endregion
@@ -37,6 +49,27 @@ namespace Aplicacion.Common.MVVM
         public virtual void OnViewDisappearing()
         {
 
+        }
+        #endregion
+
+        #region Overrides
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            switch (args.PropertyName)
+            {
+                case nameof(IsBusy):
+                    if (IsBusy)
+                    {
+                        UserDialogs.Instance.Loading(LoadingTitle);
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.HideLoading();
+                    }
+                    break;
+            }
         }
         #endregion
     }

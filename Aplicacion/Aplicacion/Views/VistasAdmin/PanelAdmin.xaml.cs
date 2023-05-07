@@ -20,7 +20,7 @@ namespace Aplicacion.Vistas.VistasAdmin
         }
         private void Boton_CrearUsuario(object sender, EventArgs e)
         {
-            Navigation.PushAsync( new CrearUsuario() );
+            Navigation.PushAsync(Pages.Admin.User.Create.Module.CreateUser.CreatePage());
         }
 
         private void Boton_Informacion (object sender, EventArgs e)

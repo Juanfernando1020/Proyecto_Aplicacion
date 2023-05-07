@@ -1,14 +1,13 @@
-﻿using Aplicacion.Common.Result;
-using Aplicacion.Helpers;
+﻿using Aplicacion.Common.Helpers.Firebase;
+using Aplicacion.Common.Result;
+using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Firebase.Database;
-using Firebase.Database.Query;
+using Aplicacion.Pages.Account.Login.Specifications;
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Aplicacion.Pages.Account.Login.Repository
@@ -17,37 +16,23 @@ namespace Aplicacion.Pages.Account.Login.Repository
     {
         public async Task<ResultBase<string>> LoginAsync(Credentials credentials)
         {
-            FirebaseClient client = FirebaseHelper.GetClient();
+			try
+			{
+                Trabajador worker = await FirebaseHelper.Instance["Trabajadores"].GetBySpecificationAsync(new CredentialsForWorkerSpecifications(credentials));
+                Administrador admin = await FirebaseHelper.Instance["Administradores"].GetBySpecificationAsync(new CredentialsForAdministratorSpecifications(credentials));
 
-            IReadOnlyCollection<FirebaseObject<Trabajador>> workers = 
-                await client
-                .Child("Trabajadores")
-                .OrderByKey()
-                .OnceAsync<Trabajador>();
-            
-            IReadOnlyCollection<FirebaseObject<Administrador>> admins = 
-                await client
-                .Child("Administradores")
-                .OrderByKey()
-                .OnceAsync<Administrador>();
+                bool userAuthenticated = worker != null || admin != null;
 
-            IEnumerable<Trabajador> worker = from w in workers
-                    where w.Object.Phone.Equals(credentials.Username) &&
-                    w.Object.Password.Equals(credentials.Password)
-                    select w.Object;
-            
-            IEnumerable<Administrador> admin = from a in admins
-                    where a.Object.Phone.Equals(credentials.Username) &&
-                    a.Object.Password.Equals(credentials.Password)
-                    select a.Object;
-
-
-            bool userAuthenticated = worker.Any() || admin.Any();
-
-            return new ResultBase<string>("LoginAsync", 
-                userAuthenticated, 
-                userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
-                JsonConvert.SerializeObject((object)worker.FirstOrDefault() ?? (object)admin.FirstOrDefault()));
+                return new ResultBase<string>("LoginAsync", 
+                    userAuthenticated, 
+                    userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
+                    JsonConvert.SerializeObject((object)worker ?? (object)admin));
+			}
+			catch (Exception ex)
+			{
+                Debug.WriteLine(ex);
+                return new ResultBase<string>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
+			}
         }
     }
 }
