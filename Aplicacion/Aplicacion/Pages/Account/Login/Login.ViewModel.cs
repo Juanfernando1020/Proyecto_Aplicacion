@@ -4,8 +4,10 @@ using Aplicacion.Common.MVVM.Alerts.Messages;
 using Aplicacion.Common.Result;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
+using Aplicacion.Pages.Main.Dashboard.Enums;
 using Aplicacion.Vistas.VistasAdmin;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,8 +17,6 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
     internal class Login : ViewModelBase
     {
         #region Variables
-        private bool isLoaded = false;
-
         private readonly ILoginService _loginService;
         #endregion
 
@@ -37,24 +37,29 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
         #region Methods
         private async Task LoginController()
         {
+            IsBusy = true;
             if(string.IsNullOrEmpty(Credentials.Username) || string.IsNullOrEmpty(Credentials.Password))
             {
+                IsBusy = false;
                 await AlertsManager.ShowAlert(new ErrorMessage("Los campos no pueden estar vacíos."));
                 return;
             }
 
-            ResultBase<string> result = await _loginService.LoginAsync(Credentials);
+            ResultBase<MainDashboardTypeEnum> result = await _loginService.LoginAsync(Credentials);
 
             if (!result.IsSuccess)
             {
+                IsBusy = false;
                 //Credentials = new Credentials();
                 await AlertsManager.ShowAlert(new ErrorMessage(result.Message));
                 return;
             }
 
-            Application.Current.Properties["usuario"] = JsonConvert.SerializeObject(result.Data);
-
-            App.Current.MainPage = new NavigationPage(new PanelAdmin());
+            await NavigationService.NavigateToRoot<Main.Dashboard.MainDashboardPage>(args: new Dictionary<string, object>()
+            {
+                {"DashboardType", result.Data}
+            });
+            IsBusy = false;
         }
         #endregion
 
@@ -68,22 +73,6 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
         #endregion
 
         #region Overrides
-        public override void OnViewAppearing()
-        {
-            base.OnViewAppearing();
-
-            if (!isLoaded)
-            {
-                OnLoad();
-            }
-        }
-        #endregion
-
-        #region OnLoad
-        private void OnLoad()
-        {
-            isLoaded = true;
-        }
         #endregion
     }
 }

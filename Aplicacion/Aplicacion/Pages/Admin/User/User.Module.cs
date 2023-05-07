@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aplicacion.Pages.Admin.User.Module
+﻿namespace Aplicacion.Pages.Admin.User.Module
 {
     internal static class User
     {

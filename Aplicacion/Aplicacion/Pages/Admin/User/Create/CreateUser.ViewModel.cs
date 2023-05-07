@@ -15,7 +15,6 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
     internal class CreateUser : ViewModelBase
     {
         #region Variables
-        private bool isLoaded = false;
         private string adminName = null;
 
         private readonly IUserService _userService;
@@ -38,7 +37,7 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
         #region Methods
         private async Task CreateUserController()
         {
-            
+            IsBusy = true;
             if (!User.IsAdmin && string.IsNullOrEmpty(adminName))
             {
                 adminName = await AlertsManager.ShowPrompt(new PromptMessage("Nombre del administrador", "Ingrese el nombre del administrador:"));
@@ -62,7 +61,8 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
 
             await AlertsManager.ShowAlert(new SuccessMessage("El usuario ha sido creado correctamente"));
 
-            await App.Current.MainPage.Navigation.PopAsync();
+            await NavigationService.PopAsync();
+            IsBusy = false;
         }
         #endregion
 
@@ -76,22 +76,6 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
         #endregion
 
         #region Overrides
-        public override void OnViewAppearing()
-        {
-            base.OnViewAppearing();
-
-            if (!isLoaded)
-            {
-                OnLoad();
-            }
-        }
-        #endregion
-
-        #region OnLoad
-        private void OnLoad()
-        {
-            isLoaded = true;
-        }
         #endregion
     }
 }
