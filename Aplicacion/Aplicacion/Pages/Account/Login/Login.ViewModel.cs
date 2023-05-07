@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts;
 using Aplicacion.Common.MVVM.Alerts.Messages;
+using Aplicacion.Common.MVVM.Navigation.Models;
 using Aplicacion.Common.Result;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Diagnostics;
 
 namespace Aplicacion.Common.MVVM.Navigation.Services
 {
@@ -37,6 +38,7 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 return new NavigationResult(false, ex);
             }
         }
@@ -70,6 +72,7 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 return Task<NavigationResult>.FromResult(new NavigationResult(false, ex));
             }
         }

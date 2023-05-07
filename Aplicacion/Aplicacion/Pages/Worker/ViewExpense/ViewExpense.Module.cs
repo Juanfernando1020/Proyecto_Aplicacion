@@ -1,10 +1,4 @@
 ﻿using Aplicacion.Common.Helpers;
-using Aplicacion.Common.MVVM;
-using Aplicacion.Helpers;
-using Aplicacion.Pages.Account.Test;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Worker.ViewExpense.Module
