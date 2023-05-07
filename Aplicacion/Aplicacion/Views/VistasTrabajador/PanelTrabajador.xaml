@@ -34,7 +34,7 @@
                 BorderColor="#707070"
                 BorderWidth="3"
                 CornerRadius="15"
-                Text="Agregar gasto"
+                Text="gasto"
                 TextColor="#333333" />
 
             <Button
@@ -42,7 +42,7 @@
                 BorderColor="#707070"
                 BorderWidth="3"
                 CornerRadius="15"
-                Text="Agregar base"
+                Text="base"
                 TextColor="#333333" />
 
             <Button

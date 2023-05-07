@@ -15,7 +15,10 @@ namespace Aplicacion.Pages.Worker.Module
         {
             ViewExpense.Module.ViewExpense.Initialize();
             AddNewExpense.Module.AddNewExpense.Initialize();
-            NewClient.Module.NewClient.Initialize();
+            AddNewClient.Module.AddNewClient.Initialize();
+            ViewAllClients.Module.ViewAllClients.Initialize();
+            AddLoanClient.Module.AddLoanClient.Initialize();
+            AddClientBilling.Module.AddClientBilling.Initialize();
         }
     }
 }

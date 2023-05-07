@@ -1,4 +1,5 @@
-﻿using Aplicacion.Helpers;
+﻿using Aplicacion.Common.Helpers;
+using Aplicacion.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;

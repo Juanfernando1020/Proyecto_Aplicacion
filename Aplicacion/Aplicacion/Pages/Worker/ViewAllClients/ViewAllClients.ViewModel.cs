@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Worker.AddNewClient.ViewModel
+namespace Aplicacion.Pages.Worker.ViewAllClients.ViewModel
 {
-    internal class AddNewClient : ViewModelBase
+    internal class ViewAllClients : ViewModelBase
     {
     }
 }

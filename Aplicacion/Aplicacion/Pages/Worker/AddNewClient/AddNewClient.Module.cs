@@ -1,14 +1,13 @@
-﻿using Aplicacion.Helpers;
+﻿using Aplicacion.Common.Helpers;
 using Aplicacion.Pages.Account.Test;
-using Aplicacion.Pages.Worker.AddNewClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Worker.NewClient.Module
+namespace Aplicacion.Pages.Worker.AddNewClient.Module
 {
-    internal static class NewClient
+    internal static class AddNewClient
     {
         internal static void Initialize()
         {
@@ -20,7 +19,6 @@ namespace Aplicacion.Pages.Worker.NewClient.Module
         {
             ViewsManager.RegisterView<AddNewClientPage, ViewModel.AddNewClient>();
         }
-
         internal static Page CreateAddNewClientPage()
         {
             return ViewsManager.CreateView<AddNewClientPage>();
@@ -29,6 +27,4 @@ namespace Aplicacion.Pages.Worker.NewClient.Module
         {
         }
     }
-
-
 }

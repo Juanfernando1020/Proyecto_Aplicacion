@@ -1,15 +1,13 @@
 ﻿using Aplicacion.Common.Helpers;
-using Aplicacion.Common.MVVM;
-using Aplicacion.Helpers;
 using Aplicacion.Pages.Account.Test;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Worker.ViewExpense.Module
+namespace Aplicacion.Pages.Worker.ViewAllClients.Module
 {
-    internal static class ViewExpense
+    internal static class ViewAllClients
     {
         internal static void Initialize()
         {
@@ -19,17 +17,15 @@ namespace Aplicacion.Pages.Worker.ViewExpense.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ViewExpensePage, ViewModel.ViewExpense>();
+            ViewsManager.RegisterView<ViewAllClientsPage, ViewModel.ViewAllClients>();
         }
 
-        internal static Page CreateViewExpensePage()
+        internal static Page CreateViewAllClients()
         {
-            return ViewsManager.CreateView<ViewExpensePage>();
+            return ViewsManager.CreateView<ViewAllClientsPage>();
         }
         private static void InitializeDependencyPages()
         {
         }
-
-
     }
 }
