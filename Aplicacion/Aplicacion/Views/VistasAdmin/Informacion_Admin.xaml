@@ -144,6 +144,8 @@
                     <TapGestureRecognizer Tapped="OnBackButtonTapped" />
                 </Image.GestureRecognizers>
             </Image>
+
+
         </AbsoluteLayout>
     </ContentPage.Content>
 

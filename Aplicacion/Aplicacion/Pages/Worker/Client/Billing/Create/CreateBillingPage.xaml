@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Aplicacion.Pages.Worker.Client.Billing.Create.CreateBillingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    BackgroundColor="#829CA6">
+    <ContentPage.Content>
+        <StackLayout Margin="10,40,10,10" Spacing="50">
+            <Label
+                FontAttributes="Bold"
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text=" NUEVO PAGO"
+                TextColor="Black" />
+            <StackLayout
+                Margin="20"
+                HorizontalOptions="Center"
+                Spacing="40">
+                <custom:CustomEntry Keyboard="Numeric" Placeholder="Monto del pago" />
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Image
+                        HeightRequest="30"
+                        Source="calendario.png"
+                        VerticalOptions="Center"
+                        WidthRequest="30" />
+                    <Label
+                        FontSize="18"
+                        Text="Fecha del pago"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                    <DatePicker
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start"
+                        TextColor="Black" />
+                </StackLayout>
+                <custom:CustomEntry Placeholder="Descripcion del Pago" />
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <CheckBox x:Name="AdminCheckBox" Color="#707070" />
+                    <Label
+                        Text="¿Es pago de un retraso?"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Button
+                    x:Name="Add_New_Billing_Botton"
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    CornerRadius="15"
+                    HorizontalOptions="Center"
+                    Text="Agregar pago"
+                    TextColor="#333333" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

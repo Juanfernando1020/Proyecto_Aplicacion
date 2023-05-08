@@ -1,5 +1,4 @@
-﻿using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Aplicacion
 {
@@ -9,7 +8,9 @@ namespace Aplicacion
         {
             InitializeComponent();
             Module.App.Initialize();
-            MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreatePage());
+
+           MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreatePage());
+           //MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
         }
 
         protected override void OnStart()
