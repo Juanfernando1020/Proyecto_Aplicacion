@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Common.Helpers;
+using System;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Admin.User.Create.Module
@@ -16,10 +17,7 @@ namespace Aplicacion.Pages.Admin.User.Create.Module
             ViewsManager.RegisterView<CreateUserPage, ViewModel.CreateUser>();
         }
 
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<CreateUserPage>();
-        }
+        internal static Page CreatePage() => ViewsManager.CreateView<CreateUserPage>();
 
         private static void InitializeDependencyPages()
         {

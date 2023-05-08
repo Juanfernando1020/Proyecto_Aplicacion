@@ -1,7 +1,9 @@
 ﻿using Aplicacion.Common.MVVM;
+using Aplicacion.Common.MVVM.Alerts.Messages;
+using Aplicacion.Config;
 using Aplicacion.Pages.Main.Dashboard.Contracts;
-using Aplicacion.Pages.Main.Dashboard.Enums;
 using Aplicacion.Pages.Main.Dashboard.Models;
+using Aplicacion.Pages.Main.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
         private async Task SelectOptionController(MainDashboardItem item)
         {
             IsBusy = true;
-            await NavigationService.NavigateTo(item.Page, item.PageType, item.Args);
+            await NavigationService.NavigateToAsync(item.Page, item.PageType, item.Args);
             IsBusy = false;
         }
         #endregion
@@ -53,22 +55,26 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
         public override void OnInitialize()
         {
             base.OnInitialize();
-
-            if (Args.ContainsKey(ArgsKeys.DashboardType))
-            {
-                MainDashboardTypeEnum type = (MainDashboardTypeEnum)Args[ArgsKeys.DashboardType];
-
-                MenuItems = service
-                    .GetAllItems(type)
-                    .ToList();
-            }
+            OnLoad();
         }
         #endregion
 
-        #region Private classes
-        private static class ArgsKeys
+        #region OnLoad
+        private async void OnLoad()
         {
-            internal static string DashboardType => "DashboardType";
+            if (!Args.ContainsKey(ArgKeys.MainType))
+            {
+                Console.WriteLine($"It was missing the '{ArgKeys.MainType}' key.");
+                await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
+                await NavigationService.PopAsync();
+                return;
+            }
+
+            MainTypesEnum type = (MainTypesEnum)Args[ArgKeys.MainType];
+
+            MenuItems = service
+                .GetAllItems(type)
+                .ToList();
         }
         #endregion
     }

@@ -1,12 +1,12 @@
 ﻿using Aplicacion.Common.PagesBase;
 using Xamarin.Forms.Xaml;
 
-namespace Aplicacion.Pages.Account.Test
+namespace Aplicacion.Pages.Main.Profile
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TestPage : ContentPageBase
+    public partial class MainProfilePage : ContentPageBase
     {
-        public TestPage()
+        public MainProfilePage()
         {
             InitializeComponent();
         }

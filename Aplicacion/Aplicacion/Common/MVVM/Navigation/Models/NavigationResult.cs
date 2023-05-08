@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Aplicacion.Common.MVVM.Navigation.Models
 {
@@ -12,5 +13,7 @@ namespace Aplicacion.Common.MVVM.Navigation.Models
             IsNavigated = isNavigated;
             Exception = exception;
         }
+
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

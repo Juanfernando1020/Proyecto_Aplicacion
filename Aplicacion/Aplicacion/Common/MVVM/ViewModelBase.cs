@@ -1,5 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Aplicacion.Common.Helpers;
+using Aplicacion.Common.MVVM.Alerts.Interfaces;
+using Aplicacion.Common.MVVM.Alerts.Services;
 using Aplicacion.Common.MVVM.Navigation.Interfaces;
 using Aplicacion.Common.MVVM.Navigation.Services;
 using Aplicacion.Common.PagesBase;
@@ -20,6 +22,7 @@ namespace Aplicacion.Common.MVVM
         protected bool LockUIWhenBusy { get; set; } = true;
 
         protected INavigationService NavigationService { get; }
+        protected IAlertService AlertService { get; }
 
         private bool _isBusy;
         public bool IsBusy
@@ -67,11 +70,13 @@ namespace Aplicacion.Common.MVVM
         public ViewModelBase()
         {
             NavigationService = new NavigationService();
+            AlertService = new AlertService();
             Args = new Dictionary<string, object>();
             IsBusy = false;
             LoadingTitle = "Loading";
 
             Module.App.ViewModel = this;
+            Module.App.NavigationService = NavigationService;
         }
         #endregion
 

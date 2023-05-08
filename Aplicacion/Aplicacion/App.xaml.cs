@@ -1,5 +1,6 @@
-﻿using Aplicacion.Common.MVVM;
+﻿using Xamarin.Essentials;
 using Xamarin.Forms;
+
 namespace Aplicacion
 {
     public partial class App : Application
@@ -7,11 +8,8 @@ namespace Aplicacion
         public App()
         {
             InitializeComponent();
-
             Module.App.Initialize();
-
-           MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreatePage());
-           //MainPage = Pages.Account.Test.Module.Test.CreateTestPage();
+            MainPage = new NavigationPage(Pages.Account.Login.Module.Login.CreatePage());
         }
 
         protected override void OnStart()

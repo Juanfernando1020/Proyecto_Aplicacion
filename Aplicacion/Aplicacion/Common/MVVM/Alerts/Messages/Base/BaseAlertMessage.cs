@@ -2,7 +2,7 @@
 
 namespace Aplicacion.Common.MVVM.Alerts.Messages
 {
-    internal abstract class BaseAlertMessage
+    public abstract class BaseAlertMessage
     {
         public string Title { get; set; }
         public string Message { get; set; }
@@ -10,7 +10,7 @@ namespace Aplicacion.Common.MVVM.Alerts.Messages
         public string CancelButton { get; set; }
         public Action OnAction { get; set; }
 
-        internal BaseAlertMessage(string title, string message, string acceptButton, string cancelButton, Action onAction)
+        public BaseAlertMessage(string title, string message, string acceptButton, string cancelButton, Action onAction)
         {
             Title = title;
             Message = message;

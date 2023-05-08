@@ -1,7 +1,7 @@
 ﻿using Aplicacion.Common.Result;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.Main.Dashboard.Enums;
+using Aplicacion.Pages.Main.Enums;
 using System.Threading.Tasks;
 
 namespace Aplicacion.Pages.Account.Login.Service
@@ -14,7 +14,7 @@ namespace Aplicacion.Pages.Account.Login.Service
             _loginRepository = loginRepository;
         }
 
-        public async Task<ResultBase<MainDashboardTypeEnum>> LoginAsync(Credentials credentials)
+        public async Task<ResultBase<MainTypesEnum>> LoginAsync(Credentials credentials)
         {
             return await _loginRepository.LoginAsync(credentials);
         }

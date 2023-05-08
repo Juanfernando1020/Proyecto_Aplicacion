@@ -11,6 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Compile Remove="ViewModel\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <EmbeddedResource Remove="ViewModel\**" />
+    <None Remove="Helpers\**" />
+    <None Remove="ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.564" />
     <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
@@ -21,13 +30,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Pages\Account\Test\TestPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Admin\User\Create\CreateUserPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Main\Dashboard\MainDashboardPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Main\Profile\MainProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\VistasAdmin\CrearUsuario.xaml">
@@ -54,11 +63,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\Information\" />
     <Folder Include="Pages\Admin\Route\Create\" />
     <Folder Include="Pages\Admin\Route\List\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageBase
+    x:Class="Aplicacion.Pages.Main.Profile.MainProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Main.Profile.ViewModel"
+    x:DataType="{x:Type viewModel:MainProfile}">
+    <local:ContentPageBase.Content>
+        <AbsoluteLayout>
+            <BoxView AbsoluteLayout.LayoutBounds="0,0,428,926" Color="#829ca6" />
+            <BoxView
+                AbsoluteLayout.LayoutBounds="20,38,352,645"
+                CornerRadius="31"
+                Color="#9dadb4" />
+            <BoxView
+                AbsoluteLayout.LayoutBounds="45,75,304,104"
+                CornerRadius="20"
+                Color="#ffffff" />
+            <Image AbsoluteLayout.LayoutBounds="55,161.5,280,2" Source="line_1.png" />
+            <BoxView
+                AbsoluteLayout.LayoutBounds="45,230,304,104"
+                CornerRadius="20"
+                Color="#ffffff" />
+            <Image AbsoluteLayout.LayoutBounds="55,320,280,2" Source="line_2.png" />
+            <Image AbsoluteLayout.LayoutBounds="69,81,40,40" Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png" />
+            <Label
+                AbsoluteLayout.LayoutBounds="109,78,105,61"
+                FontFamily="Sans Serif Collection"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Usuario"
+                TextColor="#000000" />
+            <Label
+                AbsoluteLayout.LayoutBounds="113,235,117,61"
+                FontFamily="Sans Serif Collection"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Telefono"
+                TextColor="#000000" />
+            <Image AbsoluteLayout.LayoutBounds="74,240,38,38" Source="pngegg__2_.png" />
+            <Label
+                AbsoluteLayout.LayoutBounds="107,140,213,50"
+                FontFamily="Sans Serif Collection"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Information.Name}"
+                TextColor="#000000" />
+            <Label
+                AbsoluteLayout.LayoutBounds="140,300,121,50"
+                FontFamily="Sans Serif Collection"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Information.Phone}"
+                TextColor="#000000" />
+
+            <BoxView
+                AbsoluteLayout.LayoutBounds="45,375,304,104"
+                CornerRadius="20"
+                Color="#ffffff" />
+            <Image AbsoluteLayout.LayoutBounds="55,465,280,2" Source="line_4.png" />
+            <Image AbsoluteLayout.LayoutBounds="89.36,380,19.28,30.85" Source="icon_metro_location.png" />
+            <Label
+                AbsoluteLayout.LayoutBounds="113,375,135,61"
+                FontFamily="Sans Serif Collection"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Ubicacion"
+                TextColor="#000000" />
+            <Label
+                AbsoluteLayout.LayoutBounds="125,445,143,50"
+                FontFamily="Sans Serif Collection"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Information.Location}"
+                TextColor="#000000" />
+            <BoxView
+                AbsoluteLayout.LayoutBounds="45,535,304,104"
+                CornerRadius="20"
+                Color="#ffffff" />
+            <Image AbsoluteLayout.LayoutBounds="55,625,280,2" Source="line_5.png" />
+            <Image AbsoluteLayout.LayoutBounds="83.25,540,31.5,36" Source="icon_awesome_user_tie.png" />
+
+            <Label
+                AbsoluteLayout.LayoutBounds="119,540,93,61"
+                FontFamily="Sans Serif Collection"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Admin"
+                TextColor="#000000" />
+            <Label
+                AbsoluteLayout.LayoutBounds="125,605,153,50"
+                FontFamily="Sans Serif Collection"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Information.Admin}"
+                TextColor="#000000" />
+            <Label
+                AbsoluteLayout.LayoutBounds="35,710,223,57"
+                FontFamily="Sans Serif Collection"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                Text="Deseas editar algún dato?"
+                TextColor="#ffffff" />
+            <Label
+                AbsoluteLayout.LayoutBounds="285,710,51,37"
+                FontFamily="Segoe UI"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                Text="Editar"
+                TextColor="#afd2e0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding EditCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Image AbsoluteLayout.LayoutBounds="339,710,30,24" Source="_icon_awesome_user_edit.png" />
+        </AbsoluteLayout>
+    </local:ContentPageBase.Content>
+</local:ContentPageBase>

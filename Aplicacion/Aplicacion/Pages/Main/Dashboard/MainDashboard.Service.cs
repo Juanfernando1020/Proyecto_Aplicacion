@@ -1,6 +1,7 @@
-﻿using Aplicacion.Pages.Main.Dashboard.Contracts;
-using Aplicacion.Pages.Main.Dashboard.Enums;
+﻿using Aplicacion.Config;
+using Aplicacion.Pages.Main.Dashboard.Contracts;
 using Aplicacion.Pages.Main.Dashboard.Models;
+using Aplicacion.Pages.Main.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
@@ -9,35 +10,33 @@ namespace Aplicacion.Pages.Main.Dashboard.Service
 {
     internal class MainDashboard : IMainDashboardService
     {
-        public IEnumerable<MainDashboardItem> GetAllItems(MainDashboardTypeEnum type)
+        public IEnumerable<MainDashboardItem> GetAllItems(MainTypesEnum mainType)
         {
-            switch (type)
+            List<MainDashboardItem> items = new List<MainDashboardItem>()
             {
-                case MainDashboardTypeEnum.Worker:
-                    List<MainDashboardItem> workerItems = new List<MainDashboardItem>()
-                    {
-                        new MainDashboardItem("Mi información", null),
-                        new MainDashboardItem("Clientes", null),
-                        new MainDashboardItem("Mis gastos", null),
-                        new MainDashboardItem("Agregar base", null),
-                    };
+                new MainDashboardItem("Mi información", Profile.Module.MainProfile.CreatePage(), args: new Dictionary<string, object>()
+                {
+                    { ArgKeys.MainType, mainType }
+                }),
+            };
 
-                    return workerItems;
-                case MainDashboardTypeEnum.Admin:
-                    List<MainDashboardItem> adminItems = new List<MainDashboardItem>()
-                    {
-                        new MainDashboardItem("Mi información", null),
-                        new MainDashboardItem("Mis rutas", null),
-                        new MainDashboardItem("Crear rutas", null),
-                        new MainDashboardItem("Crear usuario", Admin.User.Create.Module.CreateUser.CreatePage()),
-                    };
-
-                    return adminItems;
+            switch (mainType)
+            {
+                case MainTypesEnum.Worker:
+                    items.Add(new MainDashboardItem("Clientes", null));
+                    items.Add(new MainDashboardItem("Mis gastos", null));
+                    items.Add(new MainDashboardItem("Agregar base", null));
+                    break;
+                case MainTypesEnum.Admin:
+                    items.Add(new MainDashboardItem("Mis rutas", null));
+                    items.Add(new MainDashboardItem("Crear rutas", null));
+                    items.Add(new MainDashboardItem("Crear usuario", Admin.User.Create.Module.CreateUser.CreatePage()));
+                    break;
                 default:
-                    throw new InvalidNavigationException("You have to send and option on 'type' parameter.");
+                    throw new InvalidNavigationException("You have to send and option on 'mainType' parameter.");
             }
 
-            
+            return items;
         }
     }
 }

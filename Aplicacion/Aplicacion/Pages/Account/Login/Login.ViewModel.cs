@@ -1,12 +1,15 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts;
 using Aplicacion.Common.MVVM.Alerts.Messages;
+using Aplicacion.Common.MVVM.Navigation.Models;
 using Aplicacion.Common.Result;
+using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.Main.Dashboard.Enums;
+using Aplicacion.Pages.Main.Enums;
 using Aplicacion.Vistas.VistasAdmin;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -41,24 +44,25 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
             if(string.IsNullOrEmpty(Credentials.Username) || string.IsNullOrEmpty(Credentials.Password))
             {
                 IsBusy = false;
-                await AlertsManager.ShowAlert(new ErrorMessage("Los campos no pueden estar vacíos."));
+                await AlertService.ShowAlert(new ErrorMessage("Los campos no pueden estar vacíos."));
                 return;
             }
 
-            ResultBase<MainDashboardTypeEnum> result = await _loginService.LoginAsync(Credentials);
+            ResultBase<MainTypesEnum> result = await _loginService.LoginAsync(Credentials);
 
             if (!result.IsSuccess)
             {
                 IsBusy = false;
                 //Credentials = new Credentials();
-                await AlertsManager.ShowAlert(new ErrorMessage(result.Message));
+                await AlertService.ShowAlert(new ErrorMessage(result.Message));
                 return;
             }
 
-            await NavigationService.NavigateToRoot<Main.Dashboard.MainDashboardPage>(args: new Dictionary<string, object>()
+            await NavigationService.NavigateToRootAsync<Main.Dashboard.MainDashboardPage>(args: new Dictionary<string, object>()
             {
-                {"DashboardType", result.Data}
+                { ArgKeys.MainType, result.Data }
             });
+
             IsBusy = false;
         }
         #endregion

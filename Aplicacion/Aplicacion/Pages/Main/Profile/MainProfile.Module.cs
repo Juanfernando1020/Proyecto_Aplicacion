@@ -1,9 +1,10 @@
 ﻿using Aplicacion.Common.Helpers;
+using System;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Account.Test.Module
+namespace Aplicacion.Pages.Main.Profile.Module
 {
-    internal static class Test
+    internal static class MainProfile
     {
         internal static void Initialize()
         {
@@ -13,13 +14,10 @@ namespace Aplicacion.Pages.Account.Test.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<TestPage, ViewModel.Test>();
+            ViewsManager.RegisterView<MainProfilePage, ViewModel.MainProfile>();
         }
 
-        internal static Page CreateTestPage()
-        {
-            return ViewsManager.CreateView<TestPage>();
-        }
+        internal static Page CreatePage() => ViewsManager.CreateView<MainProfilePage>();
 
         private static void InitializeDependencyPages()
         {

@@ -1,12 +1,16 @@
 ﻿using Acr.UserDialogs;
+using Aplicacion.Common.MVVM.Alerts.Interfaces;
 using Aplicacion.Common.MVVM.Alerts.Messages;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Common.MVVM.Alerts
+namespace Aplicacion.Common.MVVM.Alerts.Services
 {
-    internal static class AlertsManager
+    internal class AlertService : IAlertService
     {
-        internal static async Task ShowAlert(BaseAlertMessage alertMessage)
+        public async Task ShowAlert(BaseAlertMessage alertMessage)
         {
             AlertConfig alertConfig = new AlertConfig()
             {
@@ -18,7 +22,8 @@ namespace Aplicacion.Common.MVVM.Alerts
 
             await UserDialogs.Instance.AlertAsync(alertConfig);
         }
-        internal static async Task<bool> ShowConfirmAlert(ConfirmationMessage alertMessage)
+
+        public async Task<bool> ShowConfirmAlert(ConfirmationMessage alertMessage)
         {
             ConfirmConfig alertConfig = new ConfirmConfig()
             {
@@ -30,7 +35,8 @@ namespace Aplicacion.Common.MVVM.Alerts
 
             return await UserDialogs.Instance.ConfirmAsync(alertConfig);
         }
-        internal static async Task<string> ShowPrompt(PromptMessage promptMessage)
+
+        public async Task<string> ShowPrompt(PromptMessage promptMessage)
         {
             PromptConfig promptConfig = new PromptConfig()
             {

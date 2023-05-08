@@ -14,14 +14,14 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
     internal class NavigationService : INavigationService
     {
         #region NavigateTo
-        public async Task<NavigationResult> NavigateTo<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        public async Task<NavigationResult> NavigateToAsync<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
             where TView : Page
-            => await NavigateTo(typeof(TView), pageBase, args);
+            => await GoToAsync(typeof(TView), pageBase, args);
 
-        public async Task<NavigationResult> NavigateTo(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
-            => await NavigateTo(page?.GetType(), pageBase, args);
+        public async Task<NavigationResult> NavigateToAsync(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+            => await GoToAsync(page?.GetType(), pageBase, args);
 
-        private async Task<NavigationResult> NavigateTo(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        private async Task<NavigationResult> GoToAsync(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
         {
             try
             {
@@ -37,24 +37,25 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return new NavigationResult(false, ex);
             }
         }
         #endregion
 
         #region NavigateToRoot
-        public async Task<NavigationResult> NavigateToRoot<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        public async Task<NavigationResult> NavigateToRootAsync<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
             where TView : Page
-            => await NavigateToRoot(typeof(TView), pageBase, args);
+            => await GoToRootAsync(typeof(TView), pageBase, args);
 
-        public async Task<NavigationResult> NavigateToRoot(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
-            => await NavigateToRoot(page?.GetType(), pageBase, args);
+        public async Task<NavigationResult> NavigateToRootAsync(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+            => await GoToRootAsync(page?.GetType(), pageBase, args);
 
-        private Task<NavigationResult> NavigateToRoot(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        private async Task<NavigationResult> GoToRootAsync(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
         {
             try
             {
-                MainThread.BeginInvokeOnMainThread(() =>
+                await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     switch (pageBase)
                     {
@@ -66,11 +67,12 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
                     }
                 });
 
-                return Task<NavigationResult>.FromResult(new NavigationResult(true));
+                return new NavigationResult(true);
             }
             catch (Exception ex)
             {
-                return Task<NavigationResult>.FromResult(new NavigationResult(false, ex));
+                Console.WriteLine(ex);
+                return new NavigationResult(false, ex);
             }
         }
         #endregion
@@ -92,6 +94,7 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return new NavigationResult(false, ex);
             }
         }
@@ -109,6 +112,7 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return new NavigationResult(false, ex);
             }
         }

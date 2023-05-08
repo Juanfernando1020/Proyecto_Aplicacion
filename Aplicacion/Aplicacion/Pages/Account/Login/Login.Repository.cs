@@ -5,7 +5,7 @@ using Aplicacion.Models;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
 using Aplicacion.Pages.Account.Login.Specifications;
-using Aplicacion.Pages.Main.Dashboard.Enums;
+using Aplicacion.Pages.Main.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ namespace Aplicacion.Pages.Account.Login.Repository
 {
     internal class Login : ILoginRepository
     {
-        public async Task<ResultBase<MainDashboardTypeEnum>> LoginAsync(Credentials credentials)
+        public async Task<ResultBase<MainTypesEnum>> LoginAsync(Credentials credentials)
         {
 			try
 			{
@@ -25,17 +25,17 @@ namespace Aplicacion.Pages.Account.Login.Repository
 
                 bool userAuthenticated = worker != null || admin != null;
 
-                Application.Current.Properties["Usuario"] = JsonConvert.SerializeObject((object)worker ?? (object)admin);
+                Application.Current.Properties[ArgKeys.User] = JsonConvert.SerializeObject((object)worker ?? (object)admin);
 
-                return new ResultBase<MainDashboardTypeEnum>("LoginAsync", 
+                return new ResultBase<MainTypesEnum>("LoginAsync", 
                     userAuthenticated, 
                     userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
-                    worker != null ? MainDashboardTypeEnum.Worker : MainDashboardTypeEnum.Admin);
+                    worker != null ? MainTypesEnum.Worker : MainTypesEnum.Admin);
 			}
 			catch (Exception ex)
 			{
                 Debug.WriteLine(ex);
-                return new ResultBase<MainDashboardTypeEnum>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
+                return new ResultBase<MainTypesEnum>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
 			}
         }
     }

@@ -12,6 +12,7 @@ namespace Aplicacion.Pages.Main.Module
         private static void InitializeDependecyPages()
         {
             Dashboard.Module.MainDashboard.Initialize();
+            Profile.Module.MainProfile.Initialize();
         }
     }
 }

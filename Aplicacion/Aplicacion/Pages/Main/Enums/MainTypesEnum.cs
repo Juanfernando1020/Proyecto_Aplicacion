@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Main.Dashboard.Enums
+namespace Aplicacion.Pages.Main.Enums
 {
-    public enum MainDashboardTypeEnum
+    public enum MainTypesEnum
     {
         Worker = 0,
         Admin = 1,

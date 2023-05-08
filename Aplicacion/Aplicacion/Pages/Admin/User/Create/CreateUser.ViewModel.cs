@@ -40,11 +40,11 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
             IsBusy = true;
             if (!User.IsAdmin && string.IsNullOrEmpty(adminName))
             {
-                adminName = await AlertsManager.ShowPrompt(new PromptMessage("Nombre del administrador", "Ingrese el nombre del administrador:"));
+                adminName = await AlertService.ShowPrompt(new PromptMessage("Nombre del administrador", "Ingrese el nombre del administrador:"));
 
                 if (string.IsNullOrEmpty(adminName))
                 {
-                    await AlertsManager.ShowConfirmAlert(new ConfirmationMessage("Todos los trabajadores deben relacionarse con un administrador."));
+                    await AlertService.ShowConfirmAlert(new ConfirmationMessage("Todos los trabajadores deben relacionarse con un administrador."));
 
                     await CreateUserController();
                     return;
@@ -55,11 +55,11 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
 
             if (!result.IsSuccess)
             {
-                await AlertsManager.ShowAlert(new ErrorMessage(result.Message));
+                await AlertService.ShowAlert(new ErrorMessage(result.Message));
                 return;
             }
 
-            await AlertsManager.ShowAlert(new SuccessMessage("El usuario ha sido creado correctamente"));
+            await AlertService.ShowAlert(new SuccessMessage("El usuario ha sido creado correctamente"));
 
             await NavigationService.PopAsync();
             IsBusy = false;
