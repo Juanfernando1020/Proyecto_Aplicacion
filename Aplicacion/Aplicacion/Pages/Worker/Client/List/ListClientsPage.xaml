@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Aplicacion.Pages.Worker.Client.List.ListClientsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    BackgroundColor="#829CA6">
+    <ScrollView>
+        <StackLayout Margin="20" Padding="10">
+            <Label
+                Margin="0,0,0,20"
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="LISTA DE CLIENTES"
+                TextColor="Black" />
+
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    Margin="0,10,10,10"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="Filtrar por:"
+                    VerticalOptions="Center" />
+                <Picker
+                    x:Name="filterPicker"
+                    Title="Seleccione una opción..."
+                    Margin="0,10,10,10">
+                    <Picker.Items>
+                        <x:String>Todos los clientes</x:String>
+                        <x:String>Cobrar hoy</x:String>
+                        <x:String>Cobrar mañana</x:String>
+                        <x:String>Vencidos</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+
+            <CollectionView>
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Calors Andres Fuentes</x:String>
+                        <x:String>Miguel Angel Ortiz</x:String>
+                        <x:String>Valeria Aponete</x:String>
+                        <x:String>Miguel Andres</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="30" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="0,20,0,0">
+                            <Frame
+                                BackgroundColor="White"
+                                BorderColor="#707070"
+                                CornerRadius="15">
+                                <StackLayout Margin="20" Orientation="Vertical">
+                                    <StackLayout>
+                                        <Label
+                                            Margin="0,0,0,10"
+                                            FontSize="Large"
+                                            HorizontalOptions="StartAndExpand"
+                                            Text="{Binding .}"
+                                            TextColor="Black" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="Total:"
+                                                TextColor="Black" />
+                                            <Label Text="(Binding totala a pagar)" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="Pagado:"
+                                                TextColor="Black" />
+                                            <Label Text="(Binding Pagado)" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="Resta:"
+                                                TextColor="Black" />
+                                            <Label Text="(Binding Falta por pagar)" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" />
+                                    <ProgressBar
+                                        Margin="0,10,0,0"
+                                        HeightRequest="10"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="End" />
+                                    <StackLayout Margin="0,0,10,0" HorizontalOptions="EndAndExpand">
+                                        <Label Text="Abrir cliente" TextColor="Black">
+                                            <Label.GestureRecognizers>
+                                                <!--<TapGestureRecognizer Command="{Binding OpenClientCommand}" />-->
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </Frame>
+                        </StackLayout>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                x:Name="AgregarNuevoClienteButton"
+                BackgroundColor="White"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                HeightRequest="50"
+                Text="Agregar nuevo cliente"
+                TextColor="Black"
+                VerticalOptions="End"
+                WidthRequest="300" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

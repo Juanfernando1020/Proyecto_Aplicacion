@@ -30,22 +30,37 @@
     <EmbeddedResource Update="Pages\Main\Dashboard\MainDashboardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\AddClientBilling\AddClientBillingPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Worker\AddLoanClient\AddLoanClientPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\AddNewClient\AddNewClientPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\Create\CreateBillingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\AddNewExpense\AddNewExpensePage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\Detail\DetailBillingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\ViewAllClients\ViewAllClientsPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\List\ListBillingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\ViewExpense\ViewExpensePage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Create\CreateNewClientPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Client\Detail\DetailClientPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Client\List\ListClientsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Client\Loan\Create\CreateLoanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Finance\Base\list\ListBasePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Finance\Expense\Create\CreateExpensePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Finance\Expense\List\ListExpensePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\VistasAdmin\CrearUsuario.xaml">
@@ -76,6 +91,9 @@
     <Folder Include="Pages\Admin\Information\" />
     <Folder Include="Pages\Admin\Route\Create\" />
     <Folder Include="Pages\Admin\Route\List\" />
+    <Folder Include="Pages\Worker\Client\Loan\List\" />
+    <Folder Include="Pages\Worker\Client\Loan\Detail\" />
+    <Folder Include="Pages\Worker\Finance\Base\Add\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
 

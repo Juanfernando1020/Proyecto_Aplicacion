@@ -19,7 +19,7 @@ namespace Aplicacion.Pages.Main.Dashboard.Service
                         new MainDashboardItem("Mi información", null),
                         new MainDashboardItem("Clientes", null),
                         new MainDashboardItem("Mis gastos", null),
-                        new MainDashboardItem("Agregar base", null),
+                        new MainDashboardItem("Mis bases", null),
                     };
 
                     return workerItems;

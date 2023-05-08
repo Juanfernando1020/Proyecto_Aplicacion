@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Worker.Module
+namespace Aplicacion.Pages.Worker.Client.Billing.Module
 {
-    internal static class Worker
+    internal static class Billing
     {
         internal static void Initialize()
         {
@@ -13,8 +13,10 @@ namespace Aplicacion.Pages.Worker.Module
 
         private static void InitializeDependencyPages()
         {
-            Client.Module.Client.Initialize();
-            Finance.Module.Finance.Initialize();
+            Create.Module.CreateBilling.Initialize();
+            Detail.Module.DetailBilling.Initialize();
+            List.Module.ListBilling.Initialize();
         }
+
     }
 }

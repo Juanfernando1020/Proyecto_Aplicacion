@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplicacion.Pages.Worker.Finance.Module;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,6 +18,7 @@ namespace Aplicacion.Pages.Module
             Worker.Module.Worker.Initialize();  
             Main.Module.Main.Initialize();
             Admin.Module.Admin.Initialize();
+            Worker.AddLoanClient.Module.AddLoanClient.Initialize();
         }
     }
 }

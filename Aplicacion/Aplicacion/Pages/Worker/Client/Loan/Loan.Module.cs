@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Worker.Module
+namespace Aplicacion.Pages.Worker.Client.Loan.Module
 {
-    internal static class Worker
+    internal static class Loan
     {
         internal static void Initialize()
         {
             InitializeDependencyPages();
         }
-
         private static void InitializeDependencyPages()
         {
-            Client.Module.Client.Initialize();
-            Finance.Module.Finance.Initialize();
+            Create.Module.CreateLoan.Initialize();
         }
     }
 }

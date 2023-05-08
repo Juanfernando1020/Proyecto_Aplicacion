@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Aplicacion.Pages.Worker.Client.Billing.Module;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Essentials;
 
-namespace Aplicacion.Pages.Worker.Module
+namespace Aplicacion.Pages.Worker.Finance.Base.Module
 {
-    internal static class Worker
+    internal static class Base
     {
         internal static void Initialize()
         {
             InitializeDependencyPages();
         }
-
         private static void InitializeDependencyPages()
         {
-            Client.Module.Client.Initialize();
-            Finance.Module.Finance.Initialize();
+            list.Module.ListBase.Initialize();
         }
     }
 }

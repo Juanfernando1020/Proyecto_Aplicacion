@@ -14,7 +14,7 @@ namespace Aplicacion.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.2.0.93")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.1.0.5")]
 	public partial class Resource
 	{
 		
@@ -22003,7 +22003,10 @@ namespace Aplicacion.Droid
 			public const int tooltip_frame_light = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int usuario = 2131165353;
+			public const int Trash = 2131165353;
+			
+			// aapt resource value: 0x7F0700AA
+			public const int usuario = 2131165354;
 			
 			// aapt resource value: 0x7F070006
 			public const int _icon_awesome_user_edit = 2131165190;
