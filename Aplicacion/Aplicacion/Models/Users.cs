@@ -41,5 +41,19 @@ namespace Aplicacion.Models
                 (obj.Password == Password) &&
                 (obj.Role == Role);
         }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -156012685;
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Phone);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
+            hashCode = hashCode * -1521134295 + Role.GetHashCode();
+            hashCode = hashCode * -1521134295 + fk_Branch.GetHashCode();
+            hashCode = hashCode * -1521134295 + AuditCreationDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + AuditUpdateDate.GetHashCode();
+            return hashCode;
+        }
     }
 }

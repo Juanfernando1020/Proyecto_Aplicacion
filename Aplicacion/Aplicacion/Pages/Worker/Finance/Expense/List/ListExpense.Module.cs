@@ -18,10 +18,6 @@ namespace Aplicacion.Pages.Worker.Finance.Expense.List.Module
         {
             ViewsManager.RegisterView<ListExpensePage, ViewModel.ListExpense>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<ListExpensePage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

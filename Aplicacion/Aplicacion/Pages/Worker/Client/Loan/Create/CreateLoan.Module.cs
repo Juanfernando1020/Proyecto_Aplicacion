@@ -14,10 +14,6 @@ namespace Aplicacion.Pages.Worker.Client.Loan.Create.Module
         {
             ViewsManager.RegisterView<CreateLoanPage, ViewModel.CreateLoan>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<CreateLoanPage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

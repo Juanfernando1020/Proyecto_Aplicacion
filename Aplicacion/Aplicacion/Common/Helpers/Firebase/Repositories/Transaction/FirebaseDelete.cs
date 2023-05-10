@@ -1,29 +1,30 @@
 ﻿using Aplicacion.Common.Helpers.Firebase.Interfaces.Transactions;
 using Firebase.Database;
-using Newtonsoft.Json;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Common.Helpers.Firebase.Services.Transaction
+namespace Aplicacion.Common.Helpers.Firebase.Repositories.Transaction
 {
-    internal class FirebaseUpdate : IFirebaseUpdate
+    internal class FirebaseDelete : IFirebaseDelete
     {
         private readonly FirebaseClient _firebaseClient;
         private readonly string _node;
 
-        public FirebaseUpdate(FirebaseClient firebaseClient, string node)
+        public FirebaseDelete(FirebaseClient firebaseClient, string node)
         {
             _firebaseClient = firebaseClient;
             _node = node;
         }
 
-        public async Task UpdateDataAsync<T>(T newObj)
+        public async Task DeleteAsync(string key)
         {
             await _firebaseClient
-                .Child(_node)
-                .PutAsync(JsonConvert.SerializeObject(newObj));
+            .Child(_node)
+            .Child(key)
+            .DeleteAsync();
         }
     }
 }

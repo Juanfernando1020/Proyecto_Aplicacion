@@ -18,10 +18,6 @@ namespace Aplicacion.Pages.Worker.Client.Loan.List.Module
         {
             ViewsManager.RegisterView<ListLoanPage, ViewModel.ListLoan>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<ListLoanPage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

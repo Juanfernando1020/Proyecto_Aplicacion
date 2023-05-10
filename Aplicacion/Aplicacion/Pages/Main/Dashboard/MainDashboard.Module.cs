@@ -16,8 +16,6 @@ namespace Aplicacion.Pages.Main.Dashboard.Module
             ViewsManager.RegisterView<MainDashboardPage, ViewModel.MainDashboard>();
         }
 
-        internal static Page CreatePage() => ViewsManager.CreateView<MainDashboardPage>();
-
         private static void InitializeDependencyPages()
         {
         }

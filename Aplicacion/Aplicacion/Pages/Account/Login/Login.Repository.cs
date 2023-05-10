@@ -26,7 +26,7 @@ namespace Aplicacion.Pages.Account.Login.Repository
 
                 Application.Current.Properties[ArgKeys.User] = JsonConvert.SerializeObject(user);
 
-                return new ResultBase<Users>("LoginAsync",
+                return new ResultBase<Users>("Repository.User.LoginAsync",
                     userAuthenticated,
                     userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
                     user);
@@ -35,7 +35,7 @@ namespace Aplicacion.Pages.Account.Login.Repository
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                return new ResultBase<Users>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
+                return new ResultBase<Users>("Repository.User.LoginAsync", false, CommonMessages.Exception.ResultMessage);
             }
         }
     }

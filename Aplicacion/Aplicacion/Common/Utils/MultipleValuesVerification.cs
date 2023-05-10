@@ -2,9 +2,9 @@
 
 namespace Aplicacion.Common.Utils
 {
-    public class MultipleValuesVerification
+    public class MultipleValuesValidation
     {
-        public static bool AllTrueVerification(params bool[] parameters)
+        public static bool AllTrueValidation(params bool[] parameters)
         {
             return !parameters.Any(parameter => !parameter);
         }

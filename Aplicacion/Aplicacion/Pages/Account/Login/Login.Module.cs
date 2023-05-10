@@ -16,8 +16,6 @@ namespace Aplicacion.Pages.Account.Login.Module
             ViewsManager.RegisterView<LoginPage, ViewModel.Login>();
         }
 
-        internal static Page CreatePage() => ViewsManager.CreateView<LoginPage>(null);
-
         private static void InitializeDependencyPages()
         {
         }

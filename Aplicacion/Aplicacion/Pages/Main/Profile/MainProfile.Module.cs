@@ -17,8 +17,6 @@ namespace Aplicacion.Pages.Main.Profile.Module
             ViewsManager.RegisterView<MainProfilePage, ViewModel.MainProfile>();
         }
 
-        internal static Page CreatePage() => ViewsManager.CreateView<MainProfilePage>();
-
         private static void InitializeDependencyPages()
         {
         }

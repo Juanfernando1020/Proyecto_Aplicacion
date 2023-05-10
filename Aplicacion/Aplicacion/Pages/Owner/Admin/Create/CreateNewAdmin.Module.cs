@@ -18,10 +18,6 @@ namespace Aplicacion.Pages.Owner.Admin.Create.Module
         {
             ViewsManager.RegisterView < CreateNewAdminPage, ViewModel.CreateNewAdmin>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<CreateNewAdminPage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

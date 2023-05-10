@@ -2,6 +2,7 @@
 using Aplicacion.Common.Utils;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
+using System;
 using System.Threading.Tasks;
 
 namespace Aplicacion.Pages.User.Service
@@ -17,7 +18,7 @@ namespace Aplicacion.Pages.User.Service
 
         public async Task<ResultBase> InsertAsync(Users user, string confirmPassword)
         {
-            VerifyResponse userVerified = UserVerification(user, confirmPassword);
+            VerifyResponse userVerified = UserValidation(user, confirmPassword);
 
             if (!userVerified.Verified)
             {
@@ -38,37 +39,47 @@ namespace Aplicacion.Pages.User.Service
             return result;
         }
 
-        private VerifyResponse UserVerification(Users user, string confirmPassword)
+        public async Task<ResultBase<Users>> GetByIdAsync(Guid user)
+        {
+            if(user == null || user.Equals(Guid.Empty))
+            {
+                Console.WriteLine("The parameter 'user' cannot be null or Guid.Empty.");
+                return new ResultBase<Users>("GetByIdAsync", false, "Ha ocurrido algo al momento de traer la información. Intentalo más tarde.");
+            }
+
+            return await _userRepository.GetByIdAsync(user);
+        }
+
+        #region Properties Validation
+        private VerifyResponse UserValidation(Users user, string confirmPassword)
         {
             VerifyResponse response = new VerifyResponse();
 
-            bool allTrue = MultipleValuesVerification.AllTrueVerification(
-                NameVerification(user.Name, ref response),
-                PhoneVerification(user.Phone, ref response),
-                PasswordVerification(user.Password, confirmPassword, ref response)
+            bool allTrue = MultipleValuesValidation.AllTrueValidation(
+                NameValidation(user.Name, ref response),
+                PhoneValidation(user.Phone, ref response),
+                PasswordValidation(user.Password, confirmPassword, ref response)
                 );
 
             response.Verified = allTrue;
 
             return response;
         }
-
-        #region Properties Verification
-        private bool NameVerification(string name, ref VerifyResponse response)
+        private bool NameValidation(string name, ref VerifyResponse response)
         {
             bool isNull = !string.IsNullOrEmpty(name);
 
             response.Message = "No hay información en el campo 'Nombre'.";
             return isNull;
         }
-        private bool PhoneVerification(string phone, ref VerifyResponse response)
+        private bool PhoneValidation(string phone, ref VerifyResponse response)
         {
             bool isNull = !string.IsNullOrEmpty(phone);
 
             response.Message = "No hay información en el campo 'Teléfono'.";
             return isNull;
         }
-        private bool PasswordVerification(string password, string confirmPassword, ref VerifyResponse response)
+        private bool PasswordValidation(string password, string confirmPassword, ref VerifyResponse response)
         {
             if (string.IsNullOrEmpty(password))
             {

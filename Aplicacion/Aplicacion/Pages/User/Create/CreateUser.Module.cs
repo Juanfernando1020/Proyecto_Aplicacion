@@ -17,9 +17,6 @@ namespace Aplicacion.Pages.User.Create.Module
         {
             ViewsManager.RegisterView<CreateUserPage, ViewModel.CreateUser>();
         }
-
-        internal static Page CreatePage() => ViewsManager.CreateView<CreateUserPage>();
-
         private static void InitializeDependencyPages()
         {
 

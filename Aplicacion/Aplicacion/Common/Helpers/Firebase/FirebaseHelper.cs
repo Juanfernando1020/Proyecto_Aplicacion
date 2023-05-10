@@ -1,5 +1,5 @@
 ﻿using Aplicacion.Common.Helpers.Firebase.Interfaces;
-using Aplicacion.Common.Helpers.Firebase.Services;
+using Aplicacion.Common.Helpers.Firebase.Repositories;
 using Aplicacion.Common.Specifications;
 using Firebase.Database;
 using Firebase.Database.Query;
@@ -16,11 +16,11 @@ namespace Aplicacion.Common.Helpers.Firebase
 
         public static readonly FirebaseHelper Instance = new FirebaseHelper();
 
-        public IFirebaseHelperService this[string node] => Config(node);
+        public IFirebaseHelperRepository this[string node] => Config(node);
 
-        private IFirebaseHelperService Config(string node)
+        private IFirebaseHelperRepository Config(string node)
         {
-            return new FirebaseHelperService(_firebaseClient, node);
+            return new FirebaseRepository(_firebaseClient, node);
         }
 
         internal static void Initialize(string connection)

@@ -3,7 +3,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Common.Helpers.Firebase.Services.Transaction
+namespace Aplicacion.Common.Helpers.Firebase.Repositories.Transaction
 {
     internal class FirebaseCreate : IFirebaseCreate
     {

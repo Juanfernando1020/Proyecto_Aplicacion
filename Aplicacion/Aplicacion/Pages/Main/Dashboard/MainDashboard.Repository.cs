@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Common.Helpers.Firebase;
+using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Enums;
 using Aplicacion.Models;
@@ -13,10 +14,20 @@ namespace Aplicacion.Pages.Main.Dashboard.Repository
 {
     internal class MainDashboard : IMainDashboardRepository
     {
-        public async Task<IEnumerable<Menu>> GetMenuAsync(RolesEnum role)
+        public async Task<ResultBase<IEnumerable<Menu>>> GetMenuAsync(RolesEnum role)
         {
-            return await FirebaseHelper.Instance[FirebaseEntities.Menu]
+			try
+			{
+				IEnumerable<Menu> menu = await FirebaseHelper.Instance[FirebaseEntities.Menu]
                 .GetAllBySpecificationAsync(new MenuByRoleSpecification(role));
+
+				return new ResultBase<IEnumerable<Menu>>("Repository.MainDashboard.GetMenuAsync", true, null, menu);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				return new ResultBase<IEnumerable<Menu>>("Repository.MainDashboard.GetMenuAsync", false, CommonMessages.Exception.ResultMessage);
+			}
         }
     }
 }

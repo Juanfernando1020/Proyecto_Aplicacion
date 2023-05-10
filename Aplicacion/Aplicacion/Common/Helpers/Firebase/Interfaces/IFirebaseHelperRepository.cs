@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Common.Helpers.Firebase.Interfaces
 {
-    public interface IFirebaseHelperService : IFirebaseCreate, IFirebaseRead, IFirebaseUpdate, IFirebaseDelete
+    public interface IFirebaseHelperRepository : IFirebaseCreate, IFirebaseRead, IFirebaseUpdate, IFirebaseDelete
     {
         Task<bool> AnyBySpecificationAsync<T>(SpecificationBase<T> specification)
             where T : class;

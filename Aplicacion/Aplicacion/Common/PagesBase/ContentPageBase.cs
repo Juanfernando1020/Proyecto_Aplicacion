@@ -8,7 +8,7 @@ using Aplicacion.Common.PagesBase.Enums;
 
 namespace Aplicacion.Common.PagesBase
 {
-    public abstract class ContentPageBase : ContentPage
+    public class ContentPageBase : ContentPage
     {
         #region Properties
         //internal Dictionary<string, object> Args;

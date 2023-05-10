@@ -14,10 +14,6 @@ namespace Aplicacion.Pages.Worker.Client.Create.Module
         {
             ViewsManager.RegisterView<CreateNewClientPage, ViewModel.CreateNewClient>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<CreateNewClientPage>();
-        }
         private static void InitializeDependencyPages()         
         {
         }

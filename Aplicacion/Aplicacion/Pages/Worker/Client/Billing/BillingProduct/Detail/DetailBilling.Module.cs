@@ -14,10 +14,6 @@ namespace Aplicacion.Pages.Worker.Client.Billing.BillingProduct.Detail.Module
         {
             ViewsManager.RegisterView<DetailBillingPage, ViewModel.DetailBilling>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<DetailBillingPage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

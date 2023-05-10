@@ -4,7 +4,7 @@
     {
         internal static class Exception
         {
-            internal static string ResultMessage => "No se puede realizar esta operación ahora mismo.";
+            internal static string ResultMessage => "No se puede realizar esta operación ahora mismo. Intentalo más tarde.";
         }
     }
 }

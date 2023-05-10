@@ -14,10 +14,6 @@ namespace Aplicacion.Pages.Worker.Finance.Expense.Create.Module
         {
             ViewsManager.RegisterView<CreateExpensePage, ViewModel.CreateExpense>();
         }
-        internal static Page CreatePage()
-        {
-            return ViewsManager.CreateView<CreateExpensePage>();
-        }
         private static void InitializeDependencyPages()
         {
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Common.Helpers.Firebase.Services.Transaction
+namespace Aplicacion.Common.Helpers.Firebase.Repositories.Transaction
 {
     internal class FirebaseRead : IFirebaseRead
     {

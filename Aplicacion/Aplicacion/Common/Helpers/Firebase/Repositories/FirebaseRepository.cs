@@ -1,22 +1,22 @@
 ﻿using Aplicacion.Common.Helpers.Firebase.Interfaces;
 using Aplicacion.Common.Helpers.Firebase.Interfaces.Transactions;
-using Aplicacion.Common.Helpers.Firebase.Services.Transaction;
+using Aplicacion.Common.Helpers.Firebase.Repositories.Transaction;
 using Aplicacion.Common.Specifications;
 using Firebase.Database;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Common.Helpers.Firebase.Services
+namespace Aplicacion.Common.Helpers.Firebase.Repositories
 {
-    internal class FirebaseHelperService : IFirebaseHelperService
+    internal class FirebaseRepository : IFirebaseHelperRepository
     {
         private readonly IFirebaseCreate _firebaseCreate;
         private readonly IFirebaseRead _firebaseRead;
         private readonly IFirebaseUpdate _firebaseUpdate;
         private readonly IFirebaseDelete _firebaseDelete;
 
-        public FirebaseHelperService(FirebaseClient firebaseClient, string node)
+        public FirebaseRepository(FirebaseClient firebaseClient, string node)
         {
             _firebaseCreate = new FirebaseCreate(firebaseClient, node);
             _firebaseRead = new FirebaseRead(firebaseClient, node);
