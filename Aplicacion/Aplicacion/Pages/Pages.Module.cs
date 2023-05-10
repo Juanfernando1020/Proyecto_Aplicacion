@@ -18,6 +18,7 @@ namespace Aplicacion.Pages.Module
             Worker.Module.Worker.Initialize();  
             Main.Module.Main.Initialize();
             Admin.Module.Admin.Initialize();
+            Owner.Module.Owner.Initialize();
         }
     }
 }

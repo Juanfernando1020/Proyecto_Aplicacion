@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aplicacion.Models
 {
-    internal class Users
+    public class Users
     {
         public Users(Guid id, string name, string phone, string password, int role, Guid fk_Branch, DateTime auditCreationDate, DateTime auditUpdateDate)
         {

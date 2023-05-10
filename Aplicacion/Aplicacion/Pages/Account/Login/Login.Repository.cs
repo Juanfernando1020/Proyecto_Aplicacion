@@ -1,11 +1,11 @@
 ﻿using Aplicacion.Common.Helpers.Firebase;
 using Aplicacion.Common.Result;
 using Aplicacion.Config;
+using Aplicacion.Enums;
 using Aplicacion.Models;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
 using Aplicacion.Pages.Account.Login.Specifications;
-using Aplicacion.Pages.Main.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -16,27 +16,27 @@ namespace Aplicacion.Pages.Account.Login.Repository
 {
     internal class Login : ILoginRepository
     {
-        public async Task<ResultBase<MainTypesEnum>> LoginAsync(Credentials credentials)
+        public async Task<ResultBase<Users>> LoginAsync(Credentials credentials)
         {
-			try
-			{
-                Trabajador worker = await FirebaseHelper.Instance["Trabajadores"].GetBySpecificationAsync(new CredentialsForWorkerSpecifications(credentials));
-                Administrador admin = await FirebaseHelper.Instance["Administradores"].GetBySpecificationAsync(new CredentialsForAdministratorSpecifications(credentials));
+            try
+            {
+                Users user = await FirebaseHelper.Instance[FirebaseEntities.Users].GetBySpecificationAsync(new CredentialsForUsersSpecifications(credentials));
 
-                bool userAuthenticated = worker != null || admin != null;
+                bool userAuthenticated = user != null;
 
-                Application.Current.Properties[ArgKeys.User] = JsonConvert.SerializeObject((object)worker ?? (object)admin);
+                Application.Current.Properties[ArgKeys.User] = JsonConvert.SerializeObject(user);
 
-                return new ResultBase<MainTypesEnum>("LoginAsync", 
-                    userAuthenticated, 
+                return new ResultBase<Users>("LoginAsync",
+                    userAuthenticated,
                     userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
-                    worker != null ? MainTypesEnum.Worker : MainTypesEnum.Admin);
-			}
-			catch (Exception ex)
-			{
+                    user);
+
+            }
+            catch (Exception ex)
+            {
                 Debug.WriteLine(ex);
-                return new ResultBase<MainTypesEnum>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
-			}
+                return new ResultBase<Users>("LoginAsync", false, CommonMessages.Exception.ResultMessage);
+            }
         }
     }
 }
