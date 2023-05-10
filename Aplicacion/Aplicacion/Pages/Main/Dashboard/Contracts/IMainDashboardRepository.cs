@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Pages.Main.Dashboard.Contracts
 {
-    public interface IMainDashboardService
+    public interface IMainDashboardRepository
     {
         Task<IEnumerable<Menu>> GetMenuAsync(RolesEnum role);
     }

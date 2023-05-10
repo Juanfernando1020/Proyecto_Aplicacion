@@ -1,9 +1,9 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts.Messages;
+using Aplicacion.Common.PagesBase.Enums;
 using Aplicacion.Config;
+using Aplicacion.Enums;
 using Aplicacion.Pages.Main.Dashboard.Contracts;
-using Aplicacion.Pages.Main.Dashboard.Models;
-using Aplicacion.Pages.Main.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +16,13 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
     internal class MainDashboard : ViewModelBase
     {
         #region Variables
+        private RolesEnum role;
         private readonly IMainDashboardService service;
         #endregion
 
         #region Properties
-        private List<MainDashboardItem> _menuItems;
-        public List<MainDashboardItem> MenuItems
+        private List<Models.Menu> _menuItems;
+        public List<Models.Menu> MenuItems
         {
             get => _menuItems;
             set
@@ -30,14 +31,17 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
             }
         }
 
-        public ICommand SelectOptionCommand => new Command<MainDashboardItem>(async (MainDashboardItem item) => await SelectOptionController(item));
+        public ICommand SelectOptionCommand => new Command<Models.Menu>(async (Models.Menu item) => await SelectOptionController(item));
         #endregion
 
         #region Methods
-        private async Task SelectOptionController(MainDashboardItem item)
+        private async Task SelectOptionController(Models.Menu item)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync(item.Page, item.PageType, item.Args);
+            await NavigationService.NavigateToAsync(item.Page, (PagesBaseEnum)item.PageType, new Dictionary<string, object>()
+            {
+                { ArgKeys.Role, role }
+            });
             IsBusy = false;
         }
         #endregion
@@ -45,9 +49,9 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
         #region Constructor
         public MainDashboard()
         {
-            service = new Service.MainDashboard();
+            service = new Service.MainDashboard(new Repository.MainDashboard());
 
-            MenuItems = new List<MainDashboardItem>();
+            MenuItems = new List<Models.Menu>();
         }
         #endregion
 
@@ -62,19 +66,20 @@ namespace Aplicacion.Pages.Main.Dashboard.ViewModel
         #region OnLoad
         private async void OnLoad()
         {
-            if (!Args.ContainsKey(ArgKeys.MainType))
+            if (!Args.ContainsKey(ArgKeys.Role))
             {
-                Console.WriteLine($"It was missing the '{ArgKeys.MainType}' key.");
+                Console.WriteLine($"It was missing the '{ArgKeys.Role}' key.");
                 await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
                 await NavigationService.PopAsync();
                 return;
             }
+            IsBusy = true;
+            role = (RolesEnum)Args[ArgKeys.Role];
 
-            MainTypesEnum type = (MainTypesEnum)Args[ArgKeys.MainType];
+            IEnumerable<Models.Menu> menu = await service.GetMenuAsync(role);
 
-            MenuItems = service
-                .GetAllItems(type)
-                .ToList();
+            MenuItems = menu.ToList();
+            IsBusy = false;
         }
         #endregion
     }

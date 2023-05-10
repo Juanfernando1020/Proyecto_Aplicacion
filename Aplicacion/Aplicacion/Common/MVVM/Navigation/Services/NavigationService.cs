@@ -17,12 +17,15 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
         #region NavigateTo
         public async Task<NavigationResult> NavigateToAsync<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
             where TView : Page
-            => await GoToAsync(typeof(TView), pageBase, args);
+            => await NavigateToAsync(typeof(TView).Name, pageBase, args);
 
         public async Task<NavigationResult> NavigateToAsync(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
-            => await GoToAsync(page?.GetType(), pageBase, args);
+            => await NavigateToAsync(page?.GetType().Name, pageBase, args);
 
-        private async Task<NavigationResult> GoToAsync(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        public async Task<NavigationResult> NavigateToAsync(string page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+            => await GoToAsync(page, pageBase, args);
+
+        private async Task<NavigationResult> GoToAsync(string page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
         {
             try
             {
@@ -47,12 +50,14 @@ namespace Aplicacion.Common.MVVM.Navigation.Services
         #region NavigateToRoot
         public async Task<NavigationResult> NavigateToRootAsync<TView>(PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
             where TView : Page
-            => await GoToRootAsync(typeof(TView), pageBase, args);
+            => await NavigateToAsync(typeof(TView).Name, pageBase, args);
 
         public async Task<NavigationResult> NavigateToRootAsync(Page page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
-            => await GoToRootAsync(page?.GetType(), pageBase, args);
+            => await NavigateToAsync(page?.GetType().Name, pageBase, args);
+        public async Task<NavigationResult> NavigateToRootAsync(string page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+            => await GoToRootAsync(page, pageBase, args);
 
-        private async Task<NavigationResult> GoToRootAsync(Type page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
+        private async Task<NavigationResult> GoToRootAsync(string page, PagesBaseEnum pageBase = PagesBaseEnum.ContentPage, Dictionary<string, object> args = null)
         {
             try
             {

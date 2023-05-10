@@ -1,17 +1,11 @@
 ﻿using Acr.UserDialogs;
-using Aplicacion.Common.Helpers;
 using Aplicacion.Common.MVVM.Alerts.Interfaces;
 using Aplicacion.Common.MVVM.Alerts.Services;
 using Aplicacion.Common.MVVM.Navigation.Interfaces;
 using Aplicacion.Common.MVVM.Navigation.Services;
-using Aplicacion.Common.PagesBase;
-using Aplicacion.Common.PagesBase.Enums;
 using Aplicacion.Common.Utils;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Aplicacion.Common.MVVM

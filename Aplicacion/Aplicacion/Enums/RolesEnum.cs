@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Main.Enums
+namespace Aplicacion.Enums
 {
-    public enum MainTypesEnum
+    public enum RolesEnum
     {
-        Worker = 0,
+        Owner = 0,
         Admin = 1,
+        Worker = 2,
     }
 }

@@ -6,7 +6,7 @@ namespace Aplicacion.Config
 {
     internal static class ArgKeys
     {
-        internal static string MainType => "MainType";
+        internal static string Role => "Role";
         internal static string User => "Usuario";
     }
 }

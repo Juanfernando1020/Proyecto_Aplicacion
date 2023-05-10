@@ -23,19 +23,15 @@ namespace Aplicacion.Common.Helpers
         internal static Page CreateView<TView>() => CreateView(typeof(TView));
         internal static Page CreateView<TView>(Dictionary<string, object> args) => CreateView(typeof(TView), args);
         
-        internal static Page CreateView(Type view) => GetPage(view);
-        internal static Page CreateView(Type view, Dictionary<string, object> args) => GetPage(view, args);
+        internal static Page CreateView(Type view) => CreateView(view?.Name);
+        internal static Page CreateView(Type view, Dictionary<string, object> args) => CreateView(view?.Name, args);
 
-        private static Page GetPage(Type view)
-        {
-            ViewsManagerArgs viewsManagerArgs = Current[view.Name];
-            Page page = Activator.CreateInstance(viewsManagerArgs.View) as Page;
+        internal static Page CreateView(string view) => GetPage(view);
+        internal static Page CreateView(string view, Dictionary<string, object> args) => GetPage(view, args);
 
-            return page;
-        }
-        private static Page GetPage(Type view, Dictionary<string, object> args)
+        private static Page GetPage(string view, Dictionary<string, object> args = null)
         {
-            ViewsManagerArgs viewsManagerArgs = Current[view.Name];
+            ViewsManagerArgs viewsManagerArgs = Current[view];
             Page page = Activator.CreateInstance(viewsManagerArgs.View) as Page;
             ViewModelBase viewModel = Activator.CreateInstance(viewsManagerArgs.ViewModel) as ViewModelBase;
 
