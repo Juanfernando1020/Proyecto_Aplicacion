@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aplicacion.Models
 {
-    internal class Routes
+    public class Routes
     {
         public Routes(Guid id, string name, int neighborhood, Guid fk_User, DateTime auditCreationDate, DateTime auditUpdateDate, bool isActive)
         {

@@ -1,4 +1,4 @@
-﻿namespace Aplicacion.Pages.Admin.User.Module
+﻿namespace Aplicacion.Pages.User.Module
 {
     internal static class User
     {

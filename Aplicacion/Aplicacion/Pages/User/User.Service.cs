@@ -1,12 +1,10 @@
 ﻿using Aplicacion.Common.Result;
 using Aplicacion.Common.Utils;
 using Aplicacion.Models;
-using Aplicacion.Pages.Admin.User.Contracts;
-using Aplicacion.Pages.Admin.User.Models;
-using System;
+using Aplicacion.Pages.User.Contracts;
 using System.Threading.Tasks;
 
-namespace Aplicacion.Pages.Admin.User.Service
+namespace Aplicacion.Pages.User.Service
 {
     internal class User : IUserService
     {
@@ -17,27 +15,37 @@ namespace Aplicacion.Pages.Admin.User.Service
             _userRepository = userRepository;
         }
 
-        public async Task<ResultBase> InsertAsync(UserModel user, string adminName)
+        public async Task<ResultBase> InsertAsync(Users user, string confirmPassword)
         {
-            VerifyResponse userVerified = UserVerification(user);
+            VerifyResponse userVerified = UserVerification(user, confirmPassword);
 
             if (!userVerified.Verified)
             {
                 return new ResultBase("InsertAsync", false, userVerified.Message);
             }
 
-            return await _userRepository.InsertAsync(user, adminName);
+            ResultBase<Users> result =  await _userRepository.InsertAsync(user);
+
+            if (result.IsSuccess)
+            {
+                if (!result.Data.Equals(user))
+                {
+                    result.IsSuccess = false;
+                    result.Message = "Ha ocurrido algo en la creación de ";
+                }
+            }
+
+            return result;
         }
 
-        private VerifyResponse UserVerification(UserModel user)
+        private VerifyResponse UserVerification(Users user, string confirmPassword)
         {
             VerifyResponse response = new VerifyResponse();
 
             bool allTrue = MultipleValuesVerification.AllTrueVerification(
                 NameVerification(user.Name, ref response),
                 PhoneVerification(user.Phone, ref response),
-                PasswordVerification(user.Password, user.ConfirmPassword, ref response),
-                LocationVerification(user.Location, ref response)
+                PasswordVerification(user.Password, confirmPassword, ref response)
                 );
 
             response.Verified = allTrue;
@@ -84,13 +92,6 @@ namespace Aplicacion.Pages.Admin.User.Service
             }
 
             return true;
-        }
-        private bool LocationVerification(string location, ref VerifyResponse response)
-        {
-            bool isNull = !string.IsNullOrEmpty(location);
-
-            response.Message = "No hay información en el campo 'Dirección'.";
-            return isNull;
         }
         #endregion
 

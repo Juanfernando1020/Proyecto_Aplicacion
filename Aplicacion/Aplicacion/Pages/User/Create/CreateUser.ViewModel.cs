@@ -1,16 +1,13 @@
 ﻿using Aplicacion.Common.MVVM;
-using Aplicacion.Common.MVVM.Alerts;
 using Aplicacion.Common.MVVM.Alerts.Messages;
 using Aplicacion.Common.Result;
 using Aplicacion.Models;
-using Aplicacion.Pages.Admin.User.Contracts;
-using Aplicacion.Pages.Admin.User.Models;
-using System;
+using Aplicacion.Pages.User.Contracts;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Admin.User.Create.ViewModel
+namespace Aplicacion.Pages.User.Create.ViewModel
 {
     internal class CreateUser : ViewModelBase
     {
@@ -21,8 +18,8 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
         #endregion
 
         #region Properties
-        private UserModel _user;
-        public UserModel User
+        private Users _user;
+        public Users User
         {
             get => _user;
             set
@@ -38,19 +35,6 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
         private async Task CreateUserController()
         {
             IsBusy = true;
-            if (!User.IsAdmin && string.IsNullOrEmpty(adminName))
-            {
-                adminName = await AlertService.ShowPrompt(new PromptMessage("Nombre del administrador", "Ingrese el nombre del administrador:"));
-
-                if (string.IsNullOrEmpty(adminName))
-                {
-                    await AlertService.ShowConfirmAlert(new ConfirmationMessage("Todos los trabajadores deben relacionarse con un administrador."));
-
-                    await CreateUserController();
-                    return;
-                }
-            }
-
             ResultBase result = await _userService.InsertAsync(User, adminName);
 
             if (!result.IsSuccess)
@@ -69,7 +53,7 @@ namespace Aplicacion.Pages.Admin.User.Create.ViewModel
         #region Contructor
         public CreateUser()
         {
-            User = new UserModel();
+            User = default;
 
             _userService = new Service.User(new Repository.User());
         }

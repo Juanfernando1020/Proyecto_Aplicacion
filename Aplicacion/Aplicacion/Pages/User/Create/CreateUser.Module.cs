@@ -1,8 +1,9 @@
 ﻿using Aplicacion.Common.Helpers;
+using Aplicacion.Pages.Admin.User.Create;
 using System;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Admin.User.Create.Module
+namespace Aplicacion.Pages.User.Create.Module
 {
     internal class CreateUser
     {
@@ -21,7 +22,7 @@ namespace Aplicacion.Pages.Admin.User.Create.Module
 
         private static void InitializeDependencyPages()
         {
-            
+
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aplicacion.Models
 {
-    internal class Users
+    public class Users
     {
         public Users(Guid id, string name, string phone, string password, int role, Guid fk_Branch, DateTime auditCreationDate, DateTime auditUpdateDate)
         {
@@ -26,5 +26,20 @@ namespace Aplicacion.Models
         public Guid fk_Branch { get; set; }
         public DateTime AuditCreationDate { get; set; }
         public DateTime AuditUpdateDate { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if(!(obj is Users))
+                return false;
+
+            return Equals((Users)obj);
+        }
+        public bool Equals(Users obj)
+        {
+            return (obj.Name == Name) &&
+                (obj.Phone == Phone) &&
+                (obj.Password == Password) &&
+                (obj.Role == Role);
+        }
     }
 }

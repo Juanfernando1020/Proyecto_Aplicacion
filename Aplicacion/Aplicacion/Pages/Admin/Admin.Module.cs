@@ -9,7 +9,7 @@
 
         private static void InitializeDependencyPages()
         {
-            User.Module.User.Initialize();
+            Pages.User.User.Initialize();
         }
     }
 }
