@@ -1,8 +1,4 @@
 ﻿using Aplicacion.Common.Helpers;
-using Aplicacion.Pages.Worker.Client.Billing.Create;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Worker.Client.Loan.Create.Module
