@@ -24,12 +24,12 @@ namespace Aplicacion.Pages.Account.Login.Repository
 
                 bool userAuthenticated = user != null;
 
-                Application.Current.Properties[ArgKeys.User] = JsonConvert.SerializeObject(user);
+                if(user == null)
+                {
+                    return new ResultBase<Users>("Repository.User.LoginAsync", false, "El usuario o la contraseña no son válidos.");
+                }
 
-                return new ResultBase<Users>("Repository.User.LoginAsync",
-                    userAuthenticated,
-                    userAuthenticated ? null : "El usuario o la contraseña no son válidos.",
-                    user);
+                return new ResultBase<Users>("Repository.User.LoginAsync", true, null, user);
 
             }
             catch (Exception ex)
