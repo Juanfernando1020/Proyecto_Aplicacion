@@ -18,7 +18,7 @@ namespace Aplicacion.Pages.Worker.Client.Create.Module
         {
             return ViewsManager.CreateView<CreateNewClientPage>();
         }
-        private static void InitializeDependencyPages()
+        private static void InitializeDependencyPages()         
         {
         }
     }
