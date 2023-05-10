@@ -50,7 +50,7 @@
                 <custom:CustomEntry
                     x:Name="UbicacionTxt"
                     HorizontalOptions="FillAndExpand"
-                    Placeholder="Ubicación"
+                    Placeholder="Dirección"
                     PlaceholderColor="#656565"
                     TextColor="#333333" />
             </StackLayout>

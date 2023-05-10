@@ -39,16 +39,13 @@
     <EmbeddedResource Update="Pages\Main\Profile\MainProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\AddLoanClient\AddLoanClientPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\BillingProduct\Create\CreateBillingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\Client\Billing\Create\CreateBillingPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\BillingProduct\Detail\DetailBillingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\Client\Billing\Detail\DetailBillingPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\Client\Billing\List\ListBillingPage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Billing\List\ListBillingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Worker\Client\Create\CreateNewClientPage.xaml">
@@ -63,7 +60,10 @@
     <EmbeddedResource Update="Pages\Worker\Client\Loan\Create\CreateLoanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Worker\Finance\Base\list\ListBasePage.xaml">
+    <EmbeddedResource Update="Pages\Worker\Client\Loan\Detail\DetailLoanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Worker\Client\Loan\List\ListLoanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Worker\Finance\Expense\Create\CreateExpensePage.xaml">
@@ -99,9 +99,6 @@
     <Folder Include="Pages\Admin\Information\" />
     <Folder Include="Pages\Admin\Route\Create\" />
     <Folder Include="Pages\Admin\Route\List\" />
-    <Folder Include="Pages\Worker\Client\Loan\List\" />
-    <Folder Include="Pages\Worker\Client\Loan\Detail\" />
-    <Folder Include="Pages\Worker\Finance\Base\Add\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
 

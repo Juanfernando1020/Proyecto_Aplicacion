@@ -18,7 +18,6 @@ namespace Aplicacion.Pages.Module
             Worker.Module.Worker.Initialize();  
             Main.Module.Main.Initialize();
             Admin.Module.Admin.Initialize();
-            Worker.AddLoanClient.Module.AddLoanClient.Initialize();
         }
     }
 }

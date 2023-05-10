@@ -15,7 +15,6 @@ namespace Aplicacion.Pages.Worker.Finance.Module
         private static void InitializeDependencyPages()
         {
         Expense.Module.Expense.Initialize();
-        Base.Module.Base.Initialize();
         }
     }
 }

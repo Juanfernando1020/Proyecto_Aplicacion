@@ -1,9 +1,9 @@
 ﻿using Aplicacion.Common.Helpers;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.Worker.Finance.Expense.Create.Module
+namespace Aplicacion.Pages.Worker.Client.Billing.BillingProduct.Create.Module
 {
-    internal static class CreateExpense
+    internal static class CreateBilling
     {
         internal static void Initialize()
         {
@@ -12,11 +12,11 @@ namespace Aplicacion.Pages.Worker.Finance.Expense.Create.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<CreateExpensePage, ViewModel.CreateExpense>();
+            ViewsManager.RegisterView<CreateBillingPage, ViewModel.CreateBilling>();
         }
         internal static Page CreatePage()
         {
-            return ViewsManager.CreateView<CreateExpensePage>();
+            return ViewsManager.CreateView<CreateBillingPage>();
         }
         private static void InitializeDependencyPages()
         {

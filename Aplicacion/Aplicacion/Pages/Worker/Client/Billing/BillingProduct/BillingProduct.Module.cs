@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacion.Pages.Worker.Client.Loan.Module
+namespace Aplicacion.Pages.Worker.Client.Billing.BillingProduct.Module
 {
-    internal static class Loan
+    internal static class BillingProduct
     {
         internal static void Initialize()
         {
@@ -12,9 +12,8 @@ namespace Aplicacion.Pages.Worker.Client.Loan.Module
         }
         private static void InitializeDependencyPages()
         {
-            Create.Module.CreateLoan.Initialize();
-            Detail.Module.DetailLoan.Initialize();
-            List.Module.ListLoan.Initialize();
+            Create.Module.CreateBilling.Initialize();
+            Detail.Module.DetailBilling.Initialize();
         }
     }
 }

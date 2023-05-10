@@ -13,9 +13,8 @@ namespace Aplicacion.Pages.Worker.Client.Billing.Module
 
         private static void InitializeDependencyPages()
         {
-            Create.Module.CreateBilling.Initialize();
-            Detail.Module.DetailBilling.Initialize();
-            List.Module.ListBilling.Initialize();
+            BillingProduct.Module.BillingProduct.Initialize();
+            List.Module.ListBillings.Initialize();
         }
 
     }

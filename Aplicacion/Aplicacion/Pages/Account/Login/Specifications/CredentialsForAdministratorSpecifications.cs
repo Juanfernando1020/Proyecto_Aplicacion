@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Aplicacion.Pages.Account.Login.Specifications
 {
-    internal class CredentialsForAdministratorSpecifications : SpecificationBase<Administrador>
+    internal class CredentialsForAdministratorSpecifications : SpecificationBase<Users>
     {
         private readonly Credentials _credentials;
         public CredentialsForAdministratorSpecifications(Credentials credentials) => _credentials = credentials;
-        public override Expression<Func<Administrador, bool>> ToExpression() => 
-            admin => admin.Phone.Equals(_credentials.Username) && admin.Password.Equals(_credentials.Password);
+        public override Expression<Func<Users, bool>> ToExpression() => 
+            Users => Users.Phone.Equals(_credentials.Username) && Users.Password.Equals(_credentials.Password);
     }
 }
