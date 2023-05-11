@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Aplicacion.Models
 {
@@ -20,7 +19,7 @@ namespace Aplicacion.Models
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Phone { get; set; } 
+        public string Phone { get; set; }
         public string Password { get; set; }
         public int Role { get; set; }
         public Guid fk_Branch { get; set; }
@@ -29,7 +28,7 @@ namespace Aplicacion.Models
 
         public override bool Equals(object obj)
         {
-            if(!(obj is Users))
+            if (!(obj is Users))
                 return false;
 
             return Equals((Users)obj);

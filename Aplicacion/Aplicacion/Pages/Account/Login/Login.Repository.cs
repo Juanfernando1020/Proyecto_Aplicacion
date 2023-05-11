@@ -26,7 +26,7 @@ namespace Aplicacion.Pages.Account.Login.Repository
 
                 if(user == null)
                 {
-                    return new ResultBase<Users>("Repository.User.LoginAsync", false, "El usuario o la contraseña no son válidos.");
+                    return new ResultBase<Users>("Repository.Login.LoginAsync", false, "El usuario o la contraseña no son válidos.");
                 }
 
                 return new ResultBase<Users>("Repository.User.LoginAsync", true, null, user);

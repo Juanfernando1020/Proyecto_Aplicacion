@@ -1,9 +1,7 @@
-﻿using Aplicacion.Common.Helpers;
-using Aplicacion.Common.Helpers.Firebase;
-using Aplicacion.Common.MVVM;
+﻿using Aplicacion.Common.Helpers.Firebase;
+using Aplicacion.Common.Helpers;
 using Aplicacion.Common.MVVM.Navigation.Interfaces;
-using Aplicacion.Common.MVVM.Navigation.Services;
-using System;
+using Aplicacion.Common.MVVM;
 using Xamarin.Forms;
 
 namespace Aplicacion.Module
@@ -12,6 +10,7 @@ namespace Aplicacion.Module
     {
         public static ViewModelBase ViewModel { get; set; }
         public static INavigationService NavigationService { get; set; }
+        public static string setting = "value"; // AQUI TENGO PREGUNTA 
 
         public static Page Initialize()
         {
@@ -24,7 +23,7 @@ namespace Aplicacion.Module
         private static Page GetInitPage()
         {
             Page page = ViewsManager.CreateView<Pages.Account.Login.LoginPage>();
-            
+
             return new NavigationPage(page);
         }
     }
