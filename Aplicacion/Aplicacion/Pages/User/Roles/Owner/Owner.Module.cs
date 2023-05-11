@@ -1,16 +1,13 @@
-﻿namespace Aplicacion.Pages.User.Module
+﻿namespace Aplicacion.Pages.User.Roles.Owner.Module
 {
-    internal static class User
+    internal static class Owner
     {
         internal static void Initialize()
         {
             InitializeDependencyPages();
         }
-
         private static void InitializeDependencyPages()
         {
-            Create.Module.CreateUser.Initialize();
-            Roles.Module.Roles.Initialize();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Aplicacion.Pages.User.Module
+﻿namespace Aplicacion.Pages.User.Roles.Worker.Module
 {
-    internal static class User
+    internal static class Worker
     {
         internal static void Initialize()
         {
@@ -9,8 +9,8 @@
 
         private static void InitializeDependencyPages()
         {
-            Create.Module.CreateUser.Initialize();
-            Roles.Module.Roles.Initialize();
+            Client.Module.Client.Initialize();
+            Finance.Module.Finance.Initialize();
         }
     }
 }

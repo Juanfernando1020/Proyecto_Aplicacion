@@ -1,9 +1,4 @@
-﻿using Aplicacion.Pages.Worker.Finance.Module;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aplicacion.Pages.Module
+﻿namespace Aplicacion.Pages.Module
 {
     internal static class Pages
     {
@@ -15,10 +10,8 @@ namespace Aplicacion.Pages.Module
         private static void InitializeDependecyPages()
         {
             Account.Module.Account.Initialize();
-            Worker.Module.Worker.Initialize();  
             Main.Module.Main.Initialize();
-            Admin.Module.Admin.Initialize();
-            Owner.Module.Owner.Initialize();
+            User.Module.User.Initialize();
         }
     }
 }

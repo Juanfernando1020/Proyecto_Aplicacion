@@ -1,7 +1,7 @@
-﻿using Aplicacion.Enums;
-using Aplicacion.Models;
+﻿using Aplicacion.Models;
 using Aplicacion.Pages.Main.Profile.Models;
 using Aplicacion.Pages.User.Contracts;
+using Aplicacion.Pages.User.Roles.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;

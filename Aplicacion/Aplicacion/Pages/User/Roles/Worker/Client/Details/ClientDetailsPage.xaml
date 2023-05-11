@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Aplicacion.Pages.User.Roles.Worker.Client.Details.ClientDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#829CA6">
+    <ContentPage.Content>
+        <Grid Padding="10" RowSpacing="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="20">
+                <Image Source="usuario" WidthRequest="60" />
+            </StackLayout>
+            <Frame Grid.Row="1" CornerRadius="20">
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" TextColor="Black">Nombre:</Label>
+                    <Label>Bindign Nombre del cliente</Label>
+                </StackLayout>
+            </Frame>
+            <Frame Grid.Row="2" CornerRadius="20">
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" TextColor="Black">Télefono:</Label>
+                    <Label>Bindign numero del cliente</Label>
+                </StackLayout>
+            </Frame>
+            <Frame Grid.Row="3" CornerRadius="20">
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" TextColor="Black">Dirección:</Label>
+                    <Label>Bindign direccion</Label>
+                </StackLayout>
+            </Frame>
+            <StackLayout
+                Grid.Row="4"
+                Margin="20,0,10,9"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Button
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    CornerRadius="20"
+                    Text="Llamar" />
+                <Button
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    CornerRadius="20"
+                    Text="Ver deudas" />
+                <Button
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    CornerRadius="20"
+                    Text="Ver pagos" />
+            </StackLayout>
+            <Grid Grid.Row="5" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    Source="Trash"
+                    WidthRequest="30" />
+                <Label
+                    Grid.Column="1"
+                    FontSize="20"
+                    Text="Eliminar cliente"
+                    TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <!-- <TapGestureRecognizer Tapped="OnDeleteClientTapped"/> !-->
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

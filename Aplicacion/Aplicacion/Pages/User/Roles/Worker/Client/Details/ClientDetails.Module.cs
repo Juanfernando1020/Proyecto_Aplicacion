@@ -1,18 +1,16 @@
 ﻿using Aplicacion.Common.Helpers;
 
-namespace Aplicacion.Pages.Main.Module
+namespace Aplicacion.Pages.User.Roles.Worker.Client.Details.Module
 {
-    internal static class Main
+    internal static class ClientDetails
     {
         internal static void Initialize()
         {
             RegisterPage();
         }
-
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<MainPage, ViewModel.Main>();
+            ViewsManager.RegisterView<ClientDetailsPage, ViewModel.ClientDetails>();
         }
-
     }
 }

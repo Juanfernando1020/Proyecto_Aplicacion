@@ -1,18 +1,16 @@
 ﻿using Aplicacion.Common.Helpers;
 
-namespace Aplicacion.Pages.Main.Module
+namespace Aplicacion.Pages.User.Roles.Worker.Client.Billing.Create.Module
 {
-    internal static class Main
+    internal static class BillingCreate
     {
         internal static void Initialize()
         {
             RegisterPage();
         }
-
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<MainPage, ViewModel.Main>();
+            ViewsManager.RegisterView<BillingCreatePage, ViewModel.BillingCreate>();
         }
-
     }
 }

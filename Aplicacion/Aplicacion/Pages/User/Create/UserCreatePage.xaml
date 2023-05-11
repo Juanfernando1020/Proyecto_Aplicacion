@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageBase
+    x:Class="Aplicacion.Pages.Admin.User.Create.UserCreatePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    BackgroundColor="#829CA6">
+    <local:ContentPageBase.Content>
+        <StackLayout
+            Margin="30"
+            Spacing="50"
+            VerticalOptions="Center">
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Nombre de Usuario"
+                    PlaceholderColor="#656565"
+                    Text="{Binding User.Name}"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="pngegg__2_.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Numeric"
+                    Placeholder="Numero de Teléfono"
+                    PlaceholderColor="#656565"
+                    Text="{Binding User.Phone}"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="icon_metro_location.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Ubicación"
+                    PlaceholderColor="#656565"
+                    Text="{Binding User.Location}"
+                    TextColor="#333333" />
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="Password.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="True"
+                    Placeholder="Contraseña"
+                    PlaceholderColor="#656565"
+                    Text="{Binding User.Password}"
+                    TextColor="#333333" />
+            </StackLayout>
+
+
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Image
+                    HeightRequest="50"
+                    Source="Password.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <custom:CustomEntry
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="True"
+                    Placeholder="Confirmar contraseña"
+                    PlaceholderColor="#656565"
+                    Text="{Binding User.ConfirmPassword}"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <CheckBox IsChecked="{Binding User.IsAdmin}" Color="#707070" />
+                <Label
+                    Text="¿Crear como Administrador?"
+                    TextColor="#333333"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <Button
+                BackgroundColor="#D1DFE1"
+                BorderColor="#707070"
+                BorderWidth="3"
+                Command="{Binding UserCreateCommand}"
+                CornerRadius="15"
+                HorizontalOptions="Center"
+                Text="Agregar usuario"
+                TextColor="#333333" />
+
+            <!--<Image
+                x:Name="Boton_Regreso"
+                Margin="20"
+                Aspect="AspectFit"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Source="Back.png"
+                VerticalOptions="End"
+                WidthRequest="30">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackButtonTapped" />
+                </Image.GestureRecognizers>
+            </Image>-->
+
+        </StackLayout>
+    </local:ContentPageBase.Content>
+</local:ContentPageBase>
