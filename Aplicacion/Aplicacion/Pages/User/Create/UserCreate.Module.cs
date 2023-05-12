@@ -9,17 +9,12 @@ namespace Aplicacion.Pages.User.Create.Module
     {
         internal static void Initialize()
         {
-            InitializeDependencyPages();
             RegisterPage();
         }
 
         private static void RegisterPage()
         {
             ViewsManager.RegisterView<UserCreatePage, ViewModel.UserCreate>();
-        }
-        private static void InitializeDependencyPages()
-        {
-
         }
     }
 }

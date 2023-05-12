@@ -1,10 +1,9 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts.Messages;
 using Aplicacion.Config;
-using Aplicacion.Enums;
 using Aplicacion.Models;
-using Aplicacion.Pages.Main.Profile.Models;
 using Aplicacion.Pages.User.Contracts;
+using Aplicacion.Pages.User.Roles.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -82,10 +81,10 @@ namespace Aplicacion.Pages.User.Details.ViewModel
             }
 
             rolesEnum = (RolesEnum)Args[ArgKeys.Role];
-            Users worker = JsonConvert.DeserializeObject<Users>((string)Application.Current.Properties[ArgKeys.User]) ?? default;
-            Users admin = JsonConvert.DeserializeObject<Users>((string)Application.Current.Properties[ArgKeys.User]) ?? default;
+            Users user = JsonConvert.DeserializeObject<Users>((string)Application.Current.Properties[ArgKeys.User]) ?? default;
+          
 
-            var result = _userService.GetByIdAsync(worker.Id);    
+            var result = _userService.GetByIdAsync(user.Id);    
         }
         #endregion
 

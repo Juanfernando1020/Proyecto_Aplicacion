@@ -1,19 +1,16 @@
 ﻿using Aplicacion.Common.MVVM;
-using Aplicacion.Common.MVVM.Alerts;
 using Aplicacion.Common.MVVM.Alerts.Messages;
-using Aplicacion.Common.MVVM.Navigation.Models;
 using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.Main.Enums;
-using Aplicacion.Vistas.VistasAdmin;
-using Newtonsoft.Json;
-using System;
+using Aplicacion.Pages.User.Roles.Enums;
+using Aplicacion.Pages.Main.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Aplicacion.Pages.Main;
 
 namespace Aplicacion.Pages.Account.Login.ViewModel
 {
@@ -48,7 +45,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
-            ResultBase<MainTypesEnum> result = await _loginService.LoginAsync(Credentials);
+            ResultBase<RolesEnum> result = (ResultBase<RolesEnum>)await _loginService.LoginAsync(Credentials);
 
             if (!result.IsSuccess)
             {
@@ -58,9 +55,9 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
-            await NavigationService.NavigateToRootAsync<Main.Dashboard.MainDashboardPage>(args: new Dictionary<string, object>()
+            await NavigationService.NavigateToRootAsync<MainPage>(args: new Dictionary<string, object>()
             {
-                { ArgKeys.MainType, result.Data }
+                { ArgKeys.Role, result.Data }
             });
 
             IsBusy = false;
