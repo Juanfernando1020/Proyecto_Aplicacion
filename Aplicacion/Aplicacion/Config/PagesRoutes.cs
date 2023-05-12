@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aplicacion.Config
 {
-    static class PagesRoutes
+    static class RoutePages
     {
         #region "User Pages"
         static string UserCreatePage => UserCreatePage;
