@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts.Messages;
 using Aplicacion.Common.PagesBase.Enums;
+using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Main.Contracts;
 using Aplicacion.Pages.User.Roles.Enums;
@@ -68,18 +69,28 @@ namespace Aplicacion.Pages.Main.ViewModel
         {
             if (!Args.ContainsKey(ArgKeys.Role))
             {
-                Console.WriteLine($"It was missing the '{ArgKeys.Role}' key.");
-                await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
-                await NavigationService.PopAsync();
+                Console.WriteLine(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Role));
+                await InitializeProcessWasFailed();
                 return;
             }
             IsBusy = true;
             role = (RolesEnum)Args[ArgKeys.Role];
 
-            IEnumerable<Models.Menu> menu = await service.GetMenuAsync(role);
+            ResultBase<IEnumerable<Models.Menu>> result = await service.GetMenuAsync(role);
 
-            MenuItems = menu.ToList();
+            if (!result.IsSuccess)
+            {
+                await InitializeProcessWasFailed();
+            }
+
+            MenuItems = result.Data.ToList();
             IsBusy = false;
+        }
+
+        private async Task InitializeProcessWasFailed()
+        {
+            await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+            await NavigationService.PopAsync();
         }
         #endregion
     }

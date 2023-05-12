@@ -4,8 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
-    x:DataType="{x:Type viewModel:MainProfile}">
-    >
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Details.ViewModel"
+    x:DataType="{x:Type viewModel:UserDetails}">
+
     <local:ContentPageBase.Content>
         <AbsoluteLayout>
             <BoxView AbsoluteLayout.LayoutBounds="0,0,428,926" Color="#829ca6" />
@@ -44,14 +45,14 @@
                 FontFamily="Sans Serif Collection"
                 FontSize="16"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Information.Name}"
+                Text="{Binding User.Name}"
                 TextColor="#000000" />
             <Label
                 AbsoluteLayout.LayoutBounds="140,300,121,50"
                 FontFamily="Sans Serif Collection"
                 FontSize="16"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Information.Phone}"
+                Text="{Binding User.Phone}"
                 TextColor="#000000" />
 
             <BoxView
@@ -60,7 +61,7 @@
                 Color="#ffffff" />
             <Image AbsoluteLayout.LayoutBounds="55,465,280,2" Source="line_4.png" />
             <Image AbsoluteLayout.LayoutBounds="89.36,380,19.28,30.85" Source="icon_metro_location.png" />
-            <Label
+            <!--<Label
                 AbsoluteLayout.LayoutBounds="113,375,135,61"
                 FontFamily="Sans Serif Collection"
                 FontSize="30"
@@ -72,14 +73,14 @@
                 FontFamily="Sans Serif Collection"
                 FontSize="16"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Information.Location}"
+                Text="{Binding User.Location}"
                 TextColor="#000000" />
             <BoxView
                 AbsoluteLayout.LayoutBounds="45,535,304,104"
                 CornerRadius="20"
                 Color="#ffffff" />
             <Image AbsoluteLayout.LayoutBounds="55,625,280,2" Source="line_5.png" />
-            <Image AbsoluteLayout.LayoutBounds="83.25,540,31.5,36" Source="icon_awesome_user_tie.png" />
+            <Image AbsoluteLayout.LayoutBounds="83.25,540,31.5,36" Source="icon_awesome_user_tie.png" />-->
 
             <Label
                 AbsoluteLayout.LayoutBounds="119,540,93,61"
@@ -93,7 +94,7 @@
                 FontFamily="Sans Serif Collection"
                 FontSize="16"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Information.Admin}"
+                Text="{Binding User.fk_User}"
                 TextColor="#000000" />
             <Label
                 AbsoluteLayout.LayoutBounds="35,710,223,57"

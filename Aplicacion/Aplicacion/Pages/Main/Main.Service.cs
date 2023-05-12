@@ -1,4 +1,5 @@
-﻿using Aplicacion.Models;
+﻿using Aplicacion.Common.Result;
+using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;
 using Aplicacion.Pages.User.Roles.Enums;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Aplicacion.Pages.Main.Service
             repository = _repository;
         }
 
-        public async Task<IEnumerable<Menu>> GetMenuAsync(RolesEnum role)
+        public async Task<ResultBase<IEnumerable<Menu>>> GetMenuAsync(RolesEnum role)
         {
             return await _repository.GetMenuAsync(role);
         }

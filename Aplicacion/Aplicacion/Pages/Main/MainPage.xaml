@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
     xmlns:models="clr-namespace:Aplicacion.Models"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Main.ViewModel"
-    x:Name="MainPage"
     x:DataType="{x:Type viewModel:Main}"
     NavigationPage.HasNavigationBar="False">
     <local:ContentPageBase.Content>

@@ -13,10 +13,13 @@
   <ItemGroup>
     <Compile Remove="Helpers\**" />
     <Compile Remove="ViewModel\**" />
+    <Compile Remove="Views\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="ViewModel\**" />
+    <EmbeddedResource Remove="Views\**" />
     <None Remove="Helpers\**" />
     <None Remove="ViewModel\**" />
+    <None Remove="Views\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,31 +76,6 @@
     <EmbeddedResource Update="Pages\User\Roles\Worker\Finance\Expense\List\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasAdmin\CrearUsuario.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasAdmin\CreaRuta.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasAdmin\Informacion_Admin.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasAdmin\MisRutasAdmin.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasAdmin\PanelAdmin.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasTrabajador\Informacion_Trabajador.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\VistasTrabajador\PanelTrabajador.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

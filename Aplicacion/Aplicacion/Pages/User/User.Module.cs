@@ -9,7 +9,7 @@
 
         private static void InitializeDependencyPages()
         {
-            Create.Module.CreateUser.Initialize();
+            Create.Module.UserCreate.Initialize();
             Roles.Module.Roles.Initialize();
         }
     }
