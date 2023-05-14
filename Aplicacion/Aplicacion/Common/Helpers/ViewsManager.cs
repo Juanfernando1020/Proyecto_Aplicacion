@@ -56,7 +56,7 @@ namespace Aplicacion.Common.Helpers
             if(_viewsDictionary.ContainsKey(dictionaryKey))
                 throw new KeyWasAlreadyAddedException(dictionaryKey);
 
-            if(!dictionaryKey.EndsWith("Page"))
+            if(!dictionaryKey.EndsWith("Page") || dictionaryKey.EndsWith("View"))
                 throw new ViewNameFormatException(dictionaryKey);
 
             if(!viewModel.Namespace.EndsWith("ViewModel"))
