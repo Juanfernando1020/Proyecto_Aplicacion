@@ -10,9 +10,6 @@ namespace Aplicacion.Common.Helpers.SecureStorage.Services.Transactions
 {
     internal class SecureStorageRead : ISecureStorageRead
     {
-        public async Task<T> ReadAsync<T>(string key)
-            => JsonConvert.DeserializeObject<T>(await ReadAsync(key));
-
         public async Task<string> ReadAsync(string key)
             => await GetAsync(key);
 

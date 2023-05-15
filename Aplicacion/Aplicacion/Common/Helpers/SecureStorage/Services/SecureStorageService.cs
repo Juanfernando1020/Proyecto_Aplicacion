@@ -27,13 +27,15 @@ namespace Aplicacion.Common.Helpers.SecureStorage.Service
 
         public async Task DeleteAsync(string key) => await _deleteService.DeleteAsync(key);
 
-        public async Task<T> ReadAsync<T>(string key) => await _readService.ReadAsync<T>(key);
-
         public async Task<string> ReadAsync(string key) => await _readService.ReadAsync(key);
 
-        public async Task SaveAsync<T>(string key, T value) => await _createService.SaveAsync(key, value);
+        public async Task SaveAsync(string key, Guid value) => await _createService.SaveAsync(key, value);
 
-        public async Task SaveAsync(string key, object value) => await _createService.SaveAsync(key, value);
+        public async Task SaveAsync(string key, double value) => await _createService.SaveAsync(key, value);
+
+        public async Task SaveAsync(string key, decimal value) => await _createService.SaveAsync(key, value);
+
+        public async Task SaveAsync(string key, int value) => await _createService.SaveAsync(key, value);
 
         public async Task UpdateAsync<T>(string key, T newValue) => await _updateService.UpdateAsync(key, newValue);
 

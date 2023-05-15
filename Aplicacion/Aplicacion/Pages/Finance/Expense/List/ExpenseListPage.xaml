@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageBase
+    x:Class="Aplicacion.Pages.Finance.Expense.List.ExpenseListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    BackgroundColor="#829CA6">
+    <ScrollView>
+        <StackLayout Margin="20" Padding="10">
+            <Label
+                Margin="0,0,0,20"
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="GASTOS DEL DÍA"
+                TextColor="Black" />
+
+            <CollectionView>
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Gasolina</x:String>
+                        <x:String>Almuerzo</x:String>
+                        <x:String>Peaje</x:String>
+                        <x:String>Comida</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="30" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="0,20,0,0">
+                            <Frame
+                                BackgroundColor="White"
+                                BorderColor="#707070"
+                                CornerRadius="15">
+                                <StackLayout Margin="1">
+                                    <Label
+                                        FontSize="20"
+                                        Text="Especificación del gasto:"
+                                        TextColor="Black" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text=" Nombre:"
+                                            TextColor="Black" />
+                                        <Label Text="{Binding .}" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text=" Precio:"
+                                            TextColor="Black" />
+                                        <Label Text=" ( Binding del precio)" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Margin="0,20,0,40"
+                BackgroundColor="White"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                HeightRequest="50"
+                Text="Agregar nuevo gasto"
+                TextColor="Black"
+                VerticalOptions="End"
+                WidthRequest="300" />
+
+        </StackLayout>
+    </ScrollView>
+</local:ContentPageBase>

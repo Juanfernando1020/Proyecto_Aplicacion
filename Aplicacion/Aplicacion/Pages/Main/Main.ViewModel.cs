@@ -3,8 +3,9 @@ using Aplicacion.Common.MVVM.Alerts.Messages;
 using Aplicacion.Common.PagesBase.Enums;
 using Aplicacion.Common.Result;
 using Aplicacion.Config;
+using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;
-using Aplicacion.Pages.User.Roles.Enums;
+using Aplicacion.Pages.User.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,8 @@ namespace Aplicacion.Pages.Main.ViewModel
         #endregion
 
         #region Properties
-        private List<Models.Menu> _menuItems;
-        public List<Models.Menu> MenuItems
+        private List<Modules> _menuItems;
+        public List<Modules> MenuItems
         {
             get => _menuItems;
             set
@@ -32,11 +33,11 @@ namespace Aplicacion.Pages.Main.ViewModel
             }
         }
 
-        public ICommand SelectOptionCommand => new Command<Models.Menu>(async (item) => await SelectOptionController(item));
+        public ICommand SelectOptionCommand => new Command<Modules>(async (item) => await SelectOptionController(item));
         #endregion
 
         #region Methods
-        private async Task SelectOptionController(Models.Menu item)
+        private async Task SelectOptionController(Modules item)
         {
             IsBusy = true;
             await NavigationService.NavigateToAsync(item.Page, (PagesBaseEnum)item.PageType, new Dictionary<string, object>()
@@ -50,9 +51,9 @@ namespace Aplicacion.Pages.Main.ViewModel
         #region Constructor
         public Main()
         {
-            service = new Service.Main(new Repository.Main());
+            service = new Service.Main();
 
-            MenuItems = new List<Models.Menu>();
+            MenuItems = new List<Modules>();
         }
         #endregion
 
@@ -70,27 +71,17 @@ namespace Aplicacion.Pages.Main.ViewModel
             if (!Args.ContainsKey(ArgKeys.Role))
             {
                 Console.WriteLine(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Role));
-                await InitializeProcessWasFailed();
+                await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
                 return;
             }
+
             IsBusy = true;
+
             role = (RolesEnum)Args[ArgKeys.Role];
+            IEnumerable<Modules> result = service.GetModulesAsync(role);
+            MenuItems = result.ToList();
 
-            ResultBase<IEnumerable<Models.Menu>> result = await service.GetMenuAsync(role);
-
-            if (!result.IsSuccess)
-            {
-                await InitializeProcessWasFailed();
-            }
-
-            MenuItems = result.Data.ToList();
             IsBusy = false;
-        }
-
-        private async Task InitializeProcessWasFailed()
-        {
-            await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-            await NavigationService.PopAsync();
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Common.Helpers.Firebase;
+using Aplicacion.Common.PagesBase.Enums;
 using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
@@ -21,15 +22,12 @@ namespace Aplicacion.Pages.Account.Login.Repository
             {
                 Users user = await FirebaseHelper.Instance[FirebaseEntities.Users].GetBySpecificationAsync(new CredentialsForUsersSpecifications(credentials));
 
-                bool userAuthenticated = user != null;
-
-                if(user == null)
+                if (user == null)
                 {
                     return new ResultBase<Users>("Repository.Login.LoginAsync", false, "El usuario o la contraseña no son válidos.");
                 }
 
                 return new ResultBase<Users>("Repository.User.LoginAsync", true, null, user);
-
             }
             catch (Exception ex)
             {

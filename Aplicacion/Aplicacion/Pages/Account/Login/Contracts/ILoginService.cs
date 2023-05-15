@@ -1,12 +1,12 @@
 ﻿using Aplicacion.Common.Result;
-using Aplicacion.Models;
 using Aplicacion.Pages.Account.Login.Models;
+using Aplicacion.Pages.User.Enums;
 using System.Threading.Tasks;
 
 namespace Aplicacion.Pages.Account.Login.Contracts
 {
     public interface ILoginService
     {
-        Task<ResultBase> LoginAsync(Credentials credentials);
+        Task<ResultBase<RolesEnum>> LoginAsync(Credentials credentials);
     }
 }

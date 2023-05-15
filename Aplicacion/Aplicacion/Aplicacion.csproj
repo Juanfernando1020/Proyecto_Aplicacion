@@ -43,37 +43,40 @@
     <EmbeddedResource Update="Pages\User\Details\UserDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Billing\Create\BillingCreatePage.xaml">
+    <EmbeddedResource Update="Pages\User\List\UserListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Billing\Details\BillingDetailsPage.xaml">
+    <EmbeddedResource Update="Pages\Billing\Create\BillingCreatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Billing\List\BillingListPage.xaml">
+    <EmbeddedResource Update="Pages\Billing\Details\BillingDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Create\ClientCreatePage.xaml">
+    <EmbeddedResource Update="Pages\Billing\List\BillingListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Details\ClientDetailsPage.xaml">
+    <EmbeddedResource Update="Pages\Client\Create\ClientCreatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\List\ClientListPage.xaml">
+    <EmbeddedResource Update="Pages\Client\Details\ClientDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Loan\Create\LoanCreatePage.xaml">
+    <EmbeddedResource Update="Pages\Client\List\ClientListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Loan\Details\LoanDetailsPage.xaml">
+    <EmbeddedResource Update="Pages\Loan\Create\LoanCreatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Client\Loan\List\LoanListPage.xaml">
+    <EmbeddedResource Update="Pages\Loan\Details\LoanDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Finance\Expense\Create\ExpenseCreatePage.xaml">
+    <EmbeddedResource Update="Pages\Loan\List\LoanListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Roles\Worker\Finance\Expense\List\ExpenseListPage.xaml">
+    <EmbeddedResource Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Finance\Expense\List\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -88,37 +91,37 @@
     <Compile Update="Pages\User\Create\UserCreatePage.xaml.cs">
       <DependentUpon>UserCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Billing\Create\BillingCreatePage.xaml.cs">
+    <Compile Update="Pages\Billing\Create\BillingCreatePage.xaml.cs">
       <DependentUpon>BillingCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Billing\Details\BillingDetailsPage.xaml.cs">
+    <Compile Update="Pages\Billing\Details\BillingDetailsPage.xaml.cs">
       <DependentUpon>BillingDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Billing\List\BillingListPage.xaml.cs">
+    <Compile Update="Pages\Billing\List\BillingListPage.xaml.cs">
       <DependentUpon>BillingListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Create\ClientCreatePage.xaml.cs">
+    <Compile Update="Pages\Client\Create\ClientCreatePage.xaml.cs">
       <DependentUpon>ClientCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Details\ClientDetailsPage.xaml.cs">
+    <Compile Update="Pages\Client\Details\ClientDetailsPage.xaml.cs">
       <DependentUpon>ClientDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\List\ClientListPage.xaml.cs">
+    <Compile Update="Pages\Client\List\ClientListPage.xaml.cs">
       <DependentUpon>ClientListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Loan\Create\LoanCreatePage.xaml.cs">
+    <Compile Update="Pages\Loan\Create\LoanCreatePage.xaml.cs">
       <DependentUpon>LoanCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Loan\Details\LoanDetailsPage.xaml.cs">
+    <Compile Update="Pages\Loan\Details\LoanDetailsPage.xaml.cs">
       <DependentUpon>LoanDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Client\Loan\List\LoanListPage.xaml.cs">
+    <Compile Update="Pages\Loan\List\LoanListPage.xaml.cs">
       <DependentUpon>LoanListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Finance\Expense\Create\ExpenseCreatePage.xaml.cs">
+    <Compile Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml.cs">
       <DependentUpon>ExpenseCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\Roles\Worker\Finance\Expense\List\ExpenseListPage.xaml.cs">
+    <Compile Update="Pages\Finance\Expense\List\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

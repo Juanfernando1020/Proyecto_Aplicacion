@@ -7,7 +7,8 @@ namespace Aplicacion.Pages.User.Contracts
 {
     public interface IUserService
     {
+        Task<Guid> GetUserId();
         Task<ResultBase> InsertAsync(Users user, string confirmPassword);
-        Task<ResultBase<Users>> GetByIdAsync(Guid user);
+        Task<ResultBase<Users>> GetByIdAsync(Guid? user);
     }
 }

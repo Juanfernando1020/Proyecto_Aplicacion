@@ -1,6 +1,6 @@
-﻿using Aplicacion.Pages.User.Roles.Worker.Client.Create;
-using Aplicacion.Pages.User.Roles.Worker.Client.Details;
-using Aplicacion.Pages.User.Roles.Worker.Client.List;
+﻿using Aplicacion.Pages.Client.Create;
+using Aplicacion.Pages.Client.Details;
+using Aplicacion.Pages.Client.List;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +20,7 @@ namespace Aplicacion.Config
         {
             internal static string Create => "UserCreatePage";
             internal static string Details => "UserDetailsPage";
+            internal static string List => "UserListPage";
         }
 
         internal static class Billing

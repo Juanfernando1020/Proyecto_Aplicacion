@@ -1,9 +1,10 @@
 ﻿using Aplicacion.Common.MVVM;
 using Aplicacion.Common.MVVM.Alerts.Messages;
+using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
-using Aplicacion.Pages.User.Roles.Enums;
+using Aplicacion.Pages.User.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -72,19 +73,26 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #region OnLoad
         private async void OnLoad()
         {
-            if (!Args.ContainsKey(ArgKeys.Role))
+            Guid userId = await _userService.GetUserId();
+
+            if (userId == null || userId == Guid.Empty)
             {
-                Console.WriteLine("It was missing the 'MainType' key.");
+                Console.WriteLine("It was missing the 'userId' key.");
                 await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
                 await NavigationService.PopAsync();
                 return;
             }
 
-            rolesEnum = (RolesEnum)Args[ArgKeys.Role];
-            Users user = JsonConvert.DeserializeObject<Users>((string)Application.Current.Properties[ArgKeys.User]) ?? default;
-          
+            ResultBase<Users> result = await _userService.GetByIdAsync(userId);
 
-            var result = _userService.GetByIdAsync(user.Id);    
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
+                await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
+                await NavigationService.PopAsync();
+            }
+
+            User = result.Data;
         }
         #endregion
 

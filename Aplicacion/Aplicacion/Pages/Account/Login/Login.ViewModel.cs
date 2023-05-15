@@ -4,13 +4,13 @@ using Aplicacion.Common.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.User.Roles.Enums;
 using Aplicacion.Pages.Main.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Aplicacion.Pages.Main;
+using Aplicacion.Pages.User.Enums;
 
 namespace Aplicacion.Pages.Account.Login.ViewModel
 {
@@ -45,7 +45,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
-            ResultBase<RolesEnum> result = (ResultBase<RolesEnum>)await _loginService.LoginAsync(Credentials);
+            ResultBase<RolesEnum> result = await _loginService.LoginAsync(Credentials);
 
             if (!result.IsSuccess)
             {

@@ -1,5 +1,8 @@
-﻿using Aplicacion.Common.Result;
+﻿using Aplicacion.Common.Helpers.SecureStorage.Interfaces;
+using Aplicacion.Common.Helpers.SecureStorage.Service;
+using Aplicacion.Common.Result;
 using Aplicacion.Common.Utils;
+using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
 using System;
@@ -10,10 +13,12 @@ namespace Aplicacion.Pages.User.Service
     internal class User : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ISecureStorageService _secureStorageService;
 
         public User(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+            _secureStorageService = new SecureStorageService();
         }
 
         public async Task<ResultBase> InsertAsync(Users user, string confirmPassword)
@@ -39,15 +44,28 @@ namespace Aplicacion.Pages.User.Service
             return result;
         }
 
-        public async Task<ResultBase<Users>> GetByIdAsync(Guid user)
+        public async Task<ResultBase<Users>> GetByIdAsync(Guid? user)
         {
-            if(user == null || user.Equals(Guid.Empty))
+            if(user == null || user.Value.Equals(Guid.Empty))
             {
                 Console.WriteLine("The parameter 'user' cannot be null or Guid.Empty.");
                 return new ResultBase<Users>("GetByIdAsync", false, "Ha ocurrido algo al momento de traer la información. Intentalo más tarde.");
             }
 
-            return await _userRepository.GetByIdAsync(user);
+            return await _userRepository.GetByIdAsync(user.Value);
+        }
+
+        public async Task<Guid> GetUserId()
+        {
+            Guid id = Guid.Empty;
+            string userId = await _secureStorageService.ReadAsync(ArgKeys.User);
+
+            if (!Guid.TryParse(userId, out id))
+            {
+                return Guid.Empty;
+            }
+
+            return id;
         }
 
         #region Properties Validation

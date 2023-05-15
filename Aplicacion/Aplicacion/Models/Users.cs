@@ -5,7 +5,7 @@ namespace Aplicacion.Models
 {
     public class Users
     {
-        public Users(Guid id, string name, string phone, string password, int role, Guid fk_Branch, DateTime auditCreationDate, DateTime auditUpdateDate, Guid? fk_User = null)
+        public Users(Guid id, string name, string phone, string password, int role, DateTime auditCreationDate, DateTime auditUpdateDate, Guid? fk_User = null, Guid? fk_Branch = null, bool isActive = true)
         {
             Id = id;
             Name = name;
@@ -16,6 +16,7 @@ namespace Aplicacion.Models
             AuditCreationDate = auditCreationDate;
             AuditUpdateDate = auditUpdateDate;
             this.fk_User = fk_User;
+            IsActive = isActive;
         }
 
         public Guid Id { get; set; }
@@ -24,7 +25,8 @@ namespace Aplicacion.Models
         public string Password { get; set; }
         public int Role { get; set; }
         public Guid? fk_User { get; set; }
-        public Guid fk_Branch { get; set; }
+        public Guid? fk_Branch { get; set; }
+        public bool IsActive { get; set; }
         public DateTime AuditCreationDate { get; set; }
         public DateTime AuditUpdateDate { get; set; }
 

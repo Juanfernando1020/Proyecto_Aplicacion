@@ -8,7 +8,9 @@ namespace Aplicacion.Common.Helpers.SecureStorage.Interfaces.Transactions
 {
     public interface ISecureStorageCreate
     {
-        Task SaveAsync<T>(string key, T value);
-        Task SaveAsync(string key, object value);
+        Task SaveAsync(string key, Guid value);
+        Task SaveAsync(string key, double value);
+        Task SaveAsync(string key, decimal value);
+        Task SaveAsync(string key, int value);
     }
 }

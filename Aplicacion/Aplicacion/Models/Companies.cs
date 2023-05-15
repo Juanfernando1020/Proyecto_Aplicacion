@@ -6,10 +6,10 @@ namespace Aplicacion.Models
 {
     internal class Companies
     {
-        public Companies(Guid id, string owner, Guid fk_User, bool isActive, DateTime auditCreationDate, DateTime auditUpdateDate)
+        public Companies(Guid id, string name, Guid fk_User, DateTime auditCreationDate, DateTime auditUpdateDate, bool isActive = true)
         {
             Id = id;
-            Owner = owner;
+            Name = name;
             this.fk_User = fk_User;
             IsActive = isActive;
             AuditCreationDate = auditCreationDate;
@@ -17,7 +17,7 @@ namespace Aplicacion.Models
         }
 
         public Guid Id { get; set; }
-        public string Owner { get; set; }
+        public string Name { get; set; }
         public Guid fk_User { get; set; }
         public bool IsActive { get; set; }
         public DateTime AuditCreationDate { get; set; }
