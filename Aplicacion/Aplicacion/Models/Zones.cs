@@ -4,19 +4,17 @@ using System.Text;
 
 namespace Aplicacion.Models
 {
-    public class Companies
+    public class Zones
     {
-        public Companies(Guid id, string name, Users owner, bool isActive = true)
+        public Zones(Guid id, string name, bool isActive)
         {
             Id = id;
             Name = name;
-            Owner = owner;
             IsActive = isActive;
         }
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Users Owner { get; set; }
         public bool IsActive { get; set; }
     }
 }

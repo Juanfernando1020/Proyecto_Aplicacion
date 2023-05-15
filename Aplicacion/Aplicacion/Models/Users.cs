@@ -5,17 +5,14 @@ namespace Aplicacion.Models
 {
     public class Users
     {
-        public Users(Guid id, string name, string phone, string password, int role, DateTime auditCreationDate, DateTime auditUpdateDate, Guid? fk_User = null, Guid? fk_Branch = null, bool isActive = true)
+        public Users(Guid id, string name, string phone, string password, int role, Branches branch = null, bool isActive = true)
         {
             Id = id;
             Name = name;
             Phone = phone;
             Password = password;
             Role = role;
-            this.fk_Branch = fk_Branch;
-            AuditCreationDate = auditCreationDate;
-            AuditUpdateDate = auditUpdateDate;
-            this.fk_User = fk_User;
+            Branch = branch;
             IsActive = isActive;
         }
 
@@ -24,11 +21,8 @@ namespace Aplicacion.Models
         public string Phone { get; set; }
         public string Password { get; set; }
         public int Role { get; set; }
-        public Guid? fk_User { get; set; }
-        public Guid? fk_Branch { get; set; }
+        public Branches Branch { get; set; }
         public bool IsActive { get; set; }
-        public DateTime AuditCreationDate { get; set; }
-        public DateTime AuditUpdateDate { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -47,15 +41,14 @@ namespace Aplicacion.Models
 
         public override int GetHashCode()
         {
-            int hashCode = -156012685;
+            int hashCode = -426589422;
             hashCode = hashCode * -1521134295 + Id.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Phone);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
             hashCode = hashCode * -1521134295 + Role.GetHashCode();
-            hashCode = hashCode * -1521134295 + fk_Branch.GetHashCode();
-            hashCode = hashCode * -1521134295 + AuditCreationDate.GetHashCode();
-            hashCode = hashCode * -1521134295 + AuditUpdateDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Branches>.Default.GetHashCode(Branch);
+            hashCode = hashCode * -1521134295 + IsActive.GetHashCode();
             return hashCode;
         }
     }
