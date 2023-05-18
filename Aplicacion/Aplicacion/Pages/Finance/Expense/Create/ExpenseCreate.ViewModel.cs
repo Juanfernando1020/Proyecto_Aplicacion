@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.MVVM;
+﻿using Xamarin.CommonToolkit.MVVM;
 
 namespace Aplicacion.Pages.Finance.Expense.Create.ViewModel
 {

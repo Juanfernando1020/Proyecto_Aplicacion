@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.Result;
+﻿using Xamarin.CommonToolkit.Result;
 using Aplicacion.Models;
 using Aplicacion.Pages.Account.Login.Models;
 using System.Threading.Tasks;

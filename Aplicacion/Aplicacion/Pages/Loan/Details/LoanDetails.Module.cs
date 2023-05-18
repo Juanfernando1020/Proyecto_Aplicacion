@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.Helpers;
+﻿using Xamarin.CommonToolkit.Helpers;
 using Aplicacion.Pages.Loan.Details;
 
 namespace Aplicacion.Pages.Loan.Details.Module

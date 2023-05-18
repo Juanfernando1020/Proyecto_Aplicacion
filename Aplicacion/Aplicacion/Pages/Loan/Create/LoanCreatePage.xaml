@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
-    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
     BackgroundColor="#829CA6">
     <local:ContentPageBase.Content>
         <ScrollView>

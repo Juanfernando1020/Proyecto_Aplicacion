@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.PagesBase;
+﻿using Xamarin.CommonToolkit.PagesBase;
 using Xamarin.Forms.Xaml;
 
 namespace Aplicacion.Pages.Loan.Details

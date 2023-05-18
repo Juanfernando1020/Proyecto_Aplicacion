@@ -1,5 +1,5 @@
-﻿using Aplicacion.Common.PagesBase.Enums;
-using Aplicacion.Common.Result;
+﻿using Xamarin.CommonToolkit.PagesBase.Enums;
+using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;

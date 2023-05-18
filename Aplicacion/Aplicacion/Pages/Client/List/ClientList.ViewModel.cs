@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.MVVM;
+﻿using Xamarin.CommonToolkit.MVVM;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Client.List.ViewModel

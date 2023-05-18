@@ -3,7 +3,7 @@
     x:Class="Aplicacion.Pages.Main.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Aplicacion.Common.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
     xmlns:models="clr-namespace:Aplicacion.Models"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Main.ViewModel"
     x:Name="mainPage"

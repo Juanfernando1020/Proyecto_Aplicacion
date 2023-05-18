@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.Result;
+﻿using Xamarin.CommonToolkit.Result;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Enums;
 using System.Collections.Generic;

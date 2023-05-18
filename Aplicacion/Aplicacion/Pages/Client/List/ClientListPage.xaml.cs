@@ -1,5 +1,5 @@
-﻿using Aplicacion.Common.MVVM.Navigation.Services;
-using Aplicacion.Common.PagesBase;
+﻿using Xamarin.CommonToolkit.MVVM.Navigation.Services;
+using Xamarin.CommonToolkit.PagesBase;
 using Aplicacion.Pages.Client.Create;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

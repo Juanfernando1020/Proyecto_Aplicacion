@@ -1,7 +1,7 @@
-﻿using Aplicacion.Common.Helpers.SecureStorage.Interfaces;
-using Aplicacion.Common.Helpers.SecureStorage.Service;
-using Aplicacion.Common.Result;
-using Aplicacion.Common.Utils;
+﻿using Xamarin.CommonToolkit.Helpers.SecureStorage.Interfaces;
+using Xamarin.CommonToolkit.Helpers.SecureStorage.Service;
+using Xamarin.CommonToolkit.Result;
+using Xamarin.CommonToolkit.Utils;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;

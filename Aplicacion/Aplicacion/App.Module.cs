@@ -1,7 +1,7 @@
-﻿using Aplicacion.Common.Helpers.Firebase;
-using Aplicacion.Common.Helpers;
-using Aplicacion.Common.MVVM.Navigation.Interfaces;
-using Aplicacion.Common.MVVM;
+﻿using Xamarin.CommonToolkit.Helpers.Firebase;
+using Xamarin.CommonToolkit.Helpers;
+using Xamarin.CommonToolkit.MVVM.Navigation.Interfaces;
+using Xamarin.CommonToolkit.MVVM;
 using Xamarin.Forms;
 
 namespace Aplicacion.Module

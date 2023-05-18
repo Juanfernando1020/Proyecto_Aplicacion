@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.Result;
+﻿using Xamarin.CommonToolkit.Result;
 using Aplicacion.Models;
 using System;
 using System.Collections.Generic;

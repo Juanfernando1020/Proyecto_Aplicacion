@@ -1,4 +1,4 @@
-﻿using Aplicacion.Common.Specifications;
+﻿using Xamarin.CommonToolkit.Specifications;
 using Aplicacion.Models;
 using System;
 using System.Linq.Expressions;
