@@ -124,7 +124,8 @@
                 Text="Agregar nuevo cliente"
                 TextColor="Black"
                 VerticalOptions="End"
-                WidthRequest="300" />
+                WidthRequest="300" 
+                Clicked="AgregarNuevoClienteButton_Clicked"/>
         </StackLayout>
     </ScrollView>
 </local:ContentPageBase>

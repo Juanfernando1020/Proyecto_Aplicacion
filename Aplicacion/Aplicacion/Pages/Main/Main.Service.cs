@@ -27,12 +27,16 @@ namespace Aplicacion.Pages.Main.Service
             {
                 case RolesEnum.Owner:
                     response.Add(new Modules("Usuarios", RoutePages.User.List, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Crear usuario", RoutePages.User.Create, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Admin:
                     response.Add(new Modules("Rutas", null, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Agregar base a trabajador", null, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Worker:
-                    response.Add(new Modules("Cobros", null, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Clientes", RoutePages.Client.List, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Mis gastos del día", RoutePages.Expense.List,PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Resumen del día", null, PagesBaseEnum.ContentPage));
                     break;
             }
 

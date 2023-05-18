@@ -67,17 +67,6 @@
                 Text="Agregar Cliente"
                 TextColor="#333333" />
 
-            <Image
-                x:Name="Boton_Regreso"
-                Margin="20"
-                Aspect="AspectFit"
-                HeightRequest="50"
-                HorizontalOptions="Start"
-                Source="Back.png"
-                VerticalOptions="End"
-                WidthRequest="30" />
-
-
 
         </StackLayout>
     </local:ContentPageBase.Content>

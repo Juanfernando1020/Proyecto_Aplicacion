@@ -45,5 +45,12 @@ namespace Aplicacion.Config
             internal static string Details => "ClientDetailsPage";
             internal static string List => "ClientListPage";
         }
+
+        internal static class Expense
+        {
+            internal static string List => "ExpenseListPage";
+            internal static string Create => "ExpenseCreatePage";
+
+        }
     }
 }

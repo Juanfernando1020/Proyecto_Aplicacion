@@ -5,7 +5,7 @@ namespace Aplicacion.Models
 {
     public class Users
     {
-        public Users(Guid id, string name, string phone, string password, int role, Branches branch = null, bool isActive = true)
+        public Users(Guid id, string name, string phone, string password, int role, Branches branch = null, bool isActive = true, Users admin = null)
         {
             Id = id;
             Name = name;
@@ -14,6 +14,7 @@ namespace Aplicacion.Models
             Role = role;
             Branch = branch;
             IsActive = isActive;
+            Admin = admin;
         }
 
         public Guid Id { get; set; }
@@ -23,6 +24,8 @@ namespace Aplicacion.Models
         public int Role { get; set; }
         public Branches Branch { get; set; }
         public bool IsActive { get; set; }
+
+        public Users Admin{ get; set; }
 
         public override bool Equals(object obj)
         {

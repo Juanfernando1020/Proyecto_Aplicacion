@@ -55,33 +55,6 @@
                 Text="{Binding User.Phone}"
                 TextColor="#000000" />
 
-            <BoxView
-                AbsoluteLayout.LayoutBounds="45,375,304,104"
-                CornerRadius="20"
-                Color="#ffffff" />
-            <Image AbsoluteLayout.LayoutBounds="55,465,280,2" Source="line_4.png" />
-            <Image AbsoluteLayout.LayoutBounds="89.36,380,19.28,30.85" Source="icon_metro_location.png" />
-            <!--<Label
-                AbsoluteLayout.LayoutBounds="113,375,135,61"
-                FontFamily="Sans Serif Collection"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="Ubicacion"
-                TextColor="#000000" />
-            <Label
-                AbsoluteLayout.LayoutBounds="125,445,143,50"
-                FontFamily="Sans Serif Collection"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                Text="{Binding User.Location}"
-                TextColor="#000000" />
-            <BoxView
-                AbsoluteLayout.LayoutBounds="45,535,304,104"
-                CornerRadius="20"
-                Color="#ffffff" />
-            <Image AbsoluteLayout.LayoutBounds="55,625,280,2" Source="line_5.png" />
-            <Image AbsoluteLayout.LayoutBounds="83.25,540,31.5,36" Source="icon_awesome_user_tie.png" />-->
-
             <Label
                 AbsoluteLayout.LayoutBounds="119,540,93,61"
                 FontFamily="Sans Serif Collection"
@@ -94,7 +67,7 @@
                 FontFamily="Sans Serif Collection"
                 FontSize="16"
                 HorizontalTextAlignment="Center"
-                Text="{Binding User.fk_User}"
+                Text="{Binding User.Admin.Name}"
                 TextColor="#000000" />
             <Label
                 AbsoluteLayout.LayoutBounds="35,710,223,57"

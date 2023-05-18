@@ -36,8 +36,6 @@ namespace Aplicacion.Pages.User.Repository
         {
             try
             {
-                user.AuditCreationDate = DateTime.Now;
-                user.AuditUpdateDate = DateTime.Now;
 
                 Users result = await FirebaseHelper.Instance[FirebaseEntities.Users]
                     .CreateDataAsync(user);

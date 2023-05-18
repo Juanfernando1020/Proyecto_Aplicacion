@@ -3,7 +3,6 @@
     internal static class FirebaseEntities
     {
         internal static string Users => nameof(Models.Users);
-        internal static string Routes_Users => nameof(Models.Routes_Users);
         internal static string Routes => nameof(Models.Routes);
         internal static string Loans => nameof(Models.Loans);
         internal static string Expenses => nameof(Models.Expenses);
