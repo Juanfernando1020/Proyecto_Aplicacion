@@ -8,10 +8,12 @@
     xmlns:customRouteViews="clr-namespace:Aplicacion.Views.Route"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Details.ViewModel"
+    Title="Mi Información"
+    x:DataType="{x:Type viewModel:UserDetails}">
     Title="MI INFORMACIÓN"
     x:DataType="{x:Type viewModel:UserDetails}"
     BackgroundColor="{StaticResource MainBackground}">
-
+    BackgroundColor="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout

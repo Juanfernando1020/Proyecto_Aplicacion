@@ -30,7 +30,6 @@ namespace Aplicacion.Pages.Main.Service
                     response.Add(new Modules("Crear usuario", RoutePages.User.Create, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Admin:
-                    response.Add(new Modules("Rutas", RoutePages.Route.List, PagesBaseEnum.ContentPage));
                     response.Add(new Modules("Agregar base a trabajador", RoutePages.Basis.Add, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Worker:

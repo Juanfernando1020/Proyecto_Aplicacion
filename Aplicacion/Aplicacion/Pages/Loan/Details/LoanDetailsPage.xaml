@@ -4,13 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
-    BackgroundColor="#829CA6"
-    Title="Detalles del Préstamo">
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Details.ViewModel"
+    Title="Detalles del Préstamo"
+    x:DataType="{x:Type viewModel:LoanDetails}"
+    BackgroundColor="#829CA6">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="20" Spacing="0">
-                <StackLayout Padding="20" HorizontalOptions="CenterAndExpand">
-                </StackLayout>
+                <StackLayout Padding="20" HorizontalOptions="CenterAndExpand" />
 
                 <Frame
                     Padding="5"
@@ -71,9 +72,10 @@
                     <Button
                         BorderColor="#707070"
                         BorderWidth="3"
+                        Command="{Binding GoToCreateBillingCommand}"
                         CornerRadius="10"
                         HorizontalOptions="EndAndExpand"
-                        Text="Agregar pago" />
+                        Text="Ver pagos" />
                 </StackLayout>
             </StackLayout>
         </ScrollView>
