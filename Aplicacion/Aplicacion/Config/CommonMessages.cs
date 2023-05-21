@@ -16,5 +16,10 @@
         {
             internal static string MissingKey => "It's missing the '{0}' key.";
         }
+
+        internal static class Form
+        {
+            internal static string NullOrEmptyInfo => "Aún hay campos requeridos vacíos.";
+        }
     }
 }

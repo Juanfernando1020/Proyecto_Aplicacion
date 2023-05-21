@@ -2,10 +2,45 @@
 <Application
     x:Class="Aplicacion.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Xamarin.CommonToolkit.Converters;assembly=Xamarin.CommonToolkit">
     <Application.Resources>
         <ResourceDictionary>
+            <!--#region Colors-->
             <Color x:Key="MainBackground">#829CA6</Color>
+            <Color x:Key="BackgroundEntry">#D1DFE1</Color>
+            <Color x:Key="BackgroundButton">#D1DFE1</Color>
+            <Color x:Key="BorderEntry">#707070</Color>
+            <Color x:Key="BorderButton">#707070</Color>
+            <Color x:Key="TextBlack">Black</Color>
+            <Color x:Key="TextBlackLight">#333333</Color>
+            <!--#endregion-->
+            <!--#region Styles-->
+            <Style TargetType="ScrollView">
+                <Setter Property="VerticalScrollBarVisibility" Value="Never" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
+            </Style>
+            <Style x:Key="NormalLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="TextColor" Value="{StaticResource TextBlack}" />
+            </Style>
+            <Style
+                x:Key="BoldLabel"
+                BasedOn="{StaticResource NormalLabel}"
+                TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundButton}" />
+                <Setter Property="BorderColor" Value="{StaticResource BorderButton}" />
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="TextColor" Value="{StaticResource TextBlackLight}" />
+            </Style>
+            <!--#endregion-->
+            <!--#region Converters-->
+            <converters:NullToBooleanConverter x:Key="NullToBoolean" />
+            <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

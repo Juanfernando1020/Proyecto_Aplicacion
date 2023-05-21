@@ -22,14 +22,9 @@
                     <Grid Padding="2">
                         <Button
                             AutomationProperties.Name="OptionButton"
-                            BackgroundColor="#D1DFE1"
-                            BorderColor="#707070"
-                            BorderWidth="3"
                             Command="{Binding Source={x:Reference mainPage}, Path='BindingContext.SelectOptionCommand'}"
                             CommandParameter="{Binding .}"
-                            CornerRadius="15"
-                            Text="{Binding Name}"
-                            TextColor="#333333" />
+                            Text="{Binding Name}" />
                     </Grid>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>

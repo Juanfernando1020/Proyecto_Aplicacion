@@ -1,4 +1,7 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms.PlatformConfiguration;
+using Application = Xamarin.Forms.Application;
 
 namespace Aplicacion
 {
@@ -13,6 +16,7 @@ namespace Aplicacion
 
         protected override void OnStart()
         {
+            Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
         }
 
         protected override void OnSleep()

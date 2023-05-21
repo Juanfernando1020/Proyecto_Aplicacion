@@ -1,15 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Local:ContentPageBase
+<local:ContentPageBase
     x:Class="Aplicacion.Pages.Route.Create.CreateRoutePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:customEntries="clr-namespace:Aplicacion.Views.Shared.Entries"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Create.ViewModel"
     Title="Crear Ruta"
+    x:DataType="{x:Type viewModel:CreateRoute}"
     Background="{StaticResource MainBackground}">
 
-    <ContentPage.Content>
-        <StackLayout
+    <local:ContentPageBase.Content>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <customEntries:IconEntryView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Nombre"
+                    Text="{Binding Route.Name}" />
+            </StackLayout>
+        </ScrollView>
+        <!--<StackLayout
             Margin="30"
             Spacing="50"
             VerticalOptions="CenterAndExpand">
@@ -60,7 +71,7 @@
                     HorizontalOptions="FillAndExpand"
                     Placeholder="Base de la ruta"
                     PlaceholderColor="#656565"
-                    TextColor="#333333" 
+                    TextColor="#333333"
                     Keyboard="Numeric"/>
             </StackLayout>
 
@@ -73,8 +84,8 @@
                     HorizontalOptions="Center"
                     Text="Crear Ruta"
                     TextColor="#333333"/>
-        </StackLayout>
-            
-    </ContentPage.Content>
+        </StackLayout>-->
 
-</Local:ContentPageBase>
+    </local:ContentPageBase.Content>
+
+</local:ContentPageBase>

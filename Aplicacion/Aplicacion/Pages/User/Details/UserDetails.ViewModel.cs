@@ -10,6 +10,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Collections.Generic;
+using Aplicacion.Pages.Route.Contracts;
+using System.Linq;
 
 namespace Aplicacion.Pages.User.Details.ViewModel
 {
@@ -19,24 +22,46 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         private RolesEnum rolesEnum;
 
         private readonly IUserService _userService;
+        private readonly IRouteService _routeService;
         #endregion
 
         #region Property
-        private Users _user;
-        public Users User
-        {
-            get => _user;
+        private bool canCreateRoute;
+        public bool CanCreateRoute
+        { 
+            get => canCreateRoute;
             set
             {
-                SetProperty(ref _user, value);
+                SetProperty(ref canCreateRoute, value);
             }
         }
 
-        public ICommand EditCommand => new Command(async () => await Editcontroller());
+        private Users user;
+        public Users User
+        {
+            get => user;
+            set
+            {
+                SetProperty(ref user, value);
+            }
+        }
+
+        private List<Routes> routes;
+        public List<Routes> Routes
+        {
+            get => routes;
+            set
+            {
+                SetProperty(ref routes, value);
+            }
+        }
+
+        public ICommand EditCommand => new Command(async () => await EditController());
+        public ICommand GoToCreateRouteCommand => new Command(async () => await GoToCreateRouteController());
         #endregion
 
         #region Method
-        private async Task Editcontroller()
+        private async Task EditController()
         {
             switch (rolesEnum)
             {
@@ -48,51 +73,84 @@ namespace Aplicacion.Pages.User.Details.ViewModel
                     break;
             }
         }
+        private async Task GoToCreateRouteController()
+        {
+            IsBusy = true;
+            await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(args: new Dictionary<string, object>()
+            {
+                { ArgKeys.User, User }
+            });
+            IsBusy = false;
+        }
         #endregion
 
         #region Constructor
         public UserDetails()
         {
+            CanCreateRoute = false;
             User = default;
             _userService = new Service.User(new Repository.User());
-
-
+            _routeService = new Route.Service.Route(new Route.Repository.Route());
         }
         #endregion
 
         #region Overrides
         public override void OnInitialize()
         {
-            IsBusy = true;
             base.OnInitialize();
             OnLoad();
-            IsBusy = false;
         }
         #endregion
 
         #region OnLoad
         private async void OnLoad()
         {
+            IsBusy = true;
             Guid userId = await _userService.GetUserId();
 
-            if (userId == null || userId == Guid.Empty)
+            if (userId != null && userId != Guid.Empty)
             {
-                Console.WriteLine("It was missing the 'userId' key.");
-                await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
-                await NavigationService.PopAsync();
-                return;
+                ResultBase<Users> result = await _userService.GetByIdAsync(userId);
+
+                if (result.IsSuccess)
+                {
+                    CanCreateRoute = true;
+                    User = result.Data;
+
+                    if (User.Role == (int)RolesEnum.Worker)
+                        CanCreateRoute = false;
+                }
+                else
+                {
+                    await ShowErrorResult(result.Message);
+                }
+
+                if (User.Role != (int)RolesEnum.Owner)
+                {
+                    ResultBase<IEnumerable<Routes>> routesResult = await _routeService.GetAllByUserId(userId);
+
+                    if (routesResult.IsSuccess)
+                    {
+                        Routes = routesResult.Data.ToList();
+                    }
+                    else
+                    {
+                        await ShowErrorResult(routesResult.Message);
+                    }
+                }
             }
-
-            ResultBase<Users> result = await _userService.GetByIdAsync(userId);
-
-            if (!result.IsSuccess)
+            else
             {
-                Console.WriteLine(result.Message);
-                await AlertService.ShowAlert(new ErrorMessage("No se puede cargar la información. Intentalo más tarde."));
-                await NavigationService.PopAsync();
+                await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(userId)));
             }
+            IsBusy = false;
+        }
 
-            User = result.Data;
+        private async Task ShowErrorResult(string message)
+        {
+            Console.WriteLine(message);
+            await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+            await NavigationService.PopAsync();
         }
         #endregion
 

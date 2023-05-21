@@ -3,93 +3,53 @@
     x:Class="Aplicacion.Pages.User.Details.UserDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:config="clr-namespace:Aplicacion.Config"
+    xmlns:customEntries="clr-namespace:Aplicacion.Views.Shared.Entries"
+    xmlns:customRouteViews="clr-namespace:Aplicacion.Views.Route"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Details.ViewModel"
     Title="MI INFORMACIÓN"
-    x:DataType="{x:Type viewModel:UserDetails}">
+    x:DataType="{x:Type viewModel:UserDetails}"
+    BackgroundColor="{StaticResource MainBackground}">
 
     <local:ContentPageBase.Content>
-        <AbsoluteLayout>
-            <BoxView AbsoluteLayout.LayoutBounds="0,0,428,926" Color="#829ca6" />
-            <BoxView
-                AbsoluteLayout.LayoutBounds="20,38,352,645"
-                CornerRadius="31"
-                Color="#9dadb4" />
-            <BoxView
-                AbsoluteLayout.LayoutBounds="45,75,304,104"
-                CornerRadius="20"
-                Color="#ffffff" />
-            <Image AbsoluteLayout.LayoutBounds="55,161.5,280,2" Source="line_1.png" />
-            <BoxView
-                AbsoluteLayout.LayoutBounds="45,230,304,104"
-                CornerRadius="20"
-                Color="#ffffff" />
-            <Image AbsoluteLayout.LayoutBounds="55,320,280,2" Source="line_2.png" />
-            <Image AbsoluteLayout.LayoutBounds="69,81,40,40" Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png" />
-            <Label
-                AbsoluteLayout.LayoutBounds="109,78,105,61"
-                FontFamily="Sans Serif Collection"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="Usuario"
-                TextColor="#000000" />
-            <Label
-                AbsoluteLayout.LayoutBounds="113,235,117,61"
-                FontFamily="Sans Serif Collection"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="Telefono"
-                TextColor="#000000" />
-            <Image AbsoluteLayout.LayoutBounds="74,240,38,38" Source="pngegg__2_.png" />
-            <Label
-                AbsoluteLayout.LayoutBounds="107,140,213,50"
-                FontFamily="Sans Serif Collection"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                Text="{Binding User.Name}"
-                TextColor="#000000" />
-            <Label
-                AbsoluteLayout.LayoutBounds="140,300,121,50"
-                FontFamily="Sans Serif Collection"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                Text="{Binding User.Phone}"
-                TextColor="#000000" />
-
-            <Label
-                AbsoluteLayout.LayoutBounds="119,540,93,61"
-                FontFamily="Sans Serif Collection"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="Admin"
-                TextColor="#000000" />
-            <Label
-                AbsoluteLayout.LayoutBounds="125,605,153,50"
-                FontFamily="Sans Serif Collection"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                Text="{Binding User.Admin.Name}"
-                TextColor="#000000" />
-            <Label
-                AbsoluteLayout.LayoutBounds="35,710,223,57"
-                FontFamily="Sans Serif Collection"
-                FontSize="18"
-                HorizontalTextAlignment="Center"
-                Text="Deseas editar algún dato?"
-                TextColor="#ffffff" />
-            <Label
-                AbsoluteLayout.LayoutBounds="285,710,51,37"
-                FontFamily="Segoe UI"
-                FontSize="18"
-                HorizontalTextAlignment="Center"
-                Text="Editar"
-                TextColor="#afd2e0">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding EditCommand}" />
-                </Label.GestureRecognizers>
-            </Label>
-
-            <Image AbsoluteLayout.LayoutBounds="339,710,30,24" Source="_icon_awesome_user_edit.png" />
-        </AbsoluteLayout>
+        <ScrollView>
+            <StackLayout
+                Padding="20"
+                Spacing="20"
+                VerticalOptions="CenterAndExpand">
+                <customEntries:IconEntryView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Nombre"
+                    Text="{Binding User.Name}" />
+                <customEntries:IconEntryView
+                    Icon="pngegg__2_.png"
+                    Label="Telefono"
+                    Text="{Binding User.Phone}" />
+                <customEntries:IconEntryView
+                    Icon="pngegg__2_.png"
+                    IsVisible="{Binding User.Admin, Converter={StaticResource NullToBoolean}}"
+                    Label="Telefono"
+                    Text="{Binding User.Admin.Name}" />
+                <Label Style="{StaticResource BoldLabel}" Text="Rutas" />
+                <CollectionView
+                    EmptyView="No se han encontrado rutas asociadas."
+                    HeightRequest="350"
+                    IsVisible="{Binding Routes, Converter={StaticResource NullToBoolean}}"
+                    ItemsSource="{Binding Routes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <customRouteViews:RouteInfoCard />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button
+                    Command="{Binding GoToCreateRouteCommand}"
+                    IsVisible="{Binding CanCreateRoute}"
+                    Text="Crear Ruta" />
+            </StackLayout>
+        </ScrollView>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>

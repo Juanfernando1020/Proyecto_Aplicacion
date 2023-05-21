@@ -13,13 +13,10 @@
   <ItemGroup>
     <Compile Remove="Helpers\**" />
     <Compile Remove="ViewModel\**" />
-    <Compile Remove="Views\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="ViewModel\**" />
-    <EmbeddedResource Remove="Views\**" />
     <None Remove="Helpers\**" />
     <None Remove="ViewModel\**" />
-    <None Remove="Views\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +28,7 @@
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +99,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Finance\Expense\List\ExpenseListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Route\RouteInfoCard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Shared\Entries\IconEntryView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

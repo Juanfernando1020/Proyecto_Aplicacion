@@ -3,6 +3,8 @@ using Xamarin.CommonToolkit.Helpers;
 using Xamarin.CommonToolkit.MVVM.Navigation.Interfaces;
 using Xamarin.CommonToolkit.MVVM;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace Aplicacion.Module
 {
