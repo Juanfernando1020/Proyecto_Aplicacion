@@ -25,7 +25,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
         public Credentials Credentials 
         { 
             get => credentials;
-            set
+            set 
             {
                 SetProperty(ref credentials, value);
             } 

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Local:ContentPageBase
+    x:Class="Aplicacion.Pages.Route.Create.CreateRoutePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:custom="clr-namespace:App.Renderes"
+    Title="Crear Ruta"
+    Background="{StaticResource MainBackground}">
+
+    <ContentPage.Content>
+        <StackLayout
+            Margin="30"
+            Spacing="50"
+            VerticalOptions="CenterAndExpand">
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <custom:CustomEntry
+                    x:Name="NombreRutaTxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Nombre de la ruta"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <custom:CustomEntry
+                    x:Name="ZonaRutaTxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Zona de la ruta"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" />
+            </StackLayout>
+
+            <Frame BorderColor="#707070"
+                   BackgroundColor="#D1DFE1"
+                   CornerRadius="12">
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                    FontAttributes="Bold"
+                    FontSize="17"
+                    Text="Trabajador:"
+                    VerticalOptions="Center" />
+                    <Picker
+                    x:Name="filterPicker"
+                    Title="Seleccione una opción..."
+                        FontSize="16">
+                        <Picker.Items>
+                            <x:String>Carlos Andres</x:String>
+                            <x:String>Miguel Andres</x:String>
+                            <x:String>Carlos Agusta</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <custom:CustomEntry
+                    x:Name="MontoRutaTxt"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Base de la ruta"
+                    PlaceholderColor="#656565"
+                    TextColor="#333333" 
+                    Keyboard="Numeric"/>
+            </StackLayout>
+
+            <Button
+                    x:Name="CrearNuevaRutaButtom"
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    CornerRadius="15"
+                    HorizontalOptions="Center"
+                    Text="Crear Ruta"
+                    TextColor="#333333"/>
+        </StackLayout>
+            
+    </ContentPage.Content>
+
+</Local:ContentPageBase>

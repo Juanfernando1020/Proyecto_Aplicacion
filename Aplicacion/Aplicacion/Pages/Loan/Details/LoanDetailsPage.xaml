@@ -3,26 +3,13 @@
     x:Class="Aplicacion.Pages.Loan.Details.LoanDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
-    BackgroundColor="#829CA6">
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    BackgroundColor="#829CA6"
+    Title="Detalles del Préstamo">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="20" Spacing="0">
                 <StackLayout Padding="20" HorizontalOptions="CenterAndExpand">
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="30"
-                        HorizontalOptions="Center"
-                        TextColor="Black">
-                        DETALLES DE
-                    </Label>
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="30"
-                        HorizontalOptions="Center"
-                        TextColor="Black">
-                        PRESTAMO
-                    </Label>
                 </StackLayout>
 
                 <Frame

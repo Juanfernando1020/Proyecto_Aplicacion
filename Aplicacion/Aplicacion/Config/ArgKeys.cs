@@ -8,5 +8,7 @@ namespace Aplicacion.Config
     {
         internal static string Role => "Role";
         internal static string User => "Usuario";
+
+        internal static string Client => "Client";
     }
 }

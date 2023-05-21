@@ -4,17 +4,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.List.ViewModel"
+    x:Name="clientListPage"
+    Title="LISTA DE CLIENTES"
+    x:DataType="{x:Type viewModel:ClientList}"
     BackgroundColor="#829CA6">
+
     <ScrollView>
         <StackLayout Margin="20" Padding="10">
-            <Label
-                Margin="0,0,0,20"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Text="LISTA DE CLIENTES"
-                TextColor="Black" />
 
             <StackLayout Orientation="Horizontal">
                 <Label
@@ -40,9 +38,6 @@
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Calors Andres Fuentes</x:String>
-                        <x:String>Miguel Angel Ortiz</x:String>
-                        <x:String>Valeria Aponete</x:String>
-                        <x:String>Miguel Andres</x:String>
                     </x:Array>
                 </CollectionView.ItemsSource>
                 <CollectionView.ItemsLayout>
@@ -101,7 +96,7 @@
                                     <StackLayout Margin="0,0,10,0" HorizontalOptions="EndAndExpand">
                                         <Label Text="Abrir cliente" TextColor="Black">
                                             <Label.GestureRecognizers>
-                                                <!--<TapGestureRecognizer Command="{Binding OpenClientCommand}" />-->
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference clientListPage}, Path='BindingContext.SelectOptionCommand'}" />
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </StackLayout>
@@ -119,13 +114,13 @@
                 BackgroundColor="White"
                 BorderColor="#707070"
                 BorderWidth="3"
+                Command="{Binding GoToCreateClientCommand}"
                 CornerRadius="15"
                 HeightRequest="50"
                 Text="Agregar nuevo cliente"
                 TextColor="Black"
                 VerticalOptions="End"
-                WidthRequest="300" 
-                Clicked="AgregarNuevoClienteButton_Clicked"/>
+                WidthRequest="300" />
         </StackLayout>
     </ScrollView>
 </local:ContentPageBase>

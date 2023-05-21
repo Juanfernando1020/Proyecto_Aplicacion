@@ -3,9 +3,13 @@
     x:Class="Aplicacion.Pages.Client.Details.ClientDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.Details.ViewModel"
+    Title="Detalles del clientes"
+    x:DataType="{x:Type viewModel:ClientDetails}"
     BackgroundColor="#829CA6">
-    <local:ContentPageBase.Content>
+    
+    <ContentPage.Content>
         <Grid Padding="10" RowSpacing="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -55,9 +59,11 @@
                     CornerRadius="20"
                     Text="Llamar" />
                 <Button
+                    x:Name="GoToLisLoanButton"
                     BackgroundColor="#D1DFE1"
                     BorderColor="#707070"
                     BorderWidth="3"
+                    Command="{Binding GoToListLoanCommand}"
                     CornerRadius="20"
                     Text="Ver deudas" />
                 <Button
@@ -67,25 +73,6 @@
                     CornerRadius="20"
                     Text="Ver pagos" />
             </StackLayout>
-            <Grid Grid.Row="5" Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image
-                    Grid.Column="0"
-                    Source="Trash"
-                    WidthRequest="30" />
-                <Label
-                    Grid.Column="1"
-                    FontSize="20"
-                    Text="Eliminar cliente"
-                    TextColor="Black">
-                    <Label.GestureRecognizers>
-                        <!-- <TapGestureRecognizer Tapped="OnDeleteClientTapped"/> !-->
-                    </Label.GestureRecognizers>
-                </Label>
-            </Grid>
         </Grid>
-    </local:ContentPageBase.Content>
+    </ContentPage.Content>
 </local:ContentPageBase>

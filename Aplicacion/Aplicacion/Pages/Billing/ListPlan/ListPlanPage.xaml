@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Local:ContentPageBase
+    x:Class="Aplicacion.Pages.Billing.ListPlan.ListPlanPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    Title="Plan de cobros"
+    BackgroundColor="{StaticResource MainBackground}">
+    <ContentPage.Content>
+        <StackLayout Margin="10,40,10,10" Spacing="50">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    Margin="20,10,10,10"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="Prestamo:"
+                    VerticalOptions="Center" />
+                <Picker
+                    x:Name="filterPicker"
+                    Title="Seleccione una opción..."
+                    Margin="0,10,10,10">
+                    <Picker.Items>
+                        <x:String>Binding prestamos</x:String>
+                        <x:String>Binding prestamos</x:String>
+                        <x:String>Binding prestamos</x:String>
+                        <x:String>Binding prestamos</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+            <StackLayout>
+                <Frame BorderColor="#707070">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="15">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="PLAN DE COBROS"
+                                TextColor="Black" />
+                            <Label Text="(Binding Modalidad de cobro)" />
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                            <Label Text="$(Binding Precio)" />
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                            <Label Text="(Cantidad de cobros) pagos de (precio del cobro)" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="15"
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="90">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Pago"
+                                TextColor="Black" />
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Fecha"
+                                TextColor="Black" />
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Resta"
+                                TextColor="Black" />
+                        </StackLayout>
+                        <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="60">
+                            <Label Text="1" />
+                            <Label Text="Binding Fecha" />
+                            <Label Text="Binding resta" />
+                        </StackLayout>
+
+                        <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="60">
+                            <Label Text="2" />
+                            <Label Text="Binding Fecha" />
+                            <Label Text="Binding resta" />
+                        </StackLayout>
+
+                        <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="60">
+                            <Label Text="3" />
+                            <Label Text="Binding Fecha" />
+                            <Label Text="Binding resta" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
+            <Button
+                x:Name="AgregarNuevoPago"
+                BackgroundColor="White"
+                BorderColor="#707070"
+                BorderWidth="3"
+                CornerRadius="15"
+                HeightRequest="50"
+                Text="Agregar nuevo Pago"
+                TextColor="Black"
+                VerticalOptions="End"
+                WidthRequest="300" />
+        </StackLayout>
+    </ContentPage.Content>
+</Local:ContentPageBase>

@@ -13,11 +13,5 @@ namespace Aplicacion.Pages.Client.List
 		{
 			InitializeComponent ();
 		}
-
-        private void AgregarNuevoClienteButton_Clicked(object sender, System.EventArgs e)
-        {
-			var CreatePage = new NavigationPage(new ClientCreatePage());
-			Navigation.PushAsync(CreatePage);
-        }
     }
 }

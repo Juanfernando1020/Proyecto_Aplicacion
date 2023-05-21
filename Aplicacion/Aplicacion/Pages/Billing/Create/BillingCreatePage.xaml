@@ -4,36 +4,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    Title="Crear Pago"
     BackgroundColor="#829CA6">
     <local:ContentPageBase.Content>
         <StackLayout Margin="10,40,10,10" Spacing="50">
-            <Label
-                FontAttributes="Bold"
-                FontSize="Title"
-                HorizontalOptions="Center"
-                Text=" NUEVO PAGO"
-                TextColor="Black" />
-            <StackLayout Orientation="Horizontal">
-                <Label
-                    Margin="20,10,10,10"
-                    FontAttributes="Bold"
-                    FontSize="Medium"
-                    Text="Prestamo:"
-                    VerticalOptions="Center" />
-                <Picker
-                    x:Name="filterPicker"
-                    Title="Seleccione una opción..."
-                    Margin="0,10,10,10">
-                    <Picker.Items>
-                        <x:String>Binding prestamos</x:String>
-                        <x:String>Binding prestamos</x:String>
-                        <x:String>Binding prestamos</x:String>
-                        <x:String>Binding prestamos</x:String>
-                    </Picker.Items>
-                </Picker>
-            </StackLayout>
-
             <StackLayout HorizontalOptions="Center" Spacing="40">
                 <custom:CustomEntry Keyboard="Numeric" Placeholder="Monto del pago" />
                 <StackLayout Orientation="Horizontal" Spacing="5">

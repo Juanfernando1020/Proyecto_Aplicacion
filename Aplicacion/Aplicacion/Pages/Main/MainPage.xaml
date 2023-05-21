@@ -3,12 +3,13 @@
     x:Class="Aplicacion.Pages.Main.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:models="clr-namespace:Aplicacion.Models"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Main.ViewModel"
     x:Name="mainPage"
     x:DataType="{x:Type viewModel:Main}"
     AutomationProperties.Name="ContentPageBase"
+    BackgroundColor="{StaticResource MainBackground}"
     NavigationPage.HasNavigationBar="False">
     <local:ContentPageBase.Content AutomationProperties.Name="ContentPageBase.Content">
         <StackLayout

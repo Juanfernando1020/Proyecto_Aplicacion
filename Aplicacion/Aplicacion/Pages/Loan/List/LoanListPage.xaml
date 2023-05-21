@@ -3,17 +3,14 @@
     x:Class="Aplicacion.Pages.Loan.List.LoanListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
-    BackgroundColor="#829CA6">
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    Title=" Lista de préstamos"
+    BackgroundColor="#829CA6"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.List.ViewModel"
+    x:DataType="{x:Type viewModel:LoanList}">
+    
     <ScrollView>
         <StackLayout Margin="20" Padding="10">
-            <Label
-                Margin="0,0,0,20"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Text="LISTA DE PRESTAMOS"
-                TextColor="Black" />
 
             <StackLayout Orientation="Horizontal">
                 <Label
@@ -39,9 +36,6 @@
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Lavadora</x:String>
-                        <x:String>Licuadora</x:String>
-                        <x:String>Estufa</x:String>
-                        <x:String>Aire acondicionado</x:String>
                     </x:Array>
                 </CollectionView.ItemsSource>
                 <CollectionView.ItemsLayout>
@@ -107,7 +101,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button
-                x:Name="AgregarNuevoClienteButton"
+                x:Name="AgregarNuevoPrestamoButton"
                 BackgroundColor="White"
                 BorderColor="#707070"
                 BorderWidth="3"
@@ -116,7 +110,8 @@
                 Text="Agregar nuevo prestamo"
                 TextColor="Black"
                 VerticalOptions="End"
-                WidthRequest="300" />
+                WidthRequest="300" 
+                Command="{Binding GoToCreateLoanCommand}"/>
         </StackLayout>
     </ScrollView>
 </local:ContentPageBase>

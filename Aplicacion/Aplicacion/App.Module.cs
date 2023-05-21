@@ -10,7 +10,7 @@ namespace Aplicacion.Module
     {
         public static ViewModelBase ViewModel { get; set; }
         public static INavigationService NavigationService { get; set; }
-        public static string setting = "value"; // AQUI TENGO PREGUNTA 
+        public static string setting = "value";
 
         public static Page Initialize()
         {
@@ -23,7 +23,7 @@ namespace Aplicacion.Module
         private static Page GetInitPage()
         {
             Page page = ViewsManager.CreateView<Pages.Account.Login.LoginPage>();
-
+            //Page page = ViewsManager.CreateView<Pages.Client.Details.ClientDetailsPage>();
             return new NavigationPage(page);
         }
     }

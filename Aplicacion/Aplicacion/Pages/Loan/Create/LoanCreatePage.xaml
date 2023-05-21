@@ -4,21 +4,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
-    BackgroundColor="#829CA6">
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    BackgroundColor="#829CA6"
+    Title="Crear Nuevo Prestamo">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout
                 Margin="10,20,25,0"
                 Spacing="30"
                 VerticalOptions="Center">
-
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="Title"
-                    HorizontalOptions="Center"
-                    Text="NUEVO PRESTAMO"
-                    TextColor="Black" />
 
                 <StackLayout Orientation="Horizontal" Spacing="10">
                     <custom:CustomEntry

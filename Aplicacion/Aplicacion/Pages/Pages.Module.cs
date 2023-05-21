@@ -16,6 +16,9 @@
             Loan.Module.Loan.Initialize();
             Main.Module.Main.Initialize();
             User.Module.User.Initialize();
+            Day.Module.Day.Initialize();
+            Route.Module.Route.Initialize();
+            Basis.Module.Basis.Initialize();
         }
     }
 }

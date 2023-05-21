@@ -3,25 +3,19 @@
     x:Class="Aplicacion.Pages.Finance.Expense.List.ExpenseListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Finance.Expense.List.Module.ViewModel"
+    Title="GASTOS DEL DÍA"
+    x:DataType="{x:Type viewModel:ExpenseList}"
     BackgroundColor="#829CA6">
+
     <ScrollView>
         <StackLayout Margin="20" Padding="10">
-            <Label
-                Margin="0,0,0,20"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Text="GASTOS DEL DÍA"
-                TextColor="Black" />
 
             <CollectionView>
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Gasolina</x:String>
-                        <x:String>Almuerzo</x:String>
-                        <x:String>Peaje</x:String>
-                        <x:String>Comida</x:String>
                     </x:Array>
                 </CollectionView.ItemsSource>
                 <CollectionView.ItemsLayout>
@@ -64,6 +58,7 @@
                 BackgroundColor="White"
                 BorderColor="#707070"
                 BorderWidth="3"
+                Command="{Binding GoToExpenseCreatePageCommand}"
                 CornerRadius="15"
                 HeightRequest="50"
                 Text="Agregar nuevo gasto"

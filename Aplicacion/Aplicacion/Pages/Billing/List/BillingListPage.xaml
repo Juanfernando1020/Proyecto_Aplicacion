@@ -3,7 +3,7 @@
     x:Class="Aplicacion.Pages.Billing.List.BillingListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase">
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit">
     <ScrollView>
         <StackLayout Margin="20" Padding="10">
             <Label

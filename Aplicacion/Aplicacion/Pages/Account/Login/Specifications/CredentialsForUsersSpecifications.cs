@@ -13,6 +13,6 @@ namespace Aplicacion.Pages.Account.Login.Specifications
         private readonly Credentials _credentials;
         public CredentialsForUsersSpecifications(Credentials credentials) => _credentials = credentials;
         public override Expression<Func<Users, bool>> ToExpression() =>
-            Users => Users.Phone.Equals(_credentials.Username) && Users.Password.Equals(_credentials.Password);
+            user => user.Phone.Equals(_credentials.Username) && user.Password.Equals(_credentials.Password);
     }
 }

@@ -13,6 +13,7 @@
             Delay.Module.BillingDelay.Initialize();
             Details.Module.BillingDetails.Initialize();
             List.Module.BillingList.Initialize();
+            ListPlan.Module.ListPlan.Initialize();
         }
 
     }

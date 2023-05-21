@@ -29,6 +29,8 @@ namespace Aplicacion.Config
             internal static string Delay => "BillingDelayPage";
             internal static string Details => "BillingDetailsPage";
             internal static string List => "BillingListPage";
+            internal static string ListPlan => "ListPlanPage";
+            
         }
 
         internal static class Loan
@@ -51,6 +53,25 @@ namespace Aplicacion.Config
             internal static string List => "ExpenseListPage";
             internal static string Create => "ExpenseCreatePage";
 
+        }
+
+        internal static class Day
+        {
+            internal static string Summary => "DaySummaryPage";
+        }
+
+        internal static class Route
+        {
+            internal static string List => "ListRoutesPage";
+            internal static string Details => "DetailRoutePage";
+
+            internal static string Create => "CreateRoutePage";
+            
+        }
+
+        internal static class Basis
+        {
+            internal static string Add => "AddBasisPage";
         }
     }
 }
