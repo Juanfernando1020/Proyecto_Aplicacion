@@ -8,7 +8,7 @@
     Title="Detalles del clientes"
     x:DataType="{x:Type viewModel:ClientDetails}"
     BackgroundColor="#829CA6">
-    
+
     <ContentPage.Content>
         <Grid Padding="10" RowSpacing="40">
             <Grid.RowDefinitions>
@@ -51,7 +51,8 @@
                 Grid.Row="4"
                 Margin="20,0,10,9"
                 Orientation="Horizontal"
-                Spacing="10">
+                Spacing="10" 
+                HorizontalOptions="CenterAndExpand">
                 <Button
                     BackgroundColor="#D1DFE1"
                     BorderColor="#707070"
@@ -65,13 +66,7 @@
                     BorderWidth="3"
                     Command="{Binding GoToListLoanCommand}"
                     CornerRadius="20"
-                    Text="Ver deudas" />
-                <Button
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="20"
-                    Text="Ver pagos" />
+                    Text="Ver prestamos" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

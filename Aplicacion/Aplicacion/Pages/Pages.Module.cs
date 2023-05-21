@@ -10,7 +10,7 @@
         private static void InitializeDependecyPages()
         {
             Account.Module.Account.Initialize();
-            Billing.Create.Module.BillingCreate.Initialize();
+            Billing.Module.Billing.Initialize();
             Client.Module.Client.Initialize();
             Finance.Module.Finance.Initialize();
             Loan.Module.Loan.Initialize();

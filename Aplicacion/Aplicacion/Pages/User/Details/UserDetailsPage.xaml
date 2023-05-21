@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Details.ViewModel"
-    Title="MI INFORMACIÓN"
+    Title="Mi Información"
     x:DataType="{x:Type viewModel:UserDetails}">
 
     <local:ContentPageBase.Content>
