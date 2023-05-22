@@ -1,4 +1,4 @@
-﻿using Xamarin.CommonToolkit.MVVM;
+﻿using Xamarin.CommonToolkit.Mvvm;
 
 namespace Aplicacion.Pages.Billing.Details.ViewModel
 {

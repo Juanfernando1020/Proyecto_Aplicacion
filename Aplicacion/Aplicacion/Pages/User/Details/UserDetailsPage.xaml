@@ -9,7 +9,8 @@
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Details.ViewModel"
     Title="Mi Información"
-    x:DataType="{x:Type viewModel:UserDetails}">
+    x:DataType="{x:Type viewModel:UserDetails}"
+    BackgroundColor="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout

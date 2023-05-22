@@ -101,10 +101,16 @@
     <EmbeddedResource Update="Pages\Finance\Expense\List\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\User\Popups\Pickers\UserBySpecification\UserBySpecificationPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Route\RouteInfoCard.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Shared\Entries\IconEntryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Shared\Entries\IconPickerWithPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -152,5 +158,9 @@
     <Compile Update="Pages\Finance\Expense\List\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Users\" />
   </ItemGroup>
 </Project>

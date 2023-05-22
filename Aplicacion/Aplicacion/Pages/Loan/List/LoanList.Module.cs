@@ -10,7 +10,7 @@ namespace Aplicacion.Pages.Loan.List.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<LoanListPage, ViewModel.LoanList>();
+            ViewsManager.RegisterPage<LoanListPage, ViewModel.LoanList>();
         }
     }
 }

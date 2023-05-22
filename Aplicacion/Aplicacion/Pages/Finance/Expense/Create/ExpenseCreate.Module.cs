@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.Finance.Expense.Create.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ExpenseCreatePage, ViewModel.ExpenseCreate>();
+            ViewsManager.RegisterPage<ExpenseCreatePage, ViewModel.ExpenseCreate>();
         }
     }
 }

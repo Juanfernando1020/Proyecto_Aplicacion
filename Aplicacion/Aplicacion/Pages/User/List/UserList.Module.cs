@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.User.List.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<UserListPage, ViewModel.UserList>();
+            ViewsManager.RegisterPage<UserListPage, ViewModel.UserList>();
         }
     }
 }

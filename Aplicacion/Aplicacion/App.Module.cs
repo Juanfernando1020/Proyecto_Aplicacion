@@ -1,7 +1,7 @@
 ﻿using Xamarin.CommonToolkit.Helpers.Firebase;
 using Xamarin.CommonToolkit.Helpers;
-using Xamarin.CommonToolkit.MVVM.Navigation.Interfaces;
-using Xamarin.CommonToolkit.MVVM;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
@@ -24,7 +24,7 @@ namespace Aplicacion.Module
 
         private static Page GetInitPage()
         {
-            Page page = ViewsManager.CreateView<Pages.Account.Login.LoginPage>();
+            Page page = ViewsManager.CreatePage<Pages.Account.Login.LoginPage>();
             //Page page = ViewsManager.CreateView<Pages.Client.Details.ClientDetailsPage>();
             return new NavigationPage(page);
         }

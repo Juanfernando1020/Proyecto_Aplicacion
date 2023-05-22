@@ -8,9 +8,8 @@ namespace App.Renderes
 {
     public class CustomEntry : Entry
     {
-
-        static readonly int defaultBorderValue = 10;
-        static readonly double defaulCornerValue = 20;
+        private const int DefaultBorderValue = 10;
+        private const double DefaultCornerValue = 20;
 
         public static readonly BindableProperty BorderColorProperty =
          BindableProperty.Create(
@@ -25,7 +24,7 @@ namespace App.Renderes
            nameof(BorderWith),
            typeof(int),
            typeof(CustomEntry),
-           defaultBorderValue
+           DefaultBorderValue
            );
 
         public static readonly BindableProperty CornerRadiusProperty =
@@ -33,10 +32,10 @@ namespace App.Renderes
            nameof(CornerRadius),
            typeof(double),
            typeof(CustomEntry),
-           defaulCornerValue
+           DefaultCornerValue
            );
 
-        public static readonly BindableProperty BackgroundColorProperty =
+        public new static readonly BindableProperty BackgroundColorProperty =
        BindableProperty.Create(
            nameof(BackgroundColor),
            typeof(Color),
@@ -63,7 +62,7 @@ namespace App.Renderes
             set => SetValue(CornerRadiusProperty, value);
         }
 
-        public Color BackgroundColor
+        public new Color BackgroundColor
         {
             get => (Color)GetValue(BackgroundColorProperty);
             set => SetValue(BackgroundColorProperty, value);

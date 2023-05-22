@@ -15,7 +15,7 @@ namespace Aplicacion.Pages.Route.List.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ListRoutesPage, ViewModel.ListRoutes>();
+            ViewsManager.RegisterPage<ListRoutesPage, ViewModel.ListRoutes>();
         }
     }
 }
