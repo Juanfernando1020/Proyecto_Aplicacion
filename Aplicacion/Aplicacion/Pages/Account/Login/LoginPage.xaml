@@ -9,7 +9,8 @@
     BackgroundColor="#CCD7E1"
     NavigationPage.HasNavigationBar="False">
 
-    <StackLayout Margin="40" Spacing="30">
+    <ScrollView>
+        <StackLayout Margin="40" Spacing="30">
         <custom:CustomEntry
             FontSize="30"
             HeightRequest="60"
@@ -28,6 +29,7 @@
             IsPassword="True"
             Text="{Binding Credentials.Password}"
             TextColor="Black" />
+        </StackLayout>
+    </ScrollView>
 
-    </StackLayout>
 </local:ContentPageBase>
