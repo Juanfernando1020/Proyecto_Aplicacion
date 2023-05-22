@@ -11,8 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Aplicacion.Pages.Route.Contracts;
 using System.Linq;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 
 namespace Aplicacion.Pages.User.Details.ViewModel
 {
@@ -24,38 +27,49 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #endregion
 
         #region Property
-        private bool canCreateRoute;
+        private bool _canCreateRoute;
         public bool CanCreateRoute
         { 
-            get => canCreateRoute;
+            get => _canCreateRoute;
             set
             {
-                SetProperty(ref canCreateRoute, value);
+                SetProperty(ref _canCreateRoute, value);
             }
         }
 
-        private Users user;
+        private Users _user;
         public Users User
         {
-            get => user;
+            get => _user;
             set
             {
-                SetProperty(ref user, value);
+                SetProperty(ref _user, value);
             }
         }
 
-        private List<Routes> routes;
-        public List<Routes> Routes
+        private ObservableCollection<Routes> _routes;
+        public ObservableCollection<Routes> Routes
         {
-            get => routes;
+            get => _routes;
             set
             {
-                SetProperty(ref routes, value);
+                SetProperty(ref _routes, value);
+            }
+        }
+        
+        private Routes _selectedRoute;
+        public Routes SelectedRoute
+        {
+            get => _selectedRoute;
+            set
+            {
+                SetProperty(ref _selectedRoute, value);
             }
         }
 
         public ICommand EditCommand => new Command(async () => await EditController());
-        public ICommand GoToCreateRouteCommand => new Command(async () => await GoToCreateRouteController());
+        public ICommand GoToRouteCreateCommand => new Command(async () => await GoToRouteCreateController());
+        public ICommand GoToRouteDetailsCommand => new Command(async () => await GoToRouteDetailsController());
         #endregion
 
         #region Method
@@ -71,13 +85,27 @@ namespace Aplicacion.Pages.User.Details.ViewModel
                     break;
             }
         }
-        private async Task GoToCreateRouteController()
+        private async Task GoToRouteCreateController()
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.User, User }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.User, User);
+
+            await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(parameters: parameters);
+            IsBusy = false;
+        }
+        private async Task GoToRouteDetailsController()
+        {
+            IsBusy = true;
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Route, SelectedRoute);
+
+            await NavigationService.NavigateToAsync(PagesRoutes.Route.Details);
+
+            SelectedRoute = null;
+
             IsBusy = false;
         }
         #endregion
@@ -85,6 +113,7 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #region Constructor
         public UserDetails()
         {
+            Routes = new ObservableCollection<Routes>();
             CanCreateRoute = false;
             User = default;
             _userService = new Service.User(new Repository.User());
@@ -93,20 +122,26 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #endregion
 
         #region Overrides
-        public override void OnInitialize()
+        public override void OnInitialize(INavigationParameters parameters)
         {
-            base.OnInitialize();
-            OnLoad();
+            base.OnInitialize(parameters);
+            OnLoad(parameters);
         }
+
+        public override void OnCallBack(INavigationParameters parameters)
+        {
+            base.OnCallBack(parameters);
+        }
+
         #endregion
 
         #region OnLoad
-        private async void OnLoad()
+        private async void OnLoad(INavigationParameters parameters)
         {
             IsBusy = true;
             Guid userId = await _userService.GetUserId();
 
-            if (userId != null && userId != Guid.Empty)
+            if (userId != Guid.Empty)
             {
                 ResultBase<Users> result = await _userService.GetByIdAsync(userId);
 
@@ -129,7 +164,10 @@ namespace Aplicacion.Pages.User.Details.ViewModel
 
                     if (routesResult.IsSuccess)
                     {
-                        Routes = routesResult.Data.ToList();
+                        foreach (Routes route in routesResult.Data)
+                        {
+                            Routes.Add(route);
+                        }
                     }
                     else
                     {

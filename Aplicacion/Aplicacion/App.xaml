@@ -30,6 +30,9 @@
                 TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
             </Style>
+            <Style BasedOn="{StaticResource NormalLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="Caption" />
+            </Style>
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource BackgroundButton}" />
                 <Setter Property="BorderColor" Value="{StaticResource BorderButton}" />

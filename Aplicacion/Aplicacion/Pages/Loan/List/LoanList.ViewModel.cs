@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.List.ViewModel
@@ -25,10 +27,11 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
         private async Task SelectOptionController(Loans loan)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Details.LoanDetailsPage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.Loan, loan }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Loan, loan);
+
+            await NavigationService.NavigateToAsync<Details.LoanDetailsPage>(parameters: parameters);
             IsBusy = false;
         }
 

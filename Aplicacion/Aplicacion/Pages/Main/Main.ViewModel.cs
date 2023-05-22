@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 
 namespace Aplicacion.Pages.Main.ViewModel
 {
@@ -40,10 +42,11 @@ namespace Aplicacion.Pages.Main.ViewModel
         private async Task SelectOptionController(Modules item)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync(item.Page, (PagesBaseEnum)item.PageType, new Dictionary<string, object>()
-            {
-                { ArgKeys.Role, role }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Role, role);
+
+            await NavigationService.NavigateToAsync(item.Page, (PagesBaseEnum)item.PageType, parameters);
             IsBusy = false;
         }
         #endregion
@@ -58,17 +61,17 @@ namespace Aplicacion.Pages.Main.ViewModel
         #endregion
 
         #region Overrides
-        public override void OnInitialize()
+        public override void OnInitialize(INavigationParameters parameters)
         {
-            base.OnInitialize();
-            OnLoad();
+            base.OnInitialize(parameters);
+            OnLoad(parameters);
         }
         #endregion
 
         #region OnLoad
-        private async void OnLoad()
+        private async void OnLoad(INavigationParameters parameters)
         {
-            if (!Args.ContainsKey(ArgKeys.Role))
+            if (!parameters.ContainsKey(ArgKeys.Role))
             {
                 Console.WriteLine(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Role));
                 await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
@@ -77,7 +80,7 @@ namespace Aplicacion.Pages.Main.ViewModel
 
             IsBusy = true;
 
-            role = (RolesEnum)Args[ArgKeys.Role];
+            role = (RolesEnum)parameters[ArgKeys.Role];
             IEnumerable<Modules> result = service.GetModulesAsync(role);
             MenuItems = result.ToList();
 

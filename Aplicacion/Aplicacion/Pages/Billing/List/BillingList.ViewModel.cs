@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Billing.List.ViewModel
@@ -20,20 +22,22 @@ namespace Aplicacion.Pages.Billing.List.ViewModel
         private async Task GoToCreateBillingController(Billings billing)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Create.BillingCreatePage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.Billing, billing }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Role, billing);
+
+            await NavigationService.NavigateToAsync<Create.BillingCreatePage>(parameters: parameters);
             IsBusy = false;
         }
 
         private async Task SelectOptionController(Billings billing)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Details.BillingDetailsPage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.Billing, billing }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Role, billing);
+
+            await NavigationService.NavigateToAsync<Details.BillingDetailsPage>(parameters: parameters);
             IsBusy = false;
         }
         #endregion

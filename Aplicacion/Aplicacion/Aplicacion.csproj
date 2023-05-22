@@ -101,16 +101,7 @@
     <EmbeddedResource Update="Pages\Finance\Expense\List\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\User\Popups\Pickers\UserBySpecification\UserBySpecificationPopup.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Route\RouteInfoCard.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Shared\Entries\IconEntryView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Shared\Entries\IconPickerWithPopup.xaml">
+    <EmbeddedResource Update="Views\Entries\IconEntryView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -158,9 +149,11 @@
     <Compile Update="Pages\Finance\Expense\List\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Users\" />
+    <Compile Update="Pages\User\Views\UserBySpecification\UserBySpecificationPopup.xaml.cs">
+      <DependentUpon>UserBySpecificationPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pickers\IconPickerView.xaml.cs">
+      <DependentUpon>IconPickerView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

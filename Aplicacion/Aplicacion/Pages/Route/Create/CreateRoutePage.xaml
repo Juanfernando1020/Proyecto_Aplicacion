@@ -3,17 +3,20 @@
     x:Class="Aplicacion.Pages.Route.Create.CreateRoutePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:config="clr-namespace:Aplicacion.Config"
     xmlns:customEntries="clr-namespace:Aplicacion.Views.Shared.Entries"
+    xmlns:customPickers="clr-namespace:Aplicacion.Views.Shared.Pickers"
+    xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
+    xmlns:generic="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Create.ViewModel"
     Title="Crear Ruta"
     x:DataType="{x:Type viewModel:CreateRoute}"
     Background="{StaticResource MainBackground}">
-
+    <local:ContentPageBase.Resources />
     <local:ContentPageBase.Content>
         <ScrollView>
-            <StackLayout Padding="20">
+            <StackLayout Padding="20" Spacing="10">
                 <customEntries:IconEntryView
                     Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                     Label="Nombre"
@@ -22,11 +25,18 @@
                     Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                     Label="Zona"
                     Text="{Binding Route.Zone}" />
-                <customEntries:IconPickerWithPopup
-                    Command="{Binding GoToPopupPickerCommand}"
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                    Label="Trabajador"
-                    Text="{Binding Route.Worker.Name}" />
+                <customPickers:IconPickerView Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png" Label="Trabajador">
+                    <customPickers:IconPickerView.Picker>
+                        <Picker
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding WorkersCollection}"
+                            SelectedItem="{Binding Worker}" />
+                    </customPickers:IconPickerView.Picker>
+                </customPickers:IconPickerView>
+                <Button
+                    Command="{Binding CreateCommand}"
+                    Text="Crear Ruta"
+                    VerticalOptions="EndAndExpand" />
             </StackLayout>
         </ScrollView>
         <!--<StackLayout

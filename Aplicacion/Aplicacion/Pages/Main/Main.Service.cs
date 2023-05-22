@@ -21,21 +21,21 @@ namespace Aplicacion.Pages.Main.Service
         {
             List<Modules> response = new List<Modules>();
 
-            response.Add(new Modules("Mi información", RoutePages.User.Details, PagesBaseEnum.ContentPage));
+            response.Add(new Modules("Mi información", PagesRoutes.User.Details, PagesBaseEnum.ContentPage));
 
             switch (role)
             {
                 case RolesEnum.Owner:
-                    response.Add(new Modules("Usuarios", RoutePages.User.List, PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Crear usuario", RoutePages.User.Create, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Usuarios", PagesRoutes.User.List, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Crear usuario", PagesRoutes.User.Create, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Admin:
-                    response.Add(new Modules("Agregar base a trabajador", RoutePages.Basis.Add, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Agregar base a trabajador", PagesRoutes.Basis.Add, PagesBaseEnum.ContentPage));
                     break;
                 case RolesEnum.Worker:
-                    response.Add(new Modules("Clientes", RoutePages.Client.List, PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Mis gastos del día", RoutePages.Expense.List,PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Resumen del día", RoutePages.Day.Summary, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Mis gastos del día", PagesRoutes.Expense.List,PagesBaseEnum.ContentPage));
+                    response.Add(new Modules("Resumen del día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
                     break;
             }
 

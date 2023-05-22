@@ -5,7 +5,9 @@ using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
 using Aplicacion.Pages.User.Specifications;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.CommonToolkit.Specifications;
 
 namespace Aplicacion.Pages.User.Repository
 {
@@ -20,7 +22,7 @@ namespace Aplicacion.Pages.User.Repository
 
                 if(user == null)
                 {
-                    return new ResultBase<Users>("GetByIdAsync", false, "Ha ocurrido algo al momento de traer la información. Intentalo más tarde.");
+                    return new ResultBase<Users>("GetByIdAsync", false, CommonMessages.Error.InformationMessage);
                 }
 
                 return new ResultBase<Users>("GetByIdAsync", true, null, user);
@@ -29,6 +31,27 @@ namespace Aplicacion.Pages.User.Repository
             {
                 Console.WriteLine(ex);
                 return new ResultBase<Users>("InsertAsync", false, CommonMessages.Exception.ResultMessage);
+            }
+        }
+
+        public async Task<ResultBase<IEnumerable<Users>>> GetAllBySpecificationAsync(SpecificationBase<Users> specification)
+        {
+            try
+            {
+                IEnumerable<Users> user = await FirebaseHelper.Instance[FirebaseEntities.Users]
+                    .GetAllBySpecificationAsync(specification);
+
+                if (user == null)
+                {
+                    return new ResultBase<IEnumerable<Users>>("GetByIdAsync", false, CommonMessages.Error.InformationMessage);
+                }
+
+                return new ResultBase<IEnumerable<Users>>("GetByIdAsync", true, null, user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return new ResultBase<IEnumerable<Users>>("InsertAsync", false, CommonMessages.Exception.ResultMessage);
             }
         }
 

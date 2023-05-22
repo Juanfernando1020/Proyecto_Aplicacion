@@ -11,6 +11,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Aplicacion.Pages.Main;
 using Aplicacion.Pages.User.Enums;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 
 namespace Aplicacion.Pages.Account.Login.ViewModel
 {
@@ -55,10 +57,10 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
-            await NavigationService.NavigateToRootAsync<MainPage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.Role, result.Data }
-            });
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Role, result.Data);
+
+            await NavigationService.NavigateToRootAsync<MainPage>(parameters: parameters);
 
             IsBusy = false;
         }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Client.List.ViewModel
@@ -28,10 +30,11 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         private async Task SelectOptionController(Clients client)
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Details.ClientDetailsPage>(args: new Dictionary<string, object>()
-            {
-                { ArgKeys.Client, client }
-            });
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Client, client);
+
+            await NavigationService.NavigateToAsync<Details.ClientDetailsPage>(parameters: parameters);
             IsBusy= false;
         }
         #endregion

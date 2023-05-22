@@ -6,7 +6,9 @@ using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.CommonToolkit.Specifications;
 
 namespace Aplicacion.Pages.User.Service
 {
@@ -19,6 +21,11 @@ namespace Aplicacion.Pages.User.Service
         {
             _userRepository = userRepository;
             _secureStorageService = new SecureStorageService();
+        }
+
+        public async Task<ResultBase<IEnumerable<Users>>> GetAllBySpecificationAsync(SpecificationBase<Users> specification)
+        {
+            return await _userRepository.GetAllBySpecificationAsync(specification);
         }
 
         public async Task<ResultBase> InsertAsync(Users user, string confirmPassword)

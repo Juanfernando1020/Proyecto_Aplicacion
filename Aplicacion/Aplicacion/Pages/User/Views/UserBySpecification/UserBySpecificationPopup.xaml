@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.User.Views.UserBySpecification.UserBySpecificationPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Views.UserBySpecification.ViewModel;assembly=Aplicacion">
+    <local:CustomPopupBase.Content>
+        <StackLayout HeightRequest="100">
+            <ScrollView>
+                <StackLayout BindableLayout.ItemsSource="{Binding UsersCollection}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="Hello" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

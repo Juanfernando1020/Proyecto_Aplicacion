@@ -1,20 +1,31 @@
 ﻿using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Contracts;
+using Aplicacion.Pages.User.Specifications;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Aplicacion.Pages.User.Enums;
 using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Models;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
+using Aplicacion.Pages.User.Contracts;
+using Firebase.Auth.Repository;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Xamarin.CommonToolkit.Result;
 
 namespace Aplicacion.Pages.Route.Create.ViewModel
 {
     internal class CreateRoute : ViewModelBase
     {
         #region Variables
-        private IRouteService _routeService;
+        private readonly IRouteService _routeService;
+        private readonly IUserService _userService;
         #endregion
 
         #region Properties
@@ -28,23 +39,41 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             }
         }
 
-        public ICommand GoToPopupPickerCommand => new Command(async () => await GoToPopupPickerController());
+        private ObservableCollection<Users> _workersCollection;
+        public ObservableCollection<Users> WorkersCollection
+        {
+            get => _workersCollection;
+            set => SetProperty(ref _workersCollection, value);
+        }
+        
+        private Users _worker;
+        public Users Worker
+        {
+            get => _worker;
+            set => SetProperty(ref _worker, value);
+        }
 
         public ICommand CreateCommand => new Command(async () => await CreateController());
         #endregion
 
         #region Methods
-        private async Task GoToPopupPickerController()
-        {
-            NavigationResult<Users> result = 
-                await NavigationService.PushPopup<Users>(RoutePages.User.Popups.UserBySpecification);
-            
-            Route.Worker = result.Result;
-        }
         private async Task CreateController()
         {
             IsBusy = true;
-            await _routeService.CreateAsync(Route);
+            ResultBase result = await _routeService.CreateAsync(Route);
+
+            if (result.IsSuccess)
+            {
+                INavigationParameters parameters = new NavigationParameters();
+                parameters.Add(ArgKeys.Route, Route);
+
+                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.InformationMessage));
+                await NavigationService.PopAsync(parameters: parameters);
+            }
+            else
+            {
+                await AlertService.ShowAlert(new WarningMessage(result.Message));
+            }
             IsBusy = false;
         }
         #endregion
@@ -52,27 +81,78 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         #region Constructor
         public CreateRoute()
         {
-            Route = default(Routes);
+            WorkersCollection = new ObservableCollection<Users>();
+
+            Route = new Routes(Guid.NewGuid(), string.Empty, string.Empty, true, null, null);
+
             _routeService = new Service.Route(new Repository.Route());
+            _userService = new User.Service.User(new User.Repository.User());
         }
         #endregion
 
         #region Overrides
-        public override async void OnInitialize()
+        public override async void OnInitialize(INavigationParameters parameters)
         {
-            base.OnInitialize();
-
-            await OnLoad();
+            base.OnInitialize(parameters);
+            await OnLoad(parameters);
         }
+
+        public override void OnCallBack(INavigationParameters parameters)
+        {
+            base.OnCallBack(parameters);
+        }
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            switch (args.PropertyName)
+            {
+                case nameof(Worker):
+                    Route.Worker = Worker;
+                    break;
+            }
+        }
+
         #endregion
 
         #region OnLoad
-        private async Task OnLoad()
+        private async Task OnLoad(INavigationParameters parameters)
         {
-            if (!Args.ContainsKey(ArgKeys.User))
+            IsBusy = true;
+            if (parameters.ContainsKey(ArgKeys.User))
+            {
+                object arg = parameters[ArgKeys.User];
+
+                if (arg is Users user)
+                {
+                    Route.Manager = user;
+
+                    ResultBase<IEnumerable<Users>> workersResult =
+                        await _userService.GetAllBySpecificationAsync(new UserByRoleSpecification(RolesEnum.Worker));
+
+                    if (workersResult.IsSuccess)
+                    {
+                        foreach (Users worker in workersResult.Data)
+                        {
+                            WorkersCollection.Add(worker);
+                        }
+                    }
+                    else
+                    {
+                        await ShowErrorResult(workersResult.Message);
+                    }
+                }
+                else
+                {
+                    await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)));
+                }
+            }
+            else
             {
                 await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)));
             }
+            IsBusy = false;
         }
 
         private async Task ShowErrorResult(string message)
