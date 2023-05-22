@@ -1,4 +1,4 @@
-﻿using Xamarin.CommonToolkit.MVVM;
+﻿using Xamarin.CommonToolkit.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Text;

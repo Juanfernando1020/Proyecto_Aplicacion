@@ -1,5 +1,5 @@
-﻿using Xamarin.CommonToolkit.MVVM;
-using Xamarin.CommonToolkit.MVVM.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;

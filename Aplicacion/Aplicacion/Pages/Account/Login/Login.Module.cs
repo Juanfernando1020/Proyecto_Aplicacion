@@ -13,7 +13,7 @@ namespace Aplicacion.Pages.Account.Login.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<LoginPage, ViewModel.Login>();
+            ViewsManager.RegisterPage<LoginPage, ViewModel.Login>();
         }
 
         private static void InitializeDependencyPages()

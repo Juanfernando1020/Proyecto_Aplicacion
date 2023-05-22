@@ -4,8 +4,9 @@ using Aplicacion.Pages.Route.Contracts;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.MVVM;
-using Xamarin.CommonToolkit.MVVM.Alerts.Messages;
+using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Models;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.Create.ViewModel
@@ -27,10 +28,19 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             }
         }
 
+        public ICommand GoToPopupPickerCommand => new Command(async () => await GoToPopupPickerController());
+
         public ICommand CreateCommand => new Command(async () => await CreateController());
         #endregion
 
         #region Methods
+        private async Task GoToPopupPickerController()
+        {
+            NavigationResult<Users> result = 
+                await NavigationService.PushPopup<Users>(RoutePages.User.Popups.UserBySpecification);
+            
+            Route.Worker = result.Result;
+        }
         private async Task CreateController()
         {
             IsBusy = true;
@@ -42,7 +52,7 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         #region Constructor
         public CreateRoute()
         {
-            Route = default;
+            Route = default(Routes);
             _routeService = new Service.Route(new Repository.Route());
         }
         #endregion

@@ -9,7 +9,7 @@ namespace Aplicacion.Views.Shared.Entries
     public partial class IconEntryView : ContentView
     {
         #region Bindable Properties
-        public static BindableProperty IconProperty = BindableProperty.Create(
+        public static readonly BindableProperty IconProperty = BindableProperty.Create(
             nameof(Icon),
             typeof(string),
             typeof(IconEntryView),
@@ -17,7 +17,7 @@ namespace Aplicacion.Views.Shared.Entries
             propertyChanged: IconPropertyChanged
             );
 
-        public static BindableProperty LabelProperty = BindableProperty.Create(
+        public static readonly BindableProperty LabelProperty = BindableProperty.Create(
             nameof(Label),
             typeof(string),
             typeof(IconEntryView),
@@ -25,7 +25,7 @@ namespace Aplicacion.Views.Shared.Entries
             propertyChanged: LabelPropertyChanged
             );
 
-        public static BindableProperty TextProperty = BindableProperty.Create(
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(
             nameof(Text),
             typeof(string),
             typeof(IconEntryView),
@@ -34,7 +34,7 @@ namespace Aplicacion.Views.Shared.Entries
             propertyChanged: TextPropertyChanged
             );
         
-        public static BindableProperty IsEnabledProperty = BindableProperty.Create(
+        public new static readonly BindableProperty IsEnabledProperty = BindableProperty.Create(
             nameof(IsEnabled),
             typeof(bool),
             typeof(IconEntryView),
@@ -58,7 +58,7 @@ namespace Aplicacion.Views.Shared.Entries
             get => (string)GetValue(TextProperty); 
             set => SetValue(TextProperty, value); 
         }
-        public bool IsEnabled
+        public new bool IsEnabled
         { 
             get => (bool)GetValue(IsEnabledProperty); 
             set => SetValue(IsEnabledProperty, value); 

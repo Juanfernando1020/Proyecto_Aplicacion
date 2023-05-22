@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.User.Create.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<UserCreatePage, ViewModel.UserCreate>();
+            ViewsManager.RegisterPage<UserCreatePage, ViewModel.UserCreate>();
         }
     }
 }

@@ -18,6 +18,15 @@
                     Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                     Label="Nombre"
                     Text="{Binding Route.Name}" />
+                <customEntries:IconEntryView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Zona"
+                    Text="{Binding Route.Zone}" />
+                <customEntries:IconPickerWithPopup
+                    Command="{Binding GoToPopupPickerCommand}"
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Trabajador"
+                    Text="{Binding Route.Worker.Name}" />
             </StackLayout>
         </ScrollView>
         <!--<StackLayout

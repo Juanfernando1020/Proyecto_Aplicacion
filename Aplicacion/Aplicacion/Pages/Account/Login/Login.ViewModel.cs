@@ -1,5 +1,5 @@
-﻿using Xamarin.CommonToolkit.MVVM;
-using Xamarin.CommonToolkit.MVVM.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
@@ -71,9 +71,6 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
 
             Credentials = new Credentials();
         }
-        #endregion
-
-        #region Overrides
         #endregion
     }
 }

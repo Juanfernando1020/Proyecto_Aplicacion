@@ -10,7 +10,7 @@ namespace Aplicacion.Pages.Billing.Details.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<BillingDetailsPage, ViewModel.BillingDetails>();
+            ViewsManager.RegisterPage<BillingDetailsPage, ViewModel.BillingDetails>();
         }
     }
 }

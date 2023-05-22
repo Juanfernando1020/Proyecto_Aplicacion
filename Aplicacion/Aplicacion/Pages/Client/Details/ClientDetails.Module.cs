@@ -10,7 +10,7 @@ namespace Aplicacion.Pages.Client.Details.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ClientDetailsPage, ViewModel.ClientDetails>();
+            ViewsManager.RegisterPage<ClientDetailsPage, ViewModel.ClientDetails>();
         }
     }
 }

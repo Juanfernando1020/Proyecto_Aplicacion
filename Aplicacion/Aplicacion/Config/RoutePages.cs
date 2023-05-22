@@ -21,6 +21,11 @@ namespace Aplicacion.Config
             internal static string Create => "UserCreatePage";
             internal static string Details => "UserDetailsPage";
             internal static string List => "UserListPage";
+
+            internal static class Popups
+            {
+                internal static string UserBySpecification => "UserBySpecificationPopup";
+            }
         }
 
         internal static class Billing

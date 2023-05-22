@@ -11,7 +11,7 @@
     AutomationProperties.Name="ContentPageBase"
     BackgroundColor="{StaticResource MainBackground}"
     NavigationPage.HasNavigationBar="False">
-    <local:ContentPageBase.Content AutomationProperties.Name="ContentPageBase.Content">
+    <local:ContentPageBase.Content>
         <StackLayout
             Margin="20,140"
             BindableLayout.EmptyView="No se pueden cargar las opciones"

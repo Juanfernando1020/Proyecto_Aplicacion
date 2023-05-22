@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.Loan.Details.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<LoanDetailsPage, ViewModel.LoanDetails>();
+            ViewsManager.RegisterPage<LoanDetailsPage, ViewModel.LoanDetails>();
         }
     }
 }

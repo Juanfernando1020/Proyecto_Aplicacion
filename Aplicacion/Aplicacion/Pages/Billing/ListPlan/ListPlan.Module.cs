@@ -14,7 +14,7 @@ namespace Aplicacion.Pages.Billing.ListPlan.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ListPlanPage, ViewModel.ListPlan>();
+            ViewsManager.RegisterPage<ListPlanPage, ViewModel.ListPlan>();
         }
     }
 }

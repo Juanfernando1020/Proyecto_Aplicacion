@@ -12,6 +12,7 @@
             Create.Module.UserCreate.Initialize();
             Details.Module.UserDetails.Initialize();
             List.Module.UserList.Initialize();
+            Popups.Module.Popups.Initialize();
         }
     }
 }

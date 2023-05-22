@@ -1,5 +1,5 @@
-﻿using Xamarin.CommonToolkit.MVVM;
-using Xamarin.CommonToolkit.MVVM.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
@@ -19,8 +19,6 @@ namespace Aplicacion.Pages.User.Details.ViewModel
     internal class UserDetails : ViewModelBase
     {
         #region Variables
-        private RolesEnum rolesEnum;
-
         private readonly IUserService _userService;
         private readonly IRouteService _routeService;
         #endregion
@@ -63,7 +61,7 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #region Method
         private async Task EditController()
         {
-            switch (rolesEnum)
+            switch ((RolesEnum)User.Role)
             {
                 case RolesEnum.Worker:
                     await AlertService.ShowAlert(new WarningMessage("No tienes permiso para editar."));

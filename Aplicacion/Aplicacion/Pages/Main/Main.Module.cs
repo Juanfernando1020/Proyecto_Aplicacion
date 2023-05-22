@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.Main.Module
 
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<MainPage, ViewModel.Main>();
+            ViewsManager.RegisterPage<MainPage, ViewModel.Main>();
         }
 
     }

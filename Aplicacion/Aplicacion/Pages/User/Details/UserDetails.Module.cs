@@ -10,7 +10,7 @@ namespace Aplicacion.Pages.User.Details.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<UserDetailsPage, ViewModel.UserDetails>();
+            ViewsManager.RegisterPage<UserDetailsPage, ViewModel.UserDetails>();
         }
     }
 }

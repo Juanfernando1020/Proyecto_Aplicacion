@@ -14,7 +14,7 @@ namespace Aplicacion.Pages.Day.Summary.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<DaySummaryPage, ViewModel.DaySummary>();
+            ViewsManager.RegisterPage<DaySummaryPage, ViewModel.DaySummary>();
         }
     }
 }

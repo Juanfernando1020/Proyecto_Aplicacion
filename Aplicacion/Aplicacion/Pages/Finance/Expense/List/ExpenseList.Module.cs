@@ -10,7 +10,7 @@ namespace Aplicacion.Pages.Finance.Expense.List.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<ExpenseListPage, ViewModel.ExpenseList>();
+            ViewsManager.RegisterPage<ExpenseListPage, ViewModel.ExpenseList>();
         }
     }
 }

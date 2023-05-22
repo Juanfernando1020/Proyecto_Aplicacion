@@ -14,7 +14,7 @@ namespace Aplicacion.Pages.Basis.Add.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<AddBasisPage, ViewModel.AddBasis>();
+            ViewsManager.RegisterPage<AddBasisPage, ViewModel.AddBasis>();
         }
     }
 }

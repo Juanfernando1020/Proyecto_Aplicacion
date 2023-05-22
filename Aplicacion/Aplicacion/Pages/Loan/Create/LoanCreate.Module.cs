@@ -11,7 +11,7 @@ namespace Aplicacion.Pages.Loan.Create.Module
         }
         private static void RegisterPage()
         {
-            ViewsManager.RegisterView<LoanCreatePage, ViewModel.LoanCreate>();
+            ViewsManager.RegisterPage<LoanCreatePage, ViewModel.LoanCreate>();
         }
         private static void InitializeDependencyPages()
         {
