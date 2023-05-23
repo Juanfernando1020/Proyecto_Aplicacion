@@ -12,7 +12,7 @@ namespace Aplicacion.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public int AmountOfLoans { get; set; }
-        public Routes Routes { get; set; }
+        public Guid Routes { get; set; }
         public bool IsActive { get; set; }
 
     }

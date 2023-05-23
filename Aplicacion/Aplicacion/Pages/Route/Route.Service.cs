@@ -36,9 +36,9 @@ namespace Aplicacion.Pages.Route.Service
                 return false;
             }
 
-            if (route.Admins != null && route.Admins.Any(admin => admin.Id.Equals(route.Manager.Id)))
+            if (route.Buggets != null && route.Buggets.Length > 0)
             {
-                message = "El manager no debe incluirse entre los administradores comunes.";
+                message = "Debe asignarse un presupuesto general.";
                 return false;
             }
 
