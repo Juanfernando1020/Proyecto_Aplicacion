@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.User.UserBySpecification.UserBySpecificationPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.UserBySpecification.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="root"
+    x:DataType="{x:Type viewModel:UserBySpecification}">
+    <local:CustomPopupBase.Content>
+        <yummy:PancakeView
+            Padding="10"
+            BackgroundColor="{StaticResource BackgroundEntry}"
+            CornerRadius="10"
+            HeightRequest="250"
+            HorizontalOptions="CenterAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <CollectionView
+                    ItemsSource="{Binding UsersCollection}"
+                    SelectedItem="{Binding SelectedUser}"
+                    SelectionChangedCommand="{Binding SelectUserCommand}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:Users}">
+                            <Grid ColumnDefinitions="300,30" HorizontalOptions="Fill">
+                                <Label
+                                    Grid.Column="0"
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Style="{StaticResource NormalLabel}"
+                                    Text="{Binding Name}"
+                                    VerticalTextAlignment="Center" />
+                                <Image
+                                    Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="chevron_right"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </yummy:PancakeView>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

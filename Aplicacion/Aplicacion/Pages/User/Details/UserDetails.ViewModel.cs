@@ -91,16 +91,10 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         {
             IsBusy = true;
 
-            //INavigationParameters parameters = new NavigationParameters();
-            //parameters.Add(ArgKeys.User, User);
-
-            //await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(parameters: parameters);
-
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Worker));
+            parameters.Add(ArgKeys.User, User);
 
-            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
-
+            await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(parameters: parameters);
 
             IsBusy = false;
         }
@@ -192,7 +186,6 @@ namespace Aplicacion.Pages.User.Details.ViewModel
             }
             IsBusy = false;
         }
-
         private async Task ShowErrorResult(string message)
         {
             Console.WriteLine(message);

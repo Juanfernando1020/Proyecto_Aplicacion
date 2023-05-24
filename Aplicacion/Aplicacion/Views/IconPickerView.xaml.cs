@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Aplicacion.Views.Shared.Pickers
+namespace Aplicacion.Views.Shared
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [ContentProperty("Picker")]

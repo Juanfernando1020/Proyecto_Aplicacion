@@ -1,16 +1,17 @@
-﻿using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Aplicacion.Views.Shared.Entries
+namespace Aplicacion.Views.Shared
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class IconEntryView : ContentView
+    public partial class IconPopupOpenerView : ContentView
     {
         #region Bindable Properties
         public static readonly BindableProperty IconProperty = BindableProperty.Create(
             nameof(Icon),
             typeof(string),
-            typeof(IconEntryView),
+            typeof(IconPopupOpenerView),
             string.Empty,
             propertyChanged: IconPropertyChanged
             );
@@ -18,7 +19,7 @@ namespace Aplicacion.Views.Shared.Entries
         public static readonly BindableProperty LabelProperty = BindableProperty.Create(
             nameof(Label),
             typeof(string),
-            typeof(IconEntryView),
+            typeof(IconPopupOpenerView),
             string.Empty,
             propertyChanged: LabelPropertyChanged
             );
@@ -26,18 +27,24 @@ namespace Aplicacion.Views.Shared.Entries
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
             nameof(Text),
             typeof(string),
-            typeof(IconEntryView),
+            typeof(IconPopupOpenerView),
             string.Empty,
-            BindingMode.TwoWay,
             propertyChanged: TextPropertyChanged
             );
         
         public new static readonly BindableProperty IsEnabledProperty = BindableProperty.Create(
             nameof(IsEnabled),
             typeof(bool),
-            typeof(IconEntryView),
-            true,
-            propertyChanged: IsEnabledPropertyChanged
+            typeof(IconPopupOpenerView),
+            true
+            );
+        
+        public new static readonly BindableProperty OpenPopupCommandProperty = BindableProperty.Create(
+            nameof(OpenPopupCommand),
+            typeof(ICommand),
+            typeof(IconPopupOpenerView),
+            default,
+            propertyChanged: OpenPopupCommandPropertyChanged
             );
         #endregion
 
@@ -62,35 +69,40 @@ namespace Aplicacion.Views.Shared.Entries
             get => (bool)GetValue(IsEnabledProperty); 
             set => SetValue(IsEnabledProperty, value); 
         }
+        public ICommand OpenPopupCommand
+        { 
+            get => (ICommand)GetValue(OpenPopupCommandProperty); 
+            set => SetValue(OpenPopupCommandProperty, value); 
+        }
         #endregion
 
         #region Methods
         private static void IconPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconEntryView)bindable).iconEntry.Source = (string)newValue;
+            ((IconPopupOpenerView)bindable).iconEntry.Source = (string)newValue;
         }
         private static void LabelPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconEntryView)bindable).labelEntry.Text = (string)newValue;
+            ((IconPopupOpenerView)bindable).labelEntry.Text = (string)newValue;
         }
         private static void TextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconEntryView)bindable).entry.Text = (string)newValue;
+            ((IconPopupOpenerView)bindable).value.Text = (string)newValue;
         }
-        private static void IsEnabledPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OpenPopupCommandPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            ((IconEntryView)bindable).entry.IsEnabled = (bool)newValue;
+            ((IconPopupOpenerView)bindable).chevron.GestureRecognizers.Clear();
+
+            TapGestureRecognizer recognizer = new TapGestureRecognizer();
+            recognizer.Command = (ICommand)newvalue;
+
+            ((IconPopupOpenerView)bindable).chevron.GestureRecognizers.Add(recognizer);
         }
         #endregion
 
-        public IconEntryView()
+        public IconPopupOpenerView()
         {
             InitializeComponent();
-        }
-
-        private void entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Text = e.NewTextValue;
         }
     }
 }

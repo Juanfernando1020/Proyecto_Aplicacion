@@ -13,6 +13,7 @@ namespace Aplicacion.Pages.Route.Module
 
         private static void InitializeDependencyPages()
         {
+            Budget.Module.Budget.Initialize();
             Create.Module.CreateRoute.Initialize();
             Detail.Module.DetailRoute.Initialize();
             List.Module.ListRoutes.Initialize();

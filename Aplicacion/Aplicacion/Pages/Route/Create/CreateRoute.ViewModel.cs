@@ -37,13 +37,6 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             }
         }
 
-        private ObservableCollection<Users> _workersCollection;
-        public ObservableCollection<Users> WorkersCollection
-        {
-            get => _workersCollection;
-            set => SetProperty(ref _workersCollection, value);
-        }
-        
         private Users _worker;
         public Users Worker
         {
@@ -51,10 +44,19 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             set => SetProperty(ref _worker, value);
         }
 
+        public ICommand OpenUserBySpecificationPopupCommand => new Command(async () => await OpenUserBySpecificationPopupController());
         public ICommand CreateCommand => new Command(async () => await CreateController());
         #endregion
 
         #region Methods
+
+        private async Task OpenUserBySpecificationPopupController()
+        {
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Worker));
+
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
+        }
         private async Task CreateController()
         {
             IsBusy = true;
@@ -79,8 +81,6 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         #region Constructor
         public CreateRoute()
         {
-            WorkersCollection = new ObservableCollection<Users>();
-
             Route = new Routes(Guid.NewGuid(), string.Empty, string.Empty, true, null, null);
 
             _routeService = new Service.Route(new Repository.Route());
@@ -98,6 +98,11 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         public override void CallBack(INavigationParameters parameters)
         {
             base.CallBack(parameters);
+
+            if (parameters != null)
+            {
+                Worker = parameters[ArgKeys.Worker] as Users;
+            }
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -125,21 +130,6 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
                 if (arg is Users user)
                 {
                     Route.Manager = user;
-
-                    ResultBase<IEnumerable<Users>> workersResult =
-                        await _userService.GetAllBySpecificationAsync(new UserByRoleSpecification(RolesEnum.Worker));
-
-                    if (workersResult.IsSuccess)
-                    {
-                        foreach (Users worker in workersResult.Data)
-                        {
-                            WorkersCollection.Add(worker);
-                        }
-                    }
-                    else
-                    {
-                        await ShowErrorResult(workersResult.Message);
-                    }
                 }
                 else
                 {

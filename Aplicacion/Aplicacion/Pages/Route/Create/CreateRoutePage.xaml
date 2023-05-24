@@ -4,8 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:config="clr-namespace:Aplicacion.Config"
-    xmlns:customEntries="clr-namespace:Aplicacion.Views.Shared.Entries"
-    xmlns:customPickers="clr-namespace:Aplicacion.Views.Shared.Pickers"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
     xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
     xmlns:generic="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
@@ -17,22 +16,19 @@
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="20" Spacing="10">
-                <customEntries:IconEntryView
+                <customViews:IconEntryView
                     Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                     Label="Nombre"
                     Text="{Binding Route.Name}" />
-                <customEntries:IconEntryView
+                <customViews:IconEntryView
                     Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                     Label="Zona"
                     Text="{Binding Route.Zone}" />
-                <customPickers:IconPickerView Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png" Label="Trabajador">
-                    <customPickers:IconPickerView.Picker>
-                        <Picker
-                            ItemDisplayBinding="{Binding Name}"
-                            ItemsSource="{Binding WorkersCollection}"
-                            SelectedItem="{Binding Worker}" />
-                    </customPickers:IconPickerView.Picker>
-                </customPickers:IconPickerView>
+                <customViews:IconPopupOpenerView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Trabajador"
+                    OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
+                    Text="{Binding Worker.Name}" />
                 <Button
                     Command="{Binding CreateCommand}"
                     Text="Crear Ruta"

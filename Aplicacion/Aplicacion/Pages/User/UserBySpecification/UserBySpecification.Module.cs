@@ -1,7 +1,6 @@
-﻿using Aplicacion.Models;
-using Xamarin.CommonToolkit.Helpers;
+﻿using Xamarin.CommonToolkit.Helpers;
 
-namespace Aplicacion.Pages.User.Views.UserBySpecification.Module
+namespace Aplicacion.Pages.User.UserBySpecification.Module
 {
     internal class UserBySpecification
     {

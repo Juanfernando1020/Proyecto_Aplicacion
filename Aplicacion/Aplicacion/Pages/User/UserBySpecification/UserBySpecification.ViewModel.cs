@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
-using Xamarin.CommonToolkit.Common;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
@@ -15,9 +14,9 @@ using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Specifications;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.User.Views.UserBySpecification.ViewModel
+namespace Aplicacion.Pages.User.UserBySpecification.ViewModel
 {
-    internal class UserBySpecification : PopupViewModelBase, IPopupEvents
+    internal class UserBySpecification : PopupViewModelBase
     {
         #region Variables
 
@@ -71,7 +70,10 @@ namespace Aplicacion.Pages.User.Views.UserBySpecification.ViewModel
         {
             base.OnInitialize(parameters);
 
-            await OnLoad(parameters);
+            if (parameters != null)
+            {
+                await OnLoad(parameters);
+            }
         }
         #endregion
 

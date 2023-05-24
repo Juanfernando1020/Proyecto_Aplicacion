@@ -23,6 +23,7 @@ namespace Aplicacion.Module
         private static Page GetInitPage()
         {
             Page page = ViewsManager.CreatePage<Pages.Account.Login.LoginPage>();
+            //Page page = ViewsManager.CreatePage<Pages.Route.Create.CreateRoutePage>();
             //Page page = ViewsManager.CreateView<Pages.Client.Details.ClientDetailsPage>();
             return new NavigationPage(page);
         }
