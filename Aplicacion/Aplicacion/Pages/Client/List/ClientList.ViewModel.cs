@@ -1,19 +1,15 @@
 ﻿using Aplicacion.Config;
 using Aplicacion.Models;
-using Aplicacion.Pages.Client.Create.Module;
-using Aplicacion.Pages.Main;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Client.List.ViewModel
 {
-    internal class ClientList : ViewModelBase
+    internal class ClientList : PageViewModelBase
     {
         #region Propeties
         public ICommand GoToCreateClientCommand => new Command(async () => await GoToCreateClientController());

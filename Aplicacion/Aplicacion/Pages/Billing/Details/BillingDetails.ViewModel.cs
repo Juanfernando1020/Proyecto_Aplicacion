@@ -1,8 +1,8 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
+﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Billing.Details.ViewModel
 {
-    internal class BillingDetails : ViewModelBase
+    internal class BillingDetails : PageViewModelBase
     {
     }
 }

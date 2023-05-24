@@ -1,15 +1,15 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
-using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.User.Create.ViewModel
 {
-    internal class UserCreate : ViewModelBase
+    internal class UserCreate : PageViewModelBase
     {
         #region Variables
         private string adminName = null;

@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Finance.Expense.List.Module.ViewModel
 {
-    internal class ExpenseList : ViewModelBase
+    internal class ExpenseList : PageViewModelBase
     {
         #region Propeties
         public ICommand GoToExpenseCreatePageCommand => new Command(async () => await GoToExpenseCreatePageController());

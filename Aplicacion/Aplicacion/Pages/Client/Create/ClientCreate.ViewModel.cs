@@ -1,8 +1,8 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
+﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Client.Create.ViewModel
 {
-    internal class ClientCreate : ViewModelBase
+    internal class ClientCreate : PageViewModelBase
     {
     }
 }

@@ -7,6 +7,7 @@ namespace Aplicacion.Config
     internal static class ArgKeys
     {
         internal const string Role = "Role";
+        internal const string Worker = "Worker";
         internal const string User = "User";
         internal const string Client = "Client";
         internal const string Loan = "Loan";

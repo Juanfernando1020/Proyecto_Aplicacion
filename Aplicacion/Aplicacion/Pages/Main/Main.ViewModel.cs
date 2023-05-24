@@ -1,5 +1,4 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
-using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.PagesBase.Enums;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
@@ -14,10 +13,11 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Main.ViewModel
 {
-    internal class Main : ViewModelBase
+    internal class Main : PageViewModelBase
     {
         #region Variables
         private RolesEnum role;

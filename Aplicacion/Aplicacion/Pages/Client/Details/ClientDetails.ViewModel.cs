@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Client.Details.ViewModel
 {
-    internal class ClientDetails : ViewModelBase
+    internal class ClientDetails : PageViewModelBase
     {
         #region Propeties
         public ICommand GoToListLoanCommand => new Command(async () => await GoToListLoanController());

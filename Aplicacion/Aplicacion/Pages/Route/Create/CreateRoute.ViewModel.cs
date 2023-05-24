@@ -7,21 +7,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Pages.User.Enums;
-using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
-using Xamarin.CommonToolkit.Mvvm.Navigation.Models;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
 using Aplicacion.Pages.User.Contracts;
-using Firebase.Auth.Repository;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xamarin.CommonToolkit.Result;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Route.Create.ViewModel
 {
-    internal class CreateRoute : ViewModelBase
+    internal class CreateRoute : PageViewModelBase
     {
         #region Variables
         private readonly IRouteService _routeService;
@@ -97,9 +95,9 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             await OnLoad(parameters);
         }
 
-        public override void OnCallBack(INavigationParameters parameters)
+        public override void CallBack(INavigationParameters parameters)
         {
-            base.OnCallBack(parameters);
+            base.CallBack(parameters);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)

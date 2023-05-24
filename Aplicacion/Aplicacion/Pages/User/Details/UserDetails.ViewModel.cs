@@ -1,5 +1,4 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
-using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
@@ -14,12 +13,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Aplicacion.Pages.Route.Contracts;
 using System.Linq;
+using Aplicacion.Pages.User.Specifications;
+using Xamarin.CommonToolkit.Common;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.User.Details.ViewModel
 {
-    internal class UserDetails : ViewModelBase
+    internal class UserDetails : PageViewModelBase, IPopupEvents
     {
         #region Variables
         private readonly IUserService _userService;
@@ -89,10 +91,17 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         {
             IsBusy = true;
 
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.User, User);
+            //INavigationParameters parameters = new NavigationParameters();
+            //parameters.Add(ArgKeys.User, User);
 
-            await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(parameters: parameters);
+            //await NavigationService.NavigateToAsync<Route.Create.CreateRoutePage>(parameters: parameters);
+
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Worker));
+
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
+
+
             IsBusy = false;
         }
         private async Task GoToRouteDetailsController()
@@ -128,9 +137,11 @@ namespace Aplicacion.Pages.User.Details.ViewModel
             OnLoad(parameters);
         }
 
-        public override void OnCallBack(INavigationParameters parameters)
+        public override void CallBack(INavigationParameters parameters)
         {
-            base.OnCallBack(parameters);
+            base.CallBack(parameters);
+
+            var obj = parameters;
         }
 
         #endregion

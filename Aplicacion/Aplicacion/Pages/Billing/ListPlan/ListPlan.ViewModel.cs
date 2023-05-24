@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.CommonToolkit.Mvvm;
+﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Billing.ListPlan.ViewModel
 {
-    internal class ListPlan : ViewModelBase
+    internal class ListPlan : PageViewModelBase
     {
     }
 }

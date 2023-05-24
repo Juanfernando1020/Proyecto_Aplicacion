@@ -1,16 +1,14 @@
 ﻿using Xamarin.CommonToolkit.Helpers.Firebase;
 using Xamarin.CommonToolkit.Helpers;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
-using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Module
 {
     internal static class App
     {
-        public static ViewModelBase ViewModel { get; set; }
+        public static PageViewModelBase ViewModel { get; set; }
         public static INavigationService NavigationService { get; set; }
         public static string setting = "value";
 

@@ -3,14 +3,14 @@ using Aplicacion.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.Mvvm;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.List.ViewModel
 {
-    internal class LoanList : ViewModelBase
+    internal class LoanList : PageViewModelBase
     {
         #region Propeties
         public ICommand GoToCreateLoanCommand => new Command(async () => await GoToCreateLoanController());

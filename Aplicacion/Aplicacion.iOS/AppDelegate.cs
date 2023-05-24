@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using Xamarin.CommonToolkit.Module.iOS;
 
 namespace Aplicacion.iOS
 {
@@ -22,6 +19,8 @@ namespace Aplicacion.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            CommonToolkit.Initialize();
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

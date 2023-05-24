@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommonToolkit.Mvvm;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.List.ViewModel
 {
-    class ListRoutes : ViewModelBase
+    class ListRoutes : PageViewModelBase
     {
         #region Propeties
         public ICommand GoToCreaterouteCommand => new Command(async () => await GoToCreateRouteController());

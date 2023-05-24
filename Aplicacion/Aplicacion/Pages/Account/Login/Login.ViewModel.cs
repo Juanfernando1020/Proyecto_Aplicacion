@@ -1,5 +1,4 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
-using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+﻿using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
@@ -13,10 +12,11 @@ using Aplicacion.Pages.Main;
 using Aplicacion.Pages.User.Enums;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Account.Login.ViewModel
 {
-    internal class Login : ViewModelBase
+    internal class Login : PageViewModelBase
     {
         #region Variables
         private readonly ILoginService _loginService;

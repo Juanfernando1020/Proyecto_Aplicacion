@@ -1,8 +1,8 @@
-﻿using Xamarin.CommonToolkit.Mvvm;
+﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
 namespace Aplicacion.Pages.Loan.Create.ViewModel
 {
-    internal class LoanCreate : ViewModelBase
+    internal class LoanCreate : PageViewModelBase
     {
     }
 }
