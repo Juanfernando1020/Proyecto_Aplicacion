@@ -18,6 +18,8 @@ using Xamarin.CommonToolkit.Common;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Aplicacion.Config.Messages;
+using Aplicacion.Config.Routes;
 
 namespace Aplicacion.Pages.User.Details.ViewModel
 {
@@ -29,6 +31,16 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #endregion
 
         #region Property
+        private INavigationParameters _viewsParamaters;
+        public INavigationParameters ViewsParamaters
+        {
+            get => _viewsParamaters;
+            set
+            {
+                SetProperty(ref _viewsParamaters, value);
+            }
+        }
+
         private bool _canCreateRoute;
         public bool CanCreateRoute
         { 
@@ -116,6 +128,7 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         #region Constructor
         public UserDetails()
         {
+            ViewsParamaters = new NavigationParameters();
             Routes = new ObservableCollection<Routes>();
             CanCreateRoute = false;
             User = default;
@@ -144,46 +157,23 @@ namespace Aplicacion.Pages.User.Details.ViewModel
         private async void OnLoad(INavigationParameters parameters)
         {
             IsBusy = true;
-            Guid userId = await _userService.GetUserId();
 
-            if (userId != Guid.Empty)
+            ResultBase<Users> result = await _userService.GetByIdAsync();
+
+            if (result.IsSuccess)
             {
-                ResultBase<Users> result = await _userService.GetByIdAsync(userId);
+                CanCreateRoute = true;
+                User = result.Data;
+                ViewsParamaters.Add(ArgKeys.User, User);
 
-                if (result.IsSuccess)
-                {
-                    CanCreateRoute = true;
-                    User = result.Data;
-
-                    if (User.Role == (int)RolesEnum.Worker)
-                        CanCreateRoute = false;
-                }
-                else
-                {
-                    await ShowErrorResult(result.Message);
-                }
-
-                if (User.Role != (int)RolesEnum.Owner)
-                {
-                    ResultBase<IEnumerable<Routes>> routesResult = await _routeService.GetAllByUserId(userId);
-
-                    if (routesResult.IsSuccess)
-                    {
-                        foreach (Routes route in routesResult.Data)
-                        {
-                            Routes.Add(route);
-                        }
-                    }
-                    else
-                    {
-                        await ShowErrorResult(routesResult.Message);
-                    }
-                }
+                if (User.Role == (int)RolesEnum.Worker)
+                    CanCreateRoute = false;
             }
             else
             {
-                await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(userId)));
+                await ShowErrorResult(result.Message);
             }
+
             IsBusy = false;
         }
         private async Task ShowErrorResult(string message)

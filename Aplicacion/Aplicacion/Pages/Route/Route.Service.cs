@@ -1,4 +1,4 @@
-﻿using Aplicacion.Config;
+﻿using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Contracts;
 using System;

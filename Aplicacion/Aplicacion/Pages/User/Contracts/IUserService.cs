@@ -12,6 +12,7 @@ namespace Aplicacion.Pages.User.Contracts
         Task<Guid> GetUserId();
         Task<ResultBase<IEnumerable<Users>>> GetAllBySpecificationAsync(SpecificationBase<Users> specification);
         Task<ResultBase> InsertAsync(Users user, string confirmPassword);
-        Task<ResultBase<Users>> GetByIdAsync(Guid? user);
+        Task<ResultBase<Users>> GetByIdAsync();
+        Task<ResultBase<Users>> GetByIdAsync(Guid user);
     }
 }

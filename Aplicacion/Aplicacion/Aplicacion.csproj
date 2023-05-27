@@ -46,16 +46,19 @@
     <EmbeddedResource Update="Pages\Day\Summary\DaySummaryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\Budget\Add\BudgetAddPopup.xaml">
+    <EmbeddedResource Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Route\Budget\List\BudgetListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Create\CreateRoutePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\Detail\DetailRoutePage.xaml">
+    <EmbeddedResource Update="Pages\Route\Details\RouteDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\List\ListRoutesPage.xaml">
+    <EmbeddedResource Update="Pages\Route\List\RouteListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\User\Create\UserCreatePage.xaml">
@@ -115,6 +118,15 @@
     <Compile Update="Pages\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml.cs">
+      <DependentUpon>BudgetCreatePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Route\Details\RouteDetailsPage.xaml.cs">
+      <DependentUpon>RouteDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Route\List\RouteListView.xaml.cs">
+      <DependentUpon>RouteListView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\User\Create\UserCreatePage.xaml.cs">
       <DependentUpon>UserCreatePage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +162,9 @@
     </Compile>
     <Compile Update="Pages\Finance\Expense\List\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\User\List\UserListPage.xaml.cs">
+      <DependentUpon>UserListPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\User\UserBySpecification\UserBySpecificationPopup.xaml.cs">
       <DependentUpon>UserBySpecificationPopup.xaml</DependentUpon>

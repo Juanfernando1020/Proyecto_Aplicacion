@@ -16,6 +16,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Aplicacion.Config.Messages;
+using Aplicacion.Config.Routes;
 
 namespace Aplicacion.Pages.Route.Create.ViewModel
 {
@@ -23,7 +25,6 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
     {
         #region Variables
         private readonly IRouteService _routeService;
-        private readonly IUserService _userService;
         #endregion
 
         #region Properties
@@ -43,13 +44,20 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             get => _worker;
             set => SetProperty(ref _worker, value);
         }
+        
+        private INavigationParameters _budgetListParameters;
+        public INavigationParameters BudgetListParameters
+        {
+            get => _budgetListParameters;
+            set => SetProperty(ref _budgetListParameters, value);
+        }
 
         public ICommand OpenUserBySpecificationPopupCommand => new Command(async () => await OpenUserBySpecificationPopupController());
+        public ICommand OpenBudgetCreatePopupCommand => new Command(async () => await OpenBudgetCreatePopupController());
         public ICommand CreateCommand => new Command(async () => await CreateController());
         #endregion
 
         #region Methods
-
         private async Task OpenUserBySpecificationPopupController()
         {
             INavigationParameters parameters = new NavigationParameters();
@@ -76,6 +84,10 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             }
             IsBusy = false;
         }
+        private async Task OpenBudgetCreatePopupController()
+        {
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Budget.BudgetCreate);
+        }
         #endregion
 
         #region Constructor
@@ -84,7 +96,6 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             Route = new Routes(Guid.NewGuid(), string.Empty, string.Empty, true, null, null);
 
             _routeService = new Service.Route(new Repository.Route());
-            _userService = new User.Service.User(new User.Repository.User());
         }
         #endregion
 
@@ -101,7 +112,14 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
 
             if (parameters != null)
             {
-                Worker = parameters[ArgKeys.Worker] as Users;
+                if (parameters[ArgKeys.User] is Users user)
+                    Worker = user;
+
+                if (parameters[ArgKeys.Budget] is Budgets budget)
+                {
+                    BudgetListParameters = new NavigationParameters();
+                    BudgetListParameters.Add(ArgKeys.Budget, budget);
+                }
             }
         }
 

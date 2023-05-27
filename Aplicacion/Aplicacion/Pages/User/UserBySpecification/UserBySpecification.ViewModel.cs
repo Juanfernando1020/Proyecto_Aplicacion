@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
+using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.User.Contracts;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
@@ -49,7 +50,7 @@ namespace Aplicacion.Pages.User.UserBySpecification.ViewModel
             if (SelectedUser == null) return;
 
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Worker, SelectedUser);
+            parameters.Add(ArgKeys.User, SelectedUser);
 
             await NavigationPopupService.PopPopupAsync(this, parameters: parameters);
 
@@ -82,23 +83,29 @@ namespace Aplicacion.Pages.User.UserBySpecification.ViewModel
         private async Task OnLoad(INavigationParameters parameters)
         {
             IsBusy = true;
-            if (!parameters.ContainsKey(ArgKeys.Specification))
+
+            if (parameters.ContainsKey(ArgKeys.Specification))
+            {
+                if (parameters[ArgKeys.Specification] is SpecificationBase<Users> specification)
+                {
+                    ResultBase<IEnumerable<Users>> result = await _userService.GetAllBySpecificationAsync(specification);
+
+                    if (result.IsSuccess)
+                    {
+                        foreach (Users user in result.Data)
+                        {
+                            UsersCollection.Add(user);
+                        }
+                    }
+                    else
+                    {
+                        await ShowError(result.Message);
+                    }
+                }
+            }
+            else
             {
                 await ShowError();
-            }
-
-            SpecificationBase<Users> specification = (SpecificationBase<Users>)parameters[ArgKeys.Specification];
-
-            ResultBase<IEnumerable<Users>> result = await _userService.GetAllBySpecificationAsync(specification);
-
-            if (!result.IsSuccess)
-            {
-                await ShowError(result.Message);
-            }
-
-            foreach (Users user in result.Data)
-            {
-                UsersCollection.Add(user);
             }
 
             IsBusy = false;
@@ -108,7 +115,7 @@ namespace Aplicacion.Pages.User.UserBySpecification.ViewModel
         {
             Console.WriteLine(consoleMessage ?? string.Format(CommonMessages.Console.MissingKey, ArgKeys.Specification));
             await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-            await NavigationService.PopAsync();
+            await NavigationPopupService.PopPopupAsync(this);
         }
 
         #endregion

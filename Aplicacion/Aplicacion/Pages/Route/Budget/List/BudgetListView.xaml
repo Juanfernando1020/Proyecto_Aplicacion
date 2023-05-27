@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:ContentViewBase
+    x:Class="Aplicacion.Pages.Route.Budget.List.BudgetListView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Budget.List.ViewModel;assembly=Aplicacion"
+    x:DataType="{x:Type viewModel:BudgetList}"
+    HorizontalOptions="FillAndExpand"
+    VerticalOptions="FillAndExpand">
+    <local:ContentViewBase.Content>
+        <StackLayout
+            Padding="10"
+            BackgroundColor="Aqua"
+            BindableLayout.EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+            BindableLayout.ItemsSource="{Binding BudgetsCollection}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Budgets}">
+                    <ViewCell>
+                        <Grid ColumnDefinitions="*, auto">
+                            <Label
+                                Grid.Column="0"
+                                Style="{StaticResource NormalLabel}"
+                                Text="{Binding Admin.Name}"
+                                VerticalTextAlignment="Center" />
+                            <Image
+                                Grid.Column="1"
+                                HorizontalOptions="EndAndExpand"
+                                Source="chevron_right"
+                                VerticalOptions="CenterAndExpand" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </local:ContentViewBase.Content>
+</local:ContentViewBase>

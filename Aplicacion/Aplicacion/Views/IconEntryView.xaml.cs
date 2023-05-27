@@ -39,6 +39,14 @@ namespace Aplicacion.Views.Shared
             true,
             propertyChanged: IsEnabledPropertyChanged
             );
+        
+        public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
+            nameof(Keyboard),
+            typeof(Keyboard),
+            typeof(IconEntryView),
+            Keyboard.Text,
+            propertyChanged: KeyboardPropertyChanged
+            );
         #endregion
 
         #region Properties
@@ -62,6 +70,11 @@ namespace Aplicacion.Views.Shared
             get => (bool)GetValue(IsEnabledProperty); 
             set => SetValue(IsEnabledProperty, value); 
         }
+        public Keyboard Keyboard
+        { 
+            get => (Keyboard)GetValue(KeyboardProperty); 
+            set => SetValue(KeyboardProperty, value); 
+        }
         #endregion
 
         #region Methods
@@ -80,6 +93,10 @@ namespace Aplicacion.Views.Shared
         private static void IsEnabledPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             ((IconEntryView)bindable).entry.IsEnabled = (bool)newValue;
+        }
+        private static void KeyboardPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            ((IconEntryView)bindable).entry.Keyboard = (Keyboard)newValue;
         }
         #endregion
 

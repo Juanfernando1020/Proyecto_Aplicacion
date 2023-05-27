@@ -1,6 +1,5 @@
 ﻿using Xamarin.CommonToolkit.PagesBase.Enums;
 using Xamarin.CommonToolkit.Result;
-using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;
 using Aplicacion.Pages.User.Enums;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Aplicacion.Config.Routes;
 
 namespace Aplicacion.Pages.Main.Service
 {

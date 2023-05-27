@@ -14,6 +14,7 @@ using Xamarin.Forms;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Aplicacion.Config.Messages;
 
 namespace Aplicacion.Pages.Main.ViewModel
 {

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.Route.Budget.Create.BudgetCreatePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Budget.Create.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:DataType="{x:Type viewModel:BudgetCreate}">
+    <local:CustomPopupBase.Content>
+        <yummy:PancakeView
+            Margin="10"
+            BackgroundColor="{StaticResource MainBackground}"
+            CornerRadius="10"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+                Padding="20"
+                Spacing="10"
+                VerticalOptions="CenterAndExpand">
+                <customViews:IconEntryView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Cantidad"
+                    Text="{Binding Budget.Amount}" />
+                <customViews:IconPopupOpenerView
+                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Label="Administrador"
+                    OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
+                    Text="{Binding Admin.Name}" />
+                <Button Command="{Binding SendBudgetCommand}" Text="Agregar Base" />
+            </StackLayout>
+        </yummy:PancakeView>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

@@ -8,6 +8,7 @@
     xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
     xmlns:generic="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Create.ViewModel"
     Title="Crear Ruta"
     x:DataType="{x:Type viewModel:CreateRoute}"
@@ -29,6 +30,22 @@
                     Label="Trabajador"
                     OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
                     Text="{Binding Worker.Name}" />
+                <Grid ColumnDefinitions="*, auto">
+                    <Label
+                        Grid.Column="0"
+                        Style="{StaticResource BoldLabel}"
+                        Text="Bases" />
+                    <Label
+                        Grid.Column="1"
+                        Text="Agregar Base"
+                        TextColor="{StaticResource TextBlackLight}"
+                        VerticalTextAlignment="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenBudgetCreatePopupCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <extensions:ViewsExtension Parameters="{Binding BudgetListParameters}" View="{x:Static routes:ViewsRoutes.BudgetList}" />
                 <Button
                     Command="{Binding CreateCommand}"
                     Text="Crear Ruta"

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.CommonToolkit.Specifications;
+using Aplicacion.Config.Messages;
 
 namespace Aplicacion.Pages.User.Service
 {
@@ -34,7 +35,7 @@ namespace Aplicacion.Pages.User.Service
 
             if (!userVerified.Verified)
             {
-                return new ResultBase("InsertAsync", false, userVerified.Message);
+                return new ResultBase("Service.User.InsertAsync", false, userVerified.Message);
             }
 
             ResultBase<Users> result =  await _userRepository.InsertAsync(user);
@@ -44,22 +45,29 @@ namespace Aplicacion.Pages.User.Service
                 if (!result.Data.Equals(user))
                 {
                     result.IsSuccess = false;
-                    result.Message = "Ha ocurrido algo en la creación de ";
+                    result.Message = CommonMessages.Error.InformationMessage;
                 }
             }
 
             return result;
         }
 
-        public async Task<ResultBase<Users>> GetByIdAsync(Guid? user)
+        public async Task<ResultBase<Users>> GetByIdAsync()
         {
-            if(user == null || user.Value.Equals(Guid.Empty))
+            Guid userId = await GetUserId();
+
+            return await GetByIdAsync(userId);
+        }
+
+        public async Task<ResultBase<Users>> GetByIdAsync(Guid user)
+        {
+            if(user.Equals(Guid.Empty))
             {
                 Console.WriteLine("The parameter 'user' cannot be null or Guid.Empty.");
-                return new ResultBase<Users>("GetByIdAsync", false, "Ha ocurrido algo al momento de traer la información. Intentalo más tarde.");
+                return new ResultBase<Users>("Service.User.GetByIdAsync", false, CommonMessages.Error.InformationMessage);
             }
 
-            return await _userRepository.GetByIdAsync(user.Value);
+            return await _userRepository.GetByIdAsync(user);
         }
 
         public async Task<Guid> GetUserId()

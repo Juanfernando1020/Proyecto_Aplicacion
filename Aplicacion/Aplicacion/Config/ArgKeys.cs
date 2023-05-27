@@ -8,6 +8,7 @@ namespace Aplicacion.Config
     {
         internal const string Billing = "Billing";
         internal const string Budget = "Budget";
+        internal const string Budgets = "Budget";
         internal const string Client = "Client";
         internal const string Loan = "Loan";
         internal const string Route = "Route";
@@ -15,5 +16,6 @@ namespace Aplicacion.Config
         internal const string Specification = "Specification";
         internal const string User = "User";
         internal const string Worker = "Worker";
+        internal const string Admin = "Admin";
     }
 }

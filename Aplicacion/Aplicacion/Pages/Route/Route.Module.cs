@@ -15,8 +15,8 @@ namespace Aplicacion.Pages.Route.Module
         {
             Budget.Module.Budget.Initialize();
             Create.Module.CreateRoute.Initialize();
-            Detail.Module.DetailRoute.Initialize();
-            List.Module.ListRoutes.Initialize();
+            Detail.Module.RouteDetails.Initialize();
+            List.Module.RouteList.Initialize();
         }
     }
 }

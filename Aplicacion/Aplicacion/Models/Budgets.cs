@@ -8,6 +8,6 @@ namespace Aplicacion.Models
     {
         public Guid Id { get; set; }
         public decimal Amount { get; set; }
-        public Guid Admin { get; set; }
+        public Users Admin { get; set; }
     }
 }

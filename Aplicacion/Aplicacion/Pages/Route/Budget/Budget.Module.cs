@@ -9,7 +9,8 @@
 
         private static void InitializeDependencyPopups()
         {
-            Add.Module.BudgetAdd.Initialize();
+            Create.Module.BudgetCreate.Initialize();
+            List.Module.BudgetList.Initialize();
         }
     }
 }
