@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using UIKit;
-using Xamarin.CommonToolkit.Module.iOS;
+using Xamarin.CommonToolkit.Module;
 
 namespace Aplicacion.iOS
 {

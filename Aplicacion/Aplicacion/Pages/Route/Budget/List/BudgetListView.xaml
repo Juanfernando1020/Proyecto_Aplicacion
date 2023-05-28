@@ -13,7 +13,6 @@
     <local:ContentViewBase.Content>
         <StackLayout
             Padding="10"
-            BackgroundColor="Aqua"
             BindableLayout.EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
             BindableLayout.ItemsSource="{Binding BudgetsCollection}">
             <BindableLayout.ItemTemplate>

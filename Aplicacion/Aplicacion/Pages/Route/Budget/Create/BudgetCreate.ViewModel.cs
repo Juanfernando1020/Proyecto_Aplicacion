@@ -71,7 +71,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         private async Task OpenUserBySpecificationPopupController()
         {
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Specification, new UserByRoleAndNotIdSpecification(_userId, RolesEnum.Admin));
+            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Admin));
 
             await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
         }
@@ -125,7 +125,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
             if (parameters != null)
             {
                 if (parameters[ArgKeys.User] is Users user)
-                {
+                    {
                     if (user.Id != _userId)
                     {
                         Admin = user;
