@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
-using Xamarin.CommonToolkit.Module.Android;
+using Xamarin.CommonToolkit.Module;
 
 namespace Aplicacion.Droid
 {

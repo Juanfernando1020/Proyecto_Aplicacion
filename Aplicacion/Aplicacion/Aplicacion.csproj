@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Pages\Basis\Add\AddBasisPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -175,5 +171,9 @@
     <Compile Update="Views\IconPopupOpenerView.xaml.cs">
       <DependentUpon>IconPopupOpenerView.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Billing\Delay\" />
   </ItemGroup>
 </Project>

@@ -149,10 +149,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj">
-      <Project>{f5998571-a334-4393-bd40-a23cd1048f21}</Project>
-      <Name>CommonToolkit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Aplicacion\Aplicacion.csproj">
       <Project>{37322CE4-6E25-4796-94F9-37ADABBEA313}</Project>
       <Name>Aplicacion</Name>
