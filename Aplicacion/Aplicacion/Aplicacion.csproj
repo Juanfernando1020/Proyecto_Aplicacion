@@ -176,4 +176,10 @@
   <ItemGroup>
     <Folder Include="Pages\Billing\Delay\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommonToolkit">
+      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
