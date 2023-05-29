@@ -49,6 +49,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         {
             IsBusy = true;
 
+            Budget.Admin = Admin;
             string message = string.Empty;
 
             if (_budgetCreateService.Validate(Budget, out message))
@@ -71,7 +72,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         private async Task OpenUserBySpecificationPopupController()
         {
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Specification, new UserByRoleAndNotIdSpecification(_userId, RolesEnum.Admin));
+            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Admin));
 
             await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
         }
@@ -100,10 +101,10 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
             await OnLoad(parameters);
         }
 
-        public override async void CallBack(INavigationParameters parameters)
+        public override void CallBack(INavigationParameters parameters)
         {
             base.CallBack(parameters);
-            await OnCallBack(parameters);
+            OnCallBack(parameters);
         }
         #endregion
 
@@ -118,7 +119,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         #endregion
 
         #region OnCallBack
-        private async Task OnCallBack(INavigationParameters parameters)
+        private void OnCallBack(INavigationParameters parameters)
         {
             IsBusy = true;
 
@@ -126,10 +127,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                 {
-                    if (user.Id != _userId)
-                    {
-                        Admin = user;
-                    }
+                    Admin = user;
                 }
             }
 

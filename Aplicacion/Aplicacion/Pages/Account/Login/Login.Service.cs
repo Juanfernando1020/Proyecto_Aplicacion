@@ -23,18 +23,14 @@ namespace Aplicacion.Pages.Account.Login.Service
             _secureStorage = new SecureStorageService();
         }
 
-        public async Task<ResultBase<RolesEnum>> LoginAsync(Credentials credentials)
+        public async Task<ResultBase<Users>> LoginAsync(Credentials credentials)
         {
-            ResultBase<Users> result = default;
-            await MainThread.InvokeOnMainThreadAsync(async () =>
-            {
-                result = await _loginRepository.LoginAsync(credentials);
-            });
+            ResultBase<Users> result = await _loginRepository.LoginAsync(credentials); ;
 
             await _secureStorage.DeleteAllAsync();
             await _secureStorage.SaveAsync(ArgKeys.User, result.Data?.Id ?? Guid.Empty);
 
-            return new ResultBase<RolesEnum>(result.Code, result.IsSuccess, result.Message, result.Data == null ? default(RolesEnum) : (RolesEnum)result.Data.Role);
+            return result;
         }
     }
 }

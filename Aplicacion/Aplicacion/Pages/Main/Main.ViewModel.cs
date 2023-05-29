@@ -21,7 +21,6 @@ namespace Aplicacion.Pages.Main.ViewModel
     internal class Main : PageViewModelBase
     {
         #region Variables
-        private RolesEnum role;
         private readonly IMainService service;
         #endregion
 
@@ -44,10 +43,8 @@ namespace Aplicacion.Pages.Main.ViewModel
         {
             IsBusy = true;
 
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Role, role);
+            await NavigationService.NavigateToAsync(item.Page, item.PageType, item.Args);
 
-            await NavigationService.NavigateToAsync(item.Page, (PagesBaseEnum)item.PageType, parameters);
             IsBusy = false;
         }
         #endregion
@@ -72,20 +69,19 @@ namespace Aplicacion.Pages.Main.ViewModel
         #region OnLoad
         private async void OnLoad(INavigationParameters parameters)
         {
-            if (!parameters.ContainsKey(ArgKeys.Role))
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.User] is Users user)
+                {
+                    IEnumerable<Modules> result = service.GetModulesAsync(user);
+                    MenuItems = result.ToList();
+                }
+            }
+            else
             {
                 Console.WriteLine(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Role));
                 await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-                return;
             }
-
-            IsBusy = true;
-
-            role = (RolesEnum)parameters[ArgKeys.Role];
-            IEnumerable<Modules> result = service.GetModulesAsync(role);
-            MenuItems = result.ToList();
-
-            IsBusy = false;
         }
         #endregion
     }

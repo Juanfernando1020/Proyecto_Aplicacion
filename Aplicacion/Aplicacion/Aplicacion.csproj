@@ -36,6 +36,9 @@
     <EmbeddedResource Update="Pages\Basis\Add\AddBasisPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Basis\List\ListBasisPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Billing\ListPlan\ListPlanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -178,8 +181,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Xamarin.CommonToolkit">
-      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj" />
   </ItemGroup>
 </Project>

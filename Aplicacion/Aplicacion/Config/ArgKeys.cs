@@ -14,6 +14,7 @@ namespace Aplicacion.Config
         internal const string Route = "Route";
         internal const string Role = "Role";
         internal const string Specification = "Specification";
+        internal const string Arranging = "Arranging";
         internal const string User = "User";
         internal const string Worker = "Worker";
         internal const string Admin = "Admin";

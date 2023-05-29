@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Local:ContentViewBase
-    x:Class="Aplicacion.Pages.Route.List.RouteListView"
+<Local:ContentPageBase
+    x:Class="Aplicacion.Pages.Route.List.RouteListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
@@ -8,97 +8,103 @@
     xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.List.ViewModel"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Title="Rutas"
     x:DataType="{x:Type viewModel:RouteList}"
-    BackgroundColor="{StaticResource MainBackground}"
-    HeightRequest="350"
-    HorizontalOptions="CenterAndExpand">
+    BackgroundColor="{StaticResource MainBackground}">
 
-    <Local:ContentViewBase.Content>
-        <CollectionView
-            EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-            IsVisible="{Binding RoutesCollection, Converter={StaticResource NullToBoolean}}"
-            ItemsSource="{Binding RoutesCollection}"
-            SelectedItem="{Binding SelectedRoute}"
-            SelectionMode="Single"
-            VerticalOptions="FillAndExpand">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:Routes}">
-                    <Grid Padding="5">
-                        <yummy:PancakeView
-                            Padding="10"
-                            BackgroundColor="{StaticResource BackgroundButton}"
-                            CornerRadius="10">
-                            <StackLayout>
-                                <Label Style="{StaticResource BoldLabel}" Text="{Binding Name}" />
-                                <Frame
-                                    Padding="8"
-                                    BackgroundColor="{StaticResource MainBackground}"
-                                    CornerRadius="5">
-                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
-                                        <Label
-                                            Grid.Column="0"
-                                            FontAttributes="Bold"
-                                            Text="Zona" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding Zone}" />
-                                    </Grid>
-                                </Frame>
-                                <Frame
-                                    Padding="8"
-                                    BackgroundColor="{StaticResource MainBackground}"
-                                    CornerRadius="5">
-                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
-                                        <Label
-                                            Grid.Column="0"
-                                            FontAttributes="Bold"
-                                            Text="Trabajador" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding Worker.Name}" />
-                                    </Grid>
-                                </Frame>
-                                <Frame
-                                    Padding="8"
-                                    BackgroundColor="{StaticResource MainBackground}"
-                                    CornerRadius="5">
-                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
-                                        <Label
-                                            Grid.Column="0"
-                                            FontAttributes="Bold"
-                                            Text="Manager" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding Manager.Name}" />
-                                    </Grid>
-                                </Frame>
-                                <Frame
-                                    Padding="8"
-                                    BackgroundColor="{StaticResource MainBackground}"
-                                    CornerRadius="5">
-                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
-                                        <Label
-                                            Grid.Column="0"
-                                            FontAttributes="Bold"
-                                            Text="Presupuesto" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="$$$$$$$$" />
-                                    </Grid>
-                                </Frame>
-                            </StackLayout>
-                            <yummy:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path='BindingContext.GoToRouteDetailsCommand'}" />
-                            </yummy:PancakeView.GestureRecognizers>
-                        </yummy:PancakeView>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Local:ContentViewBase.Content>
+    <Local:ContentPageBase.Content>
+        <StackLayout Padding="10">
+            <CollectionView
+                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                IsVisible="{Binding RoutesCollection, Converter={StaticResource NullToBoolean}}"
+                ItemsSource="{Binding RoutesCollection}"
+                SelectedItem="{Binding SelectedRoute}"
+                SelectedItems="{Binding GoToRouteDetails}"
+                SelectionMode="Single"
+                VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Routes}">
+                        <Grid Padding="5">
+                            <yummy:PancakeView
+                                Padding="10"
+                                BackgroundColor="{StaticResource BackgroundButton}"
+                                CornerRadius="10">
+                                <StackLayout>
+                                    <Label Style="{StaticResource BoldLabel}" Text="{Binding Name}" />
+                                    <Frame
+                                        Padding="8"
+                                        BackgroundColor="{StaticResource MainBackground}"
+                                        CornerRadius="5">
+                                        <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontAttributes="Bold"
+                                                Text="Zona" />
+                                            <Label
+                                                Grid.Column="1"
+                                                HorizontalTextAlignment="End"
+                                                Text="{Binding Zone}" />
+                                        </Grid>
+                                    </Frame>
+                                    <Frame
+                                        Padding="8"
+                                        BackgroundColor="{StaticResource MainBackground}"
+                                        CornerRadius="5">
+                                        <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontAttributes="Bold"
+                                                Text="Trabajador" />
+                                            <Label
+                                                Grid.Column="1"
+                                                HorizontalTextAlignment="End"
+                                                Text="{Binding Worker.Name}" />
+                                        </Grid>
+                                    </Frame>
+                                    <Frame
+                                        Padding="8"
+                                        BackgroundColor="{StaticResource MainBackground}"
+                                        CornerRadius="5">
+                                        <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontAttributes="Bold"
+                                                Text="Manager" />
+                                            <Label
+                                                Grid.Column="1"
+                                                HorizontalTextAlignment="End"
+                                                Text="{Binding Manager.Name}" />
+                                        </Grid>
+                                    </Frame>
+                                    <Frame
+                                        Padding="8"
+                                        BackgroundColor="{StaticResource MainBackground}"
+                                        CornerRadius="5">
+                                        <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontAttributes="Bold"
+                                                Text="Presupuesto" />
+                                            <Label
+                                                Grid.Column="1"
+                                                HorizontalTextAlignment="End"
+                                                Text="$$$$$$$$" />
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path='BindingContext.GoToRouteDetailsCommand'}" />
+                                </yummy:PancakeView.GestureRecognizers>
+                            </yummy:PancakeView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Command="{Binding GoToRouteCreateCommand}"
+                IsVisible="{Binding CanCreateRoute}"
+                Text="Crear Ruta" />
+        </StackLayout>
+    </Local:ContentPageBase.Content>
 
-</Local:ContentViewBase>
+</Local:ContentPageBase>

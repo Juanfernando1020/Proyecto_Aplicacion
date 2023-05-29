@@ -36,11 +36,6 @@
                     Label="Telefono"
                     Text="{Binding User.Admin.Name}" />
                 <Label Style="{StaticResource BoldLabel}" Text="Rutas" />
-                <extensions:ViewsExtension Parameters="{Binding ViewsParamaters}" View="{x:Static routes:ViewsRoutes.RouteList}" />
-                <Button
-                    Command="{Binding GoToRouteCreateCommand}"
-                    IsVisible="{Binding CanCreateRoute}"
-                    Text="Crear Nueva Ruta Asociada" />
             </StackLayout>
         </ScrollView>
     </local:ContentPageBase.Content>

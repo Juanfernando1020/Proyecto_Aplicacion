@@ -8,6 +8,6 @@ namespace Aplicacion.Pages.Main.Contracts
 {
     public interface IMainService
     {
-        IEnumerable<Modules> GetModulesAsync(RolesEnum role);
+        IEnumerable<Modules> GetModulesAsync(Users user);
     }
 }
