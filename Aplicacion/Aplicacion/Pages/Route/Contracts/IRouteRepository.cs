@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.CommonToolkit.Result;
+using Xamarin.CommonToolkit.Specifications;
 
 namespace Aplicacion.Pages.Route.Contracts
 {

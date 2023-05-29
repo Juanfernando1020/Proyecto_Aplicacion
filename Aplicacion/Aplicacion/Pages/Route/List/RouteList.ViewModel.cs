@@ -5,29 +5,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
+using Aplicacion.Config.Routes;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Contracts;
+using Aplicacion.Pages.Route.Specifications;
 using Aplicacion.Pages.User.Enums;
+using Xamarin.CommonToolkit.Common;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
+using Xamarin.CommonToolkit.Specifications;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.List.ViewModel
 {
-    class RouteList : ViewModelBase
+    class RouteList : PageViewModelBase
     {
         #region Variable
-        private readonly IRouteService _routeService;
+
+        private Users _userInfo;
+        private readonly IGenericService<Routes, Guid> _genericService;
         #endregion
 
         #region Propeties
-
         private Routes _selectedRoute;
         public Routes SelectedRoute
         {
             get => _selectedRoute;
             set => SetProperty(ref _selectedRoute, value);
+        }
+
+        private bool _canCreateRoute;
+        public bool CanCreateRoute
+        {
+            get => _canCreateRoute;
+            set
+            {
+                SetProperty(ref _canCreateRoute, value);
+            }
         }
 
         private ObservableCollection<Routes> _routesCollection;
@@ -36,38 +53,64 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             get => _routesCollection;
             set => SetProperty(ref _routesCollection, value);
         }
-        public ICommand GoToRouteDetails => new Command(async () => await GoToRouteDetailsController());
-
+        public ICommand GoToRouteDetailsCommand => new Command(async () => await GoToRouteDetailsController());
+        public ICommand GoToRouteCreateCommand => new Command(async () => await GoToRouteCreateController());
         #endregion
 
         #region Methods
         private async Task GoToRouteDetailsController()
         {
             IsBusy = true;
-            await NavigationService.NavigateToAsync<Detail.RouteDetailsPage>();
+
+            if (SelectedRoute != null)
+            {
+                INavigationParameters parameters = new NavigationParameters();
+                parameters.Add(ArgKeys.Route, SelectedRoute);
+
+                await NavigationService.NavigateToAsync(PagesRoutes.Route.Details);
+
+                SelectedRoute = null;
+            }
             IsBusy = false;
         }
+        private async Task GoToRouteCreateController()
+        {
+            IsBusy = true;
 
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.User, _userInfo);
+
+            await NavigationService.NavigateToAsync<Create.CreateRoutePage>(parameters: parameters);
+
+            IsBusy = false;
+        }
         #endregion
 
         #region Constructor
 
         public RouteList()
         {
+            CanCreateRoute = false;
             RoutesCollection = new ObservableCollection<Routes>();
 
-            _routeService = new Service.Route(new Repository.Route());
+            _genericService = GetGenericService<Routes, Guid>();
         }
         #endregion
 
         #region Overrides
-
         public override async void OnInitialize(INavigationParameters parameters)
         {
             base.OnInitialize(parameters);
 
             await OnLoad(parameters);
         }
+
+        public override void CallBack(INavigationParameters parameters)
+        {
+            base.CallBack(parameters);
+            OnCallBack(parameters);
+        }
+
         #endregion
 
         #region OnLoad
@@ -79,15 +122,34 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                 {
+                    _userInfo = user;
                     if (user.Role != (int)RolesEnum.Worker)
                     {
-                        ResultBase<IEnumerable<Routes>> result = await _routeService.GetAllByUserId(user.Id);
+                        RoutesByUserIdSpecification specification = new RoutesByUserIdSpecification(user.Id);
+                        CanCreateRoute = user.Role == (int)RolesEnum.Admin;
 
-                        if (result.IsSuccess)
+                        if (parameters[ArgKeys.Arranging] is ArrangingBase<Routes> arranging)
                         {
-                            foreach (Routes route in result.Data)
+                            ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification, arranging);
+
+                            if (result.IsSuccess)
                             {
-                                RoutesCollection.Add(route);
+                                foreach (Routes route in result.Data)
+                                {
+                                    RoutesCollection.Add(route);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification);
+
+                            if (result.IsSuccess)
+                            {
+                                foreach (Routes route in result.Data)
+                                {
+                                    RoutesCollection.Add(route);
+                                }
                             }
                         }
                     }
@@ -95,6 +157,20 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             }
 
             IsBusy = false;
+        }
+        #endregion
+
+        #region OnCallBack
+
+        private void OnCallBack(INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Route] is Routes route)
+                {
+                    RoutesCollection.Add(route);
+                }
+            }
         }
         #endregion
     }

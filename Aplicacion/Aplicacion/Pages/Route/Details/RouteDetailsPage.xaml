@@ -1,38 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Local:ContentPageBase
-    x:Class="Aplicacion.Pages.Route.Detail.RouteDetailsPage"
+    x:Class="Aplicacion.Pages.Route.Details.RouteDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
-    Title="Detallles de ruta"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:viewMode="clr-namespace:Aplicacion.Pages.Route.Details.ViewModel;assembly=Aplicacion"
+    Title="Detallles de Ruta"
+    x:DataType="{x:Type viewMode:RouteDetails}"
     Background="{StaticResource MainBackground}">
     <ContentPage.Content>
-        <StackLayout Padding="15" Spacing="80" VerticalOptions="Center">
-            <Frame BorderColor="#707070" CornerRadius="10" Background="#D1DFE1">
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Zona de la ruta: " TextColor="Black" FontAttributes="Bold"/>
-                    <Label Text="Binding zona de la ruta" />
-                </StackLayout>
-            </Frame>
-            <Frame BorderColor="#707070" CornerRadius="10" Background="#D1DFE1">
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Trabajador: " TextColor="Black" FontAttributes="Bold"/>
-                    <Label Text="Binding trabajador a cargo" />
-                </StackLayout>
-            </Frame>
-            <Frame BorderColor="#707070" CornerRadius="10" Background="#D1DFE1">
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Administrador: " TextColor="Black" FontAttributes="Bold"/>
-                    <Label Text="Binding Administrador a cargo" />
-                </StackLayout>
-            </Frame>
-            <Frame BorderColor="#707070" CornerRadius="10" Background="#D1DFE1">
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Base de la ruta: " TextColor="Black" FontAttributes="Bold"/>
-                    <Label Text="$ Binding de la base" />
-                </StackLayout>
-            </Frame>
-            
+        <StackLayout
+            Padding="20"
+            Spacing="20"
+            VerticalOptions="CenterAndExpand">
+            <customViews:IconEntryView
+                Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                IsEnabled="False"
+                Label="Nombre"
+                Text="{Binding User.Name}" />
+            <customViews:IconEntryView
+                Icon="pngegg__2_.png"
+                IsEnabled="False"
+                Label="Telefono"
+                Text="{Binding User.Phone}" />
+            <customViews:IconEntryView
+                Icon="pngegg__2_.png"
+                IsEnabled="False"
+                IsVisible="{Binding User.Admin, Converter={StaticResource NullToBoolean}}"
+                Label="Telefono"
+                Text="{Binding User.Admin.Name}" />
+            <Label Style="{StaticResource BoldLabel}" Text="Rutas" />
         </StackLayout>
     </ContentPage.Content>
 </Local:ContentPageBase>

@@ -62,9 +62,8 @@ namespace Aplicacion.Config.Routes
 
         internal static class Route
         {
-            internal const string List = "RouteListView";
+            internal const string List = "RouteListPage";
             internal const string Details = "RouteDetailsPage";
-
             internal const string Create = "CreateRoutePage";
 
         }

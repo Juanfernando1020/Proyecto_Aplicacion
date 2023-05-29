@@ -36,7 +36,7 @@ namespace Aplicacion.Pages.Route.Service
                 return false;
             }
 
-            if (route.Buggets != null && route.Buggets.Length > 0)
+            if (route.Budgets == null || route.Budgets.Length <= 0)
             {
                 message = "Debe asignarse un presupuesto general.";
                 return false;

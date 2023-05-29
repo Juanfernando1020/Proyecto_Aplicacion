@@ -15,109 +15,56 @@
     Background="{StaticResource MainBackground}">
     <local:ContentPageBase.Resources />
     <local:ContentPageBase.Content>
-        <ScrollView>
-            <StackLayout Padding="20" Spacing="10">
-                <customViews:IconEntryView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                    Label="Nombre"
-                    Text="{Binding Route.Name}" />
-                <customViews:IconEntryView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                    Label="Zona"
-                    Text="{Binding Route.Zone}" />
-                <customViews:IconPopupOpenerView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                    Label="Trabajador"
-                    OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
-                    Text="{Binding Worker.Name}" />
-                <Grid ColumnDefinitions="*, auto">
-                    <Label
-                        Grid.Column="0"
-                        Style="{StaticResource BoldLabel}"
-                        Text="Bases" />
-                    <Label
-                        Grid.Column="1"
-                        Text="Agregar Base"
-                        TextColor="{StaticResource TextBlackLight}"
-                        VerticalTextAlignment="End">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenBudgetCreatePopupCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
-                <extensions:ViewsExtension Parameters="{Binding BudgetListParameters}" View="{x:Static routes:ViewsRoutes.BudgetList}" />
-                <Button
-                    Command="{Binding CreateCommand}"
-                    Text="Crear Ruta"
-                    VerticalOptions="EndAndExpand" />
-            </StackLayout>
-        </ScrollView>
-        <!--<StackLayout
-            Margin="30"
-            Spacing="50"
-            VerticalOptions="CenterAndExpand">
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <custom:CustomEntry
-                    x:Name="NombreRutaTxt"
-                    HorizontalOptions="FillAndExpand"
-                    Placeholder="Nombre de la ruta"
-                    PlaceholderColor="#656565"
-                    TextColor="#333333" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <custom:CustomEntry
-                    x:Name="ZonaRutaTxt"
-                    HorizontalOptions="FillAndExpand"
-                    Placeholder="Zona de la ruta"
-                    PlaceholderColor="#656565"
-                    TextColor="#333333" />
-            </StackLayout>
-
-            <Frame BorderColor="#707070"
-                   BackgroundColor="#D1DFE1"
-                   CornerRadius="12">
-                <StackLayout Orientation="Horizontal">
-                    <Label
-                    FontAttributes="Bold"
-                    FontSize="17"
-                    Text="Trabajador:"
-                    VerticalOptions="Center" />
-                    <Picker
-                    x:Name="filterPicker"
-                    Title="Seleccione una opción..."
-                        FontSize="16">
-                        <Picker.Items>
-                            <x:String>Carlos Andres</x:String>
-                            <x:String>Miguel Andres</x:String>
-                            <x:String>Carlos Agusta</x:String>
-                        </Picker.Items>
-                    </Picker>
+        <StackLayout Padding="20">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="10">
+                    <customViews:IconEntryView
+                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Label="Nombre"
+                        Text="{Binding Route.Name}" />
+                    <customViews:IconEntryView
+                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Label="Zona"
+                        Text="{Binding Route.Zone}" />
+                    <customViews:IconPopupOpenerView
+                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Label="Trabajador"
+                        OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
+                        Text="{Binding Worker.Name}" />
+                    <Grid ColumnDefinitions="*, auto">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource BoldLabel}"
+                            Text="Bases" />
+                        <Label
+                            Grid.Column="1"
+                            Text="Agregar Base"
+                            TextColor="{StaticResource TextBlackLight}"
+                            VerticalTextAlignment="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenBudgetCreatePopupCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                    <extensions:ViewsExtension
+                        Parameters="{Binding BudgetListParameters}"
+                        VerticalOptions="FillAndExpand"
+                        View="{x:Static routes:ViewsRoutes.BudgetList}" />
+                    <Grid ColumnDefinitions="*, auto">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource BoldLabel}"
+                            Text="Total" />
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding Total, StringFormat={StaticResource FormatMoney}}"
+                            TextColor="{StaticResource TextBlackLight}"
+                            VerticalTextAlignment="End" />
+                    </Grid>
                 </StackLayout>
-            </Frame>
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <custom:CustomEntry
-                    x:Name="MontoRutaTxt"
-                    HorizontalOptions="FillAndExpand"
-                    Placeholder="Base de la ruta"
-                    PlaceholderColor="#656565"
-                    TextColor="#333333"
-                    Keyboard="Numeric"/>
-            </StackLayout>
-
-            <Button
-                    x:Name="CrearNuevaRutaButtom"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    Text="Crear Ruta"
-                    TextColor="#333333"/>
-        </StackLayout>-->
-
+            </ScrollView>
+            <Button Command="{Binding CreateCommand}" Text="Crear Ruta" />
+        </StackLayout>
     </local:ContentPageBase.Content>
 
 </local:ContentPageBase>

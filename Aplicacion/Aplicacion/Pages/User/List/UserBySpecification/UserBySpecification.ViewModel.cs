@@ -15,7 +15,7 @@ using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Specifications;
 using Xamarin.Forms;
 
-namespace Aplicacion.Pages.User.UserBySpecification.ViewModel
+namespace Aplicacion.Pages.User.List.UserBySpecification.ViewModel
 {
     internal class UserBySpecification : PopupViewModelBase
     {

@@ -1,12 +1,12 @@
 ﻿using Xamarin.CommonToolkit.Result;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.User.Enums;
 using System.Threading.Tasks;
+using Aplicacion.Models;
 
 namespace Aplicacion.Pages.Account.Login.Contracts
 {
     public interface ILoginService
     {
-        Task<ResultBase<RolesEnum>> LoginAsync(Credentials credentials);
+        Task<ResultBase<Users>> LoginAsync(Credentials credentials);
     }
 }

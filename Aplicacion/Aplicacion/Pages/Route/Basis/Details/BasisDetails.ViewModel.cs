@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
-namespace Aplicacion.Pages.Route.Details.ViewModel
+namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 {
-    internal class RouteDetails : PageViewModelBase
+    internal class BasisDetails : ViewModelBase
     {
         #region Properties
-        private Routes _route;
 
-        public Routes Route
+        private Basises _basis;
+        public Basises Basis
         {
-            get => _route;
-            set => SetProperty(ref _route, value);
+            get => _basis;
+            set => SetProperty(ref _basis, value);
         }
+
         #endregion
 
         #region Overrides
@@ -32,13 +30,13 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
 
         #region OnLoad
 
-        private void OnLoad(INavigationParameters parameters)
+        private async Task OnLoad(INavigationParameters parameters)
         {
             if (parameters != null)
             {
-                if (parameters[ArgKeys.Route] is Routes route)
+                if (parameters[ArgKeys.Basis] is Basises basis)
                 {
-                    Route = route;
+
                 }
             }
         }

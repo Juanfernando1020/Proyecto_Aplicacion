@@ -11,28 +11,26 @@
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand">
     <local:ContentViewBase.Content>
-        <StackLayout
-            Padding="10"
-            BindableLayout.EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-            BindableLayout.ItemsSource="{Binding BudgetsCollection}">
-            <BindableLayout.ItemTemplate>
+        <CollectionView
+            EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+            HeightRequest="250"
+            ItemsSource="{Binding BudgetsCollection}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type models:Budgets}">
-                    <ViewCell>
-                        <Grid ColumnDefinitions="*, auto">
-                            <Label
-                                Grid.Column="0"
-                                Style="{StaticResource NormalLabel}"
-                                Text="{Binding Admin.Name}"
-                                VerticalTextAlignment="Center" />
-                            <Image
-                                Grid.Column="1"
-                                HorizontalOptions="EndAndExpand"
-                                Source="chevron_right"
-                                VerticalOptions="CenterAndExpand" />
-                        </Grid>
-                    </ViewCell>
+                    <Grid ColumnDefinitions="*, auto">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource NormalLabel}"
+                            Text="{Binding Admin.Name}"
+                            VerticalTextAlignment="Center" />
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource NormalLabel}"
+                            Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
                 </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </local:ContentViewBase.Content>
 </local:ContentViewBase>

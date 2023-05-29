@@ -15,6 +15,7 @@
             <Color x:Key="TextBlack">Black</Color>
             <Color x:Key="TextBlackLight">#333333</Color>
             <!--#endregion-->
+
             <!--#region Styles-->
             <Style TargetType="ScrollView">
                 <Setter Property="VerticalScrollBarVisibility" Value="Never" />
@@ -41,6 +42,11 @@
                 <Setter Property="TextColor" Value="{StaticResource TextBlackLight}" />
             </Style>
             <!--#endregion-->
+
+            <!--#region Strings-->
+            <x:String x:Key="FormatMoney">{0:C2}</x:String>
+            <!--#endregion-->
+
             <!--#region Converters-->
             <converters:NullToBooleanConverter x:Key="NullToBoolean" />
             <!--#endregion-->

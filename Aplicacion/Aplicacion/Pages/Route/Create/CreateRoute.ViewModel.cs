@@ -18,13 +18,17 @@ using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Aplicacion.Config.Messages;
 using Aplicacion.Config.Routes;
+using Aplicacion.Pages.Route.Channels;
+using Aplicacion.Pages.Route.Models;
+using static Aplicacion.Config.Routes.PopupsRoutes.Route;
 
 namespace Aplicacion.Pages.Route.Create.ViewModel
 {
-    internal class CreateRoute : PageViewModelBase
+    internal class CreateRoute : PageViewModelBase, IRouteBudgetsChanged
     {
         #region Variables
         private readonly IRouteService _routeService;
+        private readonly List<Budgets> budgets = new List<Budgets>();
         #endregion
 
         #region Properties
@@ -44,7 +48,14 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             get => _worker;
             set => SetProperty(ref _worker, value);
         }
-        
+
+        private decimal _total;
+        public decimal Total
+        {
+            get => _total;
+            set => SetProperty(ref _total, value);
+        }
+
         private INavigationParameters _budgetListParameters;
         public INavigationParameters BudgetListParameters
         {
@@ -88,14 +99,40 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         {
             await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Budget.BudgetCreate);
         }
+
+        private void OnRouteBudgetsChanged(object sender, RouteBudgetsChangedArgs args)
+        {
+            if (args.Budget != null)
+            {
+                if (args.IsDeleted)
+                {
+                    budgets.Remove(args.Budget);
+                }
+                else
+                {
+                    budgets.Add(args.Budget);
+                }
+
+                Total = 0;
+                foreach (Budgets budget in budgets)
+                {
+                    Total += budget.Amount;
+                }
+
+                Route.Budgets = budgets.ToArray();
+            }
+        }
         #endregion
 
         #region Constructor
         public CreateRoute()
         {
+            Total = 0;
             Route = new Routes(Guid.NewGuid(), string.Empty, string.Empty, true, null, null);
 
             _routeService = new Service.Route(new Repository.Route());
+
+            MessagingCenter.Subscribe<IRouteBudgetsChanged, RouteBudgetsChangedArgs>(this, nameof(IRouteBudgetsChanged), OnRouteBudgetsChanged);
         }
         #endregion
 
@@ -105,23 +142,12 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             base.OnInitialize(parameters);
             await OnLoad(parameters);
         }
-
         public override void CallBack(INavigationParameters parameters)
         {
             base.CallBack(parameters);
-
-            if (parameters != null)
-            {
-                if (parameters[ArgKeys.User] is Users user)
-                    Worker = user;
-
-                if (parameters[ArgKeys.Budget] is Budgets budget)
-                {
-                    BudgetListParameters = new NavigationParameters();
-                    BudgetListParameters.Add(ArgKeys.Budget, budget);
-                }
-            }
+            OnCallBack(parameters);
         }
+
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -133,6 +159,13 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
                     Route.Worker = Worker;
                     break;
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            MessagingCenter.Unsubscribe<IRouteBudgetsChanged, RouteBudgetsChangedArgs>(this, nameof(IRouteBudgetsChanged));
         }
 
         #endregion
@@ -166,6 +199,25 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             Console.WriteLine(message);
             await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
             await NavigationService.PopAsync();
+        }
+        #endregion
+
+        #region OnCallBack
+        private void OnCallBack(INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.User] is Users user)
+                    Worker = user;
+
+                if (parameters[ArgKeys.Budget] is Budgets budget)
+                {
+                    INavigationParameters budgetListParameters = new NavigationParameters();
+                    budgetListParameters.Add(ArgKeys.Budget, budget);
+
+                    BudgetListParameters = budgetListParameters;
+                }
+            }
         }
         #endregion
     }

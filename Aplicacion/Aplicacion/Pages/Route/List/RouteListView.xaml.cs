@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Aplicacion.Pages.Route.List
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RouteListView : ContentViewBase
+	public partial class RouteListPage : ContentPageBase
 	{
-		public RouteListView ()
+		public RouteListPage ()
 		{
 			InitializeComponent ();
 		}

@@ -21,7 +21,7 @@ namespace Aplicacion.Pages.User.Repository
                 Users user = await FirebaseHelper.Instance[FirebaseEntities.Users]
                     .GetBySpecificationAsync(new UserByIdSpecification(userId));
 
-                if(user == null)
+                if (user == null)
                 {
                     return new ResultBase<Users>("Repository.User.GetByIdAsync", false, CommonMessages.Error.InformationMessage);
                 }

@@ -3,13 +3,11 @@ using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Pages.Account.Login.Contracts;
 using Aplicacion.Pages.Account.Login.Models;
-using Aplicacion.Pages.Main.Contracts;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Aplicacion.Models;
 using Xamarin.Forms;
 using Aplicacion.Pages.Main;
-using Aplicacion.Pages.User.Enums;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
@@ -47,18 +45,17 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
-            ResultBase<RolesEnum> result = await _loginService.LoginAsync(Credentials);
+            ResultBase<Users> result = await _loginService.LoginAsync(Credentials);
 
             if (!result.IsSuccess)
             {
                 IsBusy = false;
-                //Credentials = new Credentials();
                 await AlertService.ShowAlert(new ErrorMessage(result.Message));
                 return;
             }
 
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Role, result.Data);
+            parameters.Add(ArgKeys.User, result.Data);
 
             await NavigationService.NavigateToRootAsync<MainPage>(parameters: parameters);
 

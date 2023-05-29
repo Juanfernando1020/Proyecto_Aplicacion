@@ -22,7 +22,7 @@ namespace Aplicacion.Models
         public bool IsActive { get; set; }
         public Users Worker { get; set; }
         public Users Manager { get; set; }
-        public Budgets[] Buggets { get; set; }
+        public Budgets[] Budgets { get; set; }
 
     }
 }

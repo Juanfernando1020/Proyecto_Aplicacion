@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 
 namespace Aplicacion.Models
 {
     public class Modules
     {
-        public Modules(string name, string page, PagesBaseEnum pageType, Dictionary<string, object> args = null)
+        public Modules(string name, string page, PagesBaseEnum pageType, INavigationParameters args = null)
         {
             Name = name;
             Page = page;
@@ -18,6 +19,6 @@ namespace Aplicacion.Models
         public string Name { get; set; }
         public string Page { get; set; }
         public PagesBaseEnum PageType { get; set; }
-        public Dictionary<string,object> Args { get; set; }
+        public INavigationParameters Args { get; set; }
     }
 }
