@@ -118,6 +118,8 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
                 {
                     Total += budget.Amount;
                 }
+
+                Route.Budgets = budgets.ToArray();
             }
         }
         #endregion
@@ -143,21 +145,10 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
         public override void CallBack(INavigationParameters parameters)
         {
             base.CallBack(parameters);
-
-            if (parameters != null)
-            {
-                if (parameters[ArgKeys.User] is Users user)
-                    Worker = user;
-
-                if (parameters[ArgKeys.Budget] is Budgets budget)
-                {
-                    INavigationParameters budgetListParameters = new NavigationParameters();
-                    budgetListParameters.Add(ArgKeys.Budget, budget);
-
-                    BudgetListParameters = budgetListParameters;
-                }
-            }
+            OnCallBack(parameters);
         }
+
+
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
@@ -208,6 +199,25 @@ namespace Aplicacion.Pages.Route.Create.ViewModel
             Console.WriteLine(message);
             await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
             await NavigationService.PopAsync();
+        }
+        #endregion
+
+        #region OnCallBack
+        private void OnCallBack(INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.User] is Users user)
+                    Worker = user;
+
+                if (parameters[ArgKeys.Budget] is Budgets budget)
+                {
+                    INavigationParameters budgetListParameters = new NavigationParameters();
+                    budgetListParameters.Add(ArgKeys.Budget, budget);
+
+                    BudgetListParameters = budgetListParameters;
+                }
+            }
         }
         #endregion
     }

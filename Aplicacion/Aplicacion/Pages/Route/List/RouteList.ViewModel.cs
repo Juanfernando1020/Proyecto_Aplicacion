@@ -53,7 +53,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             get => _routesCollection;
             set => SetProperty(ref _routesCollection, value);
         }
-        public ICommand GoToRouteDetails => new Command(async () => await GoToRouteDetailsController());
+        public ICommand GoToRouteDetailsCommand => new Command(async () => await GoToRouteDetailsController());
         public ICommand GoToRouteCreateCommand => new Command(async () => await GoToRouteCreateController());
         #endregion
 
@@ -62,11 +62,15 @@ namespace Aplicacion.Pages.Route.List.ViewModel
         {
             IsBusy = true;
 
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Route, SelectedRoute);
+            if (SelectedRoute != null)
+            {
+                INavigationParameters parameters = new NavigationParameters();
+                parameters.Add(ArgKeys.Route, SelectedRoute);
 
-            await NavigationService.NavigateToAsync(PagesRoutes.Route.Details);
+                await NavigationService.NavigateToAsync(PagesRoutes.Route.Details);
 
+                SelectedRoute = null;
+            }
             IsBusy = false;
         }
         private async Task GoToRouteCreateController()
@@ -100,6 +104,13 @@ namespace Aplicacion.Pages.Route.List.ViewModel
 
             await OnLoad(parameters);
         }
+
+        public override void CallBack(INavigationParameters parameters)
+        {
+            base.CallBack(parameters);
+            OnCallBack(parameters);
+        }
+
         #endregion
 
         #region OnLoad
@@ -146,6 +157,20 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             }
 
             IsBusy = false;
+        }
+        #endregion
+
+        #region OnCallBack
+
+        private void OnCallBack(INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Route] is Routes route)
+                {
+                    RoutesCollection.Add(route);
+                }
+            }
         }
         #endregion
     }

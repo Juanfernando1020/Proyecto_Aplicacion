@@ -6,6 +6,7 @@ namespace Aplicacion.Config
 {
     internal static class ArgKeys
     {
+        internal const string Basis = "Basis";
         internal const string Billing = "Billing";
         internal const string Budget = "Budget";
         internal const string Budgets = "Budget";

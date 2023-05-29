@@ -7,7 +7,7 @@ using Xamarin.CommonToolkit.PagesBase;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Aplicacion.Pages.Route.Detail
+namespace Aplicacion.Pages.Route.Details
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RouteDetailsPage : ContentPageBase

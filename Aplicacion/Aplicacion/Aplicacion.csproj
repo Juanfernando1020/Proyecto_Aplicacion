@@ -33,16 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Pages\Basis\Add\AddBasisPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Basis\List\ListBasisPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Billing\ListPlan\ListPlanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Day\Summary\DaySummaryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Route\Basis\Details\BasisDetailsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml">
@@ -108,6 +105,9 @@
     <EmbeddedResource Update="Views\IconEntryView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Routes\CardRouteDetailsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -116,6 +116,9 @@
     </Compile>
     <Compile Update="Pages\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Route\Basis\Details\BasisDetailsView.xaml.cs">
+      <DependentUpon>BasisDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml.cs">
       <DependentUpon>BudgetCreatePopup.xaml</DependentUpon>
@@ -165,7 +168,7 @@
     <Compile Update="Pages\User\List\UserListPage.xaml.cs">
       <DependentUpon>UserListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\User\UserBySpecification\UserBySpecificationPopup.xaml.cs">
+    <Compile Update="Pages\User\List\UserBySpecification\UserBySpecificationPopup.xaml.cs">
       <DependentUpon>UserBySpecificationPopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\IconPickerView.xaml.cs">
@@ -173,6 +176,9 @@
     </Compile>
     <Compile Update="Views\IconPopupOpenerView.xaml.cs">
       <DependentUpon>IconPopupOpenerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Routes\CardRouteDetailsView.xaml.cs">
+      <DependentUpon>CardRouteDetailsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

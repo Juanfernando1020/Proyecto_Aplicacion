@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Aplicacion.Pages.Basis.List
+namespace Aplicacion.Pages.Route.Basis.Details
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListBasisPage : ContentPage
+    public partial class BasisDetailsView : ContentView
     {
-        public ListBasisPage()
+        public BasisDetailsView()
         {
             InitializeComponent();
         }
