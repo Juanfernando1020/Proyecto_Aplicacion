@@ -18,19 +18,18 @@
                 Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                 IsEnabled="False"
                 Label="Nombre"
-                Text="{Binding User.Name}" />
+                Text="{Binding Route.Name}" />
             <customViews:IconEntryView
                 Icon="pngegg__2_.png"
                 IsEnabled="False"
                 Label="Telefono"
-                Text="{Binding User.Phone}" />
+                Text="{Binding Route.Zone}" />
             <customViews:IconEntryView
                 Icon="pngegg__2_.png"
                 IsEnabled="False"
-                IsVisible="{Binding User.Admin, Converter={StaticResource NullToBoolean}}"
+                IsVisible="{Binding Route.Manager, Converter={StaticResource NullToBoolean}}"
                 Label="Telefono"
-                Text="{Binding User.Admin.Name}" />
-            <Label Style="{StaticResource BoldLabel}" Text="Rutas" />
+                Text="{Binding Route.Manager.Name}" />
         </StackLayout>
     </ContentPage.Content>
 </Local:ContentPageBase>
