@@ -34,5 +34,12 @@
     <string>Aplicacion</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+
+	<array>
+		<string>FontAwesome6BrandsRegular400.otf</string>
+		<string>FontAwesome6Regular400.otf</string>
+		<string>FontAwesome6Solid900.otf</string>
+	</array>
+	
 </dict>
 </plist>

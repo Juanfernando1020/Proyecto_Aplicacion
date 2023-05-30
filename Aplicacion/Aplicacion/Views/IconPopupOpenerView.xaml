@@ -21,7 +21,14 @@
                     <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
                 </yummy:PancakeView.Border>
                 <Grid ColumnDefinitions="50,*,30">
-                    <Image x:Name="iconEntry" Grid.Column="0" />
+                    <Label
+                        x:Name="iconEntry"
+                        Grid.Column="0"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Title"
+                        Text="&#xf007;"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
                     <Label
                         x:Name="value"
                         Grid.Column="1"

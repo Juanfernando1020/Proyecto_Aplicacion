@@ -50,6 +50,24 @@
             <!--#region Converters-->
             <converters:NullToBooleanConverter x:Key="NullToBoolean" />
             <!--#endregion-->
+
+            <!--#region FontAwesomeFonts-->
+            <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome6Regular400.otf#Regular" />
+                <On Platform="iOS" Value="FontAwesome6Regular400" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontAwesomeBrands" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome6BrandsRegular400.otf#Brands" />
+                <On Platform="iOS" Value="FontAwesome6BrandsRegular400" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome6Solid900.otf#Solid" />
+                <On Platform="iOS" Value="FontAwesome6Solid900" />
+            </OnPlatform>
+
+            <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

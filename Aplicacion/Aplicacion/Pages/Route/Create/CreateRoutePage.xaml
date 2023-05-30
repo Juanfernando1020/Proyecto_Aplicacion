@@ -19,15 +19,15 @@
             <ScrollView VerticalOptions="FillAndExpand">
                 <StackLayout Spacing="10">
                     <customViews:IconEntryView
-                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Icon="&#xf3c5;"
                         Label="Nombre"
                         Text="{Binding Route.Name}" />
                     <customViews:IconEntryView
-                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Icon="&#xf4d7;"
                         Label="Zona"
                         Text="{Binding Route.Zone}" />
                     <customViews:IconPopupOpenerView
-                        Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                        Icon="&#xf007;"
                         Label="Trabajador"
                         OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
                         Text="{Binding Worker.Name}" />
