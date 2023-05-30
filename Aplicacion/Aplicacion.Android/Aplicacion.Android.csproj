@@ -95,6 +95,9 @@
     <None Include="..\..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <AndroidAsset Include="Assets\FontAwesome6Solid900.otf" />
+    <AndroidAsset Include="Assets\FontAwesome6BrandsRegular400.otf" />
+    <AndroidAsset Include="Assets\FontAwesome6Regular400.otf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

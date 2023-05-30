@@ -9,12 +9,12 @@ namespace Aplicacion.Views.Shared
     {
         #region Bindable Properties
         public static readonly BindableProperty IconProperty = BindableProperty.Create(
-            nameof(Icon),
-            typeof(string),
-            typeof(IconPopupOpenerView),
-            string.Empty,
-            propertyChanged: IconPropertyChanged
-            );
+                  nameof(Icon),
+                  typeof(string),
+                  typeof(IconEntryView),
+                  string.Empty,
+                  propertyChanged: IconPropertyChanged
+                  );
 
         public static readonly BindableProperty LabelProperty = BindableProperty.Create(
             nameof(Label),
@@ -79,7 +79,7 @@ namespace Aplicacion.Views.Shared
         #region Methods
         private static void IconPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconPopupOpenerView)bindable).iconEntry.Source = (string)newValue;
+            ((IconPopupOpenerView)bindable).iconEntry.Text = (string)newValue;
         }
         private static void LabelPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

@@ -20,17 +20,17 @@
                 Spacing="20"
                 VerticalOptions="CenterAndExpand">
                 <customViews:IconEntryView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Icon="&#xf007;"
                     IsEnabled="False"
                     Label="Nombre"
                     Text="{Binding User.Name}" />
                 <customViews:IconEntryView
-                    Icon="pngegg__2_.png"
+                    Icon="&#xf095;"
                     IsEnabled="False"
                     Label="Telefono"
                     Text="{Binding User.Phone}" />
                 <customViews:IconEntryView
-                    Icon="pngegg__2_.png"
+                    Icon="&#xf508;"
                     IsEnabled="False"
                     IsVisible="{Binding User.Admin, Converter={StaticResource NullToBoolean}}"
                     Label="Telefono"

@@ -20,11 +20,11 @@
                 Spacing="10"
                 VerticalOptions="CenterAndExpand">
                 <customViews:IconEntryView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Icon="&#x24;"
                     Label="Cantidad"
                     Text="{Binding Budget.Amount}" />
                 <customViews:IconPopupOpenerView
-                    Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
+                    Icon="&#xf508;"
                     Label="Administrador"
                     OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
                     Text="{Binding Admin.Name}" />

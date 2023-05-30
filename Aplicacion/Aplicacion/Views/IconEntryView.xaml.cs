@@ -50,10 +50,10 @@ namespace Aplicacion.Views.Shared
         #endregion
 
         #region Properties
-        public string Icon 
-        { 
-            get => (string)GetValue(IconProperty); 
-            set => SetValue(IconProperty, value); 
+        public string Icon
+        {
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
         public string Label
         { 
@@ -75,13 +75,16 @@ namespace Aplicacion.Views.Shared
             get => (Keyboard)GetValue(KeyboardProperty); 
             set => SetValue(KeyboardProperty, value); 
         }
+
+
         #endregion
 
         #region Methods
         private static void IconPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconEntryView)bindable).iconEntry.Source = (string)newValue;
+            ((IconEntryView)bindable).iconEntry.Text = (string)newValue;
         }
+
         private static void LabelPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             ((IconEntryView)bindable).labelEntry.Text = (string)newValue;
