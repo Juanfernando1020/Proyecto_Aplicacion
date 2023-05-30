@@ -13,7 +13,7 @@
         <StackLayout
             Padding="20"
             Spacing="20"
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="FillAndExpand">
             <customViews:IconEntryView
                 Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
                 IsEnabled="False"

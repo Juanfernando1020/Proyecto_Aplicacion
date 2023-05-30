@@ -20,6 +20,7 @@
 
         internal static class Console
         {
+            internal const string NullKey = "'{0}' cannot be null.";
             internal const string MissingKey = "It's missing the '{0}' key.";
         }
 

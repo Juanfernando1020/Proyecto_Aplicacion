@@ -12,6 +12,11 @@ namespace Aplicacion.Config.Routes
         }
         internal static class Route
         {
+            internal static class Basis
+            {
+                internal const string BasisCreate = "BasisCreatePopup";
+            }
+
             internal static class Budget
             {
                 internal const string BudgetCreate = "BudgetCreatePopup";

@@ -1,4 +1,4 @@
-﻿using Aplicacion.Pages.Route.Budget.Create.Contracts;
+﻿using Aplicacion.Pages.Route.Basis.Create.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,31 +6,26 @@ using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Config;
 
-namespace Aplicacion.Pages.Route.Budget.Create.Service
+namespace Aplicacion.Pages.Route.Basis.Create.Service
 {
-    internal class BudgetCreate : IBudgetCreateService
+    internal class BasisCreate : IBasisCreateService
     {
-        public bool Validate(Budgets budget, out string message)
+        public bool Validate(Basises basis, out string message)
         {
-            if (budget.Id == Guid.Empty)
+            if (basis == null)
             {
                 message = CommonMessages.Error.InformationMessage;
                 return false;
             }
 
-            if (budget.Amount <= RoutesConfig.MIN_AMOUNT)
+            if (basis.Amount <= RoutesConfig.MIN_AMOUNT)
             {
                 message = "La cantidad debe ser mayor a 0";
                 return false;
             }
 
-            if (budget.Admin == null)
-            {
-                message = "Debes elegir un administrador.";
-                return false;
-            }
-
             message = string.Empty;
+
             return true;
         }
     }
