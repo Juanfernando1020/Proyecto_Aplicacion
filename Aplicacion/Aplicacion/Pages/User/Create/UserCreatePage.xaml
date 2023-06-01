@@ -4,109 +4,67 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
-    Title="Crear usuario"
-    BackgroundColor="{StaticResource MainBackground}">
+    Title="Crear usuario">
     <local:ContentPageBase.Content>
-        <StackLayout
-            Margin="30"
-            Spacing="50"
-            VerticalOptions="Center">
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image
-                    HeightRequest="50"
-                    Source="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <custom:CustomEntry
-                    HorizontalOptions="FillAndExpand"
-                    Placeholder="Nombre de Usuario"
-                    PlaceholderColor="#656565"
-                    Text="{Binding User.Name}"
-                    TextColor="#333333" />
-            </StackLayout>
+        <ScrollView>
+            <StackLayout
+                Margin="30"
+                Spacing="20"
+                VerticalOptions="Center">
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image
-                    HeightRequest="50"
-                    Source="pngegg__2_.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <custom:CustomEntry
-                    HorizontalOptions="FillAndExpand"
+                <customViews:IconEntryView
+                    Icon="&#xf007;"
+                    IsEnabled="True"
+                    Label="Nombre"
+                    Text="{Binding User.Name}" />
+
+                <customViews:IconEntryView
+                    Icon="&#xf095;"
+                    IsEnabled="True"
                     Keyboard="Numeric"
-                    Placeholder="Numero de Teléfono"
-                    PlaceholderColor="#656565"
-                    Text="{Binding User.Phone}"
+                    Label="Teléfono"
+                    Text="{Binding User.Phone}" />
+
+                <customViews:IconEntryView
+                    Icon="&#xf3c5;"
+                    IsEnabled="True"
+                    Label="Ubicación"
+                    Text="{Binding User.Location}" />
+
+                <customViews:IconEntryView
+                    Icon="&#xf023;"
+                    IsEnabled="True"
+                    Label="Contraseña"
+                    Text="{Binding User.Password}" />
+
+                <customViews:IconEntryView
+                    Icon="&#xf023;"
+                    IsEnabled="True"
+                    Label="Escriba nuevamente su contraseña"
+                    Text="{Binding User.ConfirmPassword}"/>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <CheckBox IsChecked="{Binding User.IsAdmin}" Color="#707070" />
+                    <Label
+                        Text="¿Crear como Administrador?"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <Button
+                    BackgroundColor="#D1DFE1"
+                    BorderColor="#707070"
+                    BorderWidth="3"
+                    Command="{Binding UserCreateCommand}"
+                    CornerRadius="15"
+                    HorizontalOptions="Center"
+                    Text="Agregar usuario"
                     TextColor="#333333" />
+
             </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image
-                    HeightRequest="50"
-                    Source="icon_metro_location.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <custom:CustomEntry
-                    HorizontalOptions="FillAndExpand"
-                    Placeholder="Ubicación"
-                    PlaceholderColor="#656565"
-                    Text="{Binding User.Location}"
-                    TextColor="#333333" />
-            </StackLayout>
-
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image
-                    HeightRequest="50"
-                    Source="Password.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <custom:CustomEntry
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="True"
-                    Placeholder="Contraseña"
-                    PlaceholderColor="#656565"
-                    Text="{Binding User.Password}"
-                    TextColor="#333333" />
-            </StackLayout>
-
-
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Image
-                    HeightRequest="50"
-                    Source="Password.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <custom:CustomEntry
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="True"
-                    Placeholder="Confirmar contraseña"
-                    PlaceholderColor="#656565"
-                    Text="{Binding User.ConfirmPassword}"
-                    TextColor="#333333" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <CheckBox IsChecked="{Binding User.IsAdmin}" Color="#707070" />
-                <Label
-                    Text="¿Crear como Administrador?"
-                    TextColor="#333333"
-                    VerticalOptions="Center" />
-            </StackLayout>
-
-            <Button
-                BackgroundColor="#D1DFE1"
-                BorderColor="#707070"
-                BorderWidth="3"
-                Command="{Binding UserCreateCommand}"
-                CornerRadius="15"
-                HorizontalOptions="Center"
-                Text="Agregar usuario"
-                TextColor="#333333" />
-
-        </StackLayout>
+        </ScrollView>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>
