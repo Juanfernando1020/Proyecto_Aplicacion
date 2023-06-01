@@ -3,18 +3,24 @@ using System.Collections.ObjectModel;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Channels;
-using Aplicacion.Pages.Route.Models;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.Budget.List.ViewModel
 {
-    internal class BudgetList : ViewModelBase, IRouteBudgetsChanged
+    internal class BudgetList : ViewModelBase, IRouteBudgetsChangedChannel, ILoadBudgetListFromRouteDetailsChannel
     {
         #region Properties
-        private ObservableCollection<Budgets> _budgetsCollection;
+        private decimal _total;
+        public decimal Total
+        {
+            get => _total;
+            set => SetProperty(ref _total, value);
+        }
 
+        private ObservableCollection<Budgets> _budgetsCollection;
         public ObservableCollection<Budgets> BudgetsCollection
         {
             get => _budgetsCollection;
@@ -22,11 +28,34 @@ namespace Aplicacion.Pages.Route.Budget.List.ViewModel
         }
         #endregion
 
+        #region Methods
+
+        private void OnLoadBudgetListFromRouteDetails(object sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Budgets] is Budgets[] budgets)
+                {
+                    Total = 0;
+                    BudgetsCollection = new ObservableCollection<Budgets>();
+                    foreach (Budgets budget in budgets)
+                    {
+                        Total += budget.Amount;
+                        BudgetsCollection.Add(budget);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public BudgetList()
         {
             BudgetsCollection = new ObservableCollection<Budgets>();
+
+            MessagingCenter.Subscribe<ILoadBudgetListFromRouteDetailsChannel, INavigationParameters>(this, nameof(ILoadBudgetListFromRouteDetailsChannel), OnLoadBudgetListFromRouteDetails);
         }
         #endregion
 
@@ -51,13 +80,15 @@ namespace Aplicacion.Pages.Route.Budget.List.ViewModel
         {
             IsBusy = true;
 
-            if (parameters != null && parameters.ContainsKey(ArgKeys.Budgets))
+            if (parameters != null)
             {
-                BudgetsCollection = new ObservableCollection<Budgets>();
-                if (parameters[ArgKeys.Budget] is List<Budgets> budgets)
+                if (parameters[ArgKeys.Budgets] is List<Budgets> budgets)
                 {
+                    Total = 0;
+                    BudgetsCollection = new ObservableCollection<Budgets>();
                     foreach (Budgets budget in budgets)
                     {
+                        Total += budget.Amount;
                         BudgetsCollection.Add(budget);
                     }
                 }
@@ -75,10 +106,14 @@ namespace Aplicacion.Pages.Route.Budget.List.ViewModel
             {
                 if (parameters[ArgKeys.Budget] is Budgets budget)
                 {
+                    Total += budget.Amount;
                     BudgetsCollection.Add(budget);
 
-                    MessagingCenter.Send<IRouteBudgetsChanged, RouteBudgetsChangedArgs>(this, nameof(IRouteBudgetsChanged), 
-                        new RouteBudgetsChangedArgs(false, budget));
+                    INavigationParameters budgetListViewParameters = new NavigationParameters();
+                    budgetListViewParameters.Add(ArgKeys.Budget, budget);
+
+                    MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel),
+                        budgetListViewParameters);
                 }
             }
         }

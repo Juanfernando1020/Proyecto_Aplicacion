@@ -7,30 +7,50 @@
     xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
     xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Budget.List.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Padding="5"
     x:DataType="{x:Type viewModel:BudgetList}"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand">
     <local:ContentViewBase.Content>
-        <CollectionView
-            EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-            HeightRequest="250"
-            ItemsSource="{Binding BudgetsCollection}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:Budgets}">
-                    <Grid ColumnDefinitions="*, auto">
-                        <Label
-                            Grid.Column="0"
-                            Style="{StaticResource NormalLabel}"
-                            Text="{Binding Admin.Name}"
-                            VerticalTextAlignment="Center" />
-                        <Label
-                            Grid.Column="1"
-                            Style="{StaticResource NormalLabel}"
-                            Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <yummy:PancakeView CornerRadius="20">
+            <yummy:PancakeView.Border>
+                <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
+            </yummy:PancakeView.Border>
+            <StackLayout Padding="10">
+                <CollectionView
+                    EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                    HeightRequest="250"
+                    ItemsSource="{Binding BudgetsCollection}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:Budgets}">
+                            <Grid ColumnDefinitions="*, auto">
+                                <Label
+                                    Grid.Column="0"
+                                    Style="{StaticResource NormalLabel}"
+                                    Text="{Binding Admin.Name}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource NormalLabel}"
+                                    Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
+                                    VerticalTextAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Grid ColumnDefinitions="*, auto" VerticalOptions="EndAndExpand">
+                    <Label
+                        Grid.Column="0"
+                        Style="{StaticResource BoldLabel}"
+                        Text="Total" />
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding Total, StringFormat={StaticResource FormatMoney}}"
+                        TextColor="{StaticResource TextBlackLight}"
+                        VerticalTextAlignment="End" />
+                </Grid>
+            </StackLayout>
+        </yummy:PancakeView>
     </local:ContentViewBase.Content>
 </local:ContentViewBase>

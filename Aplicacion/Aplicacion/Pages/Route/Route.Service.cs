@@ -21,14 +21,14 @@ namespace Aplicacion.Pages.Route.Service
         public async Task<ResultBase> CreateAsync(Routes route)
         {
             string message = string.Empty;
-            if (!CanCreateRoute(out message, route))
+            if (!CanRouteDetails(out message, route))
             {
                 return new ResultBase("Service.Route.CreateAsync", false, message);
             }
             return await _repository.CreateAsync(route);
         }
 
-        private bool CanCreateRoute(out string message, Routes route)
+        private bool CanRouteDetails(out string message, Routes route)
         {
             if (route == null || string.IsNullOrEmpty(route.Name) || route.Worker == null || route.Manager == null || route.Zone == null)
             {

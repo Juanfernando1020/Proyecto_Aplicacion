@@ -28,7 +28,7 @@
                     Label="Administrador"
                     OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
                     Text="{Binding Admin.Name}" />
-                <Button Command="{Binding SendBudgetCommand}" Text="Agregar Base" />
+                <Button Command="{Binding SendBudgetCommand}" Text="Agregar Presupuesto" />
             </StackLayout>
         </yummy:PancakeView>
     </local:CustomPopupBase.Content>

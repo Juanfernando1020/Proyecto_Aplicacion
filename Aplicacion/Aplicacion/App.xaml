@@ -3,7 +3,8 @@
     x:Class="Aplicacion.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:Xamarin.CommonToolkit.Converters;assembly=Xamarin.CommonToolkit">
+    xmlns:converters="clr-namespace:Xamarin.CommonToolkit.Converters;assembly=Xamarin.CommonToolkit"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <Application.Resources>
         <ResourceDictionary>
             <!--#region Colors-->
@@ -45,10 +46,13 @@
 
             <!--#region Strings-->
             <x:String x:Key="FormatMoney">{0:C2}</x:String>
+            <x:String x:Key="FormatDate">{0:dd-MM-yyyy}</x:String>
             <!--#endregion-->
 
             <!--#region Converters-->
-            <converters:NullToBooleanConverter x:Key="NullToBoolean" />
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmpty" />
+            <xct:IsNullOrEmptyConverter x:Key="IsNullOrEmpty" />
+            <xct:InvertedBoolConverter x:Key="InvertedBool" />
             <!--#endregion-->
 
             <!--#region FontAwesomeFonts-->

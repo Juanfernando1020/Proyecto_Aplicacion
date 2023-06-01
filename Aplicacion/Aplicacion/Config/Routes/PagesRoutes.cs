@@ -64,13 +64,11 @@ namespace Aplicacion.Config.Routes
         {
             internal const string List = "RouteListPage";
             internal const string Details = "RouteDetailsPage";
-            internal const string Create = "CreateRoutePage";
 
-        }
-
-        internal static class Basis
-        {
-            internal const string Add = "AddBasisPage";
+            internal static class Basis
+            {
+                internal const string Details = "BasisDetailsPage";
+            }
         }
     }
 }

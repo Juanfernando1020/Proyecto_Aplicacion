@@ -57,6 +57,8 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
             INavigationParameters parameters = new NavigationParameters();
             parameters.Add(ArgKeys.User, result.Data);
 
+            Aplicacion.Module.App.UserInfo = result.Data;
+
             await NavigationService.NavigateToRootAsync<MainPage>(parameters: parameters);
 
             IsBusy = false;

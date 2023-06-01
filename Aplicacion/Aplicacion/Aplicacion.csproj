@@ -39,19 +39,13 @@
     <EmbeddedResource Update="Pages\Day\Summary\DaySummaryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\Basis\Create\BasisCreatePopup.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\Basis\Details\BasisDetailsView.xaml">
+    <EmbeddedResource Update="Pages\Route\Basis\Details\BasisDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Budget\List\BudgetListView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Route\Create\CreateRoutePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Details\RouteDetailsPage.xaml">
@@ -120,8 +114,8 @@
     <Compile Update="Pages\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Route\Basis\Details\BasisDetailsView.xaml.cs">
-      <DependentUpon>BasisDetailsView.xaml</DependentUpon>
+    <Compile Update="Pages\Route\Basis\Details\BasisDetailsPage.xaml.cs">
+      <DependentUpon>BasisDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Route\Budget\Create\BudgetCreatePopup.xaml.cs">
       <DependentUpon>BudgetCreatePopup.xaml</DependentUpon>
@@ -187,11 +181,10 @@
 
   <ItemGroup>
     <Folder Include="Pages\Billing\Delay\" />
+    <Folder Include="Pages\Route\Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Xamarin.CommonToolkit">
-      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj" />
   </ItemGroup>
 </Project>

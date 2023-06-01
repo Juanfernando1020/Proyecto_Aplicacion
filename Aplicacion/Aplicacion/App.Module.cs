@@ -1,4 +1,5 @@
-﻿using Xamarin.CommonToolkit.Helpers.Firebase;
+﻿using Aplicacion.Models;
+using Xamarin.CommonToolkit.Helpers.Firebase;
 using Xamarin.CommonToolkit.Helpers;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.Forms;
@@ -8,6 +9,7 @@ namespace Aplicacion.Module
 {
     internal static class App
     {
+        public static Users UserInfo { get; set; }
         public static PageViewModelBase ViewModel { get; set; }
         public static INavigationService NavigationService { get; set; }
         public static string setting = "value";
@@ -23,7 +25,7 @@ namespace Aplicacion.Module
         private static Page GetInitPage()
         {
             Page page = ViewsManager.CreatePage<Pages.Account.Login.LoginPage>();
-            //Page page = ViewsManager.CreatePage<Pages.Route.Create.CreateRoutePage>();
+            //Page page = ViewsManager.CreatePage<Pages.Route.Details.RouteDetailsPage>();
             //Page page = ViewsManager.CreateView<Pages.Client.Details.ClientDetailsPage>();
             return new NavigationPage(page);
         }

@@ -1,35 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Local:ContentPageBase
+<local:ContentPageBase
     x:Class="Aplicacion.Pages.Route.Details.RouteDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
-    xmlns:viewMode="clr-namespace:Aplicacion.Pages.Route.Details.ViewModel;assembly=Aplicacion"
-    Title="Detallles de Ruta"
-    x:DataType="{x:Type viewMode:RouteDetails}"
+    xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Details.ViewModel"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="{Binding IsCreate, Converter={StaticResource BoolToObject}}"
+    x:DataType="{x:Type viewModel:RouteDetails}"
     Background="{StaticResource MainBackground}">
-    <ContentPage.Content>
-        <StackLayout
-            Padding="20"
-            Spacing="20"
-            VerticalOptions="FillAndExpand">
-            <customViews:IconEntryView
-                Icon="kisspng_computer_icons_user_profile_login_user_5abf1427192161_284446441522471975103.png"
-                IsEnabled="False"
-                Label="Nombre"
-                Text="{Binding Route.Name}" />
-            <customViews:IconEntryView
-                Icon="pngegg__2_.png"
-                IsEnabled="False"
-                Label="Telefono"
-                Text="{Binding Route.Zone}" />
-            <customViews:IconEntryView
-                Icon="pngegg__2_.png"
-                IsEnabled="False"
-                IsVisible="{Binding Route.Manager, Converter={StaticResource NullToBoolean}}"
-                Label="Telefono"
-                Text="{Binding Route.Manager.Name}" />
+    <local:ContentPageBase.Resources>
+        <ResourceDictionary>
+            <xct:BoolToObjectConverter
+                x:Key="BoolToObject"
+                FalseObject="Detalle de la Ruta"
+                TrueObject="Crear Ruta" />
+        </ResourceDictionary>
+    </local:ContentPageBase.Resources>
+    <local:ContentPageBase.Content>
+        <StackLayout Padding="20">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="10">
+                    <customViews:IconEntryView
+                        Icon="&#xf3c5;"
+                        IsEnabled="{Binding IsCreate}"
+                        Label="Nombre"
+                        Text="{Binding Route.Name}" />
+                    <customViews:IconEntryView
+                        Icon="&#xf4d7;"
+                        IsVisible="{Binding IsCreate}"
+                        Label="Zona"
+                        Text="{Binding Route.Zone}" />
+                    <customViews:IconPopupOpenerView
+                        Icon="&#xf007;"
+                        IsEnabled="{Binding IsCreate}"
+                        Label="Trabajador"
+                        OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
+                        Text="{Binding Worker.Name}" />
+                    <customViews:IconPopupOpenerView
+                        Icon="&#xf007;"
+                        IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}"
+                        Label="Manager"
+                        Text="{Binding Route.Manager.Name}" />
+                    <Grid ColumnDefinitions="*, auto" IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource BoldLabel}"
+                            Text="Base del Día" />
+                        <Label
+                            Grid.Column="1"
+                            Text="Ver Base"
+                            TextColor="{StaticResource TextBlackLight}"
+                            VerticalTextAlignment="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToBasisDetailsCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                    <Grid ColumnDefinitions="*, auto">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource BoldLabel}"
+                            Text="Presupuestos" />
+                        <Label
+                            Grid.Column="1"
+                            IsVisible="{Binding IsCreate}"
+                            Text="Agregar Presupuesto"
+                            TextColor="{StaticResource TextBlackLight}"
+                            VerticalTextAlignment="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenBudgetCreatePopupCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                    <extensions:ViewsExtension
+                        Parameters="{Binding BudgetListParameters}"
+                        VerticalOptions="FillAndExpand"
+                        View="{x:Static routes:ViewsRoutes.BudgetList}" />
+                </StackLayout>
+            </ScrollView>
+            <Button
+                Command="{Binding CreateCommand}"
+                IsVisible="{Binding IsCreate}"
+                Text="Crear Ruta" />
         </StackLayout>
-    </ContentPage.Content>
-</Local:ContentPageBase>
+    </local:ContentPageBase.Content>
+
+</local:ContentPageBase>

@@ -32,7 +32,7 @@
                 <customViews:IconEntryView
                     Icon="&#xf508;"
                     IsEnabled="False"
-                    IsVisible="{Binding User.Admin, Converter={StaticResource NullToBoolean}}"
+                    IsVisible="{Binding User.Admin, Converter={StaticResource IsNotNullOrEmpty}}"
                     Label="Telefono"
                     Text="{Binding User.Admin.Name}" />
             </StackLayout>

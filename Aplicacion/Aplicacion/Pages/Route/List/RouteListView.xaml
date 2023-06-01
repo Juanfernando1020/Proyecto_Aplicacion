@@ -18,7 +18,7 @@
         <StackLayout Padding="10">
             <CollectionView
                 EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-                IsVisible="{Binding RoutesCollection, Converter={StaticResource NullToBoolean}}"
+                IsVisible="{Binding RoutesCollection, Converter={StaticResource IsNotNullOrEmpty}}"
                 ItemsSource="{Binding RoutesCollection}"
                 SelectedItem="{Binding SelectedRoute}"
                 SelectionChangedCommand="{Binding GoToRouteDetailsCommand}"
@@ -34,7 +34,7 @@
             </CollectionView>
             <Button
                 Command="{Binding GoToRouteCreateCommand}"
-                IsVisible="{Binding CanCreateRoute}"
+                IsVisible="{Binding CanRouteDetails}"
                 Text="Crear Ruta" />
         </StackLayout>
     </Local:ContentPageBase.Content>

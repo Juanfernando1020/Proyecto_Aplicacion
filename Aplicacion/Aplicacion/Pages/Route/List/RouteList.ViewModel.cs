@@ -37,13 +37,13 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             set => SetProperty(ref _selectedRoute, value);
         }
 
-        private bool _canCreateRoute;
-        public bool CanCreateRoute
+        private bool _canRouteDetails;
+        public bool CanRouteDetails
         {
-            get => _canCreateRoute;
+            get => _canRouteDetails;
             set
             {
-                SetProperty(ref _canCreateRoute, value);
+                SetProperty(ref _canRouteDetails, value);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
                 INavigationParameters parameters = new NavigationParameters();
                 parameters.Add(ArgKeys.Route, SelectedRoute);
 
-                await NavigationService.NavigateToAsync<Details.RouteDetailsPage>(parameters: parameters);
+                await NavigationService.NavigateToAsync(PagesRoutes.Route.Details, parameters: parameters);
 
                 SelectedRoute = null;
             }
@@ -80,7 +80,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             INavigationParameters parameters = new NavigationParameters();
             parameters.Add(ArgKeys.User, _userInfo);
 
-            await NavigationService.NavigateToAsync<Create.CreateRoutePage>(parameters: parameters);
+            await NavigationService.NavigateToAsync(PagesRoutes.Route.Details, parameters: parameters);
 
             IsBusy = false;
         }
@@ -90,7 +90,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
 
         public RouteList()
         {
-            CanCreateRoute = false;
+            CanRouteDetails = false;
             RoutesCollection = new ObservableCollection<Routes>();
 
             _genericService = GetGenericService<Routes, Guid>();
@@ -126,7 +126,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
                     if (user.Role != (int)RolesEnum.Worker)
                     {
                         RoutesByUserIdSpecification specification = new RoutesByUserIdSpecification(user.Id);
-                        CanCreateRoute = user.Role == (int)RolesEnum.Admin;
+                        CanRouteDetails = user.Role == (int)RolesEnum.Admin;
 
                         if (parameters[ArgKeys.Arranging] is ArrangingBase<Routes> arranging)
                         {
