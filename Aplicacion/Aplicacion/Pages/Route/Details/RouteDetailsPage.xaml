@@ -31,7 +31,7 @@
                         Text="{Binding Route.Name}" />
                     <customViews:IconEntryView
                         Icon="&#xf4d7;"
-                        IsVisible="{Binding IsCreate}"
+                        IsEnabled="{Binding IsCreate}"
                         Label="Zona"
                         Text="{Binding Route.Zone}" />
                     <customViews:IconPopupOpenerView
@@ -42,24 +42,9 @@
                         Text="{Binding Worker.Name}" />
                     <customViews:IconPopupOpenerView
                         Icon="&#xf007;"
-                        IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}"
+                        IsVisible="{Binding IsCreate}"
                         Label="Manager"
                         Text="{Binding Route.Manager.Name}" />
-                    <Grid ColumnDefinitions="*, auto" IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}">
-                        <Label
-                            Grid.Column="0"
-                            Style="{StaticResource BoldLabel}"
-                            Text="Base del Día" />
-                        <Label
-                            Grid.Column="1"
-                            Text="Ver Base"
-                            TextColor="{StaticResource TextBlackLight}"
-                            VerticalTextAlignment="End">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToBasisDetailsCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </Grid>
                     <Grid ColumnDefinitions="*, auto">
                         <Label
                             Grid.Column="0"

@@ -22,7 +22,13 @@
                 Text="{Binding Basis.Date, StringFormat={StaticResource FormatDate}}" />
             <customViews:IconEntryView
                 Icon="&#x24;"
-                IsEnabled="{Binding CanCreate}"
+                IsEnabled="False"
+                IsVisible="{Binding CanCreate, Converter={StaticResource InvertedBool}}"
+                Label="Cantidad"
+                Text="{Binding Basis.Amount, StringFormat={StaticResource FormatMoney}}" />
+            <customViews:IconEntryView
+                Icon="&#x24;"
+                IsVisible="{Binding CanCreate}"
                 Label="Cantidad"
                 Text="{Binding Amount}" />
             <Grid ColumnDefinitions="*, auto" IsVisible="{Binding CanCreate}">

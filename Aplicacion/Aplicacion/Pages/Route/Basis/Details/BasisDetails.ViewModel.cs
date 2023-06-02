@@ -89,7 +89,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 parameters.Add(ArgKeys.Budget, newBudget);
 
                 _routeInfo.Budgets = budgetList.ToArray();
-                ResultBase routeResult = await _genericRouteService.UpdateAsync(_routeInfo);
+                ResultBase routeResult = await _genericRouteService.UpdateAsync(_routeInfo.Id, _routeInfo);
 
                 if (routeResult.IsSuccess)
                 {

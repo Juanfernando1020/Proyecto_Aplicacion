@@ -36,9 +36,10 @@ namespace Aplicacion.Views.Shared
             nameof(IsEnabled),
             typeof(bool),
             typeof(IconPopupOpenerView),
-            true
+            true,
+            propertyChanged: OnIsEnabledChanged
             );
-        
+
         public new static readonly BindableProperty OpenPopupCommandProperty = BindableProperty.Create(
             nameof(OpenPopupCommand),
             typeof(ICommand),
@@ -88,6 +89,10 @@ namespace Aplicacion.Views.Shared
         private static void TextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             ((IconPopupOpenerView)bindable).value.Text = (string)newValue;
+        }
+        private static void OnIsEnabledChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            ((IconPopupOpenerView)bindable).chevron.IsEnabled = (bool)newvalue;
         }
         private static void OpenPopupCommandPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {

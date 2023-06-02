@@ -53,21 +53,22 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             get => _routesCollection;
             set => SetProperty(ref _routesCollection, value);
         }
-        public ICommand GoToRouteDetailsCommand => new Command(async () => await GoToRouteDetailsController());
+        public ICommand GoToRouteDashboardCommand => new Command(async () => await GoToRouteDashboardController());
         public ICommand GoToRouteCreateCommand => new Command(async () => await GoToRouteCreateController());
         #endregion
 
         #region Methods
-        private async Task GoToRouteDetailsController()
+        private async Task GoToRouteDashboardController()
         {
             IsBusy = true;
 
             if (SelectedRoute != null)
             {
                 INavigationParameters parameters = new NavigationParameters();
+                parameters.Add(ArgKeys.User, _userInfo);
                 parameters.Add(ArgKeys.Route, SelectedRoute);
 
-                await NavigationService.NavigateToAsync(PagesRoutes.Route.Details, parameters: parameters);
+                await NavigationService.NavigateToAsync(PagesRoutes.Main, parameters: parameters);
 
                 SelectedRoute = null;
             }

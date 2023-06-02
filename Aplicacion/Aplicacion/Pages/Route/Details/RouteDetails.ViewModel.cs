@@ -229,22 +229,16 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
                 }
                 else
                 {
-                    await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)));
+                    await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)), CommonMessages.Error.InformationMessage);
                 }
             }
             else
             {
-                await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)));
+                await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(ArgKeys.User)), CommonMessages.Error.InformationMessage);
             }
             IsBusy = false;
         }
 
-        private async Task ShowErrorResult(string message)
-        {
-            Console.WriteLine(message);
-            await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-            await NavigationService.PopAsync();
-        }
         #endregion
 
         #region OnCallBack

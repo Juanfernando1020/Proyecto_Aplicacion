@@ -21,7 +21,7 @@
                 IsVisible="{Binding RoutesCollection, Converter={StaticResource IsNotNullOrEmpty}}"
                 ItemsSource="{Binding RoutesCollection}"
                 SelectedItem="{Binding SelectedRoute}"
-                SelectionChangedCommand="{Binding GoToRouteDetailsCommand}"
+                SelectionChangedCommand="{Binding GoToRouteDashboardCommand}"
                 SelectionMode="Single"
                 VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>

@@ -16,31 +16,41 @@ namespace Aplicacion.Pages.Main.Service
 {
     internal class Main : IMainService
     {
-        public IEnumerable<Modules> GetModulesAsync(Users user)
+        public IEnumerable<Modules> GetModulesAsync(Users user, Routes route = null)
         {
             List<Modules> response = new List<Modules>();
 
             INavigationParameters routesParameters = new NavigationParameters();
-
             routesParameters.Add(ArgKeys.User, user);
 
-            response.Add(new Modules("Mi información", PagesRoutes.User.Details, PagesBaseEnum.ContentPage));
-
-            switch ((RolesEnum)user.Role)
+            if (route != null)
             {
-                case RolesEnum.Owner:
-                    response.Add(new Modules("Usuarios", PagesRoutes.User.List, PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Crear usuario", PagesRoutes.User.Create, PagesBaseEnum.ContentPage));
-                    break;
-                case RolesEnum.Admin:
-                    response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
-                    break;
-                case RolesEnum.Worker:
-                    response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
-                    response.Add(new Modules("Mis gastos del día", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage));
-                    response.Add(new Modules("Resumen del día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
-                    break;
+                routesParameters.Add(ArgKeys.Route, route);
+
+                response.Add(new Modules("Ver Ruta", PagesRoutes.Route.Details, PagesBaseEnum.ContentPage, routesParameters));
+                response.Add(new Modules("Base del Día", PagesRoutes.Route.Basis.Details, PagesBaseEnum.ContentPage, routesParameters));
+                response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage));
+            }
+            else
+            {
+                response.Add(new Modules("Mi información", PagesRoutes.User.Details, PagesBaseEnum.ContentPage));
+
+                switch ((RolesEnum)user.Role)
+                {
+                    case RolesEnum.Owner:
+                        response.Add(new Modules("Usuarios", PagesRoutes.User.List, PagesBaseEnum.ContentPage));
+                        response.Add(new Modules("Crear usuario", PagesRoutes.User.Create, PagesBaseEnum.ContentPage));
+                        break;
+                    case RolesEnum.Admin:
+                        response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
+                        break;
+                    case RolesEnum.Worker:
+                        response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage));
+                        response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
+                        response.Add(new Modules("Mis gastos del día", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage));
+                        response.Add(new Modules("Resumen del día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
+                        break;
+                }
             }
 
             return response;

@@ -9,18 +9,13 @@ namespace Aplicacion.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public DateTime LoanDate { get; set; }
-        public decimal Price { get; set; }
-        public int AmountPayments { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
         public int InterestRate { get; set; }
-        public DateTime StarDatePayment { get; set; }
-        public int ProofPayment{ get; set; }
-        public int delay { get; set; }
-        public int DaysLate { get; set; }
-        public decimal DelayValueroperty { get; set; }
+        public Installments[] Installments { get; set; }
+        public decimal Surcharge { get; set; }
+        public int SurchargeDays { get; set; }
         public string Observations { get; set; }
-        public Clients Client { get; set; }
-        public Guid fk_Budget { get; set; }
         public bool IsActive { get; set; }
         
     }
