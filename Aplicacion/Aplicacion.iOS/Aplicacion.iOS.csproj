@@ -121,6 +121,9 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="Xamarin.CommonToolkit.iOS">
+      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.iOS.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
@@ -152,10 +155,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj">
-      <Project>{dde4e093-c817-4553-9dd6-de1796c9a42a}</Project>
-      <Name>CommonToolkit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Aplicacion\Aplicacion.csproj">
       <Project>{37322CE4-6E25-4796-94F9-37ADABBEA313}</Project>
       <Name>Aplicacion</Name>

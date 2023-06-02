@@ -124,33 +124,30 @@ namespace Aplicacion.Pages.Route.List.ViewModel
                 if (parameters[ArgKeys.User] is Users user)
                 {
                     _userInfo = user;
-                    if (user.Role != (int)RolesEnum.Worker)
+                    RoutesByUserIdSpecification specification = new RoutesByUserIdSpecification(user.Id);
+                    CanRouteDetails = user.Role == (int)RolesEnum.Admin;
+
+                    if (parameters[ArgKeys.Arranging] is ArrangingBase<Routes> arranging)
                     {
-                        RoutesByUserIdSpecification specification = new RoutesByUserIdSpecification(user.Id);
-                        CanRouteDetails = user.Role == (int)RolesEnum.Admin;
+                        ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification, arranging);
 
-                        if (parameters[ArgKeys.Arranging] is ArrangingBase<Routes> arranging)
+                        if (result.IsSuccess)
                         {
-                            ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification, arranging);
-
-                            if (result.IsSuccess)
+                            foreach (Routes route in result.Data)
                             {
-                                foreach (Routes route in result.Data)
-                                {
-                                    RoutesCollection.Add(route);
-                                }
+                                RoutesCollection.Add(route);
                             }
                         }
-                        else
-                        {
-                            ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification);
+                    }
+                    else
+                    {
+                        ResultBase<IEnumerable<Routes>> result = await _genericService.GetAllAsync(specification);
 
-                            if (result.IsSuccess)
+                        if (result.IsSuccess)
+                        {
+                            foreach (Routes route in result.Data)
                             {
-                                foreach (Routes route in result.Data)
-                                {
-                                    RoutesCollection.Add(route);
-                                }
+                                RoutesCollection.Add(route);
                             }
                         }
                     }
