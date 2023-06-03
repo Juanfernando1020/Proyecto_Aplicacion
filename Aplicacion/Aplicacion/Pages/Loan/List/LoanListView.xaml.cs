@@ -1,13 +1,12 @@
 ﻿using Xamarin.CommonToolkit.PagesBase;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Aplicacion.Pages.Loan.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoanListPage : ContentPageBase
+    public partial class LoanListView : ContentViewBase
     {
-        public LoanListPage()
+        public LoanListView()
         {
             InitializeComponent();
         }

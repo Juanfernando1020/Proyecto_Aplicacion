@@ -20,6 +20,7 @@ using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Specifications;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using static Aplicacion.Config.Routes.PagesRoutes;
 
 namespace Aplicacion.Pages.Client.List.ViewModel
 {
@@ -35,11 +36,17 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         #region Propeties
 
         private ClientListFilter _selectedFilter;
-
         public ClientListFilter SelectedFilter
         {
             get => _selectedFilter;
             set => SetProperty(ref _selectedFilter, value);
+        }
+        
+        private ClientExtended _selectedClient;
+        public ClientExtended SelectedClient
+        {
+            get => _selectedClient;
+            set => SetProperty(ref _selectedClient, value);
         }
 
         private List<ClientListFilter> _filters;
@@ -57,7 +64,7 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         }
 
         public ICommand GoToCreateClientCommand => new AsyncCommand(GoToCreateClientController);
-        public ICommand SelectOptionCommand => new Command<Clients>(async (Clients client) => await SelectOptionController(client));
+        public ICommand SelectClientCommand => new AsyncCommand(SelectClientController);
         #endregion
 
         #region Methods
@@ -69,15 +76,20 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             
             IsBusy = false;
         }
-        private async Task SelectOptionController(Clients client)
+        private async Task SelectClientController()
         {
-            IsBusy = true;
+            if (SelectedClient != null)
+            {
+                IsBusy = true;
 
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Client, client);
+                INavigationParameters parameters = new NavigationParameters();
+                parameters.Add(ArgKeys.Client, SelectedClient.Client);
 
-            await NavigationService.NavigateToAsync<Details.ClientDetailsPage>(parameters: parameters);
-            IsBusy= false;
+                await NavigationService.NavigateToAsync(PagesRoutes.Client.Details, parameters: parameters);
+                IsBusy = false;
+
+                SelectedClient = null;
+            }
         }
         private void RefreshClientsCollection()
         {

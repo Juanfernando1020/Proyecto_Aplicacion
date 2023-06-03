@@ -85,13 +85,13 @@
     <EmbeddedResource Update="Pages\Client\List\ClientListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Loan\Create\LoanCreatePage.xaml">
+    <EmbeddedResource Update="Pages\Loan\Create\LoanCreatePopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Loan\Details\LoanDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Loan\List\LoanListPage.xaml">
+    <EmbeddedResource Update="Pages\Loan\List\LoanListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml">
@@ -148,14 +148,14 @@
     <Compile Update="Pages\Client\List\ClientListPage.xaml.cs">
       <DependentUpon>ClientListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Loan\Create\LoanCreatePage.xaml.cs">
-      <DependentUpon>LoanCreatePage.xaml</DependentUpon>
+    <Compile Update="Pages\Loan\Create\LoanCreatePopup.xaml.cs">
+      <DependentUpon>LoanCreatePopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Loan\Details\LoanDetailsPage.xaml.cs">
       <DependentUpon>LoanDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Loan\List\LoanListPage.xaml.cs">
-      <DependentUpon>LoanListPage.xaml</DependentUpon>
+    <Compile Update="Pages\Loan\List\LoanListView.xaml.cs">
+      <DependentUpon>LoanListView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml.cs">
       <DependentUpon>ExpenseCreatePage.xaml</DependentUpon>

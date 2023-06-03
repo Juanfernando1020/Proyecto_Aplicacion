@@ -24,7 +24,12 @@
                     SelectedItem="{Binding SelectedFilter}" />
             </customView:IconPickerView.Picker>
         </customView:IconPickerView>
-        <CollectionView EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}" ItemsSource="{Binding FilterClientsCollection}">
+        <CollectionView
+            EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+            ItemsSource="{Binding FilterClientsCollection}"
+            SelectedItem="{Binding SelectedClient}"
+            SelectionChangedCommand="{Binding SelectClientCommand}"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type clientModels:ClientExtended}">
                     <Grid Padding="5">
@@ -38,7 +43,7 @@
                                     HorizontalTextAlignment="Center"
                                     Style="{StaticResource BoldLabel}"
                                     Text="{Binding Client.Name}" />
-                                <Label HorizontalTextAlignment="Center" Text="0 Prestamos" />
+                                <Label HorizontalTextAlignment="Center" Text="{Binding LoansQuantity, StringFormat='{0} Préstamos'}" />
                                 <Grid
                                     ColumnDefinitions="auto, *"
                                     ColumnSpacing="5"

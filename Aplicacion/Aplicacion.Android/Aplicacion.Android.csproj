@@ -56,9 +56,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
-    <Reference Include="Xamarin.CommonToolkit.Android">
-      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.Android.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
@@ -118,6 +115,10 @@
     <AndroidResource Include="Resources\drawable\usuario.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj">
+      <Project>{bff506ed-c2b7-458a-aa7a-c635c698b0e6}</Project>
+      <Name>CommonToolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Aplicacion\Aplicacion.csproj">
       <Project>{37322CE4-6E25-4796-94F9-37ADABBEA313}</Project>
       <Name>Aplicacion</Name>

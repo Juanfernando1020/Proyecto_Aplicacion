@@ -9,8 +9,13 @@
 
         internal static class Error
         {
-            internal const string InformationMessage =
-                "No se puede realizar esta operación ahora mismo. Intentalo más tarde.";
+            internal const string InformationMessage = "No se puede realizar esta operación ahora mismo. Intentalo más tarde.";
+        }
+
+        internal static class Warning
+        {
+            internal const string Unavailable = "No es posible hacer uso de esta funcionalidad. Intentalo más tarde.";
+            internal const string Unsupported = "Tu dispositivo no soporta esta funcionalidad.";
         }
 
         internal static class Success
