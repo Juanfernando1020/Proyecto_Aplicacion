@@ -4,6 +4,7 @@ using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
 using Xamarin.CommonToolkit.Module;
+using Plugin.CurrentActivity;
 
 namespace Aplicacion.Droid
 {
@@ -13,7 +14,7 @@ namespace Aplicacion.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             CommonToolkit.Initialize(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -24,7 +25,7 @@ namespace Aplicacion.Droid
             LoadApplication(new App());
 
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
