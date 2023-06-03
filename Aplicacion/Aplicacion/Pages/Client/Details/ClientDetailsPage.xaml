@@ -10,64 +10,107 @@
     BackgroundColor="#829CA6">
 
     <ContentPage.Content>
-        <Grid Padding="10" RowSpacing="40">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackLayout
-                Grid.Row="0"
-                Grid.Column="0"
-                Padding="20">
-                <Image Source="usuario" WidthRequest="60" />
-            </StackLayout>
-            <Frame Grid.Row="1" CornerRadius="20">
-                <StackLayout Orientation="Horizontal">
-                    <Label FontAttributes="Bold" TextColor="Black">Nombre:</Label>
-                    <Label>Bindign Nombre del cliente</Label>
+        <ScrollView>
+            <Grid Padding="10" RowSpacing="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="20">
+                    <Image Source="usuario" WidthRequest="60" />
                 </StackLayout>
-            </Frame>
-            <Frame Grid.Row="2" CornerRadius="20">
-                <StackLayout Orientation="Horizontal">
-                    <Label FontAttributes="Bold" TextColor="Black">Télefono:</Label>
-                    <Label>Bindign numero del cliente</Label>
+                <Frame Grid.Row="1" CornerRadius="20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontAttributes="Bold" TextColor="Black">Nombre:</Label>
+                        <Label>Bindign Nombre del cliente</Label>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="2" CornerRadius="20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontAttributes="Bold" TextColor="Black">Télefono:</Label>
+                        <Label>Bindign numero del cliente</Label>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="3" CornerRadius="20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontAttributes="Bold" TextColor="Black">Dirección:</Label>
+                        <Label>Bindign direccion</Label>
+                    </StackLayout>
+                </Frame>
+                <StackLayout
+                    Grid.Row="4"
+                    Margin="20,0,10,9"
+                    HorizontalOptions="CenterAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Button
+                        BackgroundColor="#D1DFE1"
+                        BorderColor="#707070"
+                        BorderWidth="3"
+                        CornerRadius="20"
+                        Text="Llamar" />
+                    <Button
+                        x:Name="GoToLisLoanButton"
+                        BackgroundColor="#D1DFE1"
+                        BorderColor="#707070"
+                        BorderWidth="3"
+                        Command="{Binding GoToListLoanCommand}"
+                        CornerRadius="20"
+                        Text="Ver prestamos" />
                 </StackLayout>
-            </Frame>
-            <Frame Grid.Row="3" CornerRadius="20">
-                <StackLayout Orientation="Horizontal">
-                    <Label FontAttributes="Bold" TextColor="Black">Dirección:</Label>
-                    <Label>Bindign direccion</Label>
+                <StackLayout Grid.Row="5" VerticalOptions="Center">
+                    <Frame
+                        BackgroundColor="#F1F1F1"
+                        BorderColor="Black"
+                        CornerRadius="10"
+                        VerticalOptions="Center">
+                        <Grid>
+                            <Image
+                                x:Name="Photo"
+                                Aspect="Fill"
+                                HeightRequest="200"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                            <Label
+                                x:Name="IconLabel"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                FontSize="64"
+                                HorizontalOptions="Center"
+                                Text="&#xf030;"
+                                TextColor="#CCCCCC"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                            Margin="15,0,0,0"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontSize="16"
+                            Text="&#xf030;"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Label
+                            x:Name="TakePhoto"
+                            Margin="4,0,0,0"
+                            FontSize="16"
+                            Text="Tomar foto"
+                            TextColor="Black">
+                            <Label.GestureRecognizers />
+                        </Label>
+                    </StackLayout>
                 </StackLayout>
-            </Frame>
-            <StackLayout
-                Grid.Row="4"
-                Margin="20,0,10,9"
-                Orientation="Horizontal"
-                Spacing="10" 
-                HorizontalOptions="CenterAndExpand">
-                <Button
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="20"
-                    Text="Llamar" />
-                <Button
-                    x:Name="GoToLisLoanButton"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    Command="{Binding GoToListLoanCommand}"
-                    CornerRadius="20"
-                    Text="Ver prestamos" />
-            </StackLayout>
-        </Grid>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </local:ContentPageBase>
