@@ -48,6 +48,7 @@
 
             <!--#region Strings-->
             <x:String x:Key="FormatMoney">{0:C2}</x:String>
+            <x:String x:Key="FormatPercentage">{0:0%}</x:String>
             <x:String x:Key="FormatDate">{0:dd-MM-yyyy}</x:String>
             <!--#endregion-->
 

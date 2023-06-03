@@ -8,6 +8,6 @@ namespace Aplicacion.Models
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
-        public decimal Quantity { get; set; }
+        public decimal Amount { get; set; }
     }
 }

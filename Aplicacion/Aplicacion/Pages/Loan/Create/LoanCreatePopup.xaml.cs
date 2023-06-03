@@ -4,11 +4,11 @@ using Xamarin.Forms.Xaml;
 namespace Aplicacion.Pages.Loan.Create
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoanCreatePage : ContentPageBase
+	public partial class LoanCreatePopup : CustomPopupBase
 	{
-		public LoanCreatePage ()
+		public LoanCreatePopup()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 	}
 }

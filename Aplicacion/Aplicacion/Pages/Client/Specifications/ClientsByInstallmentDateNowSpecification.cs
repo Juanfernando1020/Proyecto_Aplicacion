@@ -11,6 +11,10 @@ namespace Aplicacion.Pages.Client.Specifications
     internal class ClientsByInstallmentDateNowSpecification : SpecificationBase<Clients>
     {
         public override Expression<Func<Clients, bool>> ToExpression()
-            => client => client.IsActive;
+            => client => client.IsActive && 
+                         client.Loans != null && 
+                         client.Loans.Any() && 
+                         client.Loans.Any(loan => loan.IsActive && 
+                                                  loan.Date.Day == DateTime.Now.Day);
     }
 }

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentViewBase
+    x:Class="Aplicacion.Pages.Loan.List.LoanListView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.List.ViewModel"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="loanListPage"
+    Margin="-8,0"
+    x:DataType="{x:Type viewModel:LoanList}"
+    BackgroundColor="#829CA6">
+
+    <local:ContentViewBase.Content>
+        <StackLayout Padding="10">
+            <customViews:IconPickerView Icon="egg" Label="Filtrar por">
+                <customViews:IconPickerView.Picker>
+                    <Picker
+                        ItemDisplayBinding="{Binding Title}"
+                        ItemsSource="{Binding Filters}"
+                        SelectedItem="{Binding SelectedFilter}" />
+                </customViews:IconPickerView.Picker>
+            </customViews:IconPickerView>
+            <CollectionView
+                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                HeightRequest="350"
+                ItemsSource="{Binding FilterLoansCollections}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Loans}">
+                        <Grid Padding="5">
+                            <yummy:PancakeView>
+                                <Label Text="{Binding Name}" />
+                            </yummy:PancakeView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Command="{Binding GoToCreateLoanCommand}" Text="Crear Prestamo" />
+        </StackLayout>
+    </local:ContentViewBase.Content>
+
+</local:ContentViewBase>

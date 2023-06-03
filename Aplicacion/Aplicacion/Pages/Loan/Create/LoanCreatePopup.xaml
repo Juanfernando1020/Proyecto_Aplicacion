@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:ContentPageBase
-    x:Class="Aplicacion.Pages.Loan.Create.LoanCreatePage"
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.Loan.Create.LoanCreatePopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
-    BackgroundColor="#829CA6"
-    Title="Crear Nuevo Prestamo">
-    <local:ContentPageBase.Content>
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Create.ViewModel;assembly=Aplicacion"
+    Title="Crear Nuevo Prestamo"
+    x:DataType="{x:Type viewModel:LoanCreate}"
+    BackgroundColor="#829CA6">
+    <local:CustomPopupBase.Content>
         <ScrollView>
             <StackLayout
                 Margin="10,20,25,0"
@@ -19,6 +21,7 @@
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Nombre del producto"
                         PlaceholderColor="#656565"
+                        Text="{Binding LoanExtension.Loan.Name}"
                         TextColor="#333333" />
                 </StackLayout>
 
@@ -35,7 +38,9 @@
                         VerticalOptions="Center" />
                     <DatePicker
                         BackgroundColor="Transparent"
+                        Date="{Binding LoanExtension.Date}"
                         HorizontalOptions="Start"
+                        MinimumDate="{Binding DateTimeNow}"
                         TextColor="Black" />
                 </StackLayout>
 
@@ -129,16 +134,11 @@
                 </StackLayout>
 
 
-                <Button
-                    x:Name="Boton_Registro"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    Text="Agregar Prestamo"
-                    TextColor="#333333" />
+                <Grid ColumnDefinitions="*,*">
+                    <Button Grid.Column="0" Text="Cancelar" />
+                    <Button Grid.Column="1" Text="Crear" />
+                </Grid>
             </StackLayout>
         </ScrollView>
-    </local:ContentPageBase.Content>
-</local:ContentPageBase>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

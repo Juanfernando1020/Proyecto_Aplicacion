@@ -7,7 +7,6 @@
     xmlns:customView="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
-    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.List.ViewModel"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="Root"
@@ -25,9 +24,14 @@
                     SelectedItem="{Binding SelectedFilter}" />
             </customView:IconPickerView.Picker>
         </customView:IconPickerView>
-        <CollectionView EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}" ItemsSource="{Binding FilterClientsCollection}">
+        <CollectionView
+            EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+            ItemsSource="{Binding FilterClientsCollection}"
+            SelectedItem="{Binding SelectedClient}"
+            SelectionChangedCommand="{Binding SelectClientCommand}"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:Clients}">
+                <DataTemplate x:DataType="{x:Type clientModels:ClientExtended}">
                     <Grid Padding="5">
                         <yummy:PancakeView
                             Padding="10"
@@ -38,8 +42,8 @@
                                 <Label
                                     HorizontalTextAlignment="Center"
                                     Style="{StaticResource BoldLabel}"
-                                    Text="{Binding Name}" />
-                                <Label HorizontalTextAlignment="Center" Text="0 Prestamos" />
+                                    Text="{Binding Client.Name}" />
+                                <Label HorizontalTextAlignment="Center" Text="{Binding LoansQuantity, StringFormat='{0} Préstamos'}" />
                                 <Grid
                                     ColumnDefinitions="auto, *"
                                     ColumnSpacing="5"
@@ -53,7 +57,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalTextAlignment="End"
-                                        Text="Total de Prestamos" />
+                                        Text="{Binding TotalAmount, StringFormat={StaticResource FormatMoney}}" />
 
                                     <Label
                                         Grid.Row="1"
@@ -66,8 +70,10 @@
                                         TextColor="{StaticResource Green}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="Installment Active Amount Summary " />
-                                                <Span Text="(%%%)" />
+                                                <Span Text="{Binding PayedAmount, StringFormat={StaticResource FormatMoney}}" />
+                                                <Span Text=" (" />
+                                                <Span Text="{Binding PayedPercentage, StringFormat={StaticResource FormatPercentage}}" />
+                                                <Span Text=")" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -83,8 +89,10 @@
                                         TextColor="{StaticResource Red}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="Installment Disactive Amount Summary " />
-                                                <Span Text="(%%%)" />
+                                                <Span Text="{Binding RestAmount, StringFormat={StaticResource FormatMoney}}" />
+                                                <Span Text=" (" />
+                                                <Span Text="{Binding RestPercentage, StringFormat={StaticResource FormatPercentage}}" />
+                                                <Span Text=")" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

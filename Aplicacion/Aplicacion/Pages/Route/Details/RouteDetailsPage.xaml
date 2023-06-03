@@ -42,7 +42,7 @@
                         Text="{Binding Worker.Name}" />
                     <customViews:IconPopupOpenerView
                         Icon="&#xf007;"
-                        IsVisible="{Binding IsCreate}"
+                        IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}"
                         Label="Manager"
                         Text="{Binding Route.Manager.Name}" />
                     <Grid ColumnDefinitions="*, auto">
