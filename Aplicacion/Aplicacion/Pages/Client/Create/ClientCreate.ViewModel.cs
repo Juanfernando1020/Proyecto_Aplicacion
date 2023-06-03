@@ -10,6 +10,11 @@ using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Plugin.Media.Abstractions;
+using Xamarin.Forms;
+using Firebase.Storage;
+using System.IO;
+
 
 namespace Aplicacion.Pages.Client.Create.ViewModel
 {
@@ -18,6 +23,8 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
         #region Variables
 
         private readonly IGenericService<Clients, Guid> _genericService;
+        private FirebaseStorage _firebaseStorage;
+        private string _imageId;
 
         #endregion
 
@@ -32,6 +39,24 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
         public ICommand CreateClientCommand => new AsyncCommand(CreateClientController);
 
+        private ImageSource _photoSource;
+        public ImageSource PhotoSource
+        {
+            get => _photoSource;
+            set => SetProperty(ref _photoSource, value);
+        }
+
+        public ICommand TakePhotoCommand => new AsyncCommand(TakePhotoController);
+
+
+        private bool _isIconLabelVisible = true;
+        public bool IsIconLabelVisible
+        {
+            get => _isIconLabelVisible;
+            set => SetProperty(ref _isIconLabelVisible, value);
+        }
+
+
         #endregion
 
         #region Methods
@@ -44,6 +69,29 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
             if (isValid)
             {
+                // Subir la imagen a Firebase Storage
+                string imageId = null;
+                if (PhotoSource != null)
+                {
+                    Stream imageStream = await (PhotoSource as StreamImageSource).Stream.Invoke(default);
+                    string imageName = $"{Guid.NewGuid()}.jpg";
+
+                    // Configurar Firebase Storage
+                    var storage = new FirebaseStorage("app-cobranzas-4a3dc.appspot.com")
+                        .Child("Ids") // Ruta dentro del bucket de almacenamiento
+                        .Child(imageName); // Nombre de archivo en Firebase Storage
+
+                    // Subir la imagen
+                    var task = storage.PutAsync(imageStream);
+
+                    // Esperar a que se complete la carga
+                    imageId = await task;
+                }
+
+                // Guardar el ID de la imagen en el modelo de cliente
+                Client.IDImage = imageId;
+
+                // Insertar el cliente en Firebase Realtime Database
                 ResultBase result = await _genericService.InsertAsync(Client);
 
                 if (result.IsSuccess)
@@ -59,6 +107,7 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
             IsBusy = false;
         }
+
 
         private async Task<bool> ValidateClient()
         {
@@ -80,8 +129,39 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
                 return false;
             }
 
+            if (PhotoSource == null)
+            {
+                await AlertService.ShowAlert(new WarningMessage("Debes tomar una foto."));
+                return false;
+            }
+
             return true;
         }
+
+        private async Task TakePhotoController()
+        {
+            MediaFile photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+            {
+                PhotoSize = PhotoSize.Medium,
+                SaveToAlbum = false,
+                RotateImage = true,
+                DefaultCamera = CameraDevice.Rear,
+                AllowCropping = false,
+                ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen
+            });
+
+            if (photo != null)
+            {
+                PhotoSource = ImageSource.FromStream(() =>
+                {
+                    return photo.GetStream();
+                });
+
+                IsIconLabelVisible = false;
+            }
+        }
+
+
 
         #endregion
 
@@ -97,6 +177,13 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
             };
 
             _genericService = GetGenericService<Clients, Guid>();
+
+            _firebaseStorage = new FirebaseStorage("app-cobranzas-4a3dc.appspot.com", new FirebaseStorageOptions
+            {
+                ThrowOnCancel = true,
+            });
+
+
         }
 
         #endregion

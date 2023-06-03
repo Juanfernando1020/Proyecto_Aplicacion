@@ -20,6 +20,54 @@
                     Label="Teléfono"
                     Text="{Binding Client.Phone}" />
                 <customViews:IconEntryView Label="Dirección" Text="{Binding Client.Address}" />
+
+                <StackLayout
+                    Grid.Row="5"
+                    Margin="0,12,0,0"
+                    VerticalOptions="Center">
+                    <Frame
+                        BackgroundColor="#F1F1F1"
+                        BorderColor="Black"
+                        CornerRadius="10"
+                        VerticalOptions="Center">
+                        <Grid>
+                            <Image
+                                Source="{Binding PhotoSource}"
+                                Aspect="Fill"
+                                HeightRequest="200"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                            <Label
+                                x:Name="IconLabel"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                FontSize="64"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsIconLabelVisible}"
+                                Text="&#xf030;"
+                                TextColor="#CCCCCC"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                            Margin="15,0,0,0"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontSize="16"
+                            Text="&#xf030;"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Label
+                            x:Name="TakePhoto"
+                            Margin="4,0,0,0"
+                            FontSize="16"
+                            Text="Tomar foto"
+                            TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
                 <Button
                     Command="{Binding CreateClientCommand}"
                     Text="Crear Cliente"
