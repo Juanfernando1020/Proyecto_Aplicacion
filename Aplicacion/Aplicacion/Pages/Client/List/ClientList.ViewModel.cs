@@ -49,8 +49,8 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             set => SetProperty(ref _filters, value);
         }
 
-        private ObservableCollection<Clients> _filterClientsCollection;
-        public ObservableCollection<Clients> FilterClientsCollection
+        private ObservableCollection<ClientExtended> _filterClientsCollection;
+        public ObservableCollection<ClientExtended> FilterClientsCollection
         {
             get => _filterClientsCollection;
             set => SetProperty(ref _filterClientsCollection, value);
@@ -79,14 +79,63 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             await NavigationService.NavigateToAsync<Details.ClientDetailsPage>(parameters: parameters);
             IsBusy= false;
         }
+        private void RefreshClientsCollection()
+        {
+            FilterClientsCollection.Clear();
+            foreach (Clients client in _clients.Where(SelectedFilter.Specification).ToList())
+            {
+                decimal totalAmount = 0;
+                decimal payedAmount = 0;
 
+                ClientExtended clientExtended = new ClientExtended()
+                {
+                    Client = client,
+                    LoansQuantity = client.Loans?.Count() ?? 0
+                };
+
+                if (client.Loans != null)
+                {
+                    foreach (Loans loan in client.Loans.Where(l => l.IsActive).ToList())
+                    {
+                        totalAmount += loan.Amount;
+
+                        if (loan.Installments != null)
+                        {
+                            foreach (Installments installment in loan.Installments)
+                            {
+                                if (!installment.IsActive)
+                                {
+                                    payedAmount += installment.Amount;
+                                }
+
+                                if (installment.Fees != null)
+                                {
+                                    foreach (Fees fee in installment.Fees)
+                                    {
+                                        payedAmount += fee.Amount;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                clientExtended.TotalAmount = totalAmount;
+                clientExtended.PayedAmount = payedAmount;
+                clientExtended.PayedPercentage = totalAmount > 0 ? (int)Math.Round((payedAmount * 100) / totalAmount) : 0;
+                clientExtended.RestAmount = totalAmount - payedAmount;
+                clientExtended.RestPercentage = totalAmount > 0 ? (int)Math.Round((clientExtended.RestAmount * 100) / totalAmount) : 0;
+
+                FilterClientsCollection.Add(clientExtended);
+            }
+        }
         #endregion
 
         #region Constructor
 
         public ClientList()
         {
-            FilterClientsCollection = new ObservableCollection<Clients>();
+            FilterClientsCollection = new ObservableCollection<ClientExtended>();
             _genericService = GetGenericService<Clients, Guid>();
         }
 
@@ -107,21 +156,9 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             switch (args.PropertyName)
             {
                 case nameof(SelectedFilter):
-                    try
+                    if (SelectedFilter != null)
                     {
-                        if (SelectedFilter != null)
-                        {
-                            FilterClientsCollection.Clear();
-                            foreach (Clients client in _clients.Where(SelectedFilter.Specification).ToList())
-                            {
-                                FilterClientsCollection.Add(client);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
+                        RefreshClientsCollection();
                     }
                     break;
             }
@@ -135,7 +172,7 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         {
             if (Aplicacion.Module.App.RouteInfo is Routes route)
             {
-                SpecificationBase<Clients> specification = new ClientsByInstallmentDateNowSpecification();
+                SpecificationBase<Clients> specification = new ClientsByRouteIdSpecification(route.Id);
                 ClientListFilter defaultFilter = new ClientListFilter()
                 {
                     Name = "Todos",

@@ -15,6 +15,6 @@ namespace Aplicacion.Pages.Client.Specifications
         }
 
         public override Expression<Func<Clients, bool>> ToExpression()
-            => clients => clients.Route == _routeId;
+            => client => client.IsActive && client.Route == _routeId;
     }
 }

@@ -12,7 +12,6 @@ using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.Forms;
 using System.ComponentModel;
-using System.Linq;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Aplicacion.Config.Messages;
