@@ -15,7 +15,7 @@ namespace Aplicacion.Pages.Client.Arrangings
         }
 
         protected override Expression<Func<Clients, object>> ToExpression()
-            => client => client.Loans
+            => client => client.Loans == null || client.Loans.Length == 0 ? (object)client.Name : client.Loans
                 .FirstOrDefault(loan => loan.IsActive && 
                                         loan.Installments.Any(installment => installment.IsActive) && 
                                                                             loan.Date.Day == DateTime.Now.Day).Date;

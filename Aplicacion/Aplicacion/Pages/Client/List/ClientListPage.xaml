@@ -3,15 +3,105 @@
     x:Class="Aplicacion.Pages.Client.List.ClientListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:clientModels="clr-namespace:Aplicacion.Pages.Client.Models;assembly=Aplicacion"
+    xmlns:customView="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.List.ViewModel"
-    x:Name="clientListPage"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="Root"
     Title="Lista de clientes"
     x:DataType="{x:Type viewModel:ClientList}"
-    BackgroundColor="#829CA6">
+    BackgroundColor="{StaticResource MainBackground}">
 
-    <StackLayout>
+    <StackLayout Padding="10">
+        <customView:IconPickerView Label="Filtrar">
+            <customView:IconPickerView.Picker>
+                <Picker
+                    ItemDisplayBinding="{Binding Name}"
+                    ItemsSource="{Binding Filters}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding SelectedFilter}" />
+            </customView:IconPickerView.Picker>
+        </customView:IconPickerView>
+        <CollectionView EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}" ItemsSource="{Binding FilterClientsCollection}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Clients}">
+                    <Grid Padding="5">
+                        <yummy:PancakeView
+                            Padding="10"
+                            BackgroundColor="{StaticResource BackgroundEntry}"
+                            CornerRadius="10"
+                            HorizontalOptions="CenterAndExpand">
+                            <StackLayout HorizontalOptions="FillAndExpand" Spacing="8">
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource BoldLabel}"
+                                    Text="{Binding Name}" />
+                                <Label HorizontalTextAlignment="Center" Text="0 Prestamos" />
+                                <Grid
+                                    ColumnDefinitions="auto, *"
+                                    ColumnSpacing="5"
+                                    RowDefinitions="auto,auto,auto"
+                                    RowSpacing="10">
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="Total:" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        Text="Total de Prestamos" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Pagado:" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        TextColor="{StaticResource Green}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Installment Active Amount Summary " />
+                                                <Span Text="(%%%)" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="Resta:" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        TextColor="{StaticResource Red}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Installment Disactive Amount Summary " />
+                                                <Span Text="(%%%)" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </StackLayout>
+                        </yummy:PancakeView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button
+            Command="{Binding GoToCreateClientCommand}"
+            Text="Crear Cliente"
+            VerticalOptions="EndAndExpand" />
+    </StackLayout>
+
+    <!--<StackLayout>
         <StackLayout Margin="20" Padding="10">
 
                 <StackLayout Orientation="Horizontal">
@@ -121,7 +211,7 @@
             Text="Agregar nuevo cliente"
             TextColor="Black"
             VerticalOptions="End"
-            WidthRequest="300" 
+            WidthRequest="300"
             Margin="30"/>
-    </StackLayout>
+    </StackLayout>-->
 </local:ContentPageBase>

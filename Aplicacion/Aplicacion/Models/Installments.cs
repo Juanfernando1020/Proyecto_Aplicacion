@@ -7,6 +7,7 @@ namespace Aplicacion.Models
     public class Installments
     {
         public Guid Id { get; set; }
+        public DateTime PaymenDate { get; set; }
         public decimal Quantity { get; set; }
         public Guid Loan { get; set; }
         public Fees[] Fees { get; set; }

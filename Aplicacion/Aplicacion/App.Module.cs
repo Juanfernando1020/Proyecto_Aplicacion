@@ -9,6 +9,7 @@ namespace Aplicacion.Module
 {
     internal static class App
     {
+        public static Routes RouteInfo { get; set; }
         public static Users UserInfo { get; set; }
         public static PageViewModelBase ViewModel { get; set; }
         public static INavigationService NavigationService { get; set; }

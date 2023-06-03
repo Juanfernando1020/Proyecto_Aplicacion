@@ -96,7 +96,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
                 INavigationParameters parameters = new NavigationParameters();
                 parameters.Add(ArgKeys.Route, Route);
 
-                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.InformationMessage));
+                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                 await NavigationService.PopAsync(parameters: parameters);
             }
             else

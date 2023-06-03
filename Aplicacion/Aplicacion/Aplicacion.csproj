@@ -185,8 +185,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Xamarin.CommonToolkit">
-      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\..\personal\XamarinCommon\CommonToolkit\CommonToolkit.csproj" />
   </ItemGroup>
 </Project>

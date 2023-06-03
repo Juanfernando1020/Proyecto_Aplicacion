@@ -94,7 +94,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 if (routeResult.IsSuccess)
                 {
                     MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
-                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.InformationMessage));
+                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                     await NavigationService.PopAsync();
                 }
                 else

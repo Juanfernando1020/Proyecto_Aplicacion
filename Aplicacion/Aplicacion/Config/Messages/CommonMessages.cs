@@ -15,7 +15,7 @@
 
         internal static class Success
         {
-            internal const string InformationMessage = "Dato agregado correctamente.";
+            internal const string Create = "Dato agregado correctamente.";
         }
 
         internal static class Console

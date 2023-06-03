@@ -50,9 +50,9 @@
             <StackLayout
                 Grid.Row="4"
                 Margin="20,0,10,9"
+                HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
-                Spacing="10" 
-                HorizontalOptions="CenterAndExpand">
+                Spacing="10">
                 <Button
                     BackgroundColor="#D1DFE1"
                     BorderColor="#707070"

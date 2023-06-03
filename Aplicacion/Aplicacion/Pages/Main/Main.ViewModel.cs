@@ -1,10 +1,7 @@
 ﻿using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
-using Xamarin.CommonToolkit.PagesBase.Enums;
-using Xamarin.CommonToolkit.Result;
 using Aplicacion.Config;
 using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;
-using Aplicacion.Pages.User.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
-using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Aplicacion.Config.Messages;
 
@@ -73,7 +69,8 @@ namespace Aplicacion.Pages.Main.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                 {
-                    IEnumerable<Modules> result = service.GetModulesAsync(user, parameters[ArgKeys.Route] as Routes);
+                    Aplicacion.Module.App.RouteInfo = parameters[ArgKeys.Route] as Routes;
+                    IEnumerable<Modules> result = service.GetModulesAsync(user, Aplicacion.Module.App.RouteInfo);
                     MenuItems = result.ToList();
                 }
             }
