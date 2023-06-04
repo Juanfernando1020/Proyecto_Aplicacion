@@ -10,6 +10,7 @@ using Aplicacion.Models;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Aplicacion.Pages.Route.Channels;
 using Aplicacion.Pages.Route.Config;
+using Aplicacion.Pages.Route.Specifications;
 using Aplicacion.Pages.User.Enums;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -89,7 +90,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 parameters.Add(ArgKeys.Budget, newBudget);
 
                 _routeInfo.Budgets = budgetList.ToArray();
-                ResultBase routeResult = await _genericRouteService.UpdateAsync(_routeInfo.Id, _routeInfo);
+                ResultBase routeResult = await _genericRouteService.UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo);
 
                 if (routeResult.IsSuccess)
                 {

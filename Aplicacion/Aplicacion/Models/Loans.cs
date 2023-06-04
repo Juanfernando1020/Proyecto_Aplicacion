@@ -8,6 +8,7 @@ namespace Aplicacion.Models
     public class Loans
     {
         public Guid Id { get; set; }
+        public Guid ClientId { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
@@ -15,6 +16,7 @@ namespace Aplicacion.Models
         public int InstallmentType { get; set; }
         public int InstallmentsQuantity { get; set; }
         public Installments[] Installments { get; set; }
+        public bool CanSurcharge { get; set; }
         public decimal Surcharge { get; set; }
         public int SurchargeDays { get; set; }
         public string Observations { get; set; }

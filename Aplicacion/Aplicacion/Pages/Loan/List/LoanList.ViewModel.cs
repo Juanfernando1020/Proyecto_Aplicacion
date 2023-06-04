@@ -44,15 +44,15 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
             set => SetProperty(ref _filters, value);
         }
 
-        private Loans _selectedLoan;
-        public Loans SelectedLoan
+        private LoansExtension _selectedLoan;
+        public LoansExtension SelectedLoan
         {
             get => _selectedLoan;
             set => SetProperty(ref _selectedLoan, value);
         }
         
-        private ObservableCollection<Loans> _filterLoansCollections;
-        public ObservableCollection<Loans> FilterLoansCollections
+        private ObservableCollection<LoansExtension> _filterLoansCollections;
+        public ObservableCollection<LoansExtension> FilterLoansCollections
         {
             get => _filterLoansCollections;
             set => SetProperty(ref _filterLoansCollections, value);
@@ -81,7 +81,7 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
                 IsBusy = true;
 
                 INavigationParameters parameters = new NavigationParameters();
-                parameters.Add(ArgKeys.Loan, SelectedLoan);
+                parameters.Add(ArgKeys.LoanExtension, SelectedLoan);
 
                 await NavigationService.NavigateToAsync(PagesRoutes.Loan.Details, parameters: parameters);
 
@@ -102,14 +102,22 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
                     {
                         foreach (Loans loan in loanList.Where(SelectedFilter.Specification).OrderByDescending(l => l.Date).ToList())
                         {
-                            FilterLoansCollections.Add(loan);
+                            FilterLoansCollections.Add(new LoansExtension()
+                            {
+                                Date = loan.Date,
+                                Loan = loan
+                            });
                         }
                     }
                     else
                     {
                         foreach (Loans loan in loanList)
                         {
-                            FilterLoansCollections.Add(loan);
+                            FilterLoansCollections.Add(new LoansExtension()
+                            {
+                                Date = loan.Date,
+                                Loan = loan
+                            });
                         }
                     }
                 }
@@ -138,7 +146,7 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
 
         public LoanList()
         {
-            FilterLoansCollections = new ObservableCollection<Loans>();
+            FilterLoansCollections = new ObservableCollection<LoansExtension>();
 
             MessagingCenter.Subscribe<ILoadLoanListViewChannel, INavigationParameters>(this, nameof(ILoadLoanListViewChannel), OnLoadLoanListView);
         }

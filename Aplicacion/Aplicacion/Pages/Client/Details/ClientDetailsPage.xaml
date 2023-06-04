@@ -9,7 +9,7 @@
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.Details.ViewModel"
     Title="{Binding Client.Name}"
     x:DataType="{x:Type viewModel:ClientDetails}"
-    BackgroundColor="#829CA6">
+    BackgroundColor="{StaticResource MainBackground}">
 
     <local:ContentPageBase.Content>
         <StackLayout Padding="20">

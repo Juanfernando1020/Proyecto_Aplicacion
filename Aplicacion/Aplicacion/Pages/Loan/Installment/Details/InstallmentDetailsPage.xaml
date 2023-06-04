@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageBase
+    x:Class="Aplicacion.Pages.Loan.Installment.Details.InstallmentDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.Details.ViewModel;assembly=Aplicacion"
+    Title="Detalle de la Cuota"
+    x:DataType="{x:Type viewModel:InstallmentDetails}">
+    <local:ContentPageBase.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Spacing="10">
+                <customViews:IconPickerView Label="Fecha de Pago">
+                    <customViews:IconPickerView.Picker>
+                        <DatePicker Date="{Binding InstallmentExtension.Installment.PaymenDate}" IsEnabled="False" />
+                    </customViews:IconPickerView.Picker>
+                </customViews:IconPickerView>
+
+                <customViews:IconEntryView
+                    Icon="egg"
+                    IsEnabled="False"
+                    Label="Monto"
+                    Text="{Binding InstallmentExtension.Installment.Amount}" />
+
+                <Grid ColumnDefinitions="auto, auto">
+                    <CheckBox
+                        Grid.Column="0"
+                        IsChecked="{Binding InstallmentExtension.Installment.IsActive}"
+                        IsEnabled="False" />
+                    <Label
+                        Grid.Column="1"
+                        Text="¿Se encuentra activo?"
+                        VerticalTextAlignment="Center" />
+                </Grid>
+
+                <extensions:ViewsExtension VerticalOptions="FillAndExpand" View="{x:Static routes:ViewsRoutes.FeeList}" />
+            </StackLayout>
+        </ScrollView>
+    </local:ContentPageBase.Content>
+</local:ContentPageBase>

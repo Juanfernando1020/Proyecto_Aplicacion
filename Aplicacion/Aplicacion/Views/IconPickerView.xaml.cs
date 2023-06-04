@@ -27,7 +27,7 @@ namespace Aplicacion.Views.Shared
 
         public new static readonly BindableProperty PickerProperty = BindableProperty.Create(
             nameof(Picker),
-            typeof(Picker),
+            typeof(View),
             typeof(IconPickerView),
             default,
             propertyChanged: OnPickerPropertyChanged
@@ -45,9 +45,9 @@ namespace Aplicacion.Views.Shared
             get => (string)GetValue(LabelProperty); 
             set => SetValue(LabelProperty, value); 
         }
-        public Picker Picker
+        public View Picker
         {
-            get => (Picker)GetValue(LabelProperty);
+            get => (View)GetValue(LabelProperty);
             set => SetValue(LabelProperty, value);
         }
         #endregion
@@ -63,7 +63,7 @@ namespace Aplicacion.Views.Shared
         }
         private static void OnPickerPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((IconPickerView)bindable).contentView.Content = (Picker)newValue;
+            ((IconPickerView)bindable).contentView.Content = (View)newValue;
         }
         #endregion
 

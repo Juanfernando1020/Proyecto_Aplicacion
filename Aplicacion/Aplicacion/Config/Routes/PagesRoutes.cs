@@ -41,6 +41,11 @@ namespace Aplicacion.Config.Routes
 
         }
 
+        internal static class Installment
+        {
+            internal const string Details = "InstallmentDetailsPage";
+        }
+
         internal static class Client
         {
             internal const string Create = "ClientCreatePage";

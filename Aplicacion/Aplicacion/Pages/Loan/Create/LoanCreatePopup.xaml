@@ -4,141 +4,135 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Create.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="Crear Nuevo Prestamo"
-    x:DataType="{x:Type viewModel:LoanCreate}"
-    BackgroundColor="#829CA6">
+    x:DataType="{x:Type viewModel:LoanCreate}">
     <local:CustomPopupBase.Content>
-        <ScrollView>
-            <StackLayout
-                Margin="10,20,25,0"
-                Spacing="30"
-                VerticalOptions="Center">
-
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Placeholder="Nombre del producto"
-                        PlaceholderColor="#656565"
-                        Text="{Binding LoanExtension.Loan.Name}"
-                        TextColor="#333333" />
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Image
-                        HeightRequest="30"
-                        Source="calendario.png"
-                        VerticalOptions="Center"
-                        WidthRequest="30" />
-                    <Label
-                        FontSize="18"
-                        Text="Fecha de compra"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <DatePicker
-                        BackgroundColor="Transparent"
-                        Date="{Binding LoanExtension.Date}"
-                        HorizontalOptions="Start"
-                        MinimumDate="{Binding DateTimeNow}"
-                        TextColor="Black" />
-                </StackLayout>
-
-
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
+        <yummy:PancakeView
+            Margin="5"
+            BackgroundColor="{StaticResource BackgroundEntry}"
+            CornerRadius="20"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <ScrollView>
+                <StackLayout
+                    Padding="10"
+                    Spacing="20"
+                    VerticalOptions="Center">
+                    <customViews:IconEntryView
+                        Icon="egg"
+                        Label="Nombre del Producto"
+                        Text="{Binding LoanExtension.Loan.Name}" />
+                    <Grid ColumnDefinitions="*, *">
+                        <customViews:IconPickerView
+                            Grid.Column="0"
+                            Icon="calendar"
+                            IsEnabled="False"
+                            Label="Fecha del Prestamo">
+                            <customViews:IconPickerView.Picker>
+                                <DatePicker Date="{Binding LoanExtension.Date}" TextColor="{StaticResource TextBlack}" />
+                            </customViews:IconPickerView.Picker>
+                        </customViews:IconPickerView>
+                        <customViews:IconPickerView
+                            Grid.Column="1"
+                            Icon="calendar"
+                            Label="Fecha Primer Cobro">
+                            <customViews:IconPickerView.Picker>
+                                <DatePicker
+                                    Date="{Binding LoanExtension.FirstInstallmentDate}"
+                                    MinimumDate="{Binding LoanExtension.Date}"
+                                    TextColor="{StaticResource TextBlack}" />
+                            </customViews:IconPickerView.Picker>
+                        </customViews:IconPickerView>
+                    </Grid>
+                    <customViews:IconEntryView
+                        Icon="egg"
                         Keyboard="Numeric"
-                        Placeholder="Precio"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        Placeholder="Cantidad de pagos"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        Placeholder="Interés"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
+                        Label="Valor del Préstamo"
+                        Text="{Binding LoanExtension.Loan.Amount}" />
+                    <customViews:IconPickerView Icon="egg" Label="Modalidad de Cobro">
+                        <customViews:IconPickerView.Picker>
+                            <Picker
+                                ItemDisplayBinding="{Binding Title}"
+                                ItemsSource="{Binding InstallmentOptionsList}"
+                                SelectedItem="{Binding SelectedInstallmentOptions}"
+                                TextColor="{StaticResource TextBlack}" />
+                        </customViews:IconPickerView.Picker>
+                    </customViews:IconPickerView>
+                    <Grid ColumnDefinitions="*, *">
+                        <customViews:IconEntryView
+                            Grid.Column="0"
+                            Icon="egg"
+                            Label="No. Cuotas"
+                            Text="{Binding LoanExtension.Loan.InstallmentsQuantity}" />
+                        <customViews:IconEntryView
+                            Grid.Column="1"
+                            Icon="egg"
+                            Label="Interés"
+                            Text="{Binding LoanExtension.Loan.InterestRate}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="auto, *" ColumnSpacing="10">
+                        <CheckBox
+                            Grid.Column="0"
+                            IsChecked="{Binding CanHaveASurcharge}"
+                            VerticalOptions="Center"
+                            Color="Black" />
+                        <Label
+                            Grid.Column="1"
+                            FontSize="18"
+                            Text="¿Permitir retraso?"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </Grid>
+                    <Grid IsVisible="{Binding CanHaveASurcharge}" RowDefinitions="auto, auto">
+                        <customViews:IconEntryView
+                            Grid.Row="0"
+                            Icon="egg"
+                            Keyboard="Numeric"
+                            Label="Días de Retraso"
+                            Text="{Binding LoanExtension.Loan.SurchargeDays}" />
+                        <customViews:IconEntryView
+                            Grid.Row="1"
+                            Icon="egg"
+                            Keyboard="Numeric"
+                            Label="Valor del Retraso"
+                            Text="{Binding LoanExtension.Loan.Surcharge}" />
+                    </Grid>
+                    <Grid RowDefinitions="auto, auto">
+                        <Label
+                            Grid.Row="0"
+                            Style="{StaticResource BoldLabel}"
+                            Text="Observaciones" />
+                        <Frame
+                            Grid.Row="1"
+                            Padding="10"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource BorderEntry}"
+                            CornerRadius="20"
+                            HasShadow="False">
+                            <Editor
+                                BackgroundColor="Transparent"
+                                HeightRequest="200"
+                                HorizontalOptions="FillAndExpand"
+                                Text="{Binding LoanExtension.Loan.Observations}"
+                                TextColor="{StaticResource TextBlack}" />
+                        </Frame>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*">
+                        <Button
+                            Grid.Column="0"
+                            Command="{Binding CancelCommand}"
+                            Text="Cancelar" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding CreateLoanCommand}"
+                            Text="Crear" />
+                    </Grid>
                 </StackLayout>
-
-
-                <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Image
-                        HeightRequest="30"
-                        Source="calendario.png"
-                        VerticalOptions="Center"
-                        WidthRequest="30" />
-                    <Label
-                        FontSize="18"
-                        Text="Fecha comienzo de cobro"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <DatePicker
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="Start"
-                        TextColor="Black" />
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Label
-                        FontSize="18"
-                        Text="Modalidad de Cobro"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Picker
-                        x:Name="pickerModalidadCobro"
-                        Title="Seleccionar"
-                        HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding ModalidadCobroOptions}"
-                        SelectedIndex="{Binding SelectedModalidadCobroIndex}" />
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <CheckBox
-                        x:Name="CheckBox_PermitirRetraso"
-                        Margin="0,0,10,0"
-                        VerticalOptions="Center"
-                        Color="Black" />
-                    <Label
-                        FontSize="18"
-                        Text="¿Permitir retraso?"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                </StackLayout>
-
-                <StackLayout Orientation="Vertical" Spacing="10">
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        Placeholder="Días permitidos de retraso"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        Placeholder="Valor después del retraso"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
-
-                    <custom:CustomEntry
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        Placeholder="Observaciones/Comentarios"
-                        PlaceholderColor="#656565"
-                        TextColor="#333333" />
-                </StackLayout>
-
-
-                <Grid ColumnDefinitions="*,*">
-                    <Button Grid.Column="0" Text="Cancelar" />
-                    <Button Grid.Column="1" Text="Crear" />
-                </Grid>
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+        </yummy:PancakeView>
     </local:CustomPopupBase.Content>
 </local:CustomPopupBase>

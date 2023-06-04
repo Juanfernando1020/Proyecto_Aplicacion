@@ -40,6 +40,18 @@
     <EmbeddedResource Update="Pages\Day\Summary\DaySummaryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Loan\Installment\Details\InstallmentDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Loan\Installment\Fee\Create\FeeCreatePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Loan\Installment\Fee\List\FeeListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Loan\Installment\List\InstallmentListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Basis\Details\BasisDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -182,6 +194,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Billing\Delay\" />
+    <Folder Include="Pages\Client\Arrangings\" />
     <Folder Include="Pages\Route\Models\" />
   </ItemGroup>
 

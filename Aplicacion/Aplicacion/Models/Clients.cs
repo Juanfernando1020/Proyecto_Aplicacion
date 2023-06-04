@@ -12,7 +12,6 @@ namespace Aplicacion.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public Guid Route { get; set; }
-        public Loans[] Loans { get; set; }
         public bool IsActive { get; set; }
 
     }

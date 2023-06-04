@@ -3,81 +3,159 @@
     x:Class="Aplicacion.Pages.Loan.Details.LoanDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Details.ViewModel"
-    Title="Detalles del Préstamo"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Title="{Binding Loan.Loan.Name}"
     x:DataType="{x:Type viewModel:LoanDetails}"
-    BackgroundColor="#829CA6">
+    BackgroundColor="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
-        <ScrollView>
-            <StackLayout Padding="20" Spacing="0">
-                <StackLayout Padding="20" HorizontalOptions="CenterAndExpand" />
-
-                <Frame
-                    Padding="5"
-                    BackgroundColor="#E1ECF0"
-                    BorderColor="Black"
-                    HasShadow="True">
+        <StackLayout Padding="10">
+            <yummy:PancakeView>
+                <yummy:PancakeView.Border>
+                    <yummy:Border Thickness="2" Color="{StaticResource BorderButton}" />
+                </yummy:PancakeView.Border>
+                <Grid RowDefinitions="auto, *" RowSpacing="0">
                     <Label
-                        FontAttributes="Bold"
-                        HorizontalOptions="Center"
-                        Text="Ticket de prestamo"
-                        TextTransform="Uppercase" />
-                </Frame>
-                <Frame BorderColor="Black">
-                    <StackLayout Orientation="Vertical" Spacing="20">
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Cliente:</Label>
-                            <Label>Carlos Andres Navarro</Label>
+                        Grid.Row="0"
+                        BackgroundColor="{StaticResource BackgroundButton}"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BoldLabel}"
+                        Text="Ticket de Prestamo" />
+                    <Frame
+                        Grid.Row="1"
+                        Padding="0"
+                        BorderColor="{StaticResource BorderButton}"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <StackLayout Padding="10">
+                            <Label HorizontalTextAlignment="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="{StaticResource FontAwesomeSolid}" Text="calendar " />
+                                        <Span Text="{Binding Loan.Loan.Date, StringFormat={StaticResource FormatDate}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Producto: " />
+                                        <Span Text="{Binding Loan.Loan.Name}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Monto: " />
+                                        <Span Text="{Binding Loan.Loan.Amount, StringFormat={StaticResource FormatMoney}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Cuotas: " />
+                                        <Span Text="{Binding Loan.Loan.InstallmentsQuantity}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label>
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.InstallmentType}"
+                                        TargetType="Label"
+                                        Value="0">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Modalidad de Cobro: " />
+                                                    <Span Text="Diario" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.InstallmentType}"
+                                        TargetType="Label"
+                                        Value="1">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Modalidad de Cobro: " />
+                                                    <Span Text="Semanal" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.InstallmentType}"
+                                        TargetType="Label"
+                                        Value="2">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Modalidad de Cobro: " />
+                                                    <Span Text="Quincenal" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.InstallmentType}"
+                                        TargetType="Label"
+                                        Value="3">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Modalidad de Cobro: " />
+                                                    <Span Text="Mensual" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Retraso: " />
+                                        <Span Text="{Binding Loan.Loan.CanSurcharge}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label IsVisible="{Binding Loan.Loan.CanSurcharge}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Días de Retraso Permitidos: " />
+                                        <Span Text="{Binding Loan.Loan.SurchargeDays}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label IsVisible="{Binding Loan.Loan.CanSurcharge}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Valor por Día de Retraso: " />
+                                        <Span Text="{Binding Loan.Loan.Surcharge, StringFormat={StaticResource FormatMoney}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <extensions:ViewsExtension View="{x:Static routes:ViewsRoutes.InstallmentList}" />
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Producto:</Label>
-                            <Label>Arroz</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Precio</Label>
-                            <Label>$100.000</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Fecha del prestamo:</Label>
-                            <Label>Martes 7/Mayo/2023</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Fecha comienzos de cobro:</Label>
-                            <Label>Lunes 12/mayo/2023</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Cantidad de pagos:</Label>
-                            <Label>4</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Modalidad de cobro:</Label>
-                            <Label>Semanal</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Retraso:</Label>
-                            <Label>Sí</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Días de retraso:</Label>
-                            <Label>3</Label>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label FontAttributes="Bold" TextColor="Black">Valor después del retraso:</Label>
-                            <Label>$5.000</Label>
-                        </StackLayout>
-                    </StackLayout>
-                </Frame>
-                <StackLayout Padding="10,30,5,15" Orientation="Horizontal">
-                    <Button
-                        BorderColor="#707070"
-                        BorderWidth="3"
-                        Command="{Binding GoToCreateBillingCommand}"
-                        CornerRadius="10"
-                        HorizontalOptions="EndAndExpand"
-                        Text="Ver pagos" />
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
+                    </Frame>
+                </Grid>
+            </yummy:PancakeView>
+        </StackLayout>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>

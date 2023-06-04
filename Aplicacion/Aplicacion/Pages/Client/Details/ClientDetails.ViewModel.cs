@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Client.Channels;
-using Plugin.Media.Abstractions;
+using Aplicacion.Pages.Loan.Specifications;
 using Xamarin.CommonToolkit.Helpers;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
+using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,6 +23,12 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
 {
     internal class ClientDetails : PageViewModelBase, ILoadLoanListViewChannel
     {
+        #region Variables
+
+        private readonly IGenericService<Loans, Guid> _genericLoanService;
+
+        #endregion
+
         #region Propeties
 
         private Clients _client;
@@ -95,6 +105,15 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
 
         #endregion
 
+        #region constructor
+
+        public ClientDetails()
+        {
+            _genericLoanService = GetGenericService<Loans, Guid>();
+        }
+
+        #endregion
+
         #region Overrides
 
         public override async void OnInitialize(INavigationParameters parameters)
@@ -116,11 +135,23 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
                 {
                     Client = client;
 
-                    INavigationParameters loanListParameters = new NavigationParameters();
-                    loanListParameters.Add(ArgKeys.Client, client);
-                    loanListParameters.Add(ArgKeys.Loans, client.Loans);
+                    ResultBase<IEnumerable<Loans>> result = await _genericLoanService.GetAllAsync(new LoansByClientIdSpecification(client.Id));
 
-                    MessagingCenter.Send<ILoadLoanListViewChannel, INavigationParameters>(this, nameof(ILoadLoanListViewChannel), loanListParameters);
+                    if (result.IsSuccess)
+                    {
+                        if (result.Data is IEnumerable<Loans> routes)
+                        {
+                            INavigationParameters loanListParameters = new NavigationParameters();
+                            loanListParameters.Add(ArgKeys.Client, client);
+                            loanListParameters.Add(ArgKeys.Loans, routes.ToArray());
+
+                            MessagingCenter.Send<ILoadLoanListViewChannel, INavigationParameters>(this, nameof(ILoadLoanListViewChannel), loanListParameters);
+                        }
+                    }
+                    else
+                    {
+                        await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey, nameof(parameters)), CommonMessages.Error.InformationMessage);
+                    }
                 }
                 else
                 {

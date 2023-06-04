@@ -92,8 +92,7 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
             Client = new Clients()
             {
                 Id = Guid.NewGuid(),
-                IsActive = true,
-                Loans = new Loans[]{}
+                IsActive = true
             };
 
             _genericService = GetGenericService<Clients, Guid>();

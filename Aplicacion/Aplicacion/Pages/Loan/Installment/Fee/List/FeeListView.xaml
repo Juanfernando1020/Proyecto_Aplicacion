@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:ContentViewBase
+    x:Class="Aplicacion.Pages.Loan.Installment.Fee.List.FeeListView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel;assembly=Aplicacion"
+    x:DataType="{x:Type viewModel:FeeList}">
+    <local:ContentViewBase.Content>
+        <StackLayout>
+            <CollectionView
+                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                HeightRequest="350"
+                ItemsSource="{Binding FeesCollection}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Fees}">
+                        <Grid Padding="5">
+                            <Frame
+                                Padding="0"
+                                BorderColor="{StaticResource BorderButton}"
+                                CornerRadius="10"
+                                HasShadow="False">
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Date}" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Command="{Binding OpenFeeCreatePopupCommand}"
+                Text="Nuevo pago"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </local:ContentViewBase.Content>
+</local:ContentViewBase>

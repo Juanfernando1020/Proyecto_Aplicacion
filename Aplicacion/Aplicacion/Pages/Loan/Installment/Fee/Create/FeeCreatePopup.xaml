@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.Loan.Installment.Fee.Create.FeeCreatePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:DataType="{x:Type viewModel:FeeCreate}">
+    <local:CustomPopupBase.Content>
+        <yummy:PancakeView
+            Margin="20"
+            BackgroundColor="{StaticResource BackgroundEntry}"
+            CornerRadius="10"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout Padding="10" Spacing="20">
+                <customViews:IconPickerView Icon="calendar" Label="Fecha">
+                    <customViews:IconPickerView.Picker>
+                        <DatePicker
+                            Date="{Binding Fee.Date}"
+                            IsEnabled="False"
+                            MinimumDate="{Binding DateTimeNow}" />
+                    </customViews:IconPickerView.Picker>
+                </customViews:IconPickerView>
+                <customViews:IconEntryView
+                    Icon="egg"
+                    Label="Monto"
+                    Text="{Binding Fee.Amount}" />
+
+                <Button Command="{Binding CreateFeeCommand}" Text="Agregar pago" />
+            </StackLayout>
+        </yummy:PancakeView>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

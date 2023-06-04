@@ -9,6 +9,12 @@ namespace Aplicacion.Pages.Client.Models
     internal class ClientListFilter
     {
         public string Name { get; set; }
-        public SpecificationBase<Clients> Specification { get; set; }
+        public ClientListFilterType Filter { get; set; }
+    }
+
+    internal enum ClientListFilterType
+    {
+        All = 0,
+        CollectToday = 1,
     }
 }

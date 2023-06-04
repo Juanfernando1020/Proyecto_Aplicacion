@@ -8,6 +8,7 @@ namespace Aplicacion.Pages.Client.Models
     public class ClientExtended
     {
         public Clients Client { get; set; }
+        public Loans[] Loans { get; set; }
         public decimal LoansQuantity { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal PayedAmount { get; set; }

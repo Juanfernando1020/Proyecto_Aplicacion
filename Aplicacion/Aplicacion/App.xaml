@@ -44,12 +44,20 @@
                 <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="TextColor" Value="{StaticResource TextBlackLight}" />
             </Style>
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="{StaticResource TextBlack}" />
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="TextColor" Value="{StaticResource TextBlack}" />
+            </Style>
             <!--#endregion-->
 
             <!--#region Strings-->
             <x:String x:Key="FormatMoney">{0:C2}</x:String>
             <x:String x:Key="FormatPercentage">{0:0%}</x:String>
             <x:String x:Key="FormatDate">{0:dd-MM-yyyy}</x:String>
+            <x:String x:Key="FormatPhone">{0:(###) ###-####}</x:String>
             <!--#endregion-->
 
             <!--#region Converters-->

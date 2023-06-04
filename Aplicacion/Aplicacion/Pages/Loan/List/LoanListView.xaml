@@ -4,15 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:loanModels="clr-namespace:Aplicacion.Pages.Loan.Models;assembly=Aplicacion"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
-    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.List.ViewModel"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="loanListPage"
     Margin="-8,0"
-    x:DataType="{x:Type viewModel:LoanList}"
-    BackgroundColor="#829CA6">
+    x:DataType="{x:Type viewModel:LoanList}">
 
     <local:ContentViewBase.Content>
         <StackLayout Padding="10">
@@ -27,12 +26,54 @@
             <CollectionView
                 EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
                 HeightRequest="350"
-                ItemsSource="{Binding FilterLoansCollections}">
+                ItemsSource="{Binding FilterLoansCollections}"
+                SelectedItem="{Binding SelectedLoan}"
+                SelectionChangedCommand="{Binding SelectLoanCommand}"
+                SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type models:Loans}">
+                    <DataTemplate x:DataType="{x:Type loanModels:LoansExtension}">
                         <Grid Padding="5">
-                            <yummy:PancakeView>
-                                <Label Text="{Binding Name}" />
+                            <yummy:PancakeView
+                                Padding="10"
+                                BackgroundColor="{StaticResource BackgroundEntry}"
+                                CornerRadius="10">
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
+                                </yummy:PancakeView.Border>
+                                <StackLayout>
+                                    <Label Style="{StaticResource BoldLabel}" Text="{Binding Loan.Name}" />
+                                    <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto">
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="Total:" />
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding TotalToPay, StringFormat={StaticResource FormatMoney}}" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Text="Pagados:" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding PayedInstallments, StringFormat={StaticResource FormatMoney}}" />
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Text="Resta:" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding UnpayedInstallments, StringFormat={StaticResource FormatMoney}}" />
+                                    </Grid>
+                                </StackLayout>
                             </yummy:PancakeView>
                         </Grid>
                     </DataTemplate>

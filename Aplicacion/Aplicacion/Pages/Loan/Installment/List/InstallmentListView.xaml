@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:ContentViewBase
+    x:Class="Aplicacion.Pages.Loan.Installment.List.InstallmentListView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:installmentModels="clr-namespace:Aplicacion.Pages.Loan.Installment.Models;assembly=Aplicacion"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.List.ViewModel;assembly=Aplicacion"
+    x:DataType="{x:Type viewModel:InstallmentList}">
+    <local:ContentViewBase.Content>
+        <StackLayout Spacing="10">
+            <Label
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                Text="Pagos" />
+            <customViews:IconPickerView
+                HeightRequest="120"
+                Icon="egg"
+                Label="Filtrar por:">
+                <customViews:IconPickerView.Picker>
+                    <Picker
+                        ItemDisplayBinding="{Binding Title}"
+                        ItemsSource="{Binding Filters}"
+                        SelectedItem="{Binding SelectedFilter}" />
+                </customViews:IconPickerView.Picker>
+            </customViews:IconPickerView>
+            <CollectionView
+                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                ItemsSource="{Binding InstallmentsCollection}"
+                SelectedItem="{Binding SelectedInstallment}"
+                SelectionChangedCommand="{Binding SelectInstallmentCommand}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type installmentModels:InstallmentExtension}">
+                        <Frame
+                            Padding="0"
+                            BorderColor="{StaticResource BorderButton}"
+                            CornerRadius="0"
+                            HasShadow="False">
+                            <StackLayout Padding="10">
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontAttributes="Bold" Text="Fecha de Pago: " />
+                                            <Span Text="{Binding Installment.PaymenDate, StringFormat={StaticResource FormatDate}}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontAttributes="Bold" Text="Monto: " />
+                                            <Span Text="{Binding Installment.Amount, StringFormat={StaticResource FormatMoney}}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label>
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Installment.IsActive}"
+                                            TargetType="Label"
+                                            Value="True">
+                                            <Setter Property="FormattedText">
+                                                <Setter.Value>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Estado: " />
+                                                        <Span Text="Activo" TextColor="{StaticResource Green}" />
+                                                    </FormattedString>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding Installment.IsActive}"
+                                            TargetType="Label"
+                                            Value="False">
+                                            <Setter Property="FormattedText">
+                                                <Setter.Value>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Monto: " />
+                                                        <Span Text="Pagado" TextColor="{StaticResource Red}" />
+                                                    </FormattedString>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label HorizontalTextAlignment="End" Text="Ver más" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </local:ContentViewBase.Content>
+</local:ContentViewBase>

@@ -8,19 +8,14 @@ using Aplicacion.Models;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config.Routes;
-using Aplicacion.Pages.Client.Arrangings;
 using Aplicacion.Pages.Client.Models;
 using Aplicacion.Pages.Client.Specifications;
-using Xamarin.CommonToolkit.Common;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
-using Xamarin.CommonToolkit.Specifications;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
-using static Aplicacion.Config.Routes.PagesRoutes;
 
 namespace Aplicacion.Pages.Client.List.ViewModel
 {
@@ -29,7 +24,9 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         #region Variables
 
         private List<Clients> _clients;
+        private List<Loans> _loans = new List<Loans>();
         private readonly IGenericService<Clients, Guid> _genericService;
+        private readonly IGenericService<Loans, Guid> _genericLoansService;
 
         #endregion
 
@@ -42,8 +39,8 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             set => SetProperty(ref _selectedFilter, value);
         }
         
-        private ClientExtended _selectedClient;
-        public ClientExtended SelectedClient
+        private Clients _selectedClient;
+        public Clients SelectedClient
         {
             get => _selectedClient;
             set => SetProperty(ref _selectedClient, value);
@@ -56,8 +53,8 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             set => SetProperty(ref _filters, value);
         }
 
-        private ObservableCollection<ClientExtended> _filterClientsCollection;
-        public ObservableCollection<ClientExtended> FilterClientsCollection
+        private ObservableCollection<Clients> _filterClientsCollection;
+        public ObservableCollection<Clients> FilterClientsCollection
         {
             get => _filterClientsCollection;
             set => SetProperty(ref _filterClientsCollection, value);
@@ -83,7 +80,7 @@ namespace Aplicacion.Pages.Client.List.ViewModel
                 IsBusy = true;
 
                 INavigationParameters parameters = new NavigationParameters();
-                parameters.Add(ArgKeys.Client, SelectedClient.Client);
+                parameters.Add(ArgKeys.Client, SelectedClient);
 
                 await NavigationService.NavigateToAsync(PagesRoutes.Client.Details, parameters: parameters);
                 IsBusy = false;
@@ -93,52 +90,25 @@ namespace Aplicacion.Pages.Client.List.ViewModel
         }
         private void RefreshClientsCollection()
         {
-            FilterClientsCollection.Clear();
-            foreach (Clients client in _clients.Where(SelectedFilter.Specification).ToList())
+            if (_clients != null)
             {
-                decimal totalAmount = 0;
-                decimal payedAmount = 0;
-
-                ClientExtended clientExtended = new ClientExtended()
+                FilterClientsCollection.Clear();
+                foreach (Clients client in _clients)
                 {
-                    Client = client,
-                    LoansQuantity = client.Loans?.Count() ?? 0
-                };
-
-                if (client.Loans != null)
-                {
-                    foreach (Loans loan in client.Loans.Where(l => l.IsActive).ToList())
+                    List<Loans> loans = _loans.Where(loan => loan.ClientId == client.Id).ToList();
+                    switch (SelectedFilter.Filter)
                     {
-                        totalAmount += loan.Amount;
-
-                        if (loan.Installments != null)
-                        {
-                            foreach (Installments installment in loan.Installments)
+                        case ClientListFilterType.All:
+                            FilterClientsCollection.Add(client);
+                            break;
+                        case ClientListFilterType.CollectToday:
+                            if (loans.Any(loan => loan.Date.Date == DateTime.Now.Date))
                             {
-                                if (!installment.IsActive)
-                                {
-                                    payedAmount += installment.Amount;
-                                }
-
-                                if (installment.Fees != null)
-                                {
-                                    foreach (Fees fee in installment.Fees)
-                                    {
-                                        payedAmount += fee.Amount;
-                                    }
-                                }
+                                FilterClientsCollection.Add(client);
                             }
-                        }
+                            break;
                     }
                 }
-
-                clientExtended.TotalAmount = totalAmount;
-                clientExtended.PayedAmount = payedAmount;
-                clientExtended.PayedPercentage = totalAmount > 0 ? (int)Math.Round((payedAmount * 100) / totalAmount) : 0;
-                clientExtended.RestAmount = totalAmount - payedAmount;
-                clientExtended.RestPercentage = totalAmount > 0 ? (int)Math.Round((clientExtended.RestAmount * 100) / totalAmount) : 0;
-
-                FilterClientsCollection.Add(clientExtended);
             }
         }
         #endregion
@@ -147,8 +117,9 @@ namespace Aplicacion.Pages.Client.List.ViewModel
 
         public ClientList()
         {
-            FilterClientsCollection = new ObservableCollection<ClientExtended>();
+            FilterClientsCollection = new ObservableCollection<Clients>();
             _genericService = GetGenericService<Clients, Guid>();
+            _genericLoansService = GetGenericService<Loans, Guid>();
         }
 
         #endregion
@@ -182,34 +153,45 @@ namespace Aplicacion.Pages.Client.List.ViewModel
 
         private async Task OnLoad(INavigationParameters parameters)
         {
+            IsBusy = true;
             if (Aplicacion.Module.App.RouteInfo is Routes route)
             {
-                SpecificationBase<Clients> specification = new ClientsByRouteIdSpecification(route.Id);
-                ClientListFilter defaultFilter = new ClientListFilter()
-                {
-                    Name = "Todos",
-                    Specification = specification
-                };
-                ArrangingBase<Clients> arranging = new ClientsArragangingByInstallmentDate();
-
-                ResultBase<IEnumerable<Clients>> result = await _genericService.GetAllAsync(specification, arranging);
+                ResultBase<IEnumerable<Clients>> result = await _genericService.GetAllAsync(new ClientsByRouteIdSpecification(route.Id));
 
                 if (result.IsSuccess)
                 {
-                    _clients = result.Data?.ToList();
+                    if (result.Data is IEnumerable<Clients> clientList)
+                    {
+                        _clients = clientList.ToList();
+
+                        ResultBase<IEnumerable<Loans>> resultLoan = await _genericLoansService.GetAllAsync();
+
+                        if (resultLoan.IsSuccess)
+                        {
+                            if (resultLoan.Data is IEnumerable<Loans> loans)
+                            {
+                                _loans = loans.ToList();
+                            }
+                        }
+                    }
                 }
 
-                SelectedFilter = defaultFilter;
                 Filters = new List<ClientListFilter>()
                 {
-                    defaultFilter,
+                    new ClientListFilter()
+                    {
+                        Name = "Todos",
+                        Filter = ClientListFilterType.All
+                    },
                     new ClientListFilter()
                     {
                         Name = "Cobrar Hoy",
-                        Specification = new ClientsByInstallmentDateNowSpecification()
+                        Filter = ClientListFilterType.CollectToday
                     }
                 };
             }
+
+            IsBusy = false;
         }
 
         #endregion

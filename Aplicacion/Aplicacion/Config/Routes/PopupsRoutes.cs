@@ -26,6 +26,14 @@ namespace Aplicacion.Config.Routes
         internal static class Loan
         {
             internal const string LoanCreate = "LoanCreatePopup";
+
+            internal static class Installment
+            {
+                internal static class Fee
+                {
+                    internal const string FeeCreate = "FeeCreatePopup";
+                }
+            }
         }
     }
 }

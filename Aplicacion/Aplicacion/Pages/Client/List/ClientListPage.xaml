@@ -3,10 +3,10 @@
     x:Class="Aplicacion.Pages.Client.List.ClientListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:clientModels="clr-namespace:Aplicacion.Pages.Client.Models;assembly=Aplicacion"
     xmlns:customView="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Client.List.ViewModel"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="Root"
@@ -31,7 +31,7 @@
             SelectionChangedCommand="{Binding SelectClientCommand}"
             SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type clientModels:ClientExtended}">
+                <DataTemplate x:DataType="{x:Type models:Clients}">
                     <Grid Padding="5">
                         <yummy:PancakeView
                             Padding="10"
@@ -42,60 +42,31 @@
                                 <Label
                                     HorizontalTextAlignment="Center"
                                     Style="{StaticResource BoldLabel}"
-                                    Text="{Binding Client.Name}" />
-                                <Label HorizontalTextAlignment="Center" Text="{Binding LoansQuantity, StringFormat='{0} Préstamos'}" />
+                                    Text="{Binding Name}" />
                                 <Grid
                                     ColumnDefinitions="auto, *"
                                     ColumnSpacing="5"
-                                    RowDefinitions="auto,auto,auto"
+                                    RowDefinitions="auto,auto"
                                     RowSpacing="10">
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="0"
-                                        Text="Total:" />
+                                        Text="Telefono:" />
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalTextAlignment="End"
-                                        Text="{Binding TotalAmount, StringFormat={StaticResource FormatMoney}}" />
+                                        Text="{Binding Phone, StringFormat={StaticResource FormatPhone}}" />
 
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="0"
-                                        Text="Pagado:" />
+                                        Text="Dirección:" />
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="1"
                                         HorizontalTextAlignment="End"
-                                        TextColor="{StaticResource Green}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding PayedAmount, StringFormat={StaticResource FormatMoney}}" />
-                                                <Span Text=" (" />
-                                                <Span Text="{Binding PayedPercentage, StringFormat={StaticResource FormatPercentage}}" />
-                                                <Span Text=")" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-
-                                    <Label
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Text="Resta:" />
-                                    <Label
-                                        Grid.Row="2"
-                                        Grid.Column="1"
-                                        HorizontalTextAlignment="End"
-                                        TextColor="{StaticResource Red}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding RestAmount, StringFormat={StaticResource FormatMoney}}" />
-                                                <Span Text=" (" />
-                                                <Span Text="{Binding RestPercentage, StringFormat={StaticResource FormatPercentage}}" />
-                                                <Span Text=")" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                        Text="{Binding Address}" />
                                 </Grid>
                             </StackLayout>
                         </yummy:PancakeView>

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Pages.Client.Specifications;
 using Aplicacion.Pages.Loan.Config;
+using Aplicacion.Pages.Loan.Installment.Enums;
 using Aplicacion.Pages.Loan.Installment.Models;
 using Aplicacion.Pages.Loan.Models;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
@@ -23,18 +26,19 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
         #region Variables
 
         private Clients clientInfo;
-        private readonly IGenericService<Clients, Guid> _genericService;
+        private readonly IGenericService<Loans, Guid> _genericService;
+        private readonly IGenericService<Installments, Guid> _genericInstallmentService;
 
         #endregion
 
         #region Properties
 
-        private List<InstallmentOptions> _installmentOptionsList;
+        private InstallmentOptions _selectedInstallmentOptions;
 
-        public List<InstallmentOptions> InstallmentOptionsList
+        public InstallmentOptions SelectedInstallmentOptions
         {
-            get => _installmentOptionsList;
-            set => SetProperty(ref _installmentOptionsList, value);
+            get => _selectedInstallmentOptions;
+            set => SetProperty(ref _selectedInstallmentOptions, value);
         }
 
         private LoansExtension _loanExtension;
@@ -44,6 +48,13 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
             set => SetProperty(ref _loanExtension, value);
         }
 
+        private List<InstallmentOptions> _installmentOptionsList;
+        public List<InstallmentOptions> InstallmentOptionsList
+        {
+            get => _installmentOptionsList;
+            set => SetProperty(ref _installmentOptionsList, value);
+        }
+
         private bool _canHaveASurcharge;
         public bool CanHaveASurcharge
         {
@@ -51,11 +62,21 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
             set => SetProperty(ref _canHaveASurcharge, value);
         }
 
+        public ICommand CancelCommand => new AsyncCommand(CancelController);
+
         public ICommand CreateLoanCommand => new AsyncCommand(CreateLoanController);
 
         #endregion
 
         #region Methods
+        private async Task CancelController()
+        {
+            IsBusy = true;
+
+            await NavigationPopupService.PopPopupAsync(this);
+
+            IsBusy = false;
+        }
 
         private async Task CreateLoanController()
         {
@@ -63,53 +84,74 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
 
             if (await IsValid(LoanExtension.Loan))
             {
-                List<Loans> loans = clientInfo.Loans.ToList();
-                loans.Add(LoanExtension.Loan);
-
-                clientInfo.Loans = loans.ToArray();
-
-                if (await AddInstallments(LoanExtension.Loan))
+                LoanExtension.Loan.InstallmentType = (int)SelectedInstallmentOptions.InstallmentType;
+                if (await AddInstallments(LoanExtension.Loan, LoanExtension.FirstInstallmentDate))
                 {
-                    ResultBase result = await _genericService.UpdateAsync(clientInfo.Id, clientInfo);
-
+                    LoanExtension.Loan.CanSurcharge = CanHaveASurcharge;
+                    ResultBase result = await _genericService.InsertAsync(LoanExtension.Loan);
                     if (result.IsSuccess)
                     {
                         await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                        await NavigationPopupService.PopPopupAsync(this);
                     }
                     else
                     {
                         await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
                     }
                 }
+                else
+                {
+                    await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+                }
             }
 
             IsBusy = false;
         }
 
-        private async Task<bool> AddInstallments(Loans loan)
+        private async Task<bool> AddInstallments(Loans loan, DateTime firstPaymentDate)
         {
-            int quantity = loan.InstallmentsQuantity;
-            decimal installmentQuantity = loan.InstallmentsQuantity;
-            decimal interest = loan.InterestRate;
-            decimal totalAmount = loan.Amount;
-            decimal totalInterest = (totalAmount * (100 + interest)) / 100;
-
-
-            List<Installments> installments = new List<Installments>();
-
-            await Task.Run(() =>
+            if (SelectedInstallmentOptions != null)
             {
+                int quantity = loan.InstallmentsQuantity;
+                decimal installmentQuantity = loan.InstallmentsQuantity;
+                decimal interest = loan.InterestRate;
+                decimal totalAmount = loan.Amount;
+                decimal totalInterest = (totalAmount * (100 + interest)) / 100;
+
+
+                List<Installments> installments = new List<Installments>();
+
                 for (int i = 0; i < quantity; i++)
                 {
-                    installments.Add(new Installments()
+                    Installments installment = new Installments()
                     {
                         Id = Guid.NewGuid(),
+                        PaymenDate = firstPaymentDate.AddDays(i * SelectedInstallmentOptions.Days),
                         Amount = totalInterest / installmentQuantity,
-                    });
-                }
-            });
+                        IsActive = true
+                    };
 
-            return installments.Count == quantity;
+                    //ResultBase result = await _genericInstallmentService.InsertAsync(installment);
+
+                    //if (result.IsSuccess)
+                    //{
+                    //    installments.Add(installment);
+                    //}
+                    //else
+                    //{
+                    //    await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+                    //    return false;
+                    //}
+
+                    installments.Add(installment);
+                }
+
+                LoanExtension.Loan.Installments = installments.ToArray();
+
+                return installments.Count == quantity;
+            }
+
+            return false;
         }
 
         private async Task<bool> IsValid(Loans loan)
@@ -121,18 +163,12 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
 
                 return false;
             }
-            
-            if (string.IsNullOrEmpty(loan.Name))
-            {
-                await AlertService.ShowAlert(new WarningMessage(CommonMessages.Form.NullOrEmptyInfo));
 
-                return false;
-            }
-            
             if (string.IsNullOrEmpty(loan.Name) 
                 || loan.Amount <= LoanConfig.MINIMUM_AMOUNT
                 || loan.InterestRate <= LoanConfig.MINIMUM_INTEREST_RATE
-                || loan.Date < DateTime.Now
+                || SelectedInstallmentOptions == null
+                || loan.Date.Date < DateTime.Now.Date
                 || (CanHaveASurcharge && 
                     (loan.Surcharge <= LoanConfig.MINIMUM_SURCHARGE_AMOUNT
                      || loan.SurchargeDays <= LoanConfig.MINIMUM_SURCHARGE_DAYS)))
@@ -151,9 +187,13 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
 
         public LoanCreate()
         {
-            LoanExtension = new LoansExtension();
+            LoanExtension = new LoansExtension()
+            {
+                Date = DateTimeNow
+            };
 
-            _genericService = GetGenericService<Clients, Guid>();
+            _genericService = GetGenericService<Loans, Guid>();
+            _genericInstallmentService = GetGenericService<Installments, Guid>();
         }
 
         #endregion
@@ -164,6 +204,23 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
         {
             base.OnInitialize(parameters);
             await OnLoad(parameters);
+        }
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            switch (args.PropertyName)
+            {
+                case nameof(SelectedInstallmentOptions):
+
+                    if (SelectedInstallmentOptions != null)
+                    {
+                        LoanExtension.Loan.InstallmentType = (int)SelectedInstallmentOptions.InstallmentType;
+                    }
+
+                    break;
+            }
         }
 
         #endregion
@@ -179,6 +236,7 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                 if (parameters[ArgKeys.Client] is Clients client)
                 {
                     clientInfo = client;
+                    LoanExtension.Loan.ClientId = client.Id;
                 }
                 else
                 {
@@ -195,21 +253,25 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                 new InstallmentOptions()
                 {
                     Title = "Diario",
+                    InstallmentType = InstallmentTypeEnum.Daily,
                     Days = 1
                 },
                 new InstallmentOptions()
                 {
                     Title = "Semanal",
+                    InstallmentType = InstallmentTypeEnum.Weekly,
                     Days = 7
                 },
                 new InstallmentOptions()
                 {
                     Title = "Quincenal",
+                    InstallmentType = InstallmentTypeEnum.Biweekly,
                     Days = 14
                 },
                 new InstallmentOptions()
                 {
                     Title = "Mensual",
+                    InstallmentType = InstallmentTypeEnum.Monthly,
                     Days = 30
                 },
             };
