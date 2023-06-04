@@ -28,7 +28,7 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
         #endregion
 
-        #region Properties
+            #region Properties
 
         private Clients _client;
         public Clients Client

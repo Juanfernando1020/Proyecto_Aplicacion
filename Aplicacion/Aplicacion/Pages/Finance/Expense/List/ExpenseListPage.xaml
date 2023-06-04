@@ -7,11 +7,10 @@
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Finance.Expense.List.Module.ViewModel"
     Title="GASTOS DEL DÍA"
     x:DataType="{x:Type viewModel:ExpenseList}"
-    BackgroundColor="#829CA6">
+    BackgroundColor="{StaticResource MainBackground}">
 
-    <ScrollView>
-        <StackLayout Margin="20" Padding="10">
-
+    <StackLayout Margin="20" Padding="10">
+        <ScrollView>
             <CollectionView>
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -53,19 +52,19 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button
-                Margin="0,20,0,40"
-                BackgroundColor="White"
-                BorderColor="#707070"
-                BorderWidth="3"
-                Command="{Binding GoToExpenseCreatePageCommand}"
-                CornerRadius="15"
-                HeightRequest="50"
-                Text="Agregar nuevo gasto"
-                TextColor="Black"
-                VerticalOptions="End"
-                WidthRequest="300" />
+        </ScrollView>
+        <Button
+            BackgroundColor="White"
+            BorderColor="{StaticResource BorderButton}"
+            BorderWidth="3"
+            Command="{Binding GoToExpenseCreatePageCommand}"
+            CornerRadius="15"
+            HeightRequest="50"
+            Text="Agregar nuevo gasto"
+            TextColor="Black"
+            VerticalOptions="End"
+            WidthRequest="300" />
 
-        </StackLayout>
-    </ScrollView>
+    </StackLayout>
+
 </local:ContentPageBase>
