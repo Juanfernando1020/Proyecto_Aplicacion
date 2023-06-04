@@ -198,10 +198,4 @@
     <Folder Include="Pages\Client\Arrangings\" />
     <Folder Include="Pages\Route\Models\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Xamarin.CommonToolkit">
-      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 </Project>
