@@ -26,6 +26,9 @@ namespace Aplicacion.Module
         private static Page GetInitPage()
         {
             Page page = ViewsManager.CreatePage<Pages.Account.Login.LoginPage>();
+            //Page page = ViewsManager.CreatePage<Pages.Route.Details.RouteDetailsPage>();
+            //Page page = ViewsManager.CreateView<Pages.Client.Details.ClientDetailsPage>();
+            //Page page = ViewsManager.CreatePage<Pages.Client.Details.ClientDetailsPage>();
             return new NavigationPage(page);
         }
     }

@@ -6,7 +6,9 @@
     xmlns:custom="clr-namespace:App.Renderes"
     xmlns:customViews="clr-namespace:Aplicacion.Views.Shared"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
-    Title="Crear usuario">
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Create.ViewModel"
+    Title="Crear usuario"
+    x:DataType="{x:Type viewModel:UserCreate}">
     <local:ContentPageBase.Content>
 
         <ScrollView>
@@ -32,27 +34,28 @@
                     Icon="&#xf3c5;"
                     IsEnabled="True"
                     Label="Ubicación"
-                    Text="{Binding User.Location}" />
+                    Text="{Binding User.Address}" />
 
                 <customViews:IconEntryView
                     Icon="&#xf023;"
                     IsEnabled="True"
                     Label="Contraseña"
-                    Text="{Binding User.Password}" />
-
-                <customViews:IconEntryView
-                    Icon="&#xf023;"
-                    IsEnabled="True"
-                    Label="Escriba nuevamente su contraseña"
-                    Text="{Binding User.ConfirmPassword}"/>
+                    Text="{Binding User.Password}"/>
 
                 <StackLayout Orientation="Horizontal" Spacing="10">
-                    <CheckBox IsChecked="{Binding User.IsAdmin}" Color="#707070" />
+                    <CheckBox IsChecked="{Binding IsWorker}" Color="#707070" />
                     <Label
-                        Text="¿Crear como Administrador?"
+                        Text="¿Crear como Trabajador?"
                         TextColor="#333333"
                         VerticalOptions="Center" />
                 </StackLayout>
+
+                <customViews:IconPopupOpenerView
+                    Icon="&#xf007;"
+                    IsVisible="{Binding IsWorker}"
+                    Label="Administrador"
+                    OpenPopupCommand="{Binding OpenUserBySpecificationPopupCommand}"
+                    Text="{Binding Admin.Name}" />
 
                 <Button
                     BackgroundColor="#D1DFE1"
