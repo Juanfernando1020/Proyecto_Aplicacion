@@ -6,7 +6,7 @@ namespace Aplicacion.Models
     {
         public class Users
         {
-        public Users(Guid id, string name, string phone, string password, int role, bool isActive = true, Users admin = null, DateTime createDate = default, string address = null)
+        public Users(Guid id, string name, string phone, string password, string address, int role, bool isActive = true, Users admin = null, DateTime createDate = default)
         {
             Id = id;
             Name = name;

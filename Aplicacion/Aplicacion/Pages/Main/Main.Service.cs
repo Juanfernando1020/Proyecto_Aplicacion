@@ -45,10 +45,7 @@ namespace Aplicacion.Pages.Main.Service
                         response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
                         break;
                     case RolesEnum.Worker:
-                        response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage));
                         response.Add(new Modules("Mis Rutas", PagesRoutes.Route.List, PagesBaseEnum.ContentPage, routesParameters));
-                        response.Add(new Modules("Mis gastos del día", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage));
-                        response.Add(new Modules("Resumen del día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
                         break;
                 }
             }
