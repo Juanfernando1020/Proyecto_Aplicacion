@@ -14,14 +14,14 @@
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="10" Spacing="10">
-                <customViews:IconPickerView Label="Fecha de Pago">
+                <customViews:IconPickerView Label="Fecha de Pago" Icon="&#xf073;">
                     <customViews:IconPickerView.Picker>
                         <DatePicker Date="{Binding InstallmentExtension.Installment.PaymenDate}" IsEnabled="False" />
                     </customViews:IconPickerView.Picker>
                 </customViews:IconPickerView>
 
                 <customViews:IconEntryView
-                    Icon="egg"
+                    Icon="&#x24;"
                     IsEnabled="False"
                     Label="Monto"
                     Text="{Binding InstallmentExtension.Installment.Amount}"

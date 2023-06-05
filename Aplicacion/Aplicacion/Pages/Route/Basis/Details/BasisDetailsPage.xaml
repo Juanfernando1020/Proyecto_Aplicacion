@@ -16,7 +16,7 @@
             Spacing="10"
             VerticalOptions="FillAndExpand">
             <customViews:IconEntryView
-                Icon="&#x24;"
+                Icon="&#xf073;"
                 IsEnabled="False"
                 Label="Fecha"
                 Text="{Binding Basis.Date, StringFormat={StaticResource FormatDate}}" />
