@@ -9,7 +9,8 @@
     xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.Details.ViewModel;assembly=Aplicacion"
     Title="Detalle de la Cuota"
-    x:DataType="{x:Type viewModel:InstallmentDetails}">
+    x:DataType="{x:Type viewModel:InstallmentDetails}"
+    BackgroundColor="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="10" Spacing="10">
@@ -23,13 +24,15 @@
                     Icon="egg"
                     IsEnabled="False"
                     Label="Monto"
-                    Text="{Binding InstallmentExtension.Installment.Amount}" />
+                    Text="{Binding InstallmentExtension.Installment.Amount}"
+                    />
 
                 <Grid ColumnDefinitions="auto, auto">
                     <CheckBox
                         Grid.Column="0"
                         IsChecked="{Binding InstallmentExtension.Installment.IsActive}"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Color="Black"/>
                     <Label
                         Grid.Column="1"
                         Text="¿Se encuentra activo?"

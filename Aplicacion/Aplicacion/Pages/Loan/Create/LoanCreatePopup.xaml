@@ -23,7 +23,7 @@
                     Spacing="20"
                     VerticalOptions="Center">
                     <customViews:IconEntryView
-                        Icon="egg"
+                        Icon="pen;"
                         Label="Nombre del Producto"
                         Text="{Binding LoanExtension.Loan.Name}" />
                     <Grid ColumnDefinitions="*, *">
@@ -49,11 +49,11 @@
                         </customViews:IconPickerView>
                     </Grid>
                     <customViews:IconEntryView
-                        Icon="egg"
+                        Icon="dollar-sign"
                         Keyboard="Numeric"
                         Label="Valor del Préstamo"
                         Text="{Binding LoanExtension.Loan.Amount}" />
-                    <customViews:IconPickerView Icon="egg" Label="Modalidad de Cobro">
+                    <customViews:IconPickerView Label="Modalidad de Cobro">
                         <customViews:IconPickerView.Picker>
                             <Picker
                                 ItemDisplayBinding="{Binding Title}"
@@ -65,12 +65,12 @@
                     <Grid ColumnDefinitions="*, *">
                         <customViews:IconEntryView
                             Grid.Column="0"
-                            Icon="egg"
+                            Icon="pen"
                             Label="No. Cuotas"
                             Text="{Binding LoanExtension.Loan.InstallmentsQuantity}" />
                         <customViews:IconEntryView
                             Grid.Column="1"
-                            Icon="egg"
+                            Icon="pen"
                             Label="Interés"
                             Text="{Binding LoanExtension.Loan.InterestRate}" />
                     </Grid>
@@ -90,13 +90,13 @@
                     <Grid IsVisible="{Binding CanHaveASurcharge}" RowDefinitions="auto, auto">
                         <customViews:IconEntryView
                             Grid.Row="0"
-                            Icon="egg"
+                            Icon="calendar-days"
                             Keyboard="Numeric"
                             Label="Días de Retraso"
                             Text="{Binding LoanExtension.Loan.SurchargeDays}" />
                         <customViews:IconEntryView
                             Grid.Row="1"
-                            Icon="egg"
+                            Icon="dollar-sign"
                             Keyboard="Numeric"
                             Label="Valor del Retraso"
                             Text="{Binding LoanExtension.Loan.Surcharge}" />

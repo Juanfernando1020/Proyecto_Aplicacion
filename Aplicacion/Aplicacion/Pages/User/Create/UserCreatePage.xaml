@@ -8,7 +8,8 @@
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.Create.ViewModel"
     Title="Crear usuario"
-    x:DataType="{x:Type viewModel:UserCreate}">
+    x:DataType="{x:Type viewModel:UserCreate}"
+    Background="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
 
         <ScrollView>

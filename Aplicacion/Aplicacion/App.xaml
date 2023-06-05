@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--#region Colors-->
-            <Color x:Key="MainBackground">#ffff</Color>
+            <Color x:Key="MainBackground">#829CA6</Color>
             <Color x:Key="BackgroundEntry">#D1DFE1</Color>
             <Color x:Key="BackgroundButton">#D1DFE1</Color>
             <Color x:Key="BorderEntry">#707070</Color>
