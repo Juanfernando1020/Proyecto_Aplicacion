@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:ContentPageBase
+<local:CustomPopupBase
     x:Class="Aplicacion.Pages.Finance.Expense.Create.ExpenseCreatePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -8,7 +8,7 @@
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     Title="AGREGAR GASTO"
     BackgroundColor="{StaticResource MainBackground}">
-    <local:ContentPageBase.Content>
+    <local:CustomPopupBase.Content>
         <ScrollView>
             <StackLayout
                 Margin="30"
@@ -19,7 +19,7 @@
                     Icon="&#xf2e7;"
                     IsEnabled="True"
                     Label="Nombre del gasto"
-                    Text="{Binding User.Name}"/>
+                    Text="{Binding User.Name}" />
 
                 <customViews:IconEntryView
                     Icon="&#x24;"
@@ -46,5 +46,5 @@
 
             </StackLayout>
         </ScrollView>
-    </local:ContentPageBase.Content>
-</local:ContentPageBase>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

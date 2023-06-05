@@ -1,8 +1,8 @@
 ﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
-namespace Aplicacion.Pages.Expense.Create
+namespace Aplicacion.Pages.Expense.Create.ViewModel
 {
-    internal class ExpenseCreate : PageViewModelBase
+    internal class ExpenseCreate : PopupViewModelBase
     {
     }
 }
