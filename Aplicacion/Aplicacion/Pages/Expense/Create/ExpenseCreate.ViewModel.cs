@@ -1,6 +1,6 @@
 ﻿using Xamarin.CommonToolkit.Mvvm.ViewModels;
 
-namespace Aplicacion.Pages.Finance.Expense.Create.ViewModel
+namespace Aplicacion.Pages.Expense.Create
 {
     internal class ExpenseCreate : PageViewModelBase
     {

@@ -107,10 +107,10 @@
     <EmbeddedResource Update="Pages\Loan\List\LoanListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml">
+    <EmbeddedResource Update="Pages\Expense\Create\ExpenseCreatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Finance\Expense\List\ExpenseListPage.xaml">
+    <EmbeddedResource Update="Pages\Expense\List\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\IconEntryView.xaml">
@@ -170,10 +170,10 @@
     <Compile Update="Pages\Loan\List\LoanListView.xaml.cs">
       <DependentUpon>LoanListView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Finance\Expense\Create\ExpenseCreatePage.xaml.cs">
+    <Compile Update="Pages\Expense\Create\ExpenseCreatePage.xaml.cs">
       <DependentUpon>ExpenseCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Finance\Expense\List\ExpenseListPage.xaml.cs">
+    <Compile Update="Pages\Expense\List\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\User\List\UserListPage.xaml.cs">
@@ -197,5 +197,11 @@
     <Folder Include="Pages\Billing\Delay\" />
     <Folder Include="Pages\Client\Arrangings\" />
     <Folder Include="Pages\Route\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommonToolkit">
+      <HintPath>..\..\DLLs\Xamarin.CommonToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

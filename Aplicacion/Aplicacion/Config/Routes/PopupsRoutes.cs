@@ -10,6 +10,10 @@ namespace Aplicacion.Config.Routes
         {
             internal const string UserBySpecification = "UserBySpecificationPopup";
         }
+        internal static class Expense
+        {
+            internal const string Create = "ExpenseCreatePopup";
+        }
         internal static class Route
         {
             internal static class Basis
