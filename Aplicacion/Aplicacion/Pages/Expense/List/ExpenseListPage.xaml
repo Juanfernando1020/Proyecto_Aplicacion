@@ -4,13 +4,30 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Expense.List.ViewModel"
     Title="Gastos del Día"
     x:DataType="{x:Type viewModel:ExpenseList}"
     BackgroundColor="{StaticResource MainBackground}">
 
-    <StackLayout Margin="20" Padding="10">
-        <Label Text="Hello world!" />
+    <StackLayout Margin="10" Padding="10">
+        <CollectionView EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}" ItemsSource="{Binding ExpensesCollection}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Expenses}">
+                    <Frame
+                        BorderColor="{StaticResource BorderButton}"
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <Label Text="{Binding Name}" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button
+            Command="{Binding GoToExpenseCreateCommand}"
+            Text="Crear Gasto"
+            VerticalOptions="EndAndExpand" />
     </StackLayout>
 
 </local:ContentPageBase>

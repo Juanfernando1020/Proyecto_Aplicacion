@@ -1,50 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:CustomPopupBase
-    x:Class="Aplicacion.Pages.Finance.Expense.Create.ExpenseCreatePage"
+    x:Class="Aplicacion.Pages.Finance.Expense.Create.ExpenseCreatePopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:custom="clr-namespace:App.Renderes"
     xmlns:customViews="clr-namespace:Aplicacion.Views.Shared"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Expense.Create.ViewModel;assembly=Aplicacion"
+    xmlns:yummi="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="AGREGAR GASTO"
-    BackgroundColor="{StaticResource MainBackground}">
+    x:DataType="{x:Type viewModel:ExpenseCreate}">
     <local:CustomPopupBase.Content>
-        <ScrollView>
-            <StackLayout
-                Margin="30"
-                Spacing="50"
-                VerticalOptions="Center">
-
-                <customViews:IconEntryView
-                    Icon="&#xf2e7;"
-                    IsEnabled="True"
-                    Label="Nombre del gasto"
-                    Text="{Binding User.Name}" />
-
-                <customViews:IconEntryView
-                    Icon="&#x24;"
-                    IsEnabled="True"
-                    Label="Precio del gasto"
-                    Text="{Binding User.Name}" />
-
-                <customViews:IconEntryView
-                    Icon="&#xf044;"
-                    IsEnabled="True"
-                    Label="Descriocion del gasto"
-                    Text="{Binding User.Name}" />
-
-                <Button
-                    x:Name="Add_New_Expense_Botton"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    Text="subir"
-                    TextColor="#333333" />
-
-
+        <yummi:PancakeView
+            Margin="20"
+            BackgroundColor="{StaticResource BackgroundEntry}"
+            CornerRadius="10"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout Padding="10" Spacing="20">
+                <customViews:IconEntryView Label="Nombre" Text="{Binding Expense.Name}" />
+                <customViews:IconPickerView Label="Valor">
+                    <customViews:IconPickerView.Picker>
+                        <Editor Text="{Binding Expense.Description}" />
+                    </customViews:IconPickerView.Picker>
+                </customViews:IconPickerView>
+                <customViews:IconEntryView Label="Valor" Text="{Binding Expense.Amount}" />
+                <Button Command="{Binding CreateExpenseCommand}" Text="Crear" />
             </StackLayout>
-        </ScrollView>
+        </yummi:PancakeView>
     </local:CustomPopupBase.Content>
 </local:CustomPopupBase>

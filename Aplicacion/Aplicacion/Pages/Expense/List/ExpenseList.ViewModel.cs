@@ -54,15 +54,10 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
         {
             IsBusy = true;
 
-            if (SelectedExpense != null)
-            {
-                INavigationParameters parameters = new NavigationParameters();
-                parameters.Add(ArgKeys.Route, _routeInfo);
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.Route, _routeInfo);
 
-                await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Expense.Create, parameters: parameters);
-
-                SelectedExpense = null;
-            }
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Expense.Create, parameters: parameters);
 
             IsBusy = false;
         }
@@ -75,6 +70,8 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
         public ExpenseList()
         {
             ExpensesCollection = new ObservableCollection<Expenses>();
+
+            _genericService = GetGenericService<Expenses, Guid>();
         }
 
         #endregion

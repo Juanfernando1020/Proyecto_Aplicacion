@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
+using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Pages.Expense.Config;
+using Aplicacion.Pages.Route.Basis.Specifications;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Aplicacion.Pages.Expense.Create.ViewModel
@@ -16,6 +23,7 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
         #region Variables
 
         private Routes _routeInfo;
+        private Basises _basisInfo;
         private readonly IGenericService<Expenses, Guid> _genericService;
         private readonly IGenericService<Basises, Guid> _genericBasisService;
 
@@ -42,7 +50,20 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
 
             if (await IsValid())
             {
+                ResultBase result = await _genericService.InsertAsync(Expense);
 
+                if (result.IsSuccess)
+                {
+                    INavigationParameters parameters = new NavigationParameters();
+                    parameters.Add(ArgKeys.Expense, Expense);
+
+                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                    await NavigationPopupService.PopPopupAsync(this, parameters: parameters);
+                }
+                else
+                {
+                    await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+                }
             }
 
             IsBusy = false;
@@ -50,8 +71,20 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
 
         private async Task<bool> IsValid()
         {
-            
+            if (string.IsNullOrEmpty(Expense.Name)
+                || string.IsNullOrEmpty(Expense.Description))
+            {
+                await AlertService.ShowAlert(new WarningMessage(CommonMessages.Form.NullOrEmptyInfo));
 
+                return false;
+            }
+
+            if (Expense.Amount > _basisInfo.Amount)
+            {
+                await AlertService.ShowAlert(new WarningMessage(string.Format(CommonMessages.Warning.GreatherThanMaximum, _basisInfo.Amount)));
+
+                return false;
+            }
 
             return true;
         }
@@ -90,10 +123,33 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
                 if (parameters[ArgKeys.Route] is Routes route)
                 {
                     _routeInfo = route;
+
+                    ResultBase<Basises> result =
+                        await _genericBasisService.GetBySpecificacionAsync(
+                            new BasisByRouteIdAndDateNowSpecification(route.Id));
+
+                    if (result.IsSuccess)
+                    {
+                        if (result.Data is Basises basis)
+                        {
+                            _basisInfo = basis;
+                        }
+                        else
+                        {
+                            await AlertService.ShowAlert(new InfoMessage("No se te ha asignado una base del día."));
+                            await NavigationPopupService.PopPopupAsync(this);
+                        }
+                    }
+                    else
+                    {
+                        await AlertService.ShowAlert(new InfoMessage("No se te ha asignado una base del día."));
+                        await NavigationPopupService.PopPopupAsync(this);
+                    }
                 }
             }
             else
             {
+                await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
                 await NavigationPopupService.PopPopupAsync(this);
             }
             IsBusy = false;
