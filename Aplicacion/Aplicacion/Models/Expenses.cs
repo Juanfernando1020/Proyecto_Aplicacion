@@ -10,7 +10,5 @@ namespace Aplicacion.Models
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public Guid RouteId { get; set; }
-        public DateTime AuditCreationDate { get; set; }
-        public DateTime AuditUpdateDate { get; set; }
     }
 }

@@ -121,7 +121,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             CanCreate = false;
             Basis = new Basises()
             {
-                Date = DateTime.Now
+                Id = Guid.NewGuid()
             };
             _genericService = GetGenericService<Basises, Guid>();
             _genericRouteService = GetGenericService<Routes, Guid>();

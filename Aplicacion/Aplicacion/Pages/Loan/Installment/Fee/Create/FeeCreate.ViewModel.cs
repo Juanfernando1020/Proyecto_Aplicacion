@@ -8,6 +8,7 @@ using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
+using Aplicacion.Pages.Loan.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
@@ -68,10 +69,9 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
                             _loanInfo.Installments = installments.ToArray();
 
-                            ResultBase resultDelete = await _genericLoanService.DeleteAsync(_loanInfo.Id);
-                            ResultBase resultInsert = await _genericLoanService.InsertAsync(_loanInfo);
+                            ResultBase resultUpdate = await _genericLoanService.UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(_loanInfo.ClientId), _loanInfo);
 
-                            if (resultDelete.IsSuccess && resultInsert.IsSuccess)
+                            if (resultUpdate.IsSuccess)
                             {
                                 await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                                 await NavigationPopupService.PopPopupAsync(this);

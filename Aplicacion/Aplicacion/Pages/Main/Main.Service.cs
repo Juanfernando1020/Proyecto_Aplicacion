@@ -30,6 +30,11 @@ namespace Aplicacion.Pages.Main.Service
                 response.Add(new Modules("Ver Ruta", PagesRoutes.Route.Details, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Base del Día", PagesRoutes.Route.Basis.Details, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage, routesParameters));
+
+                if ((RolesEnum)user.Role == RolesEnum.Worker)
+                {
+                    response.Add(new Modules("Gastos", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage, routesParameters));
+                }
             }
             else
             {

@@ -58,7 +58,6 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
             {
                 INavigationParameters parameters = new NavigationParameters();
                 parameters.Add(ArgKeys.Route, _routeInfo);
-                parameters.Add(ArgKeys.Expense, SelectedExpense);
 
                 await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Expense.Create, parameters: parameters);
 
