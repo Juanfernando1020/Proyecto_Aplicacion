@@ -90,19 +90,24 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 parameters.Add(ArgKeys.Budget, newBudget);
 
                 _routeInfo.Budgets = budgetList.ToArray();
-                ResultBase routeResult = await _genericRouteService.UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo);
 
-                if (routeResult.IsSuccess)
-                {
-                    MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
-                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                    await NavigationService.PopAsync();
-                }
-                else
-                {
-                    await _genericService.DeleteAsync(Basis.Id);
-                    await AlertService.ShowAlert(new ErrorMessage(routeResult.Message));
-                }
+                MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
+                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                await NavigationService.PopAsync();
+
+                //ResultBase routeResult = await _genericRouteService.UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo);
+
+                //if (routeResult.IsSuccess)
+                //{
+                //    MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
+                //    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                //    await NavigationService.PopAsync();
+                //}
+                //else
+                //{
+                //    await _genericService.DeleteAsync(Basis.Id);
+                //    await AlertService.ShowAlert(new ErrorMessage(routeResult.Message));
+                //}
             }
             else
             {
