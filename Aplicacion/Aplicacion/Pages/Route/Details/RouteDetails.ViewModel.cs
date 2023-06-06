@@ -17,6 +17,9 @@ using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Aplicacion.Config.Messages;
 using Aplicacion.Config.Routes;
 using Aplicacion.Pages.Route.Channels;
+using Aplicacion.Pages.Route.Specifications;
+using Xamarin.CommonToolkit.Specifications;
+using System.Linq;
 
 namespace Aplicacion.Pages.Route.Details.ViewModel
 {
@@ -88,6 +91,16 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
         private async Task CreateController()
         {
             IsBusy = true;
+
+            var existingRoutesResult = await _routeService.GetAllByUserId(Worker.Id);
+            if (existingRoutesResult.IsSuccess && existingRoutesResult.Data.Any())
+            {
+                // Worker already has a route assigned
+                await AlertService.ShowAlert(new WarningMessage("El trabajador que has seleccionado ya tiene una ruta a cargo."));
+                IsBusy = false;
+                return;
+            }
+
             ResultBase result = await _routeService.CreateAsync(Route);
 
             if (result.IsSuccess)
@@ -168,6 +181,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             _routeService = new Service.Route(new Repository.Route());
 
             MessagingCenter.Subscribe<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), OnRouteBudgetsChanged);
+
         }
         #endregion
 
