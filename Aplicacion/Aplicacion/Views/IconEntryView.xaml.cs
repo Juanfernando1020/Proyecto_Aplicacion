@@ -47,6 +47,14 @@ namespace Aplicacion.Views.Shared
             Keyboard.Text,
             propertyChanged: KeyboardPropertyChanged
             );
+
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
+            nameof(IsPassword),
+            typeof(bool),
+            typeof(IconEntryView),
+            false,
+            propertyChanged: IsPasswordPropertyChanged
+            );
         #endregion
 
         #region Properties
@@ -75,6 +83,11 @@ namespace Aplicacion.Views.Shared
             get => (Keyboard)GetValue(KeyboardProperty); 
             set => SetValue(KeyboardProperty, value); 
         }
+        public bool IsPassword
+        {
+            get => (bool)GetValue(IsPasswordProperty);
+            set => SetValue(IsPasswordProperty, value);
+        }
 
 
         #endregion
@@ -101,6 +114,12 @@ namespace Aplicacion.Views.Shared
         {
             ((IconEntryView)bindable).entry.Keyboard = (Keyboard)newValue;
         }
+
+        private static void IsPasswordPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            ((IconEntryView)bindable).entry.IsPassword = (bool)newValue;
+        }
+
         #endregion
 
         public IconEntryView()

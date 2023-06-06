@@ -41,6 +41,7 @@
                     Icon="&#xf023;"
                     IsEnabled="True"
                     Label="Contraseña"
+                    IsPassword="True"
                     Text="{Binding User.Password}"/>
 
                 <StackLayout Orientation="Horizontal" Spacing="10">
