@@ -15,6 +15,8 @@ using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using System;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Aplicacion.Pages.User.Create.ViewModel
 {
@@ -23,6 +25,8 @@ namespace Aplicacion.Pages.User.Create.ViewModel
         #region Variables
         private string adminName = null;
         private readonly IGenericService<Users, Guid> _genericService;
+        private readonly IUserService _userService;
+
         #endregion
 
         #region Properties
@@ -77,6 +81,16 @@ namespace Aplicacion.Pages.User.Create.ViewModel
             User.Admin = Admin;
             User.CreateDate = DateTime.Now;
             User.Role = IsWorker ? (int)RolesEnum.Worker : (int)RolesEnum.Admin;
+
+            UserByPhoneSpecification specification = new UserByPhoneSpecification(User.Phone);
+            ResultBase<IEnumerable<Users>> existingUserResult = await _userService.GetAllBySpecificationAsync(specification);
+
+            if (existingUserResult.IsSuccess && existingUserResult.Data.Any())
+            {
+                await AlertService.ShowAlert(new ErrorMessage("El número de teléfono ya está asignado a otro usuario."));
+                IsBusy = false;
+                return;
+            }
             ResultBase result = await _genericService.InsertAsync(User);
 
             if (!result.IsSuccess)
@@ -113,8 +127,8 @@ namespace Aplicacion.Pages.User.Create.ViewModel
         public UserCreate()
         {
             User = new Users(Guid.NewGuid(),string.Empty,string.Empty,string.Empty,string.Empty,1);
-
             _genericService = GetGenericService<Users, Guid>();
+            _userService = new Service.User(new Repository.User());
         }
         #endregion
 
