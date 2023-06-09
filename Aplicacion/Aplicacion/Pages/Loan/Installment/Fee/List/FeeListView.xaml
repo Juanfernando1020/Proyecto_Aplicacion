@@ -10,26 +10,25 @@
     x:DataType="{x:Type viewModel:FeeList}">
     <local:ContentViewBase.Content>
         <StackLayout>
-            <CollectionView
-                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-                HeightRequest="350"
-                ItemsSource="{Binding FeesCollection}">
-                <CollectionView.ItemTemplate>
+            <ListView HeightRequest="350" ItemsSource="{Binding FeesCollection}">
+                <ListView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:Fees}">
-                        <Grid Padding="5">
-                            <Frame
-                                Padding="0"
-                                BorderColor="{StaticResource BorderButton}"
-                                CornerRadius="10"
-                                HasShadow="False">
-                                <StackLayout Padding="10">
-                                    <Label Text="{Binding Date}" />
-                                </StackLayout>
-                            </Frame>
-                        </Grid>
+                        <ViewCell>
+                            <Grid Padding="5,0" ColumnDefinitions="*,auto">
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Date, StringFormat={StaticResource FormatDate}}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="1"
+                                    HorizontalTextAlignment="End"
+                                    Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
+                                    VerticalTextAlignment="Center" />
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button
                 Command="{Binding OpenFeeCreatePopupCommand}"
                 Text="Nuevo pago"

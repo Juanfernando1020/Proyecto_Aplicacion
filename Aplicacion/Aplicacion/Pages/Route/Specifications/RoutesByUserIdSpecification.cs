@@ -18,6 +18,6 @@ namespace Aplicacion.Pages.Route.Specifications
         }
 
         public override Expression<Func<Routes, bool>> ToExpression() =>
-            route => route.Worker.Id.Equals(_userId) || route.Manager.Id.Equals(_userId) || route.Budgets.Any(budget => budget.Admin.Equals(_userId));
+            route => route.Worker.Id.Equals(_userId) || route.Manager.Id.Equals(_userId) || route.Budgets.Any(budget => budget.User.Equals(_userId));
     }
 }

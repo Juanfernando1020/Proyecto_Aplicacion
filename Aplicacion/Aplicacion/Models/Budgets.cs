@@ -7,7 +7,8 @@ namespace Aplicacion.Models
     public class Budgets
     {
         public Guid Id { get; set; }
+        public string Description { get; set; }
         public decimal Amount { get; set; }
-        public Users Admin { get; set; }
+        public Users User { get; set; }
     }
 }

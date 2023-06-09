@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Routes;
 using Aplicacion.Models;
+using Aplicacion.Pages.Route.Channels;
 using Aplicacion.Pages.Route.Contracts;
 using Aplicacion.Pages.Route.Specifications;
 using Aplicacion.Pages.User.Enums;
@@ -21,7 +22,7 @@ using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.List.ViewModel
 {
-    class RouteList : PageViewModelBase
+    internal class RouteList : PageViewModelBase, IRouteCreatedChannel
     {
         #region Variable
 
@@ -66,7 +67,8 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             {
                 INavigationParameters parameters = new NavigationParameters();
                 parameters.Add(ArgKeys.User, _userInfo);
-                parameters.Add(ArgKeys.Route, SelectedRoute);
+
+                Aplicacion.Module.App.RouteInfo = SelectedRoute;
 
                 await NavigationService.NavigateToAsync(PagesRoutes.Main, parameters: parameters);
 
@@ -85,6 +87,18 @@ namespace Aplicacion.Pages.Route.List.ViewModel
 
             IsBusy = false;
         }
+
+        private void OnRouteCreated(IRouteCreatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Route] is Routes route)
+                {
+                    RoutesCollection.Add(route);
+                }
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -95,7 +109,10 @@ namespace Aplicacion.Pages.Route.List.ViewModel
             RoutesCollection = new ObservableCollection<Routes>();
 
             _genericService = GetGenericService<Routes, Guid>();
+
+            MessagingCenter.Subscribe<IRouteCreatedChannel, INavigationParameters>(this, nameof(IRouteCreatedChannel), OnRouteCreated);
         }
+
         #endregion
 
         #region Overrides
@@ -110,6 +127,13 @@ namespace Aplicacion.Pages.Route.List.ViewModel
         {
             base.CallBack(parameters);
             OnCallBack(parameters);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            MessagingCenter.Unsubscribe<IRouteCreatedChannel, INavigationParameters>(this, nameof(IRouteCreatedChannel));
         }
 
         #endregion

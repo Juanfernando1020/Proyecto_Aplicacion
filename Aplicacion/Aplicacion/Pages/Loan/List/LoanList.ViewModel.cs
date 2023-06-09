@@ -16,15 +16,16 @@ using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Aplicacion.Pages.Client.Channels;
+using Aplicacion.Pages.Loan.Channels;
 
 namespace Aplicacion.Pages.Loan.List.ViewModel
 {
-    internal class LoanList : ViewModelBase, ILoadLoanListViewChannel
+    internal class LoanList : ViewModelBase, ILoadLoanListViewChannel, ILoanCreatedChannel
     {
         #region Variables
 
         private Clients clientInfo;
-        private List<Loans> loanList = new List<Loans>();
+        private List<Loans> _loanList = new List<Loans>();
 
         #endregion
 
@@ -94,13 +95,13 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
         {
             if (SelectedFilter != null)
             {
-                if (loanList.Count > 0)
+                if (_loanList.Count > 0)
                 {
                     FilterLoansCollections.Clear();
 
                     if (SelectedFilter.Specification != null)
                     {
-                        foreach (Loans loan in loanList.Where(SelectedFilter.Specification).OrderByDescending(l => l.Date).ToList())
+                        foreach (Loans loan in _loanList.Where(SelectedFilter.Specification).OrderByDescending(l => l.Date).ToList())
                         {
                             FilterLoansCollections.Add(new LoansExtension()
                             {
@@ -111,7 +112,7 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
                     }
                     else
                     {
-                        foreach (Loans loan in loanList)
+                        foreach (Loans loan in _loanList)
                         {
                             FilterLoansCollections.Add(new LoansExtension()
                             {
@@ -135,7 +136,19 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
                 
                 if (parameters[ArgKeys.Loans] is Loans[] loans)
                 {
-                    loanList = loans.ToList();
+                    _loanList = loans.ToList();
+                }
+            }
+        }
+
+        private void OnLoanCreated(ILoanCreatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Loan] is Loans loan)
+                {
+                    _loanList.Add(loan);
+                    RefreshFilterLoansCollection();
                 }
             }
         }
@@ -149,6 +162,7 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
             FilterLoansCollections = new ObservableCollection<LoansExtension>();
 
             MessagingCenter.Subscribe<ILoadLoanListViewChannel, INavigationParameters>(this, nameof(ILoadLoanListViewChannel), OnLoadLoanListView);
+            MessagingCenter.Subscribe<ILoanCreatedChannel, INavigationParameters>(this, nameof(ILoanCreatedChannel), OnLoanCreated);
         }
 
         #endregion
@@ -166,6 +180,19 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
             base.Dispose(disposing);
 
             MessagingCenter.Unsubscribe<ILoadLoanListViewChannel, INavigationParameters>(this, nameof(ILoadLoanListViewChannel));
+            MessagingCenter.Unsubscribe<ILoanCreatedChannel, INavigationParameters>(this, nameof(ILoanCreatedChannel));
+        }
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            switch (args.PropertyName)
+            {
+                case nameof(SelectedFilter):
+                    RefreshFilterLoansCollection();
+                    break;
+            }
         }
 
         #endregion
@@ -202,18 +229,6 @@ namespace Aplicacion.Pages.Loan.List.ViewModel
                     Specification = new LoansByActiveSpecifications(false)
                 }
             };
-        }
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-
-            switch (args.PropertyName)
-            {
-                case nameof(SelectedFilter):
-                    RefreshFilterLoansCollection();
-                    break;
-            }
         }
 
         #endregion

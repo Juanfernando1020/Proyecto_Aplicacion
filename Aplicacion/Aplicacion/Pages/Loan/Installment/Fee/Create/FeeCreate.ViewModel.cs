@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
 using Aplicacion.Pages.Loan.Specifications;
-using Firebase.Database.Query;
-using Xamarin.CommonToolkit.Helpers.Firebase;
+using Aplicacion.Pages.Route.Budget.Config;
+using Aplicacion.Pages.Route.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 {
-    internal class FeeCreate : PopupViewModelBase
+    internal class FeeCreate : PopupViewModelBase, IFeeCreatedChannel
     {
         #region Variables
         private Installments _installmentInfo;
         private Loans _loanInfo;
         private readonly IGenericService<Fees, Guid> _genericFeeService;
         private readonly IGenericService<Loans, Guid> _genericLoanService;
+        private readonly IGenericService<Routes, Guid> _genericRouteService;
 
         #endregion
 
@@ -76,6 +79,26 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
                             if (resultUpdate.IsSuccess)
                             {
+                                Users user = Aplicacion.Module.App.UserInfo;
+                                Routes route = Aplicacion.Module.App.RouteInfo;
+
+                                List<Budgets> budgets = route.Budgets.ToList();
+                                budgets.Add(new Budgets()
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = string.Format(BudgetDescriptions.ADD_FEE, user.Name),
+                                    Amount = Fee.Amount,
+                                    User = user
+                                });
+
+                                route.Budgets = budgets.ToArray();
+
+                                INavigationParameters parameters = new NavigationParameters();
+                                parameters.Add(ArgKeys.Fee, Fee);
+
+                                MessagingCenter.Send<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), parameters);
+                                await _genericRouteService
+                                    .UpdateAsync(new RoutesByIdAndActiveStateSpecification(route.Id, true), route.Id, route);
                                 await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                                 await NavigationPopupService.PopPopupAsync(this);
                             }
@@ -133,6 +156,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
             };
             _genericFeeService = GetGenericService<Fees, Guid>();
             _genericLoanService = GetGenericService<Loans, Guid>();
+            _genericRouteService = GetGenericService<Routes, Guid>();
         }
 
         #endregion

@@ -18,27 +18,26 @@
                 <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
             </yummy:PancakeView.Border>
             <StackLayout Padding="10">
-                <CollectionView
-                    EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
-                    HeightRequest="250"
-                    ItemsSource="{Binding BudgetsCollection}">
-                    <CollectionView.ItemTemplate>
+                <ListView HeightRequest="250" ItemsSource="{Binding BudgetsCollection}">
+                    <ListView.ItemTemplate>
                         <DataTemplate x:DataType="{x:Type models:Budgets}">
-                            <Grid ColumnDefinitions="*, auto">
-                                <Label
-                                    Grid.Column="0"
-                                    Style="{StaticResource NormalLabel}"
-                                    Text="{Binding Admin.Name}"
-                                    VerticalTextAlignment="Center" />
-                                <Label
-                                    Grid.Column="1"
-                                    Style="{StaticResource NormalLabel}"
-                                    Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
-                                    VerticalTextAlignment="Center" />
-                            </Grid>
+                            <ViewCell>
+                                <Grid Padding="2" ColumnDefinitions="*, auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2"
+                                        Text="{Binding Description}"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
+                                        VerticalTextAlignment="Center" />
+                                </Grid>
+                            </ViewCell>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Grid ColumnDefinitions="*, auto" VerticalOptions="EndAndExpand">
                     <Label
                         Grid.Column="0"

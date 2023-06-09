@@ -52,7 +52,17 @@
                         Icon="dollar-sign"
                         Keyboard="Numeric"
                         Label="Valor del Préstamo"
-                        Text="{Binding LoanExtension.Loan.Amount}" />
+                        Text="{Binding Amount}" />
+                    <Grid
+                        Margin="0,-10,0,0"
+                        Padding="10,0"
+                        ColumnDefinitions="*, auto">
+                        <Label FontAttributes="Bold" Text="Disponible" />
+                        <Label
+                            HorizontalTextAlignment="End"
+                            Text="{Binding AvailableAmount, StringFormat={StaticResource FormatMoney}}"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
                     <customViews:IconPickerView Label="Modalidad de Cobro">
                         <customViews:IconPickerView.Picker>
                             <Picker

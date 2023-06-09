@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace Aplicacion.Pages.Route.Details.ViewModel
 {
-    internal class RouteDetails : PageViewModelBase, IRouteBudgetsChangedChannel, ILoadBudgetListFromRouteDetailsChannel
+    internal class RouteDetails : PageViewModelBase, IRouteBudgetsChangedChannel, ILoadBudgetListFromRouteDetailsChannel, IRouteCreatedChannel
     {
         #region Variables
         private readonly IRouteService _routeService;
@@ -108,6 +108,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
                 INavigationParameters parameters = new NavigationParameters();
                 parameters.Add(ArgKeys.Route, Route);
 
+                MessagingCenter.Send<IRouteCreatedChannel, INavigationParameters>(this, nameof(IRouteCreatedChannel), parameters);
                 await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                 await NavigationService.PopAsync(parameters: parameters);
             }
@@ -153,21 +154,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
         {
             if (budget != null)
             {
-                if (budgets.Find(b => b.Admin.Id == budget.Admin.Id) is Budgets budgetOld)
-                {
-                    int index = budgets.IndexOf(budgetOld);
-
-                    budgets[index] = new Budgets()
-                    {
-                        Id = budgetOld.Id,
-                        Admin = budgetOld.Admin,
-                        Amount = budgetOld.Amount + budget.Amount
-                    };
-                }
-                else
-                {
-                    budgets.Add(budget);
-                }
+                budgets.Add(budget);
             }
         }
         #endregion
@@ -225,7 +212,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             IsBusy = true;
             if (parameters != null)
             {
-                if (parameters[ArgKeys.Route] is Routes route)
+                if (Aplicacion.Module.App.RouteInfo is Routes route)
                 {
                     IsCreate = false;
                     Route = route;

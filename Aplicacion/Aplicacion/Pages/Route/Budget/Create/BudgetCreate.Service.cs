@@ -24,9 +24,9 @@ namespace Aplicacion.Pages.Route.Budget.Create.Service
                 return false;
             }
 
-            if (budget.Admin == null)
+            if (budget.User == null)
             {
-                message = "Debes elegir un administrador.";
+                message = "Debes elegir un usuario.";
                 return false;
             }
 

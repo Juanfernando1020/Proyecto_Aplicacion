@@ -69,7 +69,6 @@ namespace Aplicacion.Pages.Main.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                 {
-                    Aplicacion.Module.App.RouteInfo = parameters[ArgKeys.Route] as Routes;
                     IEnumerable<Modules> result = service.GetModulesAsync(user, Aplicacion.Module.App.RouteInfo);
                     MenuItems = result.ToList();
                 }

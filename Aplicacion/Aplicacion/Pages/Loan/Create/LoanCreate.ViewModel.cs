@@ -8,26 +8,31 @@ using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Client.Specifications;
+using Aplicacion.Pages.Loan.Channels;
 using Aplicacion.Pages.Loan.Config;
 using Aplicacion.Pages.Loan.Installment.Enums;
 using Aplicacion.Pages.Loan.Installment.Models;
 using Aplicacion.Pages.Loan.Models;
+using Aplicacion.Pages.Route.Basis.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.Create.ViewModel
 {
-    internal class LoanCreate : PopupViewModelBase
+    internal class LoanCreate : PopupViewModelBase, ILoanCreatedChannel
     {
         #region Variables
 
-        private Clients clientInfo;
+        private Clients _clientInfo;
+        private Basises _basisInfo;
         private readonly IGenericService<Loans, Guid> _genericService;
-        private readonly IGenericService<Installments, Guid> _genericInstallmentService;
+        private readonly IGenericService<Basises, Guid> _genericBasisService;
 
         #endregion
 
@@ -61,6 +66,20 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
             get => _canHaveASurcharge;
             set => SetProperty(ref _canHaveASurcharge, value);
         }
+        
+        private decimal _amount;
+        public decimal Amount
+        {
+            get => _amount;
+            set => SetProperty(ref _amount, value);
+        }
+        
+        private decimal _availableAmount;
+        public decimal AvailableAmount
+        {
+            get => _availableAmount;
+            set => SetProperty(ref _availableAmount, value);
+        }
 
         public ICommand CancelCommand => new AsyncCommand(CancelController);
 
@@ -82,6 +101,8 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
         {
             IsBusy = true;
 
+            LoanExtension.Loan.Amount = Amount;
+
             if (await IsValid(LoanExtension.Loan))
             {
                 LoanExtension.Loan.InstallmentType = (int)SelectedInstallmentOptions.InstallmentType;
@@ -91,6 +112,10 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     ResultBase result = await _genericService.InsertAsync(LoanExtension.Loan);
                     if (result.IsSuccess)
                     {
+                        INavigationParameters parameters = new NavigationParameters();
+                        parameters.Add(ArgKeys.Loan, LoanExtension.Loan);
+
+                        MessagingCenter.Send<ILoanCreatedChannel, INavigationParameters>(this, nameof(ILoanCreatedChannel), parameters);
                         await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                         await NavigationPopupService.PopPopupAsync(this);
                     }
@@ -130,18 +155,6 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                         Amount = totalInterest / installmentQuantity,
                         IsActive = true
                     };
-
-                    //ResultBase result = await _genericInstallmentService.InsertAsync(installment);
-
-                    //if (result.IsSuccess)
-                    //{
-                    //    installments.Add(installment);
-                    //}
-                    //else
-                    //{
-                    //    await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-                    //    return false;
-                    //}
 
                     installments.Add(installment);
                 }
@@ -193,7 +206,7 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
             };
 
             _genericService = GetGenericService<Loans, Guid>();
-            _genericInstallmentService = GetGenericService<Installments, Guid>();
+            _genericBasisService = GetGenericService<Basises, Guid>();
         }
 
         #endregion
@@ -220,6 +233,24 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     }
 
                     break;
+                case nameof(Amount):
+
+                    if (Amount < LoanConfig.MINIMUM_AMOUNT)
+                    {
+                        AlertService.ShowAlert(
+                            new WarningMessage($"No puedes ingresar un valor inferior a {LoanConfig.MINIMUM_AMOUNT}"));
+                    }
+                    else if (Amount > _basisInfo.Amount)
+                    {
+                        AlertService.ShowAlert(
+                            new WarningMessage("No puedes ingresar un valor superior a tu base del día."));
+                    }
+                    else
+                    {
+                        AvailableAmount = _basisInfo.Amount - Amount;
+                    }
+
+                    break;
             }
         }
 
@@ -233,10 +264,25 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
 
             if (parameters != null)
             {
-                if (parameters[ArgKeys.Client] is Clients client)
+                if (parameters[ArgKeys.Client] is Clients client && Aplicacion.Module.App.RouteInfo is Routes route)
                 {
-                    clientInfo = client;
+                    _clientInfo = client;
                     LoanExtension.Loan.ClientId = client.Id;
+
+                    ResultBase<Basises> result =
+                        await _genericBasisService.GetBySpecificacionAsync(
+                            new BasisByRouteIdAndDateNowSpecification(route.Id));
+
+                    if (result.IsSuccess && result.Data is Basises basis)
+                    {
+                        AvailableAmount = basis.Amount;
+                        _basisInfo = basis;
+                    }
+                    else
+                    {
+                        await ShowErrorResultPopup(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Client), CommonMessages.Error.InformationMessage);
+                    }
+
                 }
                 else
                 {

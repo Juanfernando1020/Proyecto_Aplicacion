@@ -8,6 +8,7 @@ using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Basis.Specifications;
+using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.Route.Channels;
 using Aplicacion.Pages.Route.Config;
 using Aplicacion.Pages.Route.Specifications;
@@ -23,7 +24,7 @@ using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 {
-    internal class BasisDetails : ViewModelBase, IRouteBudgetsChangedChannel
+    internal class BasisDetails : PageViewModelBase, IRouteBudgetsChangedChannel
     {
         #region Variables
         private readonly IGenericService<Basises, Guid> _genericService;
@@ -81,7 +82,8 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 Budgets newBudget = new Budgets()
                 {
                     Id = Guid.NewGuid(),
-                    Admin = _userInfo,
+                    Description = string.Format(BudgetDescriptions.ADD_BASIS, _userInfo.Name),
+                    User = _userInfo,
                     Amount = -Amount
                 };
 
@@ -91,23 +93,21 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 
                 _routeInfo.Budgets = budgetList.ToArray();
 
-                MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
-                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                await NavigationService.PopAsync();
+                ResultBase routeResult = await _genericRouteService
+                    .UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo.Id, _routeInfo);
 
-                //ResultBase routeResult = await _genericRouteService.UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo);
-
-                //if (routeResult.IsSuccess)
-                //{
-                //    MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
-                //    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                //    await NavigationService.PopAsync();
-                //}
-                //else
-                //{
-                //    await _genericService.DeleteAsync(Basis.Id);
-                //    await AlertService.ShowAlert(new ErrorMessage(routeResult.Message));
-                //}
+                if (routeResult.IsSuccess)
+                {
+                    Aplicacion.Module.App.RouteInfo = _routeInfo;
+                    MessagingCenter.Send<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), parameters);
+                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                    await NavigationService.PopAsync();
+                }
+                else
+                {
+                    await _genericService.DeleteAsync(Basis.Id);
+                    await AlertService.ShowAlert(new ErrorMessage(routeResult.Message));
+                }
             }
             else
             {

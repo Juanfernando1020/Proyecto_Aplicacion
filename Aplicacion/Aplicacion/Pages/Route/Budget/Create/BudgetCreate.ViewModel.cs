@@ -9,6 +9,7 @@ using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.Forms;
 using Aplicacion.Config.Routes;
+using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.User.Contracts;
 using Aplicacion.Pages.User.Enums;
 using Aplicacion.Pages.User.Specifications;
@@ -49,7 +50,8 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         {
             IsBusy = true;
 
-            Budget.Admin = Admin;
+            Budget.Description = string.Format(BudgetDescriptions.ADD_BUDGET, Admin.Name);
+            Budget.User = Admin;
             string message = string.Empty;
 
             if (_budgetCreateService.Validate(Budget, out message))
