@@ -50,6 +50,13 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         {
             IsBusy = true;
 
+            if (Admin == null)
+            {
+                await AlertService.ShowAlert(new WarningMessage("Debes seleccionar un administrador"));
+                IsBusy = false;
+                return;
+            }
+
             Budget.Description = string.Format(BudgetDescriptions.ADD_BUDGET, Admin.Name);
             Budget.User = Admin;
             string message = string.Empty;
