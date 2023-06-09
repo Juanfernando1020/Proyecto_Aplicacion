@@ -24,14 +24,17 @@ using Aplicacion.Pages.User.Service;
 using Aplicacion.Pages.User.Specifications;
 using Xamarin.Forms;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+using Aplicacion.Pages.Loan.Specifications;
+using Aplicacion.Config.Messages;
 
 namespace Aplicacion.Pages.User.List.ViewModel
 {
     internal class UserList : PageViewModelBase
     {
         #region Variable
+        Users _userInfo;
         private List<Users> _users;
-        private readonly IGenericService<Users, Guid> _genericService;
+        private readonly IGenericService<Users, Guid> _genericUsersService;
         #endregion
 
         #region Properties
@@ -117,13 +120,53 @@ namespace Aplicacion.Pages.User.List.ViewModel
                 }
             }
         }
-        private void DeactivateUserTapped()
+        private async Task DeactivateUserTapped()
         {
-            AlertService.ShowAlert(new ErrorMessage("Disable User Logic"));
+            IsBusy = true;
+
+            if (SelectedUser != null)
+            {
+               
+
+                Users newUser = new Users(SelectedUser.Id, SelectedUser.Name, SelectedUser.Phone, SelectedUser.Password, SelectedUser.Address, SelectedUser.Role, false, SelectedUser.Admin, SelectedUser.CreateDate, SelectedUser.NextPaymentDate);
+                Guid userId = SelectedUser.Id;
+                SelectedUser.IsActive = false;
+                ResultBase resultUpdate = await _genericUsersService
+                                    .UpdateAsync(new UsersFirebaseObjectByUserIdSpecification(userId), SelectedUser.Id, newUser);
+                await AlertService.ShowAlert(new SuccessMessage("Usuario Desactivado Correctamente"));
+                RefreshUserCollection();
+            }
+
+            else
+            {
+                AlertService.ShowAlert(new ErrorMessage("Selecciona el usuario"));
+            }
+
+            IsBusy = false;
         }
-        private void UpdatePaymentTapped()
+        private async Task UpdatePaymentTapped()
         {
-            AlertService.ShowAlert(new ErrorMessage("Update Payment Logic"));
+            IsBusy = true;
+
+            if (SelectedUser != null)
+            {
+
+                DateTime updateNextPaymentDay = DateTime.Now.AddMonths(1);
+                Users updateUser = new Users(SelectedUser.Id, SelectedUser.Name, SelectedUser.Phone, SelectedUser.Password, SelectedUser.Address, SelectedUser.Role, true, SelectedUser.Admin, SelectedUser.CreateDate, updateNextPaymentDay);
+                Guid userId = SelectedUser.Id;
+                SelectedUser.IsActive = false;
+                ResultBase resultUpdate = await _genericUsersService
+                                    .UpdateAsync(new UsersFirebaseObjectByUserIdSpecification(userId), SelectedUser.Id, updateUser);
+                await AlertService.ShowAlert(new SuccessMessage("Pago Actualizado Correctamente"));
+                RefreshUserCollection();
+            }
+
+            else
+            {
+                AlertService.ShowAlert(new ErrorMessage("Selecciona el usuario"));
+            }
+
+            IsBusy = false;
         }
         #endregion
 
@@ -131,9 +174,9 @@ namespace Aplicacion.Pages.User.List.ViewModel
         public UserList()
         {
             FilterUsersCollection = new ObservableCollection<Users>();
-            _genericService = GetGenericService<Users, Guid>();
-            DeactivateUserCommand = new Command(DeactivateUserTapped);
-            UpdatePaymentCommand = new Command(UpdatePaymentTapped);
+            _genericUsersService = GetGenericService<Users, Guid>();
+            DeactivateUserCommand = new Command(async () => await DeactivateUserTapped());
+            UpdatePaymentCommand = new Command(async () => await UpdatePaymentTapped());
         }
         #endregion
 
@@ -166,7 +209,7 @@ namespace Aplicacion.Pages.User.List.ViewModel
         private async Task OnLoad(INavigationParameters pararameters)
         {
             IsBusy = true;
-            ResultBase<IEnumerable<Users>> result = await _genericService.GetAllAsync(new AllUsersSpecification());
+            ResultBase<IEnumerable<Users>> result = await _genericUsersService.GetAllAsync(new AllUsersSpecification());
             if (result.Data is IEnumerable<Users> userList)
             {
                 _users = userList.ToList();

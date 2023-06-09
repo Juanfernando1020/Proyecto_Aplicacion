@@ -38,7 +38,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
         private async Task LoginController()
         {
             IsBusy = true;
-            if(string.IsNullOrEmpty(Credentials.Username) || string.IsNullOrEmpty(Credentials.Password))
+            if (string.IsNullOrEmpty(Credentials.Username) || string.IsNullOrEmpty(Credentials.Password))
             {
                 IsBusy = false;
                 await AlertService.ShowAlert(new ErrorMessage("Los campos no pueden estar vacíos."));
@@ -54,6 +54,13 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
                 return;
             }
 
+            if (!result.Data.IsActive)
+            {
+                IsBusy = false;
+                await AlertService.ShowAlert(new ErrorMessage("Tu cuenta está inactiva. Comunícate con el distribuidor."));
+                return;
+            }
+
             INavigationParameters parameters = new NavigationParameters();
             parameters.Add(ArgKeys.User, result.Data);
 
@@ -63,6 +70,7 @@ namespace Aplicacion.Pages.Account.Login.ViewModel
 
             IsBusy = false;
         }
+
         #endregion
 
         #region Constructor
