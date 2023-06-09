@@ -6,7 +6,7 @@ namespace Aplicacion.Models
     {
         public class Users
         {
-        public Users(Guid id, string name, string phone, string password, string address, int role, bool isActive = true, Users admin = null, DateTime createDate = default)
+        public Users(Guid id, string name, string phone, string password, string address, int role, bool isActive = true, Users admin = null, DateTime createDate = default, DateTime nextPaymentDate = default)
         {
             Id = id;
             Name = name;
@@ -17,6 +17,7 @@ namespace Aplicacion.Models
             Admin = admin;
             CreateDate = createDate;
             Address = address;
+            NextPaymentDate = nextPaymentDate;
         }
 
         public Guid Id { get; set; }
@@ -28,6 +29,7 @@ namespace Aplicacion.Models
             public Users Admin{ get; set; }
             public DateTime CreateDate { get; set; }
             public string Address { get; set; }
+            public DateTime NextPaymentDate { get; set; }
 
             public override bool Equals(object obj)
             {

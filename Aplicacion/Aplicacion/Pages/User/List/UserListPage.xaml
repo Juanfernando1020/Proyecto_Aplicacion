@@ -3,103 +3,125 @@
     x:Class="Aplicacion.Pages.User.List.UserListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customView="clr-namespace:Aplicacion.Views.Shared"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:messages="clr-namespace:Aplicacion.Config.Messages;assembly=Aplicacion"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.User.List.ViewModel"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="Root"
     Title="Lista de Usuarios"
+    x:DataType="{x:Type viewModel:UserList}"
     BackgroundColor="{StaticResource MainBackground}">
+
     <local:ContentPageBase.Content>
-        <ScrollView>
-            <StackLayout Margin="20" Padding="10">
+        <StackLayout Padding="10">
 
-                <StackLayout Orientation="Horizontal">
-                    <Label
-                        Margin="0,10,10,10"
-                        FontAttributes="Bold"
-                        FontSize="Medium"
-                        Text="Filtrar por:"
-                        VerticalOptions="Center" />
+            <customView:IconPickerView Label="Filtrar">
+                <customView:IconPickerView.Picker>
                     <Picker
-                        x:Name="filterPicker"
-                        Title="Seleccione una opción..."
-                        Margin="0,10,10,10">
-                        <Picker.Items>
-                            <x:String>Todos los usuarios</x:String>
-                            <x:String>Activos</x:String>
-                            <x:String>Vencidos</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </StackLayout>
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Filters}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding SelectedFilter}" />
+                </customView:IconPickerView.Picker>
+            </customView:IconPickerView>
 
-                <CollectionView>
-                    <CollectionView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Calors Andres Fuentes</x:String>
-                        </x:Array>
-                    </CollectionView.ItemsSource>
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="30" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Margin="0,20,0,0">
-                                <Frame
-                                    BackgroundColor="White"
-                                    BorderColor="#707070"
-                                    CornerRadius="15">
-                                    <StackLayout Margin="20" Orientation="Vertical">
-                                        <StackLayout>
-                                            <Label
-                                                Margin="0,0,0,10"
-                                                FontSize="Large"
-                                                HorizontalOptions="StartAndExpand"
-                                                Text="{Binding .}"
-                                                TextColor="Black" />
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    Text="Administrador: "
-                                                    TextColor="Black" />
-                                                <Label Text="(Binding administrador)" />
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    Text="Activo:"
-                                                    TextColor="Black" />
-                                                <Label Text="(Binding activo)" />
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    Text="Fecha de Pago:"
-                                                    TextColor="Black" />
-                                                <Label Text="(Binding Fecha de pago)" />
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal" Spacing="30">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <CheckBox Color="Black" />
-                                                    <Label
-                                                        FontAttributes="Bold"
-                                                        Text="Activar"
-                                                        TextColor="Black"
-                                                        VerticalOptions="Center" />
-                                                </StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <CheckBox Color="Black" />
-                                                    <Label
-                                                        FontAttributes="Bold"
-                                                        Text="Desactivar"
-                                                        TextColor="Black"
-                                                        VerticalOptions="Center" />
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </StackLayout>
+            <CollectionView
+                EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}"
+                ItemsSource="{Binding FilterUsersCollection}"
+                SelectedItem="{Binding SelectedUser}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Users}">
+                        <Grid Padding="5">
+                            <yummy:PancakeView
+                                Padding="10"
+                                BackgroundColor="{StaticResource BackgroundEntry}"
+                                CornerRadius="10"
+                                HorizontalOptions="CenterAndExpand">
+                                <StackLayout HorizontalOptions="FillAndExpand" Spacing="8">
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        Style="{StaticResource BoldLabel}"
+                                        Text="{Binding Name}" />
+                                    <Grid
+                                        ColumnDefinitions="auto, *"
+                                        ColumnSpacing="5"
+                                        RowDefinitions="auto,auto"
+                                        RowSpacing="10">
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            Text="Telefono:" />
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding Phone, StringFormat={StaticResource FormatPhone}}" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            Text="Dirección:" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding Address}" />
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            Text="Fecha de creacion:" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding CreateDate, StringFormat={StaticResource FormatDateSecundary}}" />
+
+                                        <Label
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            Text="Siguiente cobro:" />
+                                        <Label
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding NextPaymentDate, StringFormat={StaticResource FormatDateSecundary}}" />
+                                    </Grid>
+                                    <StackLayout
+                                        Grid.Row="4"
+                                        Padding="0,30,0,0"
+                                        Orientation="Horizontal">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            Text="Desactivar">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.DeactivateUserCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="Actualizar Pago">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.UpdatePaymentCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
                                     </StackLayout>
-                                </Frame>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </ScrollView>
+                                </StackLayout>
+                            </yummy:PancakeView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>
