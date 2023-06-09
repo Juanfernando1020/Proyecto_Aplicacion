@@ -10,6 +10,7 @@ using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
 using Aplicacion.Pages.Loan.Specifications;
 using Aplicacion.Pages.Route.Budget.Config;
+using Aplicacion.Pages.Route.Budget.Enums;
 using Aplicacion.Pages.Route.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -86,6 +87,8 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
                                 budgets.Add(new Budgets()
                                 {
                                     Id = Guid.NewGuid(),
+                                    Date = DateTime.Now,
+                                    Type = (int)BudgetTypes.Collection,
                                     Description = string.Format(BudgetDescriptions.ADD_FEE, user.Name),
                                     Amount = Fee.Amount,
                                     User = user

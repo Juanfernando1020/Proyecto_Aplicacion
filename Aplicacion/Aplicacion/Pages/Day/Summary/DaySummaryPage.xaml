@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:dictionaryType="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Day.Summary.ViewModel;assembly=Aplicacion"
     Title="RESUMEN DEL DÍA"
+    x:DataType="{x:Type viewModel:DaySummary}"
     BackgroundColor="{StaticResource MainBackground}">
     <ContentPage.Content>
         <ScrollView>
@@ -29,62 +31,38 @@
                                 FontAttributes="Bold"
                                 Text="Cobros:"
                                 TextColor="Black" />
-                            <Label Text="Binding cantidad de cobros del día" />
+                            <Label Text="{Binding FeesQuantity}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
                                 Text="Total por cobros:"
                                 TextColor="Black" />
-                            <Label Text="($) Total por todos los cobros" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontAttributes="Bold"
-                                Text="Gastos:"
-                                TextColor="Black" />
-                            <Label Text="Binding cantidad de gastos del día" />
+                            <Label Text="{Binding FeesAmount, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
                                 Text="Total por gastos:"
                                 TextColor="Black" />
-                            <Label Text="($) precio por todos los gastos" />
+                            <Label Text="{Binding ExpensesAmount, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
-                                Text="Bases Agregadas:"
+                                Text="Monto de base del día:"
                                 TextColor="Black" />
-                            <Label Text="Cantidad de bases" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontAttributes="Bold"
-                                Text="Total por bases:"
-                                TextColor="Black" />
-                            <Label Text="($) precio por las bases" />
+                            <Label Text="{Binding Basis.Amount, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
                                 Text="Balance del día"
                                 TextColor="Black" />
-                            <Label Text="(cobros+bases)-gastos" />
+                            <Label Text="{Binding Balance, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
                     </StackLayout>
                 </Frame>
-                <Button
-                    x:Name="Add_New_Billing_Botton"
-                    Margin="30"
-                    BackgroundColor="#D1DFE1"
-                    BorderColor="#707070"
-                    BorderWidth="3"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    Text="Terminar día"
-                    TextColor="#333333" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

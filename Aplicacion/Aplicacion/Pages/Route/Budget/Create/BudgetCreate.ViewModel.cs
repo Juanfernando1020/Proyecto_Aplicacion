@@ -14,6 +14,7 @@ using Aplicacion.Pages.User.Contracts;
 using Aplicacion.Pages.User.Enums;
 using Aplicacion.Pages.User.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
+using Aplicacion.Pages.Route.Budget.Enums;
 
 namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
 {
@@ -50,6 +51,8 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         {
             IsBusy = true;
 
+            Budget.Date = DateTime.Now;
+            Budget.Type = (int)BudgetTypes.Expense;
             Budget.Description = string.Format(BudgetDescriptions.ADD_BUDGET, Admin.Name);
             Budget.User = Admin;
             string message = string.Empty;

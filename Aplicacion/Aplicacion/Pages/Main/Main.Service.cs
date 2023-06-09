@@ -30,6 +30,7 @@ namespace Aplicacion.Pages.Main.Service
                 response.Add(new Modules("Ver Ruta", PagesRoutes.Route.Details, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Base del Día", PagesRoutes.Route.Basis.Details, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage, routesParameters));
+                response.Add(new Modules("Resumen del Día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
 
                 if ((RolesEnum)user.Role == RolesEnum.Worker)
                 {
@@ -39,7 +40,6 @@ namespace Aplicacion.Pages.Main.Service
             else
             {
                 response.Add(new Modules("Mi información", PagesRoutes.User.Details, PagesBaseEnum.ContentPage));
-
                 switch ((RolesEnum)user.Role)
                 {
                     case RolesEnum.Owner:
