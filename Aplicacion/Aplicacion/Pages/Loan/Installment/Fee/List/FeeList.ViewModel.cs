@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Routes;
 using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Installment.Channels;
 using Aplicacion.Pages.Loan.Installment.Models;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
@@ -40,11 +43,26 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
         {
             IsBusy = true;
 
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Installment, _installment);
-            parameters.Add(ArgKeys.Loan, _loan);
+            if (_installment.IsActive)
+            {
+                if (_loan.Installments.Any(i =>
+                        i.IsActive && i.PaymenDate.Date <= DateTime.Now.Date && i.Id != _installment.Id))
+                {
+                    await AlertService.ShowAlert(new InfoMessage("Aún hay cuotas por pagar."));
+                }
+                else
+                {
+                    INavigationParameters parameters = new NavigationParameters();
+                    parameters.Add(ArgKeys.Installment, _installment);
+                    parameters.Add(ArgKeys.Loan, _loan);
 
-            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Loan.Installment.Fee.FeeCreate, parameters: parameters);
+                    await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Loan.Installment.Fee.FeeCreate, parameters: parameters);
+                }
+            }
+            else
+            {
+                await AlertService.ShowAlert(new InfoMessage("No puedes agregarle un pago a una cuota cancelada"));
+            }
 
             IsBusy = false;
         }
@@ -81,6 +99,12 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
 
             OnCallBack(parameters);
         }
+
+        #endregion
+
+        #region OnLoad
+
+        
 
         #endregion
 

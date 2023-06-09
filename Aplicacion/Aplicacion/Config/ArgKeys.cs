@@ -14,6 +14,7 @@ namespace Aplicacion.Config
         internal const string Expense = "Expense";
         internal const string Fee = "Fee";
         internal const string Installment = "Installment";
+        internal const string Installments = "Installments";
         internal const string InstallmentExtension = "InstallmentExtension";
         internal const string Loan = "Loan";
         internal const string LoanExtension = "LoanExtension";

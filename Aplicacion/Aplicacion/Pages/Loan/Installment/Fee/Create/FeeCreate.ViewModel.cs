@@ -9,6 +9,8 @@ using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
 using Aplicacion.Pages.Loan.Specifications;
+using Firebase.Database.Query;
+using Xamarin.CommonToolkit.Helpers.Firebase;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
@@ -69,7 +71,8 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
                             _loanInfo.Installments = installments.ToArray();
 
-                            ResultBase resultUpdate = await _genericLoanService.UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(_loanInfo.ClientId), _loanInfo);
+                            ResultBase resultUpdate = await _genericLoanService
+                                .UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(_loanInfo.ClientId), _loanInfo.Id, _loanInfo);
 
                             if (resultUpdate.IsSuccess)
                             {
