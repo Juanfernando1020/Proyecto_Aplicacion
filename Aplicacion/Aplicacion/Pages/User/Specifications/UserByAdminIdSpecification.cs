@@ -9,13 +9,7 @@ namespace Aplicacion.Pages.User.Specifications
 {
     internal class UserByAdminIdSpecification : SpecificationBase<Users>
     {
-        private readonly Guid _adminId;
-        public UserByAdminIdSpecification(Guid adminId)
-        {
-            _adminId = adminId;
-        }
-
         public override Expression<Func<Users, bool>> ToExpression()
-            => user => user.Id.Equals((Guid) _adminId);
+            => user => user.Admin != null && user.Admin.Id == Aplicacion.Module.App.UserInfo.Id;
     }
 }
