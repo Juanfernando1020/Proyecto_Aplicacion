@@ -79,7 +79,8 @@ namespace Aplicacion.Pages.User.Create.ViewModel
 
             IsBusy = true;
             User.Admin = Admin;
-            User.CreateDate = DateTime.Now;
+            User.CreateDate = DateTime.UtcNow.AddHours(-5); ;
+            User.NextPaymentDate= DateTime.Now.AddMonths(1);
             User.Role = IsWorker ? (int)RolesEnum.Worker : (int)RolesEnum.Admin;
 
             UserByPhoneSpecification specification = new UserByPhoneSpecification(User.Phone);

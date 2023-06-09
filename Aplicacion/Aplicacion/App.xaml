@@ -58,6 +58,7 @@
             <x:String x:Key="FormatPercentage">{0:0%}</x:String>
             <x:String x:Key="FormatDate">{0:dd-MM-yyyy}</x:String>
             <x:String x:Key="FormatPhone">{0:(###) ###-####}</x:String>
+            <x:String x:Key="FormatDateSecundary">{0:MMMM d yyyy}</x:String>
             <!--#endregion-->
 
             <!--#region Converters-->

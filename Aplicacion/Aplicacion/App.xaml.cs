@@ -2,6 +2,7 @@
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration;
 using Application = Xamarin.Forms.Application;
+using System.Globalization;
 
 namespace Aplicacion
 {
@@ -10,6 +11,10 @@ namespace Aplicacion
         public App()
         {
             InitializeComponent();
+
+            var culture = new CultureInfo("es-ES");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             MainPage = Module.App.Initialize();
         }
