@@ -85,6 +85,13 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             set => SetProperty(ref _basis, value);
         }
 
+        private decimal _loansAmount;
+        public decimal LoansAmount
+        {
+            get => _loansAmount;
+            set => SetProperty(ref _loansAmount, value);
+        }
+
         #endregion
 
         #region Constructor
@@ -175,7 +182,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                     GetBasisInfo(route.Id)
                 );
             });
-            Balance = route.Budgets.Sum(budget => budget.Amount) - ExpensesAmount;
+            Balance = (Basis.Amount + FeesAmount)-(ExpensesAmount + LoansAmount);
             FeesAmount = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Sum(budget => budget.Amount);
             FeesQuantity = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Count();
         }
@@ -183,6 +190,8 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
         private async Task GetLoansInfo(Guid routeId)
         {
             Clients[] clients = await GetClientsInfo(routeId);
+
+            decimal totalLoansAmount = 0; 
 
             if (clients != null)
             {
@@ -193,15 +202,18 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                     if (result.IsSuccess && result.Data is IEnumerable<Loans> loans)
                     {
                         LoansQuantity = loans.Count(new LoansByClientIdAndDateSpecification(client.Id, DateTime.Now));
+
+                        totalLoansAmount += loans.Sum(loan => loan.Amount);
                     }
                     else
                     {
                         await ShowErrorResult(string.Format(CommonMessages.Console.ResultIsNotSuccess, nameof(_genericExpenseService), "GetAllAsync"), CommonMessages.Error.InformationMessage);
                         break;
                     }
-
                 }
             }
+
+            LoansAmount = totalLoansAmount;
         }
 
         private async Task<Clients[]> GetClientsInfo(Guid routeId)
