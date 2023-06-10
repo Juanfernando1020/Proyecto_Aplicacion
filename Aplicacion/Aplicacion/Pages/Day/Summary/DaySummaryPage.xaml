@@ -29,6 +29,13 @@
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
+                                Text="Prestamos Realizados:"
+                                TextColor="Black" />
+                            <Label Text="{Binding LoansQuantity}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label
+                                FontAttributes="Bold"
                                 Text="Cobros:"
                                 TextColor="Black" />
                             <Label Text="{Binding FeesQuantity}" />
@@ -40,6 +47,7 @@
                                 TextColor="Black" />
                             <Label Text="{Binding FeesAmount, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
+
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"

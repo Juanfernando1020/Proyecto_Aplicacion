@@ -16,6 +16,8 @@ using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
+using Aplicacion.Pages.Client.Channels;
 
 namespace Aplicacion.Pages.Client.List.ViewModel
 {
@@ -111,6 +113,18 @@ namespace Aplicacion.Pages.Client.List.ViewModel
                 }
             }
         }
+        private void OnClientCreated(IClientCreatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Client] is Clients client)
+                {
+                    _clients.Add(client);
+                    RefreshClientsCollection();
+                }
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -120,6 +134,8 @@ namespace Aplicacion.Pages.Client.List.ViewModel
             FilterClientsCollection = new ObservableCollection<Clients>();
             _genericService = GetGenericService<Clients, Guid>();
             _genericLoansService = GetGenericService<Loans, Guid>();
+
+            MessagingCenter.Subscribe<IClientCreatedChannel, INavigationParameters>(this, nameof(IClientCreatedChannel), OnClientCreated);
         }
 
         #endregion

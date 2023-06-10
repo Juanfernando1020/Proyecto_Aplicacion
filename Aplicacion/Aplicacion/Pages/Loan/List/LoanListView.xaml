@@ -40,40 +40,17 @@
                                 <yummy:PancakeView.Border>
                                     <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
                                 </yummy:PancakeView.Border>
-                                <StackLayout>
-                                    <Label Style="{StaticResource BoldLabel}" Text="{Binding Loan.Name}" />
-                                    <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto">
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            Text="Total:" />
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding TotalToPay, StringFormat={StaticResource FormatMoney}}" />
-
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Text="Pagados:" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding PayedInstallments, StringFormat={StaticResource FormatMoney}}" />
-
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="0"
-                                            Text="Resta:" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding UnpayedInstallments, StringFormat={StaticResource FormatMoney}}" />
-                                    </Grid>
-                                </StackLayout>
+                                <Grid ColumnDefinitions="*,auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        Style="{StaticResource BoldLabel}"
+                                        Text="{Binding Loan.Name}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        Text="{Binding TotalToPay, StringFormat={StaticResource FormatMoney}}"
+                                        VerticalTextAlignment="Center" />
+                                </Grid>
                             </yummy:PancakeView>
                         </Grid>
                     </DataTemplate>

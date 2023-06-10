@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
@@ -14,11 +13,14 @@ using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 using Firebase.Storage;
 using System.IO;
+using Aplicacion.Config;
+using Aplicacion.Pages.Client.Channels;
+using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 
 
 namespace Aplicacion.Pages.Client.Create.ViewModel
 {
-    internal class ClientCreate : PageViewModelBase
+    internal class ClientCreate : PageViewModelBase, IClientCreatedChannel
     {
         #region Variables
 
@@ -27,8 +29,8 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
         private string _imageId;
 
         #endregion
-
-            #region Properties
+        
+        #region Properties
 
         private Clients _client;
         public Clients Client
@@ -96,6 +98,10 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
                 if (result.IsSuccess)
                 {
+                    INavigationParameters parameters = new NavigationParameters();
+                    parameters.Add(ArgKeys.Client, Client);
+
+                    MessagingCenter.Send<IClientCreatedChannel, INavigationParameters>(this, nameof(IClientCreatedChannel), parameters);
                     await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                     await NavigationService.PopAsync();
                 }

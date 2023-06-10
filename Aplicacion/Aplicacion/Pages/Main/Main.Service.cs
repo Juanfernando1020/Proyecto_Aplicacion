@@ -1,15 +1,11 @@
-﻿using System;
-using Xamarin.CommonToolkit.PagesBase.Enums;
+﻿using Xamarin.CommonToolkit.PagesBase.Enums;
 using Aplicacion.Models;
 using Aplicacion.Pages.Main.Contracts;
 using Aplicacion.Pages.User.Enums;
 using System.Collections.Generic;
 using Aplicacion.Config;
-using Xamarin.Essentials;
 using Aplicacion.Config.Routes;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
-using Aplicacion.Pages.Route.Specifications;
-using Aplicacion.Pages.User.Contracts;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 
 namespace Aplicacion.Pages.Main.Service
@@ -31,9 +27,19 @@ namespace Aplicacion.Pages.Main.Service
                 response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Resumen del Día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
 
+                switch ((RolesEnum)user.Role)
+                {
+                    case RolesEnum.Worker:
+                        response.Add(new Modules("Gastos", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage, routesParameters));
+                        break;
+                    case RolesEnum.Admin:
+                        response.Add(new Modules("Base del Día", PagesRoutes.Route.Basis.Details, PagesBaseEnum.ContentPage, routesParameters));
+                        break;
+                }
+
                 if ((RolesEnum)user.Role == RolesEnum.Worker)
                 {
-                    response.Add(new Modules("Gastos", PagesRoutes.Expense.List, PagesBaseEnum.ContentPage, routesParameters));
+                    
                 }
             }
             else

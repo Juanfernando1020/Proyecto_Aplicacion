@@ -13,6 +13,7 @@ using Aplicacion.Pages.Day.Models;
 using Aplicacion.Pages.Expense.Specifications;
 using Aplicacion.Pages.Loan.Installment.Fee.Specifications;
 using Aplicacion.Pages.Loan.Specifications;
+using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.Route.Budget.Enums;
@@ -171,17 +172,6 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             {
                 _userInfo = user;
 
-                //ResultBase<IEnumerable<Routes>> result = await _genericRoutesService.GetAllAsync(new RoutesByUserIdSpecification(user.Id));
-
-                //if (result.IsSuccess && result.Data is IEnumerable<Routes> routes)
-                //{
-                //    _routes = routes.ToArray();
-                //}
-                //else
-                //{
-                //    await ShowErrorResult(string.Format(CommonMessages.Console.ResultIsNotSuccess, nameof(_genericRoutesService), "GetAllAsync"), CommonMessages.Error.InformationMessage);
-                //}
-
                 await GetRouteInfo(route);
                 await Task.Yield();
             }
@@ -190,25 +180,6 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                 await ShowErrorResult(string.Format(CommonMessages.Console.MissingKey,
                     $"{nameof(Aplicacion.Module.App.UserInfo)}-{Aplicacion.Module.App.RouteInfo}"), CommonMessages.Error.InformationMessage);
             }
-
-            //Filters = new List<DaySummaryFilter>()
-            //{
-            //    new DaySummaryFilter()
-            //    {
-            //        Title = "Todas las Rutas",
-            //        Type = DaySummaryFilterTypes.AllRoutes
-            //    },
-            //    new DaySummaryFilter()
-            //    {
-            //        Title = "Por Ruta",
-            //        Type = DaySummaryFilterTypes.ByRoute,
-            //    },
-            //    new DaySummaryFilter()
-            //    {
-            //        Title = "Por Trabajador",
-            //        Type = DaySummaryFilterTypes.ByWorker,
-            //    }
-            //};
 
             IsBusy = false;
         }
@@ -225,16 +196,17 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                 );
             });
             Balance = Basis.CashFlows.Sum(cashflow => cashflow.Amount);
-            FeesAmount = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Sum(budget => budget.Amount);
-            FeesQuantity = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Count();
+            FeesAmount = Basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Sum(cashflow => cashflow.Amount);
+            FeesQuantity = Basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Count();
         }
 
         private async Task GetLoansInfo(Guid routeId)
         {
             Clients[] clients = await GetClientsInfo(routeId);
 
-            decimal totalLoansAmount = 0; 
+            decimal totalLoansAmount = 0;
 
+            await Task.Yield();
             if (clients != null)
             {
                 foreach (Clients client in clients)
