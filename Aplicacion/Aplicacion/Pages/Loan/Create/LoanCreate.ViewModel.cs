@@ -7,12 +7,13 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
-using Aplicacion.Pages.Client.Specifications;
 using Aplicacion.Pages.Loan.Channels;
 using Aplicacion.Pages.Loan.Config;
 using Aplicacion.Pages.Loan.Installment.Enums;
 using Aplicacion.Pages.Loan.Installment.Models;
 using Aplicacion.Pages.Loan.Models;
+using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
+using Aplicacion.Pages.Route.Basis.Config;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -112,8 +113,23 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     ResultBase result = await _genericService.InsertAsync(LoanExtension.Loan);
                     if (result.IsSuccess)
                     {
+                        Users user = Aplicacion.Module.App.UserInfo;
+                        List<Cashflows> cashFlows = _basisInfo.CashFlows.ToList();
+
                         INavigationParameters parameters = new NavigationParameters();
                         parameters.Add(ArgKeys.Loan, LoanExtension.Loan);
+
+                        cashFlows.Add(new Cashflows()
+                        {
+                            Description = string.Format(BasisDescriptions.ADD_LOAN, user.Name),
+                            Type = (int)CashflowTypes.Expense,
+                            Amount = -LoanExtension.Loan.Amount,
+                        });
+                        _basisInfo.CashFlows = cashFlows.ToArray();
+
+                        await _genericBasisService.UpdateAsync(
+                            new BasisFirebaseObjectByRouteIdAndDateSpecification(_basisInfo.Route, DateTime.Now),
+                            _basisInfo.Id, _basisInfo);
 
                         MessagingCenter.Send<ILoanCreatedChannel, INavigationParameters>(this, nameof(ILoanCreatedChannel), parameters);
                         await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
@@ -240,14 +256,14 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                         AlertService.ShowAlert(
                             new WarningMessage($"No puedes ingresar un valor inferior a {LoanConfig.MINIMUM_AMOUNT}"));
                     }
-                    else if (Amount > _basisInfo.Amount)
+                    else if (Amount > _basisInfo.CashFlows.Sum(cashflow => cashflow.Amount))
                     {
                         AlertService.ShowAlert(
                             new WarningMessage("No puedes ingresar un valor superior a tu base del día."));
                     }
                     else
                     {
-                        AvailableAmount = _basisInfo.Amount - Amount;
+                        AvailableAmount = _basisInfo.CashFlows.Sum(cashflow => cashflow.Amount) - Amount;
                     }
 
                     break;
@@ -271,12 +287,17 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
 
                     ResultBase<Basises> result =
                         await _genericBasisService.GetBySpecificacionAsync(
-                            new BasisByRouteIdAndDateNowSpecification(route.Id));
+                            new BasisByRouteIdAndDateSpecification(route.Id, DateTime.Now));
 
                     if (result.IsSuccess && result.Data is Basises basis)
                     {
-                        AvailableAmount = basis.Amount;
+                        AvailableAmount = basis.CashFlows.Sum(cashflow => cashflow.Amount);
                         _basisInfo = basis;
+
+                        if (!basis.IsActive)
+                        {
+                            await ShowErrorResultPopup(string.Empty, "La base del día ya ha sido cerrada.");
+                        }
                     }
                     else
                     {

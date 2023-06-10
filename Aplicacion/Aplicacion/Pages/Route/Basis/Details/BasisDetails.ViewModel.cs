@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
+using Aplicacion.Config.Routes;
 using Aplicacion.Models;
+using Aplicacion.Pages.Route.Basis.Cashflow.Channels;
+using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
+using Aplicacion.Pages.Route.Basis.Config;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.Route.Channels;
@@ -21,17 +25,18 @@ using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using static Aplicacion.Config.Routes.PopupsRoutes.Route;
 
 namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 {
-    internal class BasisDetails : PageViewModelBase, IRouteBudgetsChangedChannel
+    internal class BasisDetails : PageViewModelBase, IRouteBudgetsChangedChannel, ILoadCashflowListToBasisDetailsChannel
     {
         #region Variables
-        private readonly IGenericService<Basises, Guid> _genericService;
-        private readonly IGenericService<Routes, Guid> _genericRouteService;
+        private List<Cashflows> _cashflows = new List<Cashflows>();
         private Users _userInfo;
         private Routes _routeInfo;
-        private decimal _total;
+        private readonly IGenericService<Basises, Guid> _genericService;
+        private readonly IGenericService<Routes, Guid> _genericRouteService;
         #endregion
 
         #region Properties
@@ -41,21 +46,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             get => _canCreate;
             set => SetProperty(ref _canCreate, value);
         }
-        
-        private decimal _amount;
-        public decimal Amount
-        {
-            get => _amount;
-            set => SetProperty(ref _amount, value);
-        }
-        
-        private decimal _availableBudget;
-        public decimal AvailableBudget
-        {
-            get => _availableBudget;
-            set => SetProperty(ref _availableBudget, value);
-        }
-        
+
         private Basises _basis;
         public Basises Basis
         {
@@ -64,6 +55,16 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
         }
 
         public ICommand CreateBasisCommand => new AsyncCommand(CreateBasisController);
+        public ICommand OpenCashflowCreateCommand => new AsyncCommand(OpenCashflowCreateController);
+
+        private async Task OpenCashflowCreateController()
+        {
+            IsBusy = true;
+
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Basis.Cashflow.CashflowCreate);
+
+            IsBusy = false;
+        }
 
         #endregion
 
@@ -71,10 +72,20 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 
         private async Task CreateBasisController()
         {
+            decimal amount = _cashflows.Sum(c => c.Amount);
+            List<Cashflows> cashFlows = new List<Cashflows>();
             List<Budgets> budgetList = _routeInfo.Budgets.ToList();
             IsBusy = true;
 
             Basis.Date = DateTime.Now;
+            cashFlows.Add(new Cashflows()
+            {
+                Description = string.Format(BasisDescriptions.ADD_BASIS, _userInfo.Name),
+                Type = (int)CashflowTypes.Deposit,
+                Amount = amount
+            });
+            Basis.CashFlows = cashFlows.ToArray();
+
             ResultBase result = await _genericService.InsertAsync(Basis);
 
             if (result.IsSuccess)
@@ -84,7 +95,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                     Id = Guid.NewGuid(),
                     Description = string.Format(BudgetDescriptions.ADD_BASIS, _userInfo.Name),
                     User = _userInfo,
-                    Amount = -Amount
+                    Amount = -amount
                 };
 
                 budgetList.Add(newBudget);
@@ -126,7 +137,9 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             CanCreate = false;
             Basis = new Basises()
             {
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                IsActive = true,
+                Date = DateTime.Now
             };
             _genericService = GetGenericService<Basises, Guid>();
             _genericRouteService = GetGenericService<Routes, Guid>();
@@ -147,32 +160,6 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             OnCallBack(parameters);
         }
 
-        protected override async void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-
-            switch (args.PropertyName)
-            {
-                case nameof(Amount):
-                    if (Amount < RoutesConfig.MIN_AMOUNT)
-                    {
-                        Amount = RoutesConfig.MIN_AMOUNT;
-                        await AlertService.ShowAlert(new WarningMessage($"Debes elegir una cantidad superior a {RoutesConfig.MIN_AMOUNT}"));
-                    }
-                    else if (Amount > _total)
-                    {
-                        Amount = _total;
-                        await AlertService.ShowAlert(new WarningMessage($"No puedes elegir una cantidad superior del presupuesto de la ruta."));
-                    }
-                    else
-                    {
-                        Basis.Amount = Amount;
-                        AvailableBudget = _total - Amount;
-                    }
-                    break;
-            }
-        }
-
         #endregion
 
         #region OnLoad
@@ -189,13 +176,18 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                 if (parameters[ArgKeys.Route] is Routes route)
                 {
                     _routeInfo = route;
-                    ResultBase<Basises> result = await _genericService.GetBySpecificacionAsync(new BasisByRouteIdAndDateNowSpecification(route.Id));
+                    ResultBase<Basises> result = await _genericService.GetBySpecificacionAsync(new BasisByRouteIdAndDateSpecification(route.Id, DateTime.Now));
 
                     if (result.IsSuccess)
                     {
                         if (result.Data is Basises basis)
                         {
                             Basis = basis;
+
+                            INavigationParameters cashflowListParameters = new NavigationParameters();
+                            cashflowListParameters.Add(ArgKeys.Cashflows, basis.CashFlows);
+
+                            MessagingCenter.Send<ILoadCashflowListToBasisDetailsChannel, INavigationParameters>(this, nameof(ILoadCashflowListToBasisDetailsChannel), cashflowListParameters);
                         }
                         else
                         {
@@ -216,13 +208,6 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 
                         await AlertService.ShowAlert(new InfoMessage("No se ha encontrado una base para el día de hoy."));
                     }
-
-                    _total = 0;
-                    foreach (Budgets budget in route.Budgets)
-                    {
-                        _total += budget.Amount;
-                    }
-                    AvailableBudget = _total;
                 }
                 else
                 {
@@ -249,9 +234,14 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
         {
             if (parameters != null)
             {
-                if (parameters[ArgKeys.Basis] is Basises basis)
+                if (parameters[ArgKeys.Cashflow] is Cashflows cashflow)
                 {
-                    Basis = basis;
+                    _cashflows.Add(cashflow);
+
+                    INavigationParameters cashflowListParameters = new NavigationParameters();
+                    cashflowListParameters.Add(ArgKeys.Cashflows, _cashflows.ToArray());
+
+                    MessagingCenter.Send<ILoadCashflowListToBasisDetailsChannel, INavigationParameters>(this, nameof(ILoadCashflowListToBasisDetailsChannel), cashflowListParameters);
                 }
             }
         }

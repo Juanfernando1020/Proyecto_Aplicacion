@@ -10,6 +10,8 @@ namespace Aplicacion.Config
         internal const string Billing = "Billing";
         internal const string Budget = "Budget";
         internal const string Budgets = "Budget";
+        internal const string Cashflow = "Cashflow";
+        internal const string Cashflows = "Cashflows";
         internal const string Client = "Client";
         internal const string Expense = "Expense";
         internal const string Fee = "Fee";

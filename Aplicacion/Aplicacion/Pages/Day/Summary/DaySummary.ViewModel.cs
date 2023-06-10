@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Client.Specifications;
@@ -13,13 +14,16 @@ using Aplicacion.Pages.Expense.Specifications;
 using Aplicacion.Pages.Loan.Installment.Fee.Specifications;
 using Aplicacion.Pages.Loan.Specifications;
 using Aplicacion.Pages.Route.Basis.Specifications;
+using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.Route.Budget.Enums;
 using Aplicacion.Pages.Route.Budget.Specifications;
 using Aplicacion.Pages.Route.Specifications;
+using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 
 namespace Aplicacion.Pages.Day.Summary.ViewModel
@@ -90,6 +94,44 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
         {
             get => _loansAmount;
             set => SetProperty(ref _loansAmount, value);
+        }
+
+        public ICommand CloseDayCommand => new AsyncCommand(CloseDayController);
+
+        #endregion
+
+        #region Methods
+
+        private async Task CloseDayController()
+        {
+            IsBusy = true;
+            Basis.IsActive = false;
+            ResultBase result = await _genericBasisService.UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(_routeInfo.Id, DateTime.Now), Basis.Id, Basis);
+
+            if (result.IsSuccess)
+            {
+                List<Budgets> budgets = _routeInfo.Budgets.ToList();
+                budgets.Add(new Budgets()
+                {
+                    Id = Guid.NewGuid(),
+                    Type = (int)BudgetTypes.Deposit,
+                    User = _userInfo,
+                    Description = string.Format(BudgetDescriptions.CLOSE_DAY, DateTime.Now.ToString("MM/dd/yyyy"), _userInfo.Name),
+                    Amount = Balance
+                });
+                _routeInfo.Budgets = budgets.ToArray();
+                await _genericRoutesService.UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true),
+                    _routeInfo.Id, _routeInfo);
+
+                await AlertService.ShowAlert(new SuccessMessage("Se ha cerrado correctamente el día."));
+                await NavigationService.PopAsync();
+            }
+            else
+            {
+                await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+            }
+
+            IsBusy = false;
         }
 
         #endregion
@@ -182,7 +224,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                     GetBasisInfo(route.Id)
                 );
             });
-            Balance = (Basis.Amount + FeesAmount)-(ExpensesAmount + LoansAmount);
+            Balance = Basis.CashFlows.Sum(cashflow => cashflow.Amount);
             FeesAmount = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Sum(budget => budget.Amount);
             FeesQuantity = budgets.Where(new BudgetsByDateAndTypeSpecification(DateTime.Now, BudgetTypes.Collection)).Count();
         }
@@ -247,7 +289,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
 
         private async Task GetBasisInfo(Guid routeId)
         {
-            ResultBase<Basises> result = await _genericBasisService.GetBySpecificacionAsync(new BasisByRouteIdAndDateNowSpecification(routeId));
+            ResultBase<Basises> result = await _genericBasisService.GetBySpecificacionAsync(new BasisByRouteIdAndDateSpecification(routeId, DateTime.Now));
 
             if (result.IsSuccess && result.Data is Basises basis)
             {

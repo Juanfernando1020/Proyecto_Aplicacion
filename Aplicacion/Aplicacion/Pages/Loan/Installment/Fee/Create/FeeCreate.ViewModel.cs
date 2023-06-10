@@ -9,9 +9,9 @@ using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
 using Aplicacion.Pages.Loan.Specifications;
-using Aplicacion.Pages.Route.Budget.Config;
-using Aplicacion.Pages.Route.Budget.Enums;
-using Aplicacion.Pages.Route.Specifications;
+using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
+using Aplicacion.Pages.Route.Basis.Config;
+using Aplicacion.Pages.Route.Basis.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
@@ -28,9 +28,10 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
         #region Variables
         private Installments _installmentInfo;
         private Loans _loanInfo;
+        private Basises _basisInfo;
         private readonly IGenericService<Fees, Guid> _genericFeeService;
         private readonly IGenericService<Loans, Guid> _genericLoanService;
-        private readonly IGenericService<Routes, Guid> _genericRouteService;
+        private readonly IGenericService<Basises, Guid> _genericBasisService;
 
         #endregion
 
@@ -83,25 +84,22 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
                                 Users user = Aplicacion.Module.App.UserInfo;
                                 Routes route = Aplicacion.Module.App.RouteInfo;
 
-                                List<Budgets> budgets = route.Budgets.ToList();
-                                budgets.Add(new Budgets()
+                                List<Cashflows> cashflows = _basisInfo.CashFlows.ToList();
+                                cashflows.Add(new Cashflows()
                                 {
-                                    Id = Guid.NewGuid(),
-                                    Date = DateTime.Now,
-                                    Type = (int)BudgetTypes.Collection,
-                                    Description = string.Format(BudgetDescriptions.ADD_FEE, user.Name),
+                                    Description = string.Format(BasisDescriptions.ADD_FEE, user.Name),
+                                    Type = (int)CashflowTypes.Collection,
                                     Amount = Fee.Amount,
-                                    User = user
                                 });
 
-                                route.Budgets = budgets.ToArray();
+                                _basisInfo.CashFlows = cashflows.ToArray();
 
                                 INavigationParameters parameters = new NavigationParameters();
                                 parameters.Add(ArgKeys.Fee, Fee);
 
                                 MessagingCenter.Send<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), parameters);
-                                await _genericRouteService
-                                    .UpdateAsync(new RoutesByIdAndActiveStateSpecification(route.Id, true), route.Id, route);
+                                await _genericBasisService
+                                    .UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(route.Id, DateTime.Now), _basisInfo.Id, _basisInfo);
                                 await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                                 await NavigationPopupService.PopPopupAsync(this);
                             }
@@ -159,7 +157,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
             };
             _genericFeeService = GetGenericService<Fees, Guid>();
             _genericLoanService = GetGenericService<Loans, Guid>();
-            _genericRouteService = GetGenericService<Routes, Guid>();
+            _genericBasisService = GetGenericService<Basises, Guid>();
         }
 
         #endregion
@@ -178,18 +176,36 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
         private async Task OnLoad(INavigationParameters parameters)
         {
+            IsBusy = true;
             if (parameters != null)
             {
                 if (parameters[ArgKeys.Installment] is Installments installment &&
-                    parameters[ArgKeys.Loan] is Loans loan)
+                    parameters[ArgKeys.Loan] is Loans loan &&
+                    Aplicacion.Module.App.RouteInfo is Routes route)
                 {
-                    if (!loan.Installments.Any(i => i.Id == installment.Id))
+                    if (loan.Installments.Any(i => i.Id == installment.Id))
+                    {
+                        _installmentInfo = installment;
+                        _loanInfo = loan;
+
+                        ResultBase<Basises> result =
+                            await _genericBasisService.GetBySpecificacionAsync(
+                                new BasisByRouteIdAndDateSpecification(route.Id, DateTime.Now));
+
+                        if (result.IsSuccess && result.Data is Basises basis)
+                        {
+                            _basisInfo = basis;
+                        }
+                        else
+                        {
+                            await ShowErrorResultPopup("The data doesn't contains the correct information.", CommonMessages.Error.InformationMessage);
+                        }
+
+                    }
+                    else
                     {
                         await ShowErrorResultPopup("The data doesn't contains the correct information.", CommonMessages.Error.InformationMessage);
                     }
-
-                    _installmentInfo = installment;
-                    _loanInfo = loan;
                 }
                 else
                 {
@@ -201,6 +217,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
                 await ShowErrorResultPopup(string.Format(CommonMessages.Console.NullKey, nameof(parameters)),
                     CommonMessages.Error.InformationMessage);
             }
+            IsBusy = false;
         }
 
         #endregion

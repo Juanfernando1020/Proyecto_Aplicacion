@@ -4,7 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customViews="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:extensions="clr-namespace:Xamarin.CommonToolkit.Markup.Extensions;assembly=Xamarin.CommonToolkit"
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Basis.Details.ViewModel;assembly=Aplicacion"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Base del Día"
@@ -20,29 +22,22 @@
                 IsEnabled="False"
                 Label="Fecha"
                 Text="{Binding Basis.Date, StringFormat={StaticResource FormatDate}}" />
-            <customViews:IconEntryView
-                Icon="&#x24;"
-                IsEnabled="False"
-                IsVisible="{Binding CanCreate, Converter={StaticResource InvertedBool}}"
-                Label="Cantidad"
-                Text="{Binding Basis.Amount, StringFormat={StaticResource FormatMoney}}" />
-            <customViews:IconEntryView
-                Icon="&#x24;"
-                IsVisible="{Binding CanCreate}"
-                Label="Cantidad"
-                Text="{Binding Amount}" />
-            <Grid ColumnDefinitions="*, auto" IsVisible="{Binding CanCreate}">
+            <Grid ColumnDefinitions="*,auto">
                 <Label
                     Grid.Column="0"
                     Style="{StaticResource BoldLabel}"
-                    Text="Disponible" />
+                    Text="Movimientos" />
                 <Label
                     Grid.Column="1"
                     HorizontalTextAlignment="End"
-                    Style="{StaticResource NormalLabel}"
-                    Text="{Binding AvailableBudget, StringFormat={StaticResource FormatMoney}}"
-                    VerticalTextAlignment="Center" />
+                    Text="Agregar Movimiento"
+                    VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCashflowCreateCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
+            <extensions:ViewsExtension View="{x:Static routes:ViewsRoutes.CashflowList}" />
             <Button
                 Command="{Binding CreateBasisCommand}"
                 IsVisible="{Binding CanCreate}"

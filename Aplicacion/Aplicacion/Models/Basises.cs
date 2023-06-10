@@ -6,7 +6,8 @@ namespace Aplicacion.Models
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
+        public Cashflows[] CashFlows { get; set; }
         public Guid Route { get; set; }
+        public bool IsActive { get; set; }
     }
 }

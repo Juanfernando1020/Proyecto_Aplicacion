@@ -53,6 +53,12 @@
     <EmbeddedResource Update="Pages\Loan\Installment\List\InstallmentListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Route\Basis\Cashflow\Create\CashflowCreatePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Route\Basis\Cashflow\List\CashflowListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Route\Basis\Details\BasisDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -127,6 +133,9 @@
     </Compile>
     <Compile Update="Pages\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Route\Basis\Cashflow\Create\CashflowCreatePopup.xaml.cs">
+      <DependentUpon>CashflowCreatePopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Route\Basis\Details\BasisDetailsPage.xaml.cs">
       <DependentUpon>BasisDetailsPage.xaml</DependentUpon>

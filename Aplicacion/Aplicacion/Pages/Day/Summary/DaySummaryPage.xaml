@@ -50,19 +50,13 @@
                         <StackLayout Orientation="Horizontal">
                             <Label
                                 FontAttributes="Bold"
-                                Text="Monto de base del día:"
-                                TextColor="Black" />
-                            <Label Text="{Binding Basis.Amount, StringFormat={StaticResource FormatMoney}}" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontAttributes="Bold"
                                 Text="Balance del día"
                                 TextColor="Black" />
                             <Label Text="{Binding Balance, StringFormat={StaticResource FormatMoney}}" />
                         </StackLayout>
                     </StackLayout>
                 </Frame>
+                <Button Text="Cerrar Día" VerticalOptions="EndAndExpand" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
