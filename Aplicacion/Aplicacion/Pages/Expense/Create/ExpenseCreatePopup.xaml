@@ -17,13 +17,13 @@
             CornerRadius="10"
             VerticalOptions="CenterAndExpand">
             <StackLayout Padding="10" Spacing="20">
-                <customViews:IconEntryView Label="Nombre" Text="{Binding Expense.Name}" />
-                <customViews:IconPickerView Label="Valor">
+                <customViews:IconEntryView Label="Nombre" Text="{Binding Expense.Name}" Icon="&#xf2e7;"/>
+                <customViews:IconEntryView Label="Valor" Text="{Binding Expense.Amount}" Icon="&#x24;" Keyboard="Numeric"/>
+                <customViews:IconPickerView Label="Descripción">
                     <customViews:IconPickerView.Picker>
                         <Editor Text="{Binding Expense.Description}" />
                     </customViews:IconPickerView.Picker>
                 </customViews:IconPickerView>
-                <customViews:IconEntryView Label="Valor" Text="{Binding Expense.Amount}" />
                 <Button Command="{Binding CreateExpenseCommand}" Text="Crear" />
             </StackLayout>
         </yummi:PancakeView>

@@ -24,7 +24,7 @@
                     </customViews:IconPickerView.Picker>
                 </customViews:IconPickerView>
                 <customViews:IconEntryView
-                    Icon="egg"
+                    Icon="&#x24;"
                     Label="Monto"
                     Text="{Binding Fee.Amount}" />
 
