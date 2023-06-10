@@ -82,9 +82,9 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
                 return false;
             }
 
-            if (Expense.Amount > _basisInfo.Amount)
+            if (Expense.Amount > _basisInfo.CashFlows.Sum(cashflow => cashflow.Amount))
             {
-                await AlertService.ShowAlert(new WarningMessage(string.Format(CommonMessages.Warning.GreatherThanMaximum, _basisInfo.Amount)));
+                await AlertService.ShowAlert(new WarningMessage(string.Format(CommonMessages.Warning.GreatherThanMaximum, _basisInfo.CashFlows.Sum(cashflow => cashflow.Amount))));
 
                 return false;
             }
@@ -129,13 +129,18 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
 
                     ResultBase<Basises> result =
                         await _genericBasisService.GetBySpecificacionAsync(
-                            new BasisByRouteIdAndDateNowSpecification(route.Id));
+                            new BasisByRouteIdAndDateSpecification(route.Id, DateTime.Now));
 
                     if (result.IsSuccess)
                     {
                         if (result.Data is Basises basis)
                         {
                             _basisInfo = basis;
+
+                            if (!basis.IsActive)
+                            {
+                                await ShowErrorResultPopup(string.Empty, "La base del día ya ha sido cerrada.");
+                            }
                         }
                         else
                         {

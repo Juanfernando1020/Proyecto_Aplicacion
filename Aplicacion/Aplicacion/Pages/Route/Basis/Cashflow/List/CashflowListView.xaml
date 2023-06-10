@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentViewBase
+    x:Class="Aplicacion.Pages.Route.Basis.Cashflow.List.CashflowListView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:models="clr-namespace:Aplicacion.Models;assembly=Aplicacion"
+    xmlns:viewModel="clr-namespace:Aplicacion.Pages.Route.Basis.Cashflow.List.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:DataType="{x:Type viewModel:CashflowList}">
+    <local:ContentViewBase.Content>
+        <yummy:PancakeView CornerRadius="20">
+            <yummy:PancakeView.Border>
+                <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
+            </yummy:PancakeView.Border>
+            <StackLayout Padding="10">
+                <ListView HeightRequest="250" ItemsSource="{Binding CashflowsCollection}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:Cashflows}">
+                            <ViewCell>
+                                <Grid Padding="2" ColumnDefinitions="*, auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2"
+                                        Text="{Binding Description}"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Amount, StringFormat={StaticResource FormatMoney}}"
+                                        VerticalTextAlignment="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid ColumnDefinitions="*, auto" VerticalOptions="EndAndExpand">
+                    <Label
+                        Grid.Column="0"
+                        Style="{StaticResource BoldLabel}"
+                        Text="Total" />
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding Total, StringFormat={StaticResource FormatMoney}}"
+                        TextColor="{StaticResource TextBlackLight}"
+                        VerticalTextAlignment="End" />
+                </Grid>
+            </StackLayout>
+        </yummy:PancakeView>
+    </local:ContentViewBase.Content>
+</local:ContentViewBase>

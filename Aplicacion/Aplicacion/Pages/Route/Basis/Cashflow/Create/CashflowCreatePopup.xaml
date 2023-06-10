@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:CustomPopupBase
+    x:Class="Aplicacion.Pages.Route.Basis.Cashflow.Create.CashflowCreatePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
+    xmlns:shared="clr-namespace:Aplicacion.Views.Shared;assembly=Aplicacion"
+    xmlns:viewModels="clr-namespace:Aplicacion.Pages.Route.Basis.Cashflow.Create.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:DataType="{x:Type viewModels:CashflowCreate}">
+    <local:CustomPopupBase.Content>
+        <yummy:PancakeView
+            Margin="10"
+            BackgroundColor="{StaticResource MainBackground}"
+            CornerRadius="10"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+                Padding="20"
+                Spacing="10"
+                VerticalOptions="CenterAndExpand">
+                <shared:IconEntryView
+                    Icon="&#x24;"
+                    Label="Cantidad"
+                    Text="{Binding Amount}" />
+                <Grid ColumnDefinitions="*,auto">
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="Disponible " />
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        Text="{Binding AvailableAmount, StringFormat={StaticResource FormatMoney}}" />
+                </Grid>
+                <Button Command="{Binding SendCashflowCommand}" Text="Agregar Base" />
+            </StackLayout>
+        </yummy:PancakeView>
+    </local:CustomPopupBase.Content>
+</local:CustomPopupBase>

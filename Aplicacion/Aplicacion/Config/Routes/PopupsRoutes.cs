@@ -19,6 +19,11 @@ namespace Aplicacion.Config.Routes
             internal static class Basis
             {
                 internal const string BasisCreate = "BasisCreatePopup";
+
+                internal static class Cashflow
+                {
+                    internal const string CashflowCreate = "CashflowCreatePopup";
+                }
             }
 
             internal static class Budget
