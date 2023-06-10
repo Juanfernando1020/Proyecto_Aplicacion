@@ -7,6 +7,7 @@ using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Config.Routes;
 using Aplicacion.Models;
+using Aplicacion.Pages.Expense.Channels;
 using Aplicacion.Pages.Expense.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
@@ -18,7 +19,7 @@ using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Expense.List.ViewModel
 {
-    internal class ExpenseList : PageViewModelBase
+    internal class ExpenseList : PageViewModelBase, IExpenseCreatedChannel
     {
         #region Variables
 
@@ -61,7 +62,16 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
 
             IsBusy = false;
         }
-
+        private void OnExpenseCreated(IExpenseCreatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Expense] is Expenses expense)
+                {
+                    ExpensesCollection.Add(expense);
+                }
+            }
+        }
 
         #endregion
 
@@ -72,6 +82,8 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
             ExpensesCollection = new ObservableCollection<Expenses>();
 
             _genericService = GetGenericService<Expenses, Guid>();
+
+            MessagingCenter.Subscribe<IExpenseCreatedChannel, INavigationParameters>(this, nameof(IExpenseCreatedChannel), OnExpenseCreated);
         }
 
         #endregion
@@ -89,6 +101,13 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
             base.CallBack(parameters);
 
             OnCallBack(parameters);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            MessagingCenter.Unsubscribe<IExpenseCreatedChannel, INavigationParameters>(this, nameof(IExpenseCreatedChannel));
         }
 
         #endregion
