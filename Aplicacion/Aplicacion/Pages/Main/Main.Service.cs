@@ -28,7 +28,6 @@ namespace Aplicacion.Pages.Main.Service
                 routesParameters.Add(ArgKeys.Route, route);
 
                 response.Add(new Modules("Ver Ruta", PagesRoutes.Route.Details, PagesBaseEnum.ContentPage, routesParameters));
-                response.Add(new Modules("Base del Día", PagesRoutes.Route.Basis.Details, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Clientes", PagesRoutes.Client.List, PagesBaseEnum.ContentPage, routesParameters));
                 response.Add(new Modules("Resumen del Día", PagesRoutes.Day.Summary, PagesBaseEnum.ContentPage));
 

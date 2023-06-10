@@ -43,13 +43,15 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
         #endregion
 
         #region Methods
-
+        
         private async Task CreateExpenseController()
         {
             IsBusy = true;
 
             if (await IsValid())
             {
+                Expense.RouteId = _routeInfo.Id;
+                Expense.Date = DateTime.Now;
                 ResultBase result = await _genericService.InsertAsync(Expense);
 
                 if (result.IsSuccess)

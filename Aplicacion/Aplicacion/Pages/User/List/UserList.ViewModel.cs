@@ -93,7 +93,7 @@ namespace Aplicacion.Pages.User.List.ViewModel
                             }
                             break;
                         case UserListFilterType.ExpiredWorker:
-                            if (DateTime.Now.Date > user.CreateDate.AddMonths(1) && user.Role == 2 )
+                            if (DateTime.Now.Date > user.CreateDate.Date.AddMonths(1) && user.Role == 2 )
                             {
                                 FilterUsersCollection.Add(user);
                             }
@@ -105,7 +105,7 @@ namespace Aplicacion.Pages.User.List.ViewModel
                             }
                             break;
                         case UserListFilterType.Today:
-                            if(user.CreateDate == DateTime.Now)
+                            if(user.NextPaymentDate.Date == DateTime.Now.Date)
                             {
                                 FilterUsersCollection.Add(user);
                             }
