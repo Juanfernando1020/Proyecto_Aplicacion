@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Pages.Expense.Channels;
 using Aplicacion.Pages.Expense.Config;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
@@ -15,10 +16,11 @@ using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Expense.Create.ViewModel
 {
-    internal class ExpenseCreate : PopupViewModelBase
+    internal class ExpenseCreate : PopupViewModelBase, IExpenseCreatedChannel
     {
         #region Variables
 
@@ -59,6 +61,7 @@ namespace Aplicacion.Pages.Expense.Create.ViewModel
                     INavigationParameters parameters = new NavigationParameters();
                     parameters.Add(ArgKeys.Expense, Expense);
 
+                    MessagingCenter.Send<IExpenseCreatedChannel, INavigationParameters>(this, nameof(IExpenseCreatedChannel), parameters);
                     await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                     await NavigationPopupService.PopPopupAsync(this, parameters: parameters);
                 }
