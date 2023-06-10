@@ -275,7 +275,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
         private async Task GetExpensesInfo(Guid routeId)
         {
             await Task.Yield();
-            ResultBase<IEnumerable<Expenses>> result = await _genericExpenseService.GetAllAsync(new ExpensesByRouteSpecification(routeId));
+            ResultBase<IEnumerable<Expenses>> result = await _genericExpenseService.GetAllAsync(new ExpensesByRouteAndDateSpecification(routeId,DateTime.Now.Date));
 
             if (result.IsSuccess && result.Data is IEnumerable<Expenses> expenses)
             {

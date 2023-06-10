@@ -122,7 +122,7 @@ namespace Aplicacion.Pages.Expense.List.ViewModel
                 {
                     _routeInfo = route;
 
-                    ResultBase<IEnumerable<Expenses>> result = await _genericService.GetAllAsync(new ExpensesByRouteSpecification(route.Id));
+                    ResultBase<IEnumerable<Expenses>> result = await _genericService.GetAllAsync(new ExpensesByRouteAndDateSpecification(route.Id,DateTime.Now));
 
                     if (result.IsSuccess)
                     {

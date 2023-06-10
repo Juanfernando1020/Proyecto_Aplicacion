@@ -12,7 +12,7 @@ namespace Aplicacion
         {
             InitializeComponent();
 
-            var culture = new CultureInfo("es-ES");
+            var culture = new CultureInfo("es-CO");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 

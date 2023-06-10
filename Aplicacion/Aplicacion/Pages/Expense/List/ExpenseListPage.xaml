@@ -13,13 +13,26 @@
 
     <StackLayout Margin="10" Padding="10">
         <CollectionView EmptyView="{x:Static messages:CommonXamlMessages.EmptyMessage}" ItemsSource="{Binding ExpensesCollection}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type models:Expenses}">
                     <Frame
                         BorderColor="{StaticResource BorderButton}"
                         CornerRadius="10"
                         HasShadow="False">
-                        <Label Text="{Binding Name}" />
+                        <Grid ColumnDefinitions="*,auto">
+                            <Label Text="{Binding Name}" Grid.Column="0" FontAttributes="Bold"/>
+                            <Label  Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Costo: " FontAttributes="Bold"/>
+                                        <Span Text="{Binding Amount,StringFormat={StaticResource FormatMoney}}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
