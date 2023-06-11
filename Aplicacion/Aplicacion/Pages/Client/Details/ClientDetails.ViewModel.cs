@@ -64,7 +64,7 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
                 {
                     Client = updatedClient;
                     await AlertService.ShowAlert(new SuccessMessage("Cliente eliminado correctamente"));
-                    await NavigationService.PopAsync();
+                    //Agregar Navegacion al menu principal.
                 }
                 else
                 {
