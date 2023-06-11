@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Client.Specifications;
-using Aplicacion.Pages.Day.Enums;
-using Aplicacion.Pages.Day.Models;
 using Aplicacion.Pages.Expense.Specifications;
-using Aplicacion.Pages.Loan.Installment.Fee.Specifications;
 using Aplicacion.Pages.Loan.Specifications;
 using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Aplicacion.Pages.Route.Budget.Config;
 using Aplicacion.Pages.Route.Budget.Enums;
-using Aplicacion.Pages.Route.Budget.Specifications;
 using Aplicacion.Pages.Route.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -197,7 +191,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             });
             Balance = Basis.CashFlows.Sum(cashflow => cashflow.Amount);
             FeesAmount = Basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Sum(cashflow => cashflow.Amount);
-            FeesQuantity = Basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Count();
+            FeesQuantity = Basis.CashFlows.Count(cashflow => cashflow.Type == (int)CashflowTypes.Collection);
         }
 
         private async Task GetLoansInfo(Guid routeId)

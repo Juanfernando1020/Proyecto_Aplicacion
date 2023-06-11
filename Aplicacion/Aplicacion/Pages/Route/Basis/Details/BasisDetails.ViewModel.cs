@@ -13,6 +13,7 @@ using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
 using Aplicacion.Pages.Route.Basis.Config;
 using Aplicacion.Pages.Route.Basis.Specifications;
 using Aplicacion.Pages.Route.Budget.Config;
+using Aplicacion.Pages.Route.Budget.List.ViewModel;
 using Aplicacion.Pages.Route.Channels;
 using Aplicacion.Pages.Route.Config;
 using Aplicacion.Pages.Route.Specifications;
@@ -33,6 +34,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
     {
         #region Variables
         private List<Cashflows> _cashflows = new List<Cashflows>();
+        private List<Cashflows> _updateCashFlow = new List<Cashflows>();
         private Users _userInfo;
         private Routes _routeInfo;
         private readonly IGenericService<Basises, Guid> _genericService;
@@ -46,6 +48,13 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             get => _canCreate;
             set => SetProperty(ref _canCreate, value);
         }
+        
+        private bool _canUpdate;
+        public bool CanUpdate
+        {
+            get => _canUpdate;
+            set => SetProperty(ref _canUpdate, value);
+        }
 
         private Basises _basis;
         public Basises Basis
@@ -56,15 +65,7 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
 
         public ICommand CreateBasisCommand => new AsyncCommand(CreateBasisController);
         public ICommand OpenCashflowCreateCommand => new AsyncCommand(OpenCashflowCreateController);
-
-        private async Task OpenCashflowCreateController()
-        {
-            IsBusy = true;
-
-            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Basis.Cashflow.CashflowCreate);
-
-            IsBusy = false;
-        }
+        public ICommand UpdateBasisCommand => new AsyncCommand(UpdateBasisController);
 
         #endregion
 
@@ -128,12 +129,56 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             IsBusy = false;
         }
 
+        private async Task OpenCashflowCreateController()
+        {
+            IsBusy = true;
+
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Basis.Cashflow.CashflowCreate);
+
+            IsBusy = false;
+        }
+
+        private async Task UpdateBasisController()
+        {
+            decimal amount = _updateCashFlow.Sum(c => c.Amount);
+            List<Budgets> budgetList = _routeInfo.Budgets.ToList();
+            Budgets newBudget = new Budgets()
+            {
+                Id = Guid.NewGuid(),
+                Description = string.Format(BudgetDescriptions.ADD_BASIS, _userInfo.Name),
+                User = _userInfo,
+                Amount = -amount
+            };
+            budgetList.Add(newBudget);
+            _routeInfo.Budgets = budgetList.ToArray();
+
+            IsBusy = true;
+            Basis.CashFlows = _cashflows.ToArray();
+
+            ResultBase result = await _genericService.UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(_routeInfo.Id, DateTime.Now), Basis.Id, Basis);
+
+            if (result.IsSuccess)
+            {
+                await _genericRouteService
+                    .UpdateAsync(new RoutesByIdAndActiveStateSpecification(_routeInfo.Id, true), _routeInfo.Id, _routeInfo);
+                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                await NavigationService.PopAsync();
+            }
+            else
+            {
+                await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+            }
+
+            IsBusy = false;
+        }
+
         #endregion
 
         #region Constructor
 
         public BasisDetails()
         {
+            CanUpdate = false;
             CanCreate = false;
             Basis = new Basises()
             {
@@ -183,6 +228,8 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
                         if (result.Data is Basises basis)
                         {
                             Basis = basis;
+
+                            _cashflows = basis.CashFlows.ToList();
 
                             INavigationParameters cashflowListParameters = new NavigationParameters();
                             cashflowListParameters.Add(ArgKeys.Cashflows, basis.CashFlows);
@@ -236,7 +283,12 @@ namespace Aplicacion.Pages.Route.Basis.Details.ViewModel
             {
                 if (parameters[ArgKeys.Cashflow] is Cashflows cashflow)
                 {
+                    CanUpdate = !CanCreate;
                     _cashflows.Add(cashflow);
+                    if (CanUpdate)
+                    {
+                        _updateCashFlow.Add(cashflow);
+                    }
 
                     INavigationParameters cashflowListParameters = new NavigationParameters();
                     cashflowListParameters.Add(ArgKeys.Cashflows, _cashflows.ToArray());
