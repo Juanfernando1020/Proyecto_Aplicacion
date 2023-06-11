@@ -197,9 +197,6 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
                     GetBasisInfo(route.Id)
                 );
             });
-            Balance = Basis.CashFlows.Sum(cashflow => cashflow.Amount);
-            FeesAmount = Basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Sum(cashflow => cashflow.Amount);
-            FeesQuantity = Basis.CashFlows.Count(cashflow => cashflow.Type == (int)CashflowTypes.Collection);
         }
 
         private async Task GetLoansInfo(Guid routeId)
@@ -269,6 +266,9 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             {
                 Basis = basis;
                 CanCloseDay = basis.IsActive;
+                Balance = basis.CashFlows.Sum(cashflow => cashflow.Amount);
+                FeesAmount = basis.CashFlows.Where(cashflow => cashflow.Type == (int)CashflowTypes.Collection).Sum(cashflow => cashflow.Amount);
+                FeesQuantity = basis.CashFlows.Count(cashflow => cashflow.Type == (int)CashflowTypes.Collection);
             }
             else
             {

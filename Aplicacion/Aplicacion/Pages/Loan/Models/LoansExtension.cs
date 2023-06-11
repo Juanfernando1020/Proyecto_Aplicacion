@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Aplicacion.Config.Routes;
 using Aplicacion.Models;
+using Aplicacion.Pages.Loan.Installment.Enums;
 using Xamarin.CommonToolkit.Mvvm;
 
 namespace Aplicacion.Pages.Loan.Models
@@ -81,36 +82,12 @@ namespace Aplicacion.Pages.Loan.Models
                 CompletedPayments = 0;
                 if (Loan.Installments is Installments[] installments)
                 {
-                    int surchargeDays = Loan.SurchargeDays;
-                    decimal surchargeAmount = Loan.Surcharge;
-
-                    CompletedPayments = installments.Count(installment => installment.IsActive);
-
-                    foreach (Installments installment in installments)
-                    {
-                        TotalToPay += installment.Amount;
-                        if (installment.IsActive)
-                        {
-                            int dayDiference = (installment.PaymenDate.Date - DateTime.Now.Date).Days;
-                            if (dayDiference > surchargeDays)
-                            {
-                                TotalToPay += dayDiference * surchargeAmount;
-                            }
-                        }
-                        else
-                        {
-                            CompletedPayments++;
-                        }
-
-                        if (Fees is List<Fees> fees)
-                        {
-                            PayedInstallments = fees.Sum(fee => fee.Amount);
-                        }
-
-                        PayedInstallmentsPercentage = (PayedInstallments / TotalToPay) * 100;
-                        UnpayedInstallments = TotalToPay - PayedInstallments;
-                        UnpayedInstallmentsPercentage = (UnpayedInstallments / TotalToPay) * 100;
-                    }
+                    CompletedPayments = installments.Count(installment => installment.Status == (int)InstallmentStatusEnum.Complete);
+                    TotalToPay = installments.Sum(installment => installment.Amount);
+                    PayedInstallments = installments.Sum(installment => installment.DiferenceAmount);
+                    PayedInstallmentsPercentage = (PayedInstallments / TotalToPay) * 100;
+                    UnpayedInstallments = TotalToPay - PayedInstallments;
+                    UnpayedInstallmentsPercentage = (UnpayedInstallments / TotalToPay) * 100;
                 }
             }
         }

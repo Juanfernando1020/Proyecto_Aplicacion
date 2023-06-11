@@ -6,8 +6,10 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Pages.Loan.Installment.Enums;
 using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Fee.Config;
+using Aplicacion.Pages.Loan.Installment.Models;
 using Aplicacion.Pages.Loan.Specifications;
 using Aplicacion.Pages.Route.Basis.Cashflow.Enum;
 using Aplicacion.Pages.Route.Basis.Config;
@@ -26,9 +28,12 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
     internal class FeeCreate : PopupViewModelBase, IFeeCreatedChannel
     {
         #region Variables
-        private Installments _installmentInfo;
+        private InstallmentExtension _installmentInfo;
         private Loans _loanInfo;
         private Basises _basisInfo;
+        private Users _userInfo;
+        private Routes _routeInfo;
+        private List<Fees> _fees;
         private readonly IGenericService<Fees, Guid> _genericFeeService;
         private readonly IGenericService<Loans, Guid> _genericLoanService;
         private readonly IGenericService<Basises, Guid> _genericBasisService;
@@ -58,87 +63,93 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
             if (await IsValid(Fee))
             {
-                List<Installments> installments = _loanInfo.Installments.ToList();
+                
                 Fee.Date = DateTime.Now;
-                Fee.InstallmentId = _installmentInfo.Id;
+                Fee.InstallmentId = _installmentInfo.Installment.Id;
 
-                if (installments.Any(i => i == _installmentInfo))
+                if (await UpdateInfo())
                 {
-                    ResultBase result = await _genericFeeService.InsertAsync(Fee);
+                    INavigationParameters parameters = new NavigationParameters();
+                    parameters.Add(ArgKeys.Fee, Fee);
 
-                    if (result.IsSuccess)
-                    {
-                        if (Fee.Amount == _installmentInfo.Amount)
-                        {
-                            installments.Remove(_installmentInfo);
-                            _installmentInfo.IsActive = false;
-                            installments.Add(_installmentInfo);
-                            _loanInfo.IsActive = installments.Any(installment => installment.IsActive);
-                            _loanInfo.Installments = installments.ToArray();
-
-                            ResultBase resultUpdate = await _genericLoanService
-                                .UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(_loanInfo.ClientId), _loanInfo.Id, _loanInfo);
-
-                            if (resultUpdate.IsSuccess)
-                            {
-                                Users user = Aplicacion.Module.App.UserInfo;
-                                Routes route = Aplicacion.Module.App.RouteInfo;
-
-                                List<Cashflows> cashflows = _basisInfo.CashFlows.ToList();
-                                cashflows.Add(new Cashflows()
-                                {
-                                    Description = string.Format(BasisDescriptions.ADD_FEE, user.Name),
-                                    Type = (int)CashflowTypes.Collection,
-                                    Amount = Fee.Amount,
-                                });
-
-                                _basisInfo.CashFlows = cashflows.ToArray();
-
-                                INavigationParameters parameters = new NavigationParameters();
-                                parameters.Add(ArgKeys.Fee, Fee);
-
-                                MessagingCenter.Send<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), parameters);
-                                await _genericBasisService
-                                    .UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(route.Id, DateTime.Now), _basisInfo.Id, _basisInfo);
-                                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                                await NavigationPopupService.PopPopupAsync(this);
-                            }
-                        }
-                        else
-                        {
-                            await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                            await NavigationPopupService.PopPopupAsync(this);
-                        }
-                    }
-                    else
-                    {
-                        await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
-                    }
+                    MessagingCenter.Send<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), parameters);
+                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                    await NavigationPopupService.PopPopupAsync(this);
                 }
                 else
                 {
                     await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
                 }
-
-                
             }
 
             IsBusy = false;
         }
 
+        private async Task<bool> UpdateInfo()
+        {
+            ResultBase result = await _genericFeeService.InsertAsync(Fee);
+
+            return result.IsSuccess && (await UpdateInstallments() && await UpdateBasis());
+        }
+
+        private async Task<bool> UpdateBasis()
+        {
+            List<Cashflows> cashflows = _basisInfo.CashFlows.ToList();
+            cashflows.Add(new Cashflows()
+            {
+                Description = string.Format(BasisDescriptions.ADD_FEE, _userInfo.Name),
+                Type = (int)CashflowTypes.Collection,
+                Amount = Fee.Amount,
+            });
+            _basisInfo.CashFlows = cashflows.ToArray();
+
+            ResultBase result = await _genericBasisService
+                .UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(_routeInfo.Id, DateTime.Now), _basisInfo.Id, _basisInfo);
+
+            return result.IsSuccess;
+        }
+
+        private async Task<bool> UpdateInstallments()
+        {
+            Installments installmentInfo = _installmentInfo.Installment;
+            List<Installments> installments = _loanInfo.Installments.ToList();
+            
+            if (installments.All(installment => installment != installmentInfo))
+                return false;
+
+            installments.Remove(installmentInfo);
+
+            installmentInfo.Status = Fee.Amount == installmentInfo.DiferenceAmount
+                ? (int)InstallmentStatusEnum.Complete
+                : Fee.Amount > 0 && installmentInfo.Status == (int)InstallmentStatusEnum.Backlog
+                    ? (int)InstallmentStatusEnum.Progress
+                    : installmentInfo.Status;
+            _installmentInfo.Installment = installmentInfo;
+            installments.Add(installmentInfo);
+
+            _loanInfo.IsActive = installments.All(installment => installment.Status == (int)InstallmentStatusEnum.Complete);
+            _loanInfo.Installments = installments.ToArray();
+
+            ResultBase result = await _genericLoanService
+                .UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(_loanInfo.ClientId), _loanInfo.Id, _loanInfo);
+
+            return result.IsSuccess;
+        }
+
         private async Task<bool> IsValid(Fees fee)
         {
-            if (fee.Amount < FeeConfig.MINIMUM_AMOUNT)
+            Installments installmentInfo = _installmentInfo.Installment;
+            if (fee.Amount < 0)
             {
                 await AlertService.ShowAlert(new WarningMessage(string.Format(CommonMessages.Warning.LessThanMinimum,
-                    FeeConfig.MINIMUM_AMOUNT)));
+                    0)));
                 return false;
             }
             
-            if (fee.Amount > _installmentInfo.Amount)
+            if (fee.Amount > installmentInfo.DiferenceAmount)
             {
                 await AlertService.ShowAlert(new WarningMessage(string.Format(CommonMessages.Warning.GreatherThanMaximum,
-                    _installmentInfo.Amount)));
+                    installmentInfo.DiferenceAmount)));
                 return false;
             }
 
@@ -179,13 +190,14 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
             IsBusy = true;
             if (parameters != null)
             {
-                if (parameters[ArgKeys.Installment] is Installments installment &&
+                if (parameters[ArgKeys.InstallmentExtension] is InstallmentExtension installmentExtension &&
                     parameters[ArgKeys.Loan] is Loans loan &&
                     Aplicacion.Module.App.RouteInfo is Routes route)
                 {
-                    if (loan.Installments.Any(i => i.Id == installment.Id))
+                    if (loan.Installments.Any(i => i.Id == installmentExtension.Installment.Id))
                     {
-                        _installmentInfo = installment;
+                        _fees = installmentExtension.Fees;
+                        _installmentInfo = installmentExtension;
                         _loanInfo = loan;
 
                         ResultBase<Basises> result =

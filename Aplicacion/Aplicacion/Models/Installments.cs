@@ -9,6 +9,7 @@ namespace Aplicacion.Models
         public Guid Id { get; set; }
         public DateTime PaymenDate { get; set; }
         public decimal Amount { get; set; }
-        public bool IsActive { get; set; }
+        public decimal DiferenceAmount { get; set; }
+        public int Status { get; set; }
     }
 }

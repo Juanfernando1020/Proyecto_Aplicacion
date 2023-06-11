@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
 using Aplicacion.Config.Messages;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Aplicacion.Pages.Main.ViewModel
 {
@@ -38,10 +39,21 @@ namespace Aplicacion.Pages.Main.ViewModel
             set => SetProperty(ref _canUseHomeButton, value);
         }
 
-        public ICommand SelectOptionCommand => new Command<Modules>(async (item) => await SelectOptionController(item));
+        public ICommand SelectOptionCommand => new AsyncCommand<Modules>(SelectOptionController);
+        public ICommand GoToBackCommand => new AsyncCommand(GoToBackController);
+
         #endregion
 
         #region Methods
+        private async Task GoToBackController()
+        {
+            IsBusy = true;
+
+            Aplicacion.Module.App.RouteInfo = null;
+            await NavigationService.PopToRootAsync();
+
+            IsBusy = false;
+        }
         private async Task SelectOptionController(Modules item)
         {
             IsBusy = true;

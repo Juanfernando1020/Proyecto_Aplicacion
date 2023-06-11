@@ -7,6 +7,7 @@ using Aplicacion.Config;
 using Aplicacion.Config.Routes;
 using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Installment.Channels;
+using Aplicacion.Pages.Loan.Installment.Enums;
 using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Fee.Specifications;
 using Aplicacion.Pages.Loan.Installment.Models;
@@ -25,7 +26,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
     {
         #region Variables
 
-        private Installments _installment;
+        private InstallmentExtension _installment;
         private Loans _loan;
         private readonly IGenericService<Fees, Guid> _genericFeeService;
 
@@ -40,6 +41,13 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
             set => SetProperty(ref _feesCollection, value);
         }
 
+        private bool _canCreateFee;
+        public bool CanCreateFee
+        {
+            get => _canCreateFee;
+            set => SetProperty(ref _canCreateFee, value);
+        }
+
         public ICommand OpenFeeCreatePopupCommand => new AsyncCommand(OpenFeeCreatePopupController);
 
         #endregion
@@ -49,26 +57,11 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
         {
             IsBusy = true;
 
-            if (_installment.IsActive)
-            {
-                if (_loan.Installments.Any(i =>
-                        i.IsActive && i.PaymenDate.Date <= DateTime.Now.Date && i.Id != _installment.Id))
-                {
-                    await AlertService.ShowAlert(new InfoMessage("Aún hay cuotas por pagar."));
-                }
-                else
-                {
-                    INavigationParameters parameters = new NavigationParameters();
-                    parameters.Add(ArgKeys.Installment, _installment);
-                    parameters.Add(ArgKeys.Loan, _loan);
+            INavigationParameters parameters = new NavigationParameters();
+            parameters.Add(ArgKeys.InstallmentExtension, _installment);
+            parameters.Add(ArgKeys.Loan, _loan);
 
-                    await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Loan.Installment.Fee.FeeCreate, parameters: parameters);
-                }
-            }
-            else
-            {
-                await AlertService.ShowAlert(new InfoMessage("No puedes agregarle un pago a una cuota cancelada"));
-            }
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Loan.Installment.Fee.FeeCreate, parameters: parameters);
 
             IsBusy = false;
         }
@@ -95,6 +88,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
 
         public FeeList()
         {
+            CanCreateFee = true;
             FeesCollection = new ObservableRangeCollection<Fees>();
             MessagingCenter.Subscribe<ILoadFeeListView, INavigationParameters>(this, nameof(ILoadFeeListView), OnLoadFeeListView);
             MessagingCenter.Subscribe<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), OnFeeCreated);
@@ -126,11 +120,14 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
                 if (parameters[ArgKeys.InstallmentExtension] is InstallmentExtension installmentExtension &&
                     parameters[ArgKeys.Loan] is Loans loan)
                 {
-                    _installment = installmentExtension.Installment;
+                    _installment = installmentExtension;
                     _loan = loan;
 
-                    ResultBase<IEnumerable<Fees>> result = await _genericFeeService.GetAllAsync(new FeesByInstallmentIdSpecification(_installment.Id));
+                    CanCreateFee = _installment.Installment.Status == (int)InstallmentStatusEnum.Complete;
 
+                    ResultBase<IEnumerable<Fees>> result = await _genericFeeService.GetAllAsync(new FeesByInstallmentIdSpecification(_installment.Installment.Id));
+
+                    FeesCollection.Clear();
                     if (result.IsSuccess && result.Data is IEnumerable<Fees> fees)
                     {
                         foreach (Fees fee in fees)

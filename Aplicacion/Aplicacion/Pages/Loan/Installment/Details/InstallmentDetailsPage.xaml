@@ -14,7 +14,7 @@
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="10" Spacing="10">
-                <customViews:IconPickerView Label="Fecha de Pago" Icon="&#xf073;">
+                <customViews:IconPickerView Icon="&#xf073;" Label="Fecha de Pago">
                     <customViews:IconPickerView.Picker>
                         <DatePicker Date="{Binding InstallmentExtension.Installment.PaymenDate}" IsEnabled="False" />
                     </customViews:IconPickerView.Picker>
@@ -24,20 +24,7 @@
                     Icon="&#x24;"
                     IsEnabled="False"
                     Label="Monto"
-                    Text="{Binding InstallmentExtension.Installment.Amount}"
-                    />
-
-                <Grid ColumnDefinitions="auto, auto">
-                    <CheckBox
-                        Grid.Column="0"
-                        IsChecked="{Binding InstallmentExtension.Installment.IsActive}"
-                        IsEnabled="False"
-                        Color="Black"/>
-                    <Label
-                        Grid.Column="1"
-                        Text="¿Se encuentra activo?"
-                        VerticalTextAlignment="Center" />
-                </Grid>
+                    Text="{Binding InstallmentExtension.Installment.Amount}" />
 
                 <extensions:ViewsExtension VerticalOptions="FillAndExpand" View="{x:Static routes:ViewsRoutes.FeeList}" />
             </StackLayout>

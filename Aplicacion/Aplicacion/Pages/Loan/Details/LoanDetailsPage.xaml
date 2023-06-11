@@ -133,6 +133,43 @@
                                 </Label.FormattedText>
                             </Label>
 
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold" Text="Estado: " />
+                                        <Span Text="Activo" TextColor="{StaticResource Green}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.IsActive}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Estado: " />
+                                                    <Span Text="Activo" TextColor="{StaticResource Green}" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Loan.Loan.IsActive}"
+                                        TargetType="Label"
+                                        Value="False">
+                                        <Setter Property="FormattedText">
+                                            <Setter.Value>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Estado: " />
+                                                    <Span Text="Cancelado" TextColor="{StaticResource Red}" />
+                                                </FormattedString>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
                             <Label IsVisible="{Binding Loan.Loan.CanSurcharge}">
                                 <Label.FormattedText>
                                     <FormattedString>

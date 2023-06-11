@@ -16,7 +16,7 @@ using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.Details.ViewModel
 {
-    internal class LoanDetails : PageViewModelBase, ILoadInstallmentListView
+    internal class LoanDetails : PageViewModelBase, ILoadInstallmentListView, ILoanUpdatedChannel
     {
         #region Variables
 
@@ -36,11 +36,28 @@ namespace Aplicacion.Pages.Loan.Details.ViewModel
 
         #endregion
 
+        #region Methods
+
+        private void OnLoanUpdated(ILoanUpdatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Loan] is Loans loan)
+                {
+                    Loan.Loan = loan;
+                }
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public LoanDetails()
         {
             _genericFeesService = GetGenericService<Fees, Guid>();
+
+            MessagingCenter.Subscribe<ILoanUpdatedChannel, INavigationParameters>(this, nameof(ILoanUpdatedChannel), OnLoanUpdated);
         }
 
         #endregion

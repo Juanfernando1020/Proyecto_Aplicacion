@@ -158,6 +158,7 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                 decimal interest = loan.InterestRate;
                 decimal totalAmount = loan.Amount;
                 decimal totalInterest = (totalAmount * (100 + interest)) / 100;
+                decimal amount = totalInterest / installmentQuantity;
 
 
                 List<Installments> installments = new List<Installments>();
@@ -168,8 +169,9 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     {
                         Id = Guid.NewGuid(),
                         PaymenDate = firstPaymentDate.AddDays(i * SelectedInstallmentOptions.Days),
-                        Amount = totalInterest / installmentQuantity,
-                        IsActive = true
+                        Amount = amount,
+                        DiferenceAmount = amount,
+                        Status = (int)InstallmentStatusEnum.Backlog
                     };
 
                     installments.Add(installment);
