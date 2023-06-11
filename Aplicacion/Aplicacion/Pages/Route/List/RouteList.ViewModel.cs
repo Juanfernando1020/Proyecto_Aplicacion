@@ -116,10 +116,17 @@ namespace Aplicacion.Pages.Route.List.ViewModel
         #endregion
 
         #region Overrides
+
+        public override void OnViewAppearing()
+        {
+            base.OnViewAppearing();
+
+            Aplicacion.Module.App.RouteInfo = null;
+        }
+
         public override async void OnInitialize(INavigationParameters parameters)
         {
             base.OnInitialize(parameters);
-
             await OnLoad(parameters);
         }
 

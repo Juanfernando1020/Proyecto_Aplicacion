@@ -184,6 +184,15 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             OnCallBack(parameters);
         }
 
+        public override void OnViewDisappearing()
+        {
+            base.OnViewDisappearing();
+        }
+
+        public override void OnViewAppearing()
+        {
+            base.OnViewAppearing();
+        }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -212,7 +221,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             IsBusy = true;
             if (parameters != null)
             {
-                if (Aplicacion.Module.App.RouteInfo is Routes route)
+                if (parameters[ArgKeys.Route] is Routes route)
                 {
                     IsCreate = false;
                     Route = route;

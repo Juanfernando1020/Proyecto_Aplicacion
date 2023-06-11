@@ -31,6 +31,13 @@ namespace Aplicacion.Pages.Main.ViewModel
             }
         }
 
+        private bool _canUseHomeButton;
+        public bool CanUseHomeButton
+        {
+            get => _canUseHomeButton;
+            set => SetProperty(ref _canUseHomeButton, value);
+        }
+
         public ICommand SelectOptionCommand => new Command<Modules>(async (item) => await SelectOptionController(item));
         #endregion
 
@@ -69,6 +76,7 @@ namespace Aplicacion.Pages.Main.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                 {
+                    CanUseHomeButton = Aplicacion.Module.App.RouteInfo != null;
                     IEnumerable<Modules> result = service.GetModulesAsync(user, Aplicacion.Module.App.RouteInfo);
                     MenuItems = result.ToList();
                 }
