@@ -22,7 +22,8 @@
                 <customViews:IconEntryView
                     Icon="&#x24;"
                     Label="Cantidad"
-                    Text="{Binding Budget.Amount}" />
+                    Text="{Binding Budget.Amount}" 
+                    Keyboard="Numeric"/>
                 <customViews:IconPopupOpenerView
                     Icon="&#xf508;"
                     Label="Administrador"
