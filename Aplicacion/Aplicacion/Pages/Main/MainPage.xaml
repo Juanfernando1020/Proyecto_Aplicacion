@@ -12,22 +12,37 @@
     BackgroundColor="{StaticResource MainBackground}"
     NavigationPage.HasNavigationBar="False">
     <local:ContentPageBase.Content>
-        <StackLayout
-            Margin="20,140"
-            BindableLayout.EmptyView="No se pueden cargar las opciones"
-            BindableLayout.ItemsSource="{Binding MenuItems}"
-            Spacing="60">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:Modules}">
-                    <Grid Padding="2">
-                        <Button
-                            AutomationProperties.Name="OptionButton"
-                            Command="{Binding Source={x:Reference mainPage}, Path='BindingContext.SelectOptionCommand'}"
-                            CommandParameter="{Binding .}"
-                            Text="{Binding Name}" />
-                    </Grid>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+        <Grid RowDefinitions="auto,*">
+            <Label
+                Margin="20"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontSize="30"
+                HorizontalTextAlignment="End"
+                IsVisible="{Binding CanUseHomeButton}"
+                Style="{StaticResource BoldLabel}"
+                Text="home">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToBackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <StackLayout
+                Grid.Row="1"
+                Margin="20,140"
+                BindableLayout.EmptyView="No se pueden cargar las opciones"
+                BindableLayout.ItemsSource="{Binding MenuItems}"
+                Spacing="60">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Modules}">
+                        <Grid Padding="2">
+                            <Button
+                                AutomationProperties.Name="OptionButton"
+                                Command="{Binding Source={x:Reference mainPage}, Path='BindingContext.SelectOptionCommand'}"
+                                CommandParameter="{Binding .}"
+                                Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </Grid>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>

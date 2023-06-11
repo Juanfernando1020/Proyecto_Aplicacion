@@ -66,6 +66,7 @@
                 </Frame>
                 <Button
                     Command="{Binding CloseDayCommand}"
+                    IsVisible="{Binding CanCloseDay}"
                     Text="Cerrar Día"
                     VerticalOptions="EndAndExpand" />
             </StackLayout>

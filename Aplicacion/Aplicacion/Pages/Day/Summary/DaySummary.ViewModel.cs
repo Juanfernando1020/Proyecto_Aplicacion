@@ -90,6 +90,13 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             get => _loansAmount;
             set => SetProperty(ref _loansAmount, value);
         }
+        
+        private bool _canCloseDay;
+        public bool CanCloseDay
+        {
+            get => _canCloseDay;
+            set => SetProperty(ref _canCloseDay, value);
+        }
 
         public ICommand CloseDayCommand => new AsyncCommand(CloseDayController);
 
@@ -165,6 +172,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             if (Aplicacion.Module.App.UserInfo is Users user && Aplicacion.Module.App.RouteInfo is Routes route)
             {
                 _userInfo = user;
+                _routeInfo = route;
 
                 await GetRouteInfo(route);
                 await Task.Yield();
@@ -260,6 +268,7 @@ namespace Aplicacion.Pages.Day.Summary.ViewModel
             if (result.IsSuccess && result.Data is Basises basis)
             {
                 Basis = basis;
+                CanCloseDay = basis.IsActive;
             }
             else
             {

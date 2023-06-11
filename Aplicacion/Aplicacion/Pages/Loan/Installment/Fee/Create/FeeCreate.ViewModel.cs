@@ -73,7 +73,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
                             installments.Remove(_installmentInfo);
                             _installmentInfo.IsActive = false;
                             installments.Add(_installmentInfo);
-
+                            _loanInfo.IsActive = installments.Any(installment => installment.IsActive);
                             _loanInfo.Installments = installments.ToArray();
 
                             ResultBase resultUpdate = await _genericLoanService
