@@ -43,6 +43,11 @@
                 IsVisible="{Binding CanCreate}"
                 Text="Guardar Base del Día"
                 VerticalOptions="EndAndExpand" />
+            <Button
+                Command="{Binding UpdateBasisCommand}"
+                IsVisible="{Binding CanUpdate}"
+                Text="Actualizar Base"
+                VerticalOptions="EndAndExpand" />
         </StackLayout>
     </local:ContentPageBase.Content>
 </local:ContentPageBase>
