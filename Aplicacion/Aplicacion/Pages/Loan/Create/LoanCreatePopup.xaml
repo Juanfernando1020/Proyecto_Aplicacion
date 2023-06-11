@@ -76,11 +76,13 @@
                         <customViews:IconEntryView
                             Grid.Column="0"
                             Icon="pen"
+                            Keyboard="Numeric"
                             Label="No. Cuotas"
                             Text="{Binding LoanExtension.Loan.InstallmentsQuantity}" />
                         <customViews:IconEntryView
                             Grid.Column="1"
                             Icon="pen"
+                            Keyboard="Numeric"
                             Label="Interés"
                             Text="{Binding LoanExtension.Loan.InterestRate}" />
                     </Grid>

@@ -33,7 +33,7 @@
                     Icon="&#xf508;"
                     IsEnabled="False"
                     IsVisible="{Binding User.Admin, Converter={StaticResource IsNotNullOrEmpty}}"
-                    Label="Telefono"
+                    Label="Administrador a cargo|"
                     Text="{Binding User.Admin.Name}" />
             </StackLayout>
         </ScrollView>
