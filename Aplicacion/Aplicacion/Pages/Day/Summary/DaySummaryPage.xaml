@@ -64,7 +64,10 @@
                         </StackLayout>
                     </StackLayout>
                 </Frame>
-                <Button Text="Cerrar Día" VerticalOptions="EndAndExpand" />
+                <Button
+                    Command="{Binding CloseDayCommand}"
+                    Text="Cerrar Día"
+                    VerticalOptions="EndAndExpand" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -97,6 +97,8 @@ namespace Aplicacion.Pages.Client.List.ViewModel
                 FilterClientsCollection.Clear();
                 foreach (Clients client in _clients)
                 {
+                    if (!client.IsActive)
+                        continue;
                     List<Loans> loans = _loans.Where(loan => loan.ClientId == client.Id).ToList();
                     switch (SelectedFilter.Filter)
                     {

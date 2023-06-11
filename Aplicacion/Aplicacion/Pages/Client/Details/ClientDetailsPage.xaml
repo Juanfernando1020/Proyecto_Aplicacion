@@ -16,7 +16,7 @@
             <ScrollView>
                 <StackLayout Spacing="20">
                     <Button Command="{Binding CallClientCommand}" Text="Llamar al cliente" />
-                    <Button Command="{Binding GoToClientLocationCommand}" Text="Ir a la dirección del cliente" />
+                    <Button Command="{Binding DelateClientCommand}" Text="Eliminar cliente" />
                     <Label Style="{StaticResource BoldLabel}" Text="Prestamos" />
                     <extensions:ViewsExtension View="{x:Static routes:ViewsRoutes.LoanList}" />
                 </StackLayout>

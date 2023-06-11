@@ -6,8 +6,11 @@ using System.Windows.Input;
 using Aplicacion.Config;
 using Aplicacion.Config.Messages;
 using Aplicacion.Models;
+using Aplicacion.Module;
 using Aplicacion.Pages.Client.Channels;
+using Aplicacion.Pages.Client.Specifications;
 using Aplicacion.Pages.Loan.Specifications;
+using Aplicacion.Pages.User.Specifications;
 using Xamarin.CommonToolkit.Helpers;
 using Xamarin.CommonToolkit.Mvvm.Alerts.Messages;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -18,6 +21,8 @@ using Xamarin.CommonToolkit.Result;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Aplicacion.Module;
+using Aplicacion.Pages.User.Enums;
 
 namespace Aplicacion.Pages.Client.Details.ViewModel
 {
@@ -26,6 +31,7 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
         #region Variables
 
         private readonly IGenericService<Loans, Guid> _genericLoanService;
+        private readonly IGenericService<Clients, Guid> _genericClientService;
 
         #endregion
 
@@ -39,47 +45,37 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
         }
 
         public ICommand CallClientCommand => new AsyncCommand(CallClientController);
-        public ICommand GoToClientLocationCommand => new AsyncCommand(GoToClientLocationController);
+        public ICommand DelateClientCommand => new AsyncCommand(DeleteClientController);
 
         #endregion
 
         #region Methods
 
-        private async Task GoToClientLocationController()
+        private async Task DeleteClientController()
         {
-            try
+            if (Aplicacion.Module.App.UserInfo.Role == 1)
             {
-                bool canOpen = await Launcher.CanOpenAsync("waze://");
-                if (canOpen)
+                IsBusy = true;
+                Clients updatedClient = new Clients(Client.Id, Client.IDImage, Client.Name, Client.Phone, Client.Address, Client.Route, false);
+                Guid clientId = Client.Id;
+                ResultBase resultUpdate = await _genericClientService.UpdateAsync(new ClientFirebaseObjectByClientIdSpecification(clientId), Client.Id, updatedClient);
+
+                if (resultUpdate.IsSuccess)
                 {
-                    await Launcher.OpenAsync($"waze://?q={Uri.EscapeDataString(Client.Address)}&navigate=yes");
+                    Client = updatedClient;
+                    await AlertService.ShowAlert(new SuccessMessage("Cliente eliminado correctamente"));
+                    await NavigationService.PopAsync();
                 }
                 else
                 {
-                    bool canOpenGoogleMaps = await Launcher.CanOpenAsync("https://www.google.com/maps");
-
-                    if (canOpenGoogleMaps)
-                    {
-                        await Launcher.OpenAsync($"https://www.google.com/maps?q={Uri.EscapeDataString(Client.Address)}");
-                    }
-                    else
-                    {
-                        await AlertService.ShowAlert(new WarningMessage(CommonMessages.Warning.Unavailable));
-                    }
+                    await AlertService.ShowAlert(new ErrorMessage("Error al eliminar el cliente"));
                 }
+
+                IsBusy = false;
             }
-            catch (ArgumentNullException ex)
+            else
             {
-                await AlertService.ShowAlert(new WarningMessage("No se ha encontrado una dirección asociada a este client"));
-            }
-            catch (FeatureNotSupportedException ex)
-            {
-                await AlertService.ShowAlert(new WarningMessage(CommonMessages.Warning.Unsupported));
-            }
-            catch (Exception ex)
-            {
-                ExceptionHelper.Handler(ex);
-                await AlertService.ShowAlert(new ErrorMessage(CommonMessages.Error.InformationMessage));
+                await AlertService.ShowAlert(new InfoMessage("No tiene permiso para realizar esta acción"));
             }
         }
         private async Task CallClientController()
@@ -110,6 +106,7 @@ namespace Aplicacion.Pages.Client.Details.ViewModel
         public ClientDetails()
         {
             _genericLoanService = GetGenericService<Loans, Guid>();
+            _genericClientService = GetGenericService<Clients,Guid>();
         }
 
         #endregion
