@@ -18,6 +18,6 @@ namespace Aplicacion.Pages.Route.Basis.Specifications
         }
 
         public override Expression<Func<FirebaseObject<Basises>, bool>> ToExpression()
-            => basis => basis.Object.Route == _routeId && basis.Object.Date.Date == _date.Date;
+            => basis => basis.Object != null && (basis.Object.Route == _routeId && basis.Object.Date.Date == _date.Date);
     }
 }

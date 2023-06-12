@@ -20,14 +20,18 @@ using Aplicacion.Pages.Route.Channels;
 using Aplicacion.Pages.Route.Specifications;
 using Xamarin.CommonToolkit.Specifications;
 using System.Linq;
+using Xamarin.CommonToolkit.Mvvm.Services.Interfaces;
 
 namespace Aplicacion.Pages.Route.Details.ViewModel
 {
     internal class RouteDetails : PageViewModelBase, IRouteBudgetsChangedChannel, ILoadBudgetListFromRouteDetailsChannel, IRouteCreatedChannel
     {
         #region Variables
-        private readonly IRouteService _routeService;
+
+        private List<Routes> _routes = new List<Routes>();
         private readonly List<Budgets> budgets = new List<Budgets>();
+        private readonly IGenericService<Routes, Guid> _genericRouteService;
+
         #endregion
 
         #region Properties
@@ -63,7 +67,6 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
         }
 
         public ICommand OpenUserBySpecificationPopupCommand => new Command(async () => await OpenUserBySpecificationPopupController());
-        public ICommand OpenBudgetCreatePopupCommand => new Command(async () => await OpenBudgetCreatePopupController());
         public ICommand GoToBasisDetailsCommand => new Command(async () => await GoToBasisDetailsController());
 
         public ICommand CreateCommand => new Command(async () => await CreateController());
@@ -92,36 +95,54 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
         {
             IsBusy = true;
 
-            var existingRoutesResult = await _routeService.GetAllByUserId(Worker.Id);
-            if (existingRoutesResult.IsSuccess && existingRoutesResult.Data.Any())
+
+
+            if (await IsValid())
             {
-                // Worker already has a route assigned
-                await AlertService.ShowAlert(new WarningMessage("El trabajador que has seleccionado ya tiene una ruta a cargo."));
-                IsBusy = false;
-                return;
+                ResultBase result = await _genericRouteService.InsertAsync(Route);
+
+                if (result.IsSuccess)
+                {
+                    INavigationParameters parameters = new NavigationParameters();
+                    parameters.Add(ArgKeys.Route, Route);
+
+                    MessagingCenter.Send<IRouteCreatedChannel, INavigationParameters>(this, nameof(IRouteCreatedChannel), parameters);
+                    await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
+                    await NavigationService.PopAsync(parameters: parameters);
+                }
+                else
+                {
+                    await AlertService.ShowAlert(new WarningMessage(result.Message));
+                }
             }
 
-            ResultBase result = await _routeService.CreateAsync(Route);
-
-            if (result.IsSuccess)
-            {
-                INavigationParameters parameters = new NavigationParameters();
-                parameters.Add(ArgKeys.Route, Route);
-
-                MessagingCenter.Send<IRouteCreatedChannel, INavigationParameters>(this, nameof(IRouteCreatedChannel), parameters);
-                await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
-                await NavigationService.PopAsync(parameters: parameters);
-            }
-            else
-            {
-                await AlertService.ShowAlert(new WarningMessage(result.Message));
-            }
             IsBusy = false;
         }
-        private async Task OpenBudgetCreatePopupController()
+
+        private async Task<bool> IsValid()
         {
-            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Budget.BudgetCreate);
+            if (string.IsNullOrEmpty(Route.Name)
+                || string.IsNullOrEmpty(Route.Zone))
+            {
+                await AlertService.ShowAlert(new WarningMessage(CommonMessages.Form.NullOrEmptyInfo));
+                return false;
+            }
+
+            if (!Route.Budgets.Any())
+            {
+                await AlertService.ShowAlert(new WarningMessage("Debes agregarle un presupuesto a la ruta."));
+                return false;
+            }
+
+            if (_routes.Any(route => route.Worker.Id == Worker.Id))
+            {
+                await AlertService.ShowAlert(new WarningMessage("No puedes crearle dos rutas a un mismo trabajador."));
+                return false;
+            }
+
+            return true;
         }
+
 
         private void OnRouteBudgetsChanged(object sender, INavigationParameters parameters)
         {
@@ -138,25 +159,18 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
                     }
                     else
                     {
-                        AddBudget(budget);
+                        budgets.Add(budget);
                     }
                 }
                 else
                 {
-                    AddBudget(budget);
+                    budgets.Add(budget);
                 }
             }
 
             Route.Budgets = budgets.ToArray();
         }
 
-        private void AddBudget(Budgets budget)
-        {
-            if (budget != null)
-            {
-                budgets.Add(budget);
-            }
-        }
         #endregion
 
         #region Constructor
@@ -165,7 +179,7 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             IsCreate = true;
             Route = new Routes(Guid.NewGuid(), string.Empty, string.Empty, true, null, null);
 
-            _routeService = new Service.Route(new Repository.Route());
+            _genericRouteService = GetGenericService<Routes, Guid>();
 
             MessagingCenter.Subscribe<IRouteBudgetsChangedChannel, INavigationParameters>(this, nameof(IRouteBudgetsChangedChannel), OnRouteBudgetsChanged);
 
@@ -182,16 +196,6 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
         {
             base.CallBack(parameters);
             OnCallBack(parameters);
-        }
-
-        public override void OnViewDisappearing()
-        {
-            base.OnViewDisappearing();
-        }
-
-        public override void OnViewAppearing()
-        {
-            base.OnViewAppearing();
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -232,8 +236,9 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
 
                     MessagingCenter.Send<ILoadBudgetListFromRouteDetailsChannel, INavigationParameters>(this, nameof(ILoadBudgetListFromRouteDetailsChannel), budgetListViewParameters);
                 }
-                else if (parameters[ArgKeys.User] is Users user)
+                else if (parameters[ArgKeys.User] is Users user && parameters[ArgKeys.Routes] is List<Routes> routes)
                 {
+                    _routes = routes;
                     Route.Manager = user;
                 }
                 else
@@ -257,14 +262,6 @@ namespace Aplicacion.Pages.Route.Details.ViewModel
             {
                 if (parameters[ArgKeys.User] is Users user)
                     Worker = user;
-
-                if (parameters[ArgKeys.Budget] is Budgets budget)
-                {
-                    INavigationParameters budgetListParameters = new NavigationParameters();
-                    budgetListParameters.Add(ArgKeys.Budget, budget);
-
-                    BudgetListParameters = budgetListParameters;
-                }
             }
         }
         #endregion

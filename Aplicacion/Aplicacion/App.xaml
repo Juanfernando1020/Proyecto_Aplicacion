@@ -16,6 +16,7 @@
             <Color x:Key="TextBlack">Black</Color>
             <Color x:Key="TextBlackLight">#333333</Color>
             <Color x:Key="Green">Green</Color>
+            <Color x:Key="Orange">Orange</Color>
             <Color x:Key="Red">Red</Color>
             <!--#endregion-->
 

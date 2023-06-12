@@ -63,7 +63,6 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
 
             if (await IsValid(Fee))
             {
-                
                 Fee.Date = DateTime.Now;
                 Fee.InstallmentId = _installmentInfo.Installment.Id;
 
@@ -103,8 +102,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
             });
             _basisInfo.CashFlows = cashflows.ToArray();
 
-            ResultBase result = await _genericBasisService
-                .UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(_routeInfo.Id, DateTime.Now), _basisInfo.Id, _basisInfo);
+            ResultBase result = await _genericBasisService.UpdateAsync(new BasisFirebaseObjectByRouteIdAndDateSpecification(_basisInfo.Route, DateTime.Now), _basisInfo.Id, _basisInfo);
 
             return result.IsSuccess;
         }
@@ -124,10 +122,11 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
                 : Fee.Amount > 0 && installmentInfo.Status == (int)InstallmentStatusEnum.Backlog
                     ? (int)InstallmentStatusEnum.Progress
                     : installmentInfo.Status;
+            installmentInfo.DiferenceAmount += -Fee.Amount;
             _installmentInfo.Installment = installmentInfo;
             installments.Add(installmentInfo);
 
-            _loanInfo.IsActive = installments.All(installment => installment.Status == (int)InstallmentStatusEnum.Complete);
+            _loanInfo.IsActive = installments.Any(installment => installment.Status != (int)InstallmentStatusEnum.Complete);
             _loanInfo.Installments = installments.ToArray();
 
             ResultBase result = await _genericLoanService
@@ -192,13 +191,15 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.Create.ViewModel
             {
                 if (parameters[ArgKeys.InstallmentExtension] is InstallmentExtension installmentExtension &&
                     parameters[ArgKeys.Loan] is Loans loan &&
-                    Aplicacion.Module.App.RouteInfo is Routes route)
+                    Aplicacion.Module.App.RouteInfo is Routes route
+                    && Aplicacion.Module.App.UserInfo is Users user)
                 {
+                    _userInfo = user;
+                    _loanInfo = loan;
                     if (loan.Installments.Any(i => i.Id == installmentExtension.Installment.Id))
                     {
                         _fees = installmentExtension.Fees;
                         _installmentInfo = installmentExtension;
-                        _loanInfo = loan;
 
                         ResultBase<Basises> result =
                             await _genericBasisService.GetBySpecificacionAsync(

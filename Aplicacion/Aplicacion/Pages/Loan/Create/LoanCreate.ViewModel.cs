@@ -168,6 +168,7 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     Installments installment = new Installments()
                     {
                         Id = Guid.NewGuid(),
+                        Number = i + 1,
                         PaymenDate = firstPaymentDate.AddDays(i * SelectedInstallmentOptions.Days),
                         Amount = amount,
                         DiferenceAmount = amount,
@@ -303,7 +304,7 @@ namespace Aplicacion.Pages.Loan.Create.ViewModel
                     }
                     else
                     {
-                        await ShowErrorResultPopup(string.Format(CommonMessages.Console.MissingKey, ArgKeys.Client), CommonMessages.Error.InformationMessage);
+                        await ShowErrorResultPopup("Basis not exist.", "No se ha habilitado una base del día aún.");
                     }
 
                 }

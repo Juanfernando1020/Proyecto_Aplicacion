@@ -16,6 +16,13 @@ namespace Aplicacion.Pages.Loan.Installment.Models
             set => SetProperty(ref _installments, value);
         }
 
+        private DateTime _limitPaymentDate;
+        public DateTime LimitPaymentDate
+        {
+            get => _limitPaymentDate;
+            set => SetProperty(ref _limitPaymentDate, value);
+        }
+
         public List<Fees> Fees { get; set; }
     }
 }

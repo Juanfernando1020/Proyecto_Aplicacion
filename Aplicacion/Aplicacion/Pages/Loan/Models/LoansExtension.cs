@@ -84,10 +84,10 @@ namespace Aplicacion.Pages.Loan.Models
                 {
                     CompletedPayments = installments.Count(installment => installment.Status == (int)InstallmentStatusEnum.Complete);
                     TotalToPay = installments.Sum(installment => installment.Amount);
-                    PayedInstallments = installments.Sum(installment => installment.DiferenceAmount);
-                    PayedInstallmentsPercentage = (PayedInstallments / TotalToPay) * 100;
-                    UnpayedInstallments = TotalToPay - PayedInstallments;
-                    UnpayedInstallmentsPercentage = (UnpayedInstallments / TotalToPay) * 100;
+                    UnpayedInstallments = installments.Sum(installment => installment.DiferenceAmount);
+                    PayedInstallments = TotalToPay - UnpayedInstallments;
+                    PayedInstallmentsPercentage = PayedInstallments / TotalToPay;
+                    UnpayedInstallmentsPercentage = UnpayedInstallments / TotalToPay;
                 }
             }
         }

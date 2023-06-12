@@ -45,26 +45,7 @@
                         IsVisible="{Binding IsCreate, Converter={StaticResource InvertedBool}}"
                         Label="Manager"
                         Text="{Binding Route.Manager.Name}" />
-                    <Grid ColumnDefinitions="*, auto">
-                        <Label
-                            Grid.Column="0"
-                            Style="{StaticResource BoldLabel}"
-                            Text="Presupuestos" />
-                        <Label
-                            Grid.Column="1"
-                            IsVisible="{Binding IsCreate}"
-                            Text="Agregar Presupuesto"
-                            TextColor="{StaticResource TextBlackLight}"
-                            VerticalTextAlignment="End">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenBudgetCreatePopupCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </Grid>
-                    <extensions:ViewsExtension
-                        Parameters="{Binding BudgetListParameters}"
-                        VerticalOptions="FillAndExpand"
-                        View="{x:Static routes:ViewsRoutes.BudgetList}" />
+                    <extensions:ViewsExtension VerticalOptions="FillAndExpand" View="{x:Static routes:ViewsRoutes.BudgetList}" />
                 </StackLayout>
             </ScrollView>
             <Button

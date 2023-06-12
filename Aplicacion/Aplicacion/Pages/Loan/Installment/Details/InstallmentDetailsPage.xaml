@@ -8,24 +8,151 @@
     xmlns:local="clr-namespace:Xamarin.CommonToolkit.PagesBase;assembly=Xamarin.CommonToolkit"
     xmlns:routes="clr-namespace:Aplicacion.Config.Routes;assembly=Aplicacion"
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.Details.ViewModel;assembly=Aplicacion"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="Detalle de la Cuota"
     x:DataType="{x:Type viewModel:InstallmentDetails}"
     BackgroundColor="{StaticResource MainBackground}">
     <local:ContentPageBase.Content>
         <ScrollView>
             <StackLayout Padding="10" Spacing="10">
-                <customViews:IconPickerView Icon="&#xf073;" Label="Fecha de Pago">
-                    <customViews:IconPickerView.Picker>
-                        <DatePicker Date="{Binding InstallmentExtension.Installment.PaymenDate}" IsEnabled="False" />
-                    </customViews:IconPickerView.Picker>
-                </customViews:IconPickerView>
+                <yummy:PancakeView BackgroundColor="{StaticResource BackgroundEntry}" CornerRadius="10">
+                    <yummy:PancakeView.Border>
+                        <yummy:Border Thickness="3" Color="{StaticResource BorderEntry}" />
+                    </yummy:PancakeView.Border>
+                    <StackLayout Padding="10">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        Text="Fecha: " />
+                                    <Span FontSize="15" Text="{Binding InstallmentExtension.Installment.PaymenDate, StringFormat={StaticResource FormatDate}}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        Text="Fecha Limite: " />
+                                    <Span FontSize="15" Text="{Binding InstallmentExtension.LimitPaymentDate, StringFormat={StaticResource FormatDate}}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        Text="Monto: " />
+                                    <Span FontSize="15" Text="{Binding InstallmentExtension.Installment.Amount, StringFormat={StaticResource FormatMoney}}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        Text="Restante: " />
+                                    <Span
+                                        FontSize="15"
+                                        Text="{Binding InstallmentExtension.Installment.DiferenceAmount, StringFormat={StaticResource FormatMoney}}"
+                                        TextColor="{StaticResource Red}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding InstallmentExtension.Installment.Status}"
+                                    TargetType="Label"
+                                    Value="0">
+                                    <Setter Property="FormattedText">
+                                        <Setter.Value>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Text="Estado: " />
+                                                <Span
+                                                    FontSize="15"
+                                                    Text="En Espera"
+                                                    TextColor="{StaticResource TextBlackLight}" />
+                                            </FormattedString>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
 
-                <customViews:IconEntryView
-                    Icon="&#x24;"
-                    IsEnabled="False"
-                    Label="Monto"
-                    Text="{Binding InstallmentExtension.Installment.Amount}" />
+                                <DataTrigger
+                                    Binding="{Binding InstallmentExtension.Installment.Status}"
+                                    TargetType="Label"
+                                    Value="1">
+                                    <Setter Property="FormattedText">
+                                        <Setter.Value>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Text="Estado: " />
+                                                <Span
+                                                    FontSize="15"
+                                                    Text="En Progreso"
+                                                    TextColor="{StaticResource Orange}" />
+                                            </FormattedString>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
 
+                                <DataTrigger
+                                    Binding="{Binding InstallmentExtension.Installment.Status}"
+                                    TargetType="Label"
+                                    Value="2">
+                                    <Setter Property="FormattedText">
+                                        <Setter.Value>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Text="Estado: " />
+                                                <Span
+                                                    FontSize="15"
+                                                    Text="En Mora"
+                                                    TextColor="{StaticResource Red}" />
+                                            </FormattedString>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    Binding="{Binding InstallmentExtension.Installment.Status}"
+                                    TargetType="Label"
+                                    Value="3">
+                                    <Setter Property="FormattedText">
+                                        <Setter.Value>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Text="Estado: " />
+                                                <Span
+                                                    FontSize="15"
+                                                    Text="Completado"
+                                                    TextColor="{StaticResource Green}" />
+                                            </FormattedString>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </StackLayout>
+
+                </yummy:PancakeView>
                 <extensions:ViewsExtension VerticalOptions="FillAndExpand" View="{x:Static routes:ViewsRoutes.FeeList}" />
             </StackLayout>
         </ScrollView>

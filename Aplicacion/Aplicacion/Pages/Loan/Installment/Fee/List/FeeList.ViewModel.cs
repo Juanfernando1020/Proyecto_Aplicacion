@@ -123,7 +123,7 @@ namespace Aplicacion.Pages.Loan.Installment.Fee.List.ViewModel
                     _installment = installmentExtension;
                     _loan = loan;
 
-                    CanCreateFee = _installment.Installment.Status == (int)InstallmentStatusEnum.Complete;
+                    CanCreateFee = _installment.Installment.Status != (int)InstallmentStatusEnum.Complete;
 
                     ResultBase<IEnumerable<Fees>> result = await _genericFeeService.GetAllAsync(new FeesByInstallmentIdSpecification(_installment.Installment.Id));
 

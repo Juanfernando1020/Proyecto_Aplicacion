@@ -10,13 +10,13 @@
     xmlns:viewModel="clr-namespace:Aplicacion.Pages.Loan.Installment.List.ViewModel;assembly=Aplicacion"
     x:DataType="{x:Type viewModel:InstallmentList}">
     <local:ContentViewBase.Content>
-        <StackLayout Spacing="10">
+        <StackLayout Spacing="10" VerticalOptions="FillAndExpand">
             <Label
                 FontAttributes="Bold"
                 HorizontalTextAlignment="Center"
                 Text="Pagos" />
             <customViews:IconPickerView
-                HeightRequest="120"
+                HeightRequest="150"
                 Icon="egg"
                 Label="Filtrar por:">
                 <customViews:IconPickerView.Picker>
@@ -49,6 +49,15 @@
                                     </Label.FormattedText>
                                 </Label>
 
+                                <Label Grid.Column="0">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontAttributes="Bold" Text="Fecha Límite: " />
+                                            <Span Text="{Binding LimitPaymentDate, StringFormat={StaticResource FormatDate}}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
                                 <Label>
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -59,36 +68,70 @@
                                 </Label>
 
                                 <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontAttributes="Bold" Text="Restante: " />
+                                            <Span Text="{Binding Installment.DiferenceAmount, StringFormat={StaticResource FormatMoney}}" TextColor="Red" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label>
                                     <Label.Triggers>
                                         <DataTrigger
-                                            Binding="{Binding Installment.IsActive}"
+                                            Binding="{Binding Installment.Status}"
                                             TargetType="Label"
-                                            Value="True">
+                                            Value="0">
                                             <Setter Property="FormattedText">
                                                 <Setter.Value>
                                                     <FormattedString>
                                                         <Span FontAttributes="Bold" Text="Estado: " />
-                                                        <Span Text="Activo" TextColor="{StaticResource Green}" />
+                                                        <Span Text="En espera" TextColor="{StaticResource TextBlackLight}" />
                                                     </FormattedString>
                                                 </Setter.Value>
                                             </Setter>
                                         </DataTrigger>
                                         <DataTrigger
-                                            Binding="{Binding Installment.IsActive}"
+                                            Binding="{Binding Installment.Status}"
                                             TargetType="Label"
-                                            Value="False">
+                                            Value="1">
                                             <Setter Property="FormattedText">
                                                 <Setter.Value>
                                                     <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Monto: " />
-                                                        <Span Text="Pagado" TextColor="{StaticResource Red}" />
+                                                        <Span FontAttributes="Bold" Text="Estado: " />
+                                                        <Span Text="Pendiente" TextColor="{StaticResource Orange}" />
+                                                    </FormattedString>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding Installment.Status}"
+                                            TargetType="Label"
+                                            Value="2">
+                                            <Setter Property="FormattedText">
+                                                <Setter.Value>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Estado: " />
+                                                        <Span Text="En Mora" TextColor="{StaticResource Red}" />
+                                                    </FormattedString>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding Installment.Status}"
+                                            TargetType="Label"
+                                            Value="3">
+                                            <Setter Property="FormattedText">
+                                                <Setter.Value>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Estado: " />
+                                                        <Span Text="Completada" TextColor="{StaticResource Green}" />
                                                     </FormattedString>
                                                 </Setter.Value>
                                             </Setter>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-
                                 <Label HorizontalTextAlignment="End" Text="Ver más" />
                             </StackLayout>
                         </Frame>
