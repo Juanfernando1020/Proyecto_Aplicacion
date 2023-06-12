@@ -94,7 +94,7 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
                 Client.IDImage = imageId;
 
                 // Insertar el cliente en Firebase Realtime Database
-                ResultBase result = await _genericService.InsertAsync(Client);
+                    ResultBase result = await _genericService.InsertAsync(Client);
 
                 if (result.IsSuccess)
                 {
@@ -113,8 +113,6 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
             IsBusy = false;
         }
-
-
         private async Task<bool> ValidateClient()
         {
             if (string.IsNullOrEmpty(Client.Name))
@@ -143,7 +141,6 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
 
             return true;
         }
-
         private async Task TakePhotoController()
         {
             MediaFile photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
