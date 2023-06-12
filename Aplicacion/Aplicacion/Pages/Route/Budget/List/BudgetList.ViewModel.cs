@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Aplicacion.Config;
+using Aplicacion.Config.Routes;
 using Aplicacion.Models;
 using Aplicacion.Pages.Route.Channels;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Services;
 using Xamarin.CommonToolkit.Mvvm.ViewModels;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Route.Budget.List.ViewModel
@@ -26,10 +30,17 @@ namespace Aplicacion.Pages.Route.Budget.List.ViewModel
             get => _budgetsCollection;
             set => SetProperty(ref _budgetsCollection, value);
         }
+
+        public ICommand OpenBudgetCreatePopupCommand => new AsyncCommand(OpenBudgetCreatePopupController);
         #endregion
 
         #region Methods
-
+        private async Task OpenBudgetCreatePopupController()
+        {
+            IsBusy = true;
+            await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.Route.Budget.BudgetCreate);
+            IsBusy = false;
+        }
         private void OnLoadBudgetListFromRouteDetails(object sender, INavigationParameters parameters)
         {
             if (parameters != null)

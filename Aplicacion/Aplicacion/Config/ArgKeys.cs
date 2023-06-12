@@ -22,6 +22,7 @@ namespace Aplicacion.Config
         internal const string LoanExtension = "LoanExtension";
         internal const string Loans = "Loans";
         internal const string Route = "Route";
+        internal const string Routes = "Routes";
         internal const string Role = "Role";
         internal const string Specification = "Specification";
         internal const string Arranging = "Arranging";

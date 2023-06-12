@@ -82,6 +82,7 @@ namespace Aplicacion.Pages.Route.List.ViewModel
 
             INavigationParameters parameters = new NavigationParameters();
             parameters.Add(ArgKeys.User, _userInfo);
+            parameters.Add(ArgKeys.Routes, RoutesCollection.ToList());
 
             await NavigationService.NavigateToAsync(PagesRoutes.Route.Details, parameters: parameters);
 

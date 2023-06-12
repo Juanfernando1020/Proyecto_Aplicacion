@@ -7,6 +7,7 @@ using Aplicacion.Config.Messages;
 using Aplicacion.Models;
 using Aplicacion.Pages.Loan.Channels;
 using Aplicacion.Pages.Loan.Installment.Channels;
+using Aplicacion.Pages.Loan.Installment.Fee.Channels;
 using Aplicacion.Pages.Loan.Installment.Models;
 using Aplicacion.Pages.Loan.Specifications;
 using Xamarin.CommonToolkit.Mvvm.Navigation.Interfaces;
@@ -18,7 +19,7 @@ using Xamarin.Forms;
 
 namespace Aplicacion.Pages.Loan.Installment.Details.ViewModel
 {
-    internal class InstallmentDetails : PageViewModelBase, ILoadFeeListView, ILoanUpdatedChannel
+    internal class InstallmentDetails : PageViewModelBase, ILoadFeeListView, ILoanUpdatedChannel, IFeeCreatedChannel
     {
         #region MyRegion
 
@@ -42,6 +43,19 @@ namespace Aplicacion.Pages.Loan.Installment.Details.ViewModel
         public InstallmentDetails()
         {
             _genericLoanService = GetGenericService<Loans, Guid>();
+
+            MessagingCenter.Subscribe<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel), OnFeeCreated);
+        }
+
+        private void OnFeeCreated(IFeeCreatedChannel sender, INavigationParameters parameters)
+        {
+            if (parameters != null)
+            {
+                if (parameters[ArgKeys.Fee] is Fees fee)
+                {
+                    InstallmentExtension.Installment.DiferenceAmount += - fee.Amount;
+                }
+            }
         }
 
         #endregion
@@ -52,6 +66,13 @@ namespace Aplicacion.Pages.Loan.Installment.Details.ViewModel
         {
             base.OnInitialize(parameters);
             await OnLoad(parameters);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            MessagingCenter.Unsubscribe<IFeeCreatedChannel, INavigationParameters>(this, nameof(IFeeCreatedChannel));
         }
 
         #endregion
@@ -73,7 +94,7 @@ namespace Aplicacion.Pages.Loan.Installment.Details.ViewModel
                     feeListParameters.Add(ArgKeys.InstallmentExtension, installment);
                     feeListParameters.Add(ArgKeys.Loan, loan);
 
-                    DateTime limitDate = installment.Installment.PaymenDate.AddDays(loan.SurchargeDays).Date;
+                    DateTime limitDate = installment.LimitPaymentDate.Date;
                     DateTime now = DateTime.Now.Date;
                     if (loan.CanSurcharge && limitDate < now)
                     {
@@ -106,8 +127,7 @@ namespace Aplicacion.Pages.Loan.Installment.Details.ViewModel
                         loan.Installments = installments.ToArray();
 
 
-                        ResultBase result = await _genericLoanService.UpdateAsync(
-                            new LoansFirebaseObjectByClientIdSpecification(loan.ClientId), loan.Id, loan);
+                        ResultBase result = await _genericLoanService.UpdateAsync(new LoansFirebaseObjectByClientIdSpecification(loan.ClientId), loan.Id, loan);
 
                         if (result.IsSuccess)
                         {

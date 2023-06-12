@@ -31,7 +31,7 @@ namespace Aplicacion.Pages.Loan.Installment.List.ViewModel
 
         #endregion
 
-        #region Methods
+        #region Properties
 
         private InstallmentExtension _selectedInstallment;
         public InstallmentExtension SelectedInstallment
@@ -94,6 +94,7 @@ namespace Aplicacion.Pages.Loan.Installment.List.ViewModel
                         _installments.Add(new InstallmentExtension()
                         {
                             Installment = installment,
+                            LimitPaymentDate = installment.PaymenDate.AddDays(loan.Loan.SurchargeDays),
                             Fees = _loan.Fees.FilterBySpecification(new FeesByInstallmentIdSpecification(installment.Id)).ToList()
                         });
                     }

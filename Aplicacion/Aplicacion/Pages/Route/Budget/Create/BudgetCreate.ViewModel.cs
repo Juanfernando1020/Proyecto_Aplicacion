@@ -84,7 +84,7 @@ namespace Aplicacion.Pages.Route.Budget.Create.ViewModel
         private async Task OpenUserBySpecificationPopupController()
         {
             INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(ArgKeys.Specification, new UserByIdSpecification(Aplicacion.Module.App.UserInfo.Id));
+            parameters.Add(ArgKeys.Specification, new UserByRoleSpecification(RolesEnum.Admin));
 
             await NavigationPopupService.PushPopupAsync(this, PopupsRoutes.User.UserBySpecification, parameters: parameters);
         }

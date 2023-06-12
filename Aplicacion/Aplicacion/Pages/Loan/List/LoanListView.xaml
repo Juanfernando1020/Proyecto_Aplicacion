@@ -40,16 +40,68 @@
                                 <yummy:PancakeView.Border>
                                     <yummy:Border Thickness="2" Color="{StaticResource BorderEntry}" />
                                 </yummy:PancakeView.Border>
-                                <Grid ColumnDefinitions="*,auto">
+                                <Grid ColumnDefinitions="*,auto" RowDefinitions="auto,auto,auto,auto">
                                     <Label
+                                        Grid.Row="0"
                                         Grid.Column="0"
                                         Style="{StaticResource BoldLabel}"
                                         Text="{Binding Loan.Name}" />
                                     <Label
+                                        Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalTextAlignment="End"
                                         Text="{Binding TotalToPay, StringFormat={StaticResource FormatMoney}}"
                                         VerticalTextAlignment="Center" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        Text="Pagos completados:" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        Text="{Binding CompletedPayments}"
+                                        VerticalTextAlignment="Center" />
+
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        Text="Pagado:" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding PayedInstallments, StringFormat={StaticResource FormatMoney}}" />
+                                                <Span Text=" - " />
+                                                <Span Text="{Binding PayedInstallmentsPercentage, StringFormat={StaticResource FormatPercentage}}" TextColor="{StaticResource Green}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        Text="Restante:" />
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding UnpayedInstallments, StringFormat={StaticResource FormatMoney}}" />
+                                                <Span Text=" - " />
+                                                <Span Text="{Binding UnpayedInstallmentsPercentage, StringFormat={StaticResource FormatPercentage}}" TextColor="{StaticResource Red}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
                                 </Grid>
                             </yummy:PancakeView>
                         </Grid>
