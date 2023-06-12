@@ -100,7 +100,6 @@ namespace Aplicacion.Pages.Client.Create.ViewModel
                 {
                     INavigationParameters parameters = new NavigationParameters();
                     parameters.Add(ArgKeys.Client, Client);
-
                     MessagingCenter.Send<IClientCreatedChannel, INavigationParameters>(this, nameof(IClientCreatedChannel), parameters);
                     await AlertService.ShowAlert(new SuccessMessage(CommonMessages.Success.Create));
                     await NavigationService.PopAsync();
